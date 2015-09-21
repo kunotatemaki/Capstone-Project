@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Lomo al vino, Bodega Cerro de las Cruces</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_14.14.25.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 trozo de lomo de cerdo en un trozo, el mío era de algo más de 1 kg</string>
+      <string>2 cebollas</string>
+      <string>4 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>1 vaso de vino tinto, yo usé juno de bodegas cerro de las cruces</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cortamos la cebolla en juliana y la ponemos en la Cookeo junto con un fondo de aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar y comenzará el precalentamiento.</string>
+      <string>Mientras picamos los ajos y añadimos también.</string>
+      <string>Cuando el sofrito esté listo, la cebolla blanca pero tierna, agregamos la carne y doramos por todas sus caras.</string>
+      <string>Salpimentamos y añadimos los 2 vinos.</string>
+      <string>Removemos bien y dejamos 3 minutos hervir.</string>
+      <string>Apagamos la función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos función rápida y seleccionamos 20 minutos.</string>
+      <string>Abrimos, sacamos la carne y trinchamos.</string>
+      <string>La cebolla la pasamos al vaso de la batidora y trituramos.</string>
+      <string>Servimos la carne con la salsa.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2014/11/lomo-al-vino-bodega-cerro-de-las-cruces.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Salmón a la mostaza</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_17.35.40.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 unidad/es salmón a lomos o rodajas</string>
+      <string>100 g mostaza a la antigua (en granos)</string>
+      <string>100 ml nata líquida</string>
+      <string>50 ml caldo de pescado</string>
+      <string>1 unidad/es cebolla</string>
+      <string>1 pizca aceite y sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Trocear la cebolla y sofreírla con un poco de aceite durante 3 minutos.</string>
+      <string>Añadir los ingredientes restantes. Tipo de cocción: dorar:5 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>18</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

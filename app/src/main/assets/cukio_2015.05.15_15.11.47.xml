@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Alubias con guisantes con sofrito de pimentón</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.11.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de alubias blancas</string>
+      <string>200 gr de guisantes , los míos eran frescos y recién desgranados</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>1 tomate rojo</string>
+      <string>4 dientes de ajo</string>
+      <string>1 cucharada de pimentón dulce</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo un fondo de aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar y mientras precaliente vamos preparando las verduras.</string>
+      <string>Agregamos toda las verduras, cebolla, tomate, pimiento y ajos, muy picado.</string>
+      <string>Cuando finalice la función dorar, damos a ok y comenzamos hacer el sofrito.</string>
+      <string>Cuando la verdura esté tierna, apagamos la función dorar y añadimos el pimentón.</string>
+      <string>Removemos con un cucharón de madera.</string>
+      <string>Añadimos las legumbres, las alubias que tenemos en remojo desde la noche anterior y los guisantes ya pelados.</string>
+      <string>Removemos y cubrimos de agua, un dedo por encima de las legumbre está bien.</string>
+      <string>Ponemos sal al gusto y cerramos la Cookeo.</string>
+      <string>Seleccionamos 25 minutos en cocción rápida.</string>
+      <string>Cuando finalice, abrimos y comprobamos que la alubia está tierna, así como rectificamos el caldo y la sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150205/alubias-con-guisantes-con-sofrito-de-pimenton-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>6</portions>
+   <minutes>40</minutes>
+   <language>Spanish</language>
+   <tip>Este mismo potaje lo podemos hacer sin guisantes o lo podemos hacer sustituyendo el guisante por garbanzos.</tip>
+</recipeItem>

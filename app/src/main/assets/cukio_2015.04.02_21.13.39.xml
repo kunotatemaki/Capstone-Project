@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Ternera al vino</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_21.13.39.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 g ternera</string>
+      <string>1  cebolla</string>
+      <string>75 ml vino tinto</string>
+      <string>1 pizca aceite</string>
+      <string>30 ml caldo de pollo</string>
+      <string>1 pizca sal</string>
+      <string>1 pizca pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Echar el aceite en el bol, añadir todos los ingredientes (excepto el caldo y el vino tinto). Dorarlos unos 10 minutos.</string>
+      <string>Añadir el vino y el caldo al resto de ingredientes y cocinar durante el tiempo especificado. Una vez finalizado. Tipo de cocción: rápida: 20 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>-1</portions>
+   <minutes>35</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

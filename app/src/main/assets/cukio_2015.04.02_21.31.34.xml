@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Tortilla de salmón</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_21.31.34.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Huevos 4</string>
+      <string>Cebolla 1</string>
+      <string>Sal</string>
+      <string>Aceite 2 cucharadas soperas</string>
+      <string>Salmón ahumado</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En primer lugar, ponemos nuestro robot de cocina Cookeo en modo dorar.</string>
+      <string>Mientras realiza el calentamiento, picaremos la cebolla y la añadimos a la máquina y una pizca de sal (no mucho, debido a que el salmón ya aportara mucha sal a la tortilla).</string>
+      <string>Mientras la cebolla se dora, cortamos en dados el salmón.</string>
+      <string>Batimos los huevos, y añadimos a los huevos batidos el salmón y mezclamos todo.</string>
+      <string>Una vez hecho ésto, vertemos los huevos en la Cookeo y paramos el dorado. Ponemos el modo cocción rápida.</string>
+      <string>Cuando termine el calentamiento y vaya a iniciar la cocción, os dará un error de que no hay suficiente líquido y parará la cocción.</string>
+      <string>Con el precalentamiento es suficiente y la tortilla estará lista, exquisita y muy esponjosa.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/tortilla-de-salmon.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

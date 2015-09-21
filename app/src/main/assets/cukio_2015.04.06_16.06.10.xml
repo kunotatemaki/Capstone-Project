@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Mejillones al vino blanco</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_16.06.10.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g mejillones</string>
+      <string>1 unidad/es cebolla</string>
+      <string>1 unidad/es ajo</string>
+      <string>100 ml vino blanco</string>
+      <string>1 pizca perejil</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir el ajo y la cebolla dentro del bol. Dorarlos durante 3 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>13</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

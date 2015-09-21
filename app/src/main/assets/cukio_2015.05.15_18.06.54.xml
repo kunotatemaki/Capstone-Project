@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Sangre en tomate</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.06.54.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de sangre de pollo</string>
+      <string>2 cebollas</string>
+      <string>1 vaso de vino</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Salsa de tomate</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Hacemos primero la salsa de tomate y reservamos.</string>
+      <string>Troceamos la sangre y la ponemos en la Cookeo junto con la cebolla cortada en juliana.</string>
+      <string>Añadimos un chorro de aceite y seleccionamos función dorar.</string>
+      <string>Removemos constantemente hasta que la cebolla esté tierna y la sangre haya cambiado de color.</string>
+      <string>Agregamos el vino y salpimentamos.</string>
+      <string>Dejamos 3 minutos que hierva.</string>
+      <string>Apagamos la función dorar.</string>
+      <string>Añadimos un chorrito de agua, poco. Seleccionamos cocción rápida, 5 minutos.</string>
+      <string>Abrimos, agregamos la salsa de tomate y ligamos removiendo con cuidado.</string>
+      <string>Cerramos de nuevo la Cookeo, seleccionamos 3 minutos, función cocción rápida.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150505/sangre-en-tomate-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

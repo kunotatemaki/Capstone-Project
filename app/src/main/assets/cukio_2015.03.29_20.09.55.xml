@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Pechugas de pollo con salsa de limón</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_20.09.55.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Pechugas de pollo fileteadas</string>
+      <string>Cebolla</string>
+      <string>Limón</string>
+      <string>Agua</string>
+      <string>Sal</string>
+      <string>Pan rallado</string>
+      <string>Huevo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Empanar las pechugas, dorar en Cookeo y reservar.</string>
+      <string>En modo dorar, echar la cebolla picada y dorarla un poco, echar zumo de un limón.</string>
+      <string>Cuando reduzca un poco, echar las pechugas fileteadas y el agua (hasta medio cubrir ingredientes).</string>
+      <string>Poner 5 minutos cocción rápida.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/pechugas-de-pollo-con-salsa-de-limon.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>-1</portions>
+   <minutes>5</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Arroz con champiñones y alcachofas</name>
+   <type>starter</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Ajo</string>
+      <string>Cebolla</string>
+      <string>Champiñones</string>
+      <string>Alcachofas</string>
+      <string>Tomate triturado</string>
+      <string>Arroz</string>
+      <string>Caldo de pollo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Opción dorar y añadir la cebolla, el ajo, los champiñones y las alcachofas.</string>
+      <string>Una vez dorado, echar el tomate triturado y el pimentón. Remover y añadir el arroz.</string>
+      <string>Remover todo para que el arroz coja sabor.</string>
+      <string>Cubrir todo con el caldo de pollo y seleccionar ingredientes, arroces y cereales, arroz blanco.</string>
+      <string>Marcar la cantidad de arroz que habéis puesto y empezar cocción con el tiempo marcado.</string>
+      <string>Si se ponen alcachofas congeladas, añadir al mismo tiempo que echamos el arroz.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/arroz-con-champinones-y-alcachofas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>-1</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Lentejas estofadas</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.44.56.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de lentejas</string>
+      <string>1 cebolla</string>
+      <string>3 dientes de ajo</string>
+      <string>1 trozo de pimiento verde, 1 trozo de pimiento amarillo, 1 trozo de pimiento rojo</string>
+      <string>1 tomate rojo</string>
+      <string>4 - 6 vainas grandes de judías verdes planas</string>
+      <string>1 zanahoria</string>
+      <string>100 gr de aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Comino en polvo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el vaso de la Thermomix la cebolla, pimientos, tomate, ajo, judías verdes y zanahoria. Seleccionamos 5 segundos velocidad 5.</string>
+      <string>Agregamos el aceite y seleccionamos 10 minutos, temperatura varona, velocidad 1.</string>
+      <string>Pasamos el sofrito de verduras a la Cookeo, función dorar y añadimos las lentejas.</string>
+      <string>Rehogamos bien y cubrimos de agua.</string>
+      <string>Añadimos sal, pimentón dulce, un poco de pimienta molida y un poco de comino molido.</string>
+      <string>Cuando comience a hervir, apagamos la función dorar, cerramos la tapa de la olla y seleccionamos cocción rápida, 10 minutos.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+      <string>Si tiene poco caldo ponemos un poco de agua y si tiene mucho caldo, función dorar para que evapore.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150120/lentejas-estofadas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

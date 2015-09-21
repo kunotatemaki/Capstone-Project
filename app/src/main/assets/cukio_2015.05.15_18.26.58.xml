@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Guiso de solomillo de cerdo </name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.26.58.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de solomillo de cerdo</string>
+      <string>200 gr de champiñones</string>
+      <string>150 gr de guisantes congelados</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Vino blanco</string>
+      <string>Patatas fritas en airfryer</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla y los ajos y los ponemos en la cubeta de la Cookeo con un fondo de aceite de oliva virgen extra. Función dorar.</string>
+      <string>Rehogamos bien.</string>
+      <string>Cuando la cebolla esté blandita, añadimos el solomillo troceado, salteamos bien y añadimos los guisantes y los champiñones.</string>
+      <string>Salteamos, salpimentamos y ponemos el vino.</string>
+      <string>Dejamos que hierva un poco y apagamos la función dorar. Si vemos que tiene poco caldo, ponemos un poco de agua pero poca, que los líquidos en la Cookeo cuando está cerrada no reducen.</string>
+      <string>Seleccionamos cocción rápida, 10 minutos.</string>
+      <string>Cuando finalice, abrimos y comprobamos que la carne está tierna. Si tiene mucho caldo, dejar reducir, con la Cookeo abierta, función dorar.</string>
+      <string>Rectificamos de sal y servimos junto con unas patatas que hemos frito en la airfryer o sin ella.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150119/guiso-de-solomillo-de-cerdo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Un solomillo de cerdo que podemos dejar entero y una vez cocinado, cortar en lonchas o filetes o medallones, o bien trocear el solomillo en crudo y cocinar.</tip>
+</recipeItem>

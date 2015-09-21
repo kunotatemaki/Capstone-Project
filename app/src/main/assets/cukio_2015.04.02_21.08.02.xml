@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Sushi y maki</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_21.08.02.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Algas nori</string>
+      <string>500 g de arroz (redondo o largo)</string>
+      <string>Vinagre</string>
+      <string>Azúcar</string>
+      <string>Agua</string>
+      <string>Salmón, atún, pepino, aguacate, lechuga, etc, (depende del sabor que queráis)</string>
+      <string>Máquina de hacer maki sushi o esterilla (para el uso de esterillas ver en youtube algunos tutoriales)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cogemos los 500 g de arroz y lo lavamos unas 3 veces para quitarle el almidón. Lo ideal sería utilizar el arroz especial para sushi, pero teniendo en cuenta que no lo venden en todos los supermercados, lo haremos con el de casa.</string>
+      <string>Cuando el arroz está ya limpio, lo introducimos en la olla de Cookeo y lo cubrimos de agua, pero no demasiada, solo un poco para que durante la cocción el agua se evapore completamente y quede el arroz entero y en la mayor medida seco.</string>
+      <string>Cocción del arroz en ingredientes/arroz/arroz blanco/cocción inmediata 15 minutos.</string>
+      <string>Durante el programa haremos 2 cosas, preparar los ingredientes y el aderezo del arroz.</string>
+      <string>El aderezo: cogeremos el vaso de la batidora y pondremos de vinagre unos 2 dedos aproximadamente, y a éste, añadidle la medida de azúcar que veáis hasta que el dulzor del azúcar sea suave y no os pique en la garganta, utilizad el brazo de la batidora para integrar bien estos dos ingredientes. Añadir este vaso a la olla donde está el arroz (ya cocinado), remover con mucho cuidado el arroz, para mezclarlo todo bien y dejar templar el arroz antes de hacer los maki sushi.</string>
+      <string>Preparación de ingredientes, cortar, por ejemplo el salmón en tiras y el aguacate también.</string>
+      <string>Tenemos el arroz aderezado y los ingredientes preparados. Es hora de coger nuestra máquina para poder disfrutar de este manjar.</string>
+      <string>Modo: coger el alga nori y cortarla hasta hacer 3 tiras para introducirlas en la maquina. Coger una tira humedecerla y colocarla en la máquina, añadir arroz, ingredientes, arroz y por último accionar la máquina para que enrolle el alga ¡y listo!</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/sushi-y-maki-receta-japonesa-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>-1</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

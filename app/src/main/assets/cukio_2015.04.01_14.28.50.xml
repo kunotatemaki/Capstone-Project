@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Macarrones integrales a la bolognesa</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_14.28.50.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Carne picada de vacuno 200 g</string>
+      <string>Cebolla picada 1/2 unidad</string>
+      <string>Ajo picado 1 diente</string>
+      <string>Tomate frito 250 ml</string>
+      <string>Aceite una cucharada sopera</string>
+      <string>Agua 250 ml</string>
+      <string>Sal, pimienta y orégano</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Lo primero que hice fue dorar la carne, una vez dorada, añadir todos los ingredientes.</string>
+      <string>Seleccionar la receta de los tortellini, y en tiempo de cocción añadir 2 minutos más, porque la pasta integral tarda un poco más en quedar al dente.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/02/macarrones-integrales-la-bolognesa.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

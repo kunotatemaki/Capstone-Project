@@ -1,0 +1,32 @@
+<recipeItem>
+   <name>Tortilla de pimiento y cebolla</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_14.55.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de patatas o un poco más</string>
+      <string>1 pimiento verde de los carnosos</string>
+      <string>1 cebolla grande o 2 medianas</string>
+      <string>6 huevos xl o 8 huevos l o 10 huevos m lo que tengamos en casa</string>
+      <string>Sal</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos las patatas y las cortamos en lascas finas.</string>
+      <string>Cortamos la cebolla en juliana.</string>
+      <string>Cortamos el pimiento en tiras.</string>
+      <string>Ponemos en la Cookeo un fonde de aceite de oliva virgen extra, lo justo para cubrir el fondo.</string>
+      <string>Seleccionamos función dorar y agregamos las patatas , cebolla y pimiento con un poco de sal.</string>
+      <string>Mientras la Cookeo va precalentando, nosotros vamos removiendo con cucharón de madera los ingredientes para que el aceite impregne bien a todos.</string>
+      <string>Cuando finalice la función dorar, paramos y cerramos la olla.</string>
+      <string>Seleccionamos función cocción rápida y da igual los minutos que salgan, damos a ok y comenzará el precalentamiento.</string>
+      <string>Cuando finalice el precalentamiento, saltará un aviso en la Cookeo donde nos dirá que hay un error y que falta agua.</string>
+      <string>Paramos la Cookeo, abrimos y comprobaremos que las patatas están tiernas.</string>
+      <string>Volvemos a seleccionar la función dorado y mientras dure el precalentamiento vamos removiendo para que las patatas , cebolla y pimientos que han quedado como cocidos, se queden con mejor color.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2014/11/tortilla-de-pimiento-y-cebolla-en-cookeo.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

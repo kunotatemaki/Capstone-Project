@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Risotto de setas</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_17.26.20.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>200 g arroz carnolli o arborio</string>
+      <string>1 unidad/es cebolla</string>
+      <string>300 ml caldo de pollo</string>
+      <string>100 g setas</string>
+      <string>50 ml nata líquida</string>
+      <string>1 pizca aceite y sal</string>
+      <string>50 g parmesano</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Trocear la cebolla y las setas y añadirlas en el bol. Dorar 5 minutos.</string>
+      <string>Agregar el resto de ingredientes, cerrar la tapa y cocinarlos con la función rápida. Pasado los minutos de cocción, añadir el parmesano al gusto. Tipo de cocción: rápida: 4 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>19</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

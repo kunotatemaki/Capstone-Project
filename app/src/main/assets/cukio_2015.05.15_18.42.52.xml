@@ -1,0 +1,41 @@
+<recipeItem>
+   <name>Lomo al whisky</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.42.52.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 lomo de cerdo entero, sobre 1 kg o 1 kg y medio más o menos</string>
+      <string>2 cebollas</string>
+      <string>6 dientes de ajo</string>
+      <string>1 vaso de whisky pequeño</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En Cookeo: ponemos en la cubeta un fondo de aceite de oliva virgen extra y el trozo de lomo. Seleccionamos dorar y mientras está precalentando vamos preparando las cebollas.</string>
+      <string>Pelamos los dientes de ajo y dejamos enteros.</string>
+      <string>Picamos la cebolla o cortamos en juliana, como más nos guste.</string>
+      <string>Agregamos la cebolla y los ajos a la cubeta de la Cookeo y salpimentamos.</string>
+      <string>Cuando el trozo de lomo esté dorado por todas sus caras, añadimos el whisky y dejamos unos 3 minutos evaporando el alcohol</string>
+      <string>Agregamos medio vaso de agua.</string>
+      <string>Apagamos la función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida y 20 minutos.</string>
+      <string>Abrimos, sacamos el lomo y loncheamos.</string>
+      <string>La cebolla la dejamos tal cual con la salsa o bien podemos triturar y obtener una salsa fina.</string>
+      <string>Servimos.</string>
+      <string>En olla rápida. Ponemos en la olla un fondo de aceite y ponemos el lomo para que vaya dorando por todas su caras. Añadimos también los ajos enteros y la cebolla en juliana.</string>
+      <string>Cuando el lomo esté dorado, agregamos el whisky y salpimentamos.</string>
+      <string>Dejamos que evapore el alcohol, unos minutos hirviendo y ponemos 1 vaso de agua grande.</string>
+      <string>Cuando comience a hervir, cerramos la olla y mantenemos pitando 30 minutos.</string>
+      <string>Cuando el vapor se haya ido, abrimos la olla y comprobamos que la carne está tierna.</string>
+      <string>Rectificamos de sal.</string>
+      <string>Sacamos el lomo, loncheamos y con la salsa, la dejamos tal cual o la trituramos para tener una salsa fina.</string>
+      <string>Si la salsa está muy líquida, dejamos hervir un rato para que espese.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141206/lomo-al-whisky-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

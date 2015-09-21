@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Brownie de chocolate blanco y almendras</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_18.52.10.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>125 g chocolate blanco de fundir</string>
+      <string>110 g mantequilla</string>
+      <string>2 unidad/es huevos</string>
+      <string>125 g azúcar</string>
+      <string>90 g harina</string>
+      <string>75 g almendras en grano</string>
+      <string>1 pizca sal</string>
+      <string>100 g mermelada de frambuesas</string>
+      <string>100 g azúcar glass</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Por un lado fundimos la mantequilla con el chocolate blanco, bien al baño maría o bien en el microondas. Por otro lado batimos los huevos con el azúcar hasta triplicar el volumen. Cuando la mantequilla con el chocolate esté casi frío, ligamos con los huevos batidos. Ligamos bien. Falta por incorporar la sal, la harina tamizada y las almendras en granos. Ligamos con movimientos envolventes de abajo hacia arriba. Ponemos el cestillo dentro de la Cookeo y llenamos de agua hasta que veamos un dedo de agua por encima del cestillo. Engrasamos el molde que debe de entrar dentro del cestillo del vapor. Pasamos la masa al molde y ponemos el molde dentro del cestillo. Cerramos la Cookeo y seleccionamos 25 minutos. Abrimos, sacamos el molde y dejamos que atempere un poco. Desmoldamos y cuando esté totalmente frío, espolvoreamos con azúcar glass. Servimos cortado en cuadrados y sobre un poco de mermelada de frambuesas. Tipo de cocción: rápida: 25 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2012/02/brownie-blanco-con-nueces-de-macadamia.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>40</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

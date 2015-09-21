@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Arroz con salchichas</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_19.12.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla pequeña</string>
+      <string>1 pimiento rojo pequeño</string>
+      <string>1 paquete de salchichas (tipo frankfurt)</string>
+      <string>200 g de arroz</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos a dorar con un poco de aceite la cebolla, el pimiento, el ajo y el paquete de salchichas, todo picado, durante 5-8 minutos (depende de cómo te gusten las salchichas de hechas).</string>
+      <string>Pasado ese tiempo añadimos el arroz y lo mezclamos todo dejando el robot 1 minuto más en la función dorar.</string>
+      <string>Cuando esté todo bien mezclado paramos la función dorar, vamos a ingredientes, seleccionamos el arroz y seguimos las instrucciones de la pantalla.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/arroz-con-salchichas-por-carmen-vaquero.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

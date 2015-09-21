@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Lentejas al curry</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.56.51.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de lentejas</string>
+      <string>1 tomate</string>
+      <string>1 cebolla</string>
+      <string>Media cabeza de ajos</string>
+      <string>1 pimiento verde</string>
+      <string>1 patata</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Curry</string>
+      <string>Pimentón molido dulce</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo las lentejas. Cubrimos de agua.</string>
+      <string>Añadimos el pimentón y un poco de curry, la puntita de una cucharilla.</string>
+      <string>Ponemos el tomate entero junto con la cebolla pelada y entera, el pimiento entero y la media cabeza de ajos entera.</string>
+      <string>Ponemos un poco de sal y un chorro de aceite de oliva virgen extra.</string>
+      <string>Pelamos la patata y añadimos troceada.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 15 minutos si son lentejas pequeñas 25 minutos si son lentejas de las grandes.</string>
+      <string>Abrimos, comprobamos que las lentejas están tiernas y rectificamos de sal y de curry.</string>
+      <string>Ponemos el tomate, cebolla y pimiento sin el rabo en el vaso de la batidora, trituramos y regresamos a la cubeta, ligamos bien.</string>
+      <string>El ajo lo retiramos y desechamos.</string>
+      <string>Ojo con el agua, recuerda que la Cookeo apenas evapora líquido por lo que hay que agregar la cantidad de agua justa para cubrir las lentejas. Si cuando abramos, está con poco caldo, agregamos un poco de agua. Si tienen mucho caldo, evaporaremos con la función dorar.</string>
+      <string>Servimos las lentejas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150226/lentejas-al-curry/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Es mejor agregar poco a poco que nos pasemos de curry y pongamos un sabor demasiado fuerte.</tip>
+</recipeItem>

@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Fideuá negra con gula y ajos tiernos</name>
+   <type>main</type>
+   <picture>cukio_2015.03.31_23.08.41.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla grande</string>
+      <string>Ajos tiernos</string>
+      <string>Gambas peladas</string>
+      <string>Rape</string>
+      <string>Gulas</string>
+      <string>Caldo de pescado</string>
+      <string>6 sobres de tinta de sepia o calamar</string>
+      <string>Tomate triturado sin piel (200 g)</string>
+      <string>Azafrán</string>
+      <string>Ñora (opcional)</string>
+      <string>Aceite</string>
+      <string>Sal</string>
+      <string>Fideos de fideuá (250 g)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En primer lugar, ponemos Cookeo en modo dorar y durante el precalentamiento, picamos la cebolla y cortamos los ajos tiernos.</string>
+      <string>Doramos primero la cebolla, los ajos tiernos y la ñora.</string>
+      <string>Para dorar la ñora, partidla por la mitad, quitad las semillas y doradla por la parte interna, donde tiene su carne, y retiradla una vez dorada.</string>
+      <string>Una vez dorada, añadimos las gambas, el rape y las gulas. Seguimos con el proceso de dorado y le damos un toque de sal.</string>
+      <string>Acto seguido, añadimos al sofrito tomate y el azafrán (se puede sustituir por pimentón dulce), lo removemos todo y añadimos los fideos de fideuá, para que se sofrían con los demás ingredientes.</string>
+      <string>En cuanto hayan absorbido los fideos todo el sofrito, se añade el caldo de pescado, hasta tapar los ingredientes, y se añaden los 6 sobres de tinta de sepia (o calamar) y se remueve todo hasta dejar un color uniforme. Echar otra pizca de sal.</string>
+      <string>Pasar a cocción rápida durante 8 o 9 minutos, dependiendo si se ha elegido fideo fino o grueso (con ambos se puede realizar la fideuá) y listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/fideua-negra-con-gula-y-ajos-tiernos.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>9</minutes>
+   <language>Spanish</language>
+   <tip>Si gusta, acompañar el plato con alioli, para mezclar con la fideuá a modo de salsa complementaria. También a veces añadimos mejillón (sin cascara lógicamente); se añade al mismo momento que se echa el caldo (nosotros los compramos congelados).</tip>
+</recipeItem>

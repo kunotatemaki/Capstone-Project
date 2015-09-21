@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Pollo al curry</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_19.56.19.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Alitas de pollo 8 und.</string>
+      <string>Cebolla 1 und.</string>
+      <string>Curry 2 cucharadas soperas</string>
+      <string>Leche de coco 200 ml</string>
+      <string>Caldo de ternera 150 ml</string>
+      <string>Sal y pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cortar la cebolla a la juliana, verter todos los ingredientes y removerlos en el recipiente del robot, para dejarlo todo homogéneo.</string>
+      <string>El correspondiente precalentamiento de la máquina y 7 minutos de cocción y plato listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/01/pollo-al-curry.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>7</minutes>
+   <language>Spanish</language>
+   <tip>Quizás lo mas complicado sea el conseguir la leche de coco. La encontré en Carrefour, en el apartado de la comida japonesa. Como caldo, utilizo siempre los de Gallina Blanca. Aunque también puedes hacer tu propio caldo con el robot Cookeo.</tip>
+</recipeItem>

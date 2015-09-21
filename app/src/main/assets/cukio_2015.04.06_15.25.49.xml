@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Fideos a lo pobre</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_15.25.49.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 fideos</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento</string>
+      <string>3 dientes de ajo</string>
+      <string>4 tomates</string>
+      <string>75 g aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 patata</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cookeo el aceite y seleccionamos la función dorar. Mientras precalienta, picamos las verduras toda muy fina.</string>
+      <string>Añadimos a la cookeo cuando nos avise y dejamos unos 10 minutos, removiendo, para que se haga el sofrito.</string>
+      <string>Agregamos la patata pelada y troceada, los fideos, cubrimos de agua y salpimentamos.</string>
+      <string>Paramos la función dorar y seleccionamos , con la cookeo cerrada, función cocción rápida, 8 minutos.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141109/fideos-a-lo-pobre-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>33</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

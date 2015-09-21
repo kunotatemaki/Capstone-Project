@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Rabo de toro estofado</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_18.53.36.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>1/2 pimiento rojo</string>
+      <string>1/2 pimiento verde</string>
+      <string>1 rabo de toro completo</string>
+      <string>Vino tinto</string>
+      <string>3 zanahorias</string>
+      <string>Sal y pimienta</string>
+      <string>1 tomate triturado</string>
+      <string>Aceite</string>
+      <string>Agua</string>
+      <string>Harina</string>
+      <string>4 dientes de ajo picado</string>
+      <string>2 hojas laurel</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En primer lugar cortar el rabo de toro en trozos (recomiendo que os lo hagan en la carnicería) y harinear las piezas.</string>
+      <string>Seleccionar la opción dorar, añadir un un buen chorro de aceite y dorar la carne harineada</string>
+      <string>Hasta que se selle la carne.</string>
+      <string>Retirar la carne, y hacer un sofrito con el mismo aceite con el que se ha hecho la carne con los pimientos, la cebolla, las zanahorias, el ajo y el tomate.</string>
+      <string>Cuando todo esté bien dorado, añadir de nuevo la carne, y echar un chorro generoso de vino tinto y el laurel.</string>
+      <string>Cuando el vino haya evaporado el alcohol, salpimentar y echar el agua.</string>
+      <string>Yo puse litro y medio de agua, pero si se quiere una salsa mas espesa con un litro seria suficiente.</string>
+      <string>Luego seleccionar cocción rápida, seleccionar 30 minutos y listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/rabo-de-toro-estofado-por-recetas-cookeo.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip>Recomiendo no utilizar el peor vino pero tampoco hace falta un vega sicilia</tip>
+</recipeItem>

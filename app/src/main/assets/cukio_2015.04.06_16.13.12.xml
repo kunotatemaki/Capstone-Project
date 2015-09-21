@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Merluza al cava</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_16.13.12.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 unidad/es merluza en rodajas</string>
+      <string>1/2 unidad/es benjamín de cava</string>
+      <string>2 unidad/es patatas</string>
+      <string>1 unidad/es cebolla</string>
+      <string>2 diente/s ajo</string>
+      <string>1 pizca aceite</string>
+      <string>1 pizca sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir la cebolla, el ajo, las patatas y el aceite y dorar. Tipo de cocción: dorar: 5 minutos.</string>
+      <string>Añadir las rodajas de merluza y el medio benjamín y cocinar. Tipo de cocción: rápida: 5 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

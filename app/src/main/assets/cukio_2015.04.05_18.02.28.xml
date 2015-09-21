@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Caldo de pollo</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_18.02.28.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>3 unidad/es huesos de pollo</string>
+      <string>1 unidad/es pechuga</string>
+      <string>1 unidad/es puerro</string>
+      <string>1 unidad/es cebolla</string>
+      <string>2 unidad/es zanahoria</string>
+      <string>2 litros de agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol y dejar cocer.</string>
+      <string>Alta presión 10 minutos. Para 4 y 6 personas cocinar en alta presión 16 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

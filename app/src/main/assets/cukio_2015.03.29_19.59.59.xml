@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Cerdo oriental</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_19.59.59.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Magro de cerdo 600 g para dos personas</string>
+      <string>3 cucharadas soperas de salsa de soja</string>
+      <string>3 cucharadas soperas de miel</string>
+      <string>200 ml de caldo de pollo</string>
+      <string>10 g de jengibre en polvo</string>
+      <string>3 dientes de ajo</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En modo dorar añadimos el ajo picado y dejamos que se dore.</string>
+      <string>A continuación añadimos el cerdo para que coja algo de sabor. Una vez que tiene un poco de color paramos el proceso.</string>
+      <string>Añadimos el resto de los ingredientes y ponemos en modo cocción rápida durante 25 minutos.</string>
+      <string>Una vez terminado retiramos el cerdo y procedemos a reducir la salsa (queda bastante aguada por el jugo que suelta la carne también). Para ello ponemos el modo dorar y añadimos medio vaso de agua con una cucharada de harina.</string>
+      <string>Para acompañar hemos usado arroz cocido, como no, en la Cookeo (cocción rápida durante 6 minutos añadiendo el doble de líquido que de arroz).</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/cerdo-oriental-por-cristian-vazquez-y.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,37 @@
+<recipeItem>
+   <name>Guiso de campo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.05.19.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de patatas</string>
+      <string>500 gr de panceta fresca</string>
+      <string>4 alcachofas</string>
+      <string>1 o 2 zanahorias</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>1 pimiento rojo</string>
+      <string>4 huevos</string>
+      <string>Azafrán</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el fondo de la Cookeo el aceite de oliva, lo justo para cubrir el fondo.</string>
+      <string>Seleccionamos función dorar.</string>
+      <string>Añadimos la cebolla picada junto con los pimientos picados y la zanahoria pelada y troceada.</string>
+      <string>Hacemos el sofrito mientras troceamos la panceta. Agregamos y salteamos bien.</string>
+      <string>Pelamos las patatas y cortamos en dados, añadimos y removemos para que se ligue.</string>
+      <string>Limpiamos las alcachofas y cortamos en cuartos. Añadimos.</string>
+      <string>Ponemos un chorro de vino blanco y salpimentamos. Ponemos el azafrán y cubrimos de agua, lo justo a que el agua llegue al borde de las patatas.</string>
+      <string>Apagamos función dorar, cerramos la Cookeo y seleccionamos 15 minutos, cocción rápida.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150410/guiso-de-campo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

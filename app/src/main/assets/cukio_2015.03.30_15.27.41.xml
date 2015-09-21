@@ -1,0 +1,32 @@
+<recipeItem>
+   <name>Arroz con bogavante</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_15.27.41.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 o 2 bogavantes, según tamaño</string>
+      <string>250 g de arroz</string>
+      <string>1 cebolla</string>
+      <string>Tomate triturado (200 g)</string>
+      <string>Ajo</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+      <string>1 ñora</string>
+      <string>Colorante</string>
+      <string>1 litro de agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos el robot de cocina Cookeo en opción dorar y echamos una cucharada sopera de aceite.</string>
+      <string>Quitamos las semillas de la ñora y la echamos entera a la olla.</string>
+      <string>Cuando esté caliente añadimos la cebolla troceada y dejamos que se dore.</string>
+      <string>Después añadimos el tomate triturado y sal al gusto y sofreír durante unos minutos.</string>
+      <string>Mientras tanto se trocean los bogavantes y se añaden al sofrito ya terminado para dorar un poco y sellarlos. Un vez sellados retiramos la ñora.</string>
+      <string>Después se añade el arroz, el agua y el colorante y se remueve para que se repartan los ingredientes uniformemente.</string>
+      <string>Finalmente, se pone en cocción manual durante 9 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/arroz-con-bogavante-por-fernanda-lozano.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

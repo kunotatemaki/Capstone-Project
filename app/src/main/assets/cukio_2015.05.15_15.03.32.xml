@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Alitas de pollo a la miel y soja</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.03.32.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg y medio de alitas</string>
+      <string>Medio vaso de salsa de soja</string>
+      <string>Medio vaso de agua</string>
+      <string>2 cucharadas de miel</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Partimos las alitas, nos quedamos con las dos partes con carnes y tiramos la punta.</string>
+      <string>Ponemos las alitas en la Cookeo con un chorro de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Rehogamos un rato hasta que las alitas hayan dorado un poco por fuera.</string>
+      <string>En un vaso ponemos el agua templada, soja y miel.</string>
+      <string>Removemos con una cuchara hasta que la miel se haya disuelto.</string>
+      <string>Agregamos a la Cookeo y removemos para que se impregne bien en todas las alitas.</string>
+      <string>Apagamos la función dorar, cerramos la Cookeo y seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Abrimos y servimos. No te olvides de poner por encima de las alitas la salsita del fondo, una verdadera delicia.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141202/alitas-de-pollo-a-la-miel-y-soja-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip>Si no tenéis alitas, unos muslos de pollo, pollo troceado o pechugas de pollo en dados, cualquier parte del pollo siguiendo esta receta da un resultado asombroso.</tip>
+</recipeItem>

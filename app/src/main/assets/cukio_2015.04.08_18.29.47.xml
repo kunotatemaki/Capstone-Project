@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Bizcocho cebra</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_18.29.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1/2 vaso/s leche</string>
+      <string>1/2 vaso/s aceite</string>
+      <string>2 vaso/s harina</string>
+      <string>1 vaso/s azúcar</string>
+      <string>2 unidad/es huevos</string>
+      <string>1/2 paquete/s levadura</string>
+      <string>2 cucharada/s sopera cacao en polvo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos todos los ingredientes menos el cacao en un bol amplio y ligamos todo, yo lo hice con varilla eléctrica. Cuando todo está bien integrado, dividimos la masa en dos partes iguales. Una de las partes la dejamos tal cual, a la otra parte le agregamos una o dos cucharadas de cacao en polvo y ligamos. Ahora tenemos dos masas, una blanca y otra de chocolate. Ponemos dentro de la Cookeo el cestillo y llenamos de agua hasta que tenga agua por un poco menos de la mitad. Colocamos dentro del cestillo el molde que vayamos a usar, ya engrasado. Ahora toca, con cuidado, ir agregando las masas, primero ponemos un chorro de masa blanca en el centro del molde. En el centro de la masa blanca ponemos un chorro de masa de chocolate, en el centro de la masa de chocolate ponemos un chorro de masa blanca, en el centro de la masa blanca ponemos un chorro de masa de chocolate. Y así hasta que nos quedemos sin masas. Es conveniente hacer esto con el molde dentro de la Cookeo para no tener que mover ya el molde y así no se nos ligan los colores. Cerramos la Cookeo y seleccionamos cocción rápida, 25 minutos. Abrimos, sacamos el molde, dejamos que enfríe un poco y desmoldamos. Sólo queda que esté totalmente frío.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2009/06/bizcocho-bicolor.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>45</minutes>
+   <language>Spanish</language>
+   <tip>Se puede servir espolvoreado con azúcar glass.</tip>
+</recipeItem>

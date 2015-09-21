@@ -1,0 +1,43 @@
+<recipeItem>
+   <name>Arroz con pechugas de picantón</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.26.48.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Las pechugas de 2 picantones</string>
+      <string>300 gr de arroz</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>2 zanahorias</string>
+      <string>120 gr de guisantes, yo usé congelados</string>
+      <string>Especias, las que mas nos guste</string>
+      <string>Vino fino</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un fondo de aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar.</string>
+      <string>Mientras precalienta, picamos la cebolla y los ajos.</string>
+      <string>Agregamos la cebolla y los ajos a la Cookeo y dejamos que se haga el sofrito.</string>
+      <string>Mientras troceamos las pechugas de picantón en dados.</string>
+      <string>Cuando el sofrito esté listo, añadimos la carne y salteamos.</string>
+      <string>Salpimentamos y ponemos un poco de vino fino.</string>
+      <string>Dejamos que evapore el alcohol y añadimos la zanahoria pelada y troceada y los guisantes.</string>
+      <string>Ligamos y cubrimos de agua.</string>
+      <string>Agregamos la especia que queramos, yo puse la que veis en la foto.</string>
+      <string>Apagamos la función dorar y encendemos la función cocción rápida, tapa cerrada.</string>
+      <string>Seleccionamos 5 minutos.</string>
+      <string>Abrimos y ponemos el arroz.</string>
+      <string>Seleccionamos 9 minutos.</string>
+      <string>Abrimos, rectificamos de sal si fuera necesario y de caldo si también los fuera.</string>
+      <string>Servimos.</string>
+      <string>Si queremos que el arroz tenga más color, podemos poner un poco de azafrán en el guiso.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141216/arroz-con-pechugas-de-picanton-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

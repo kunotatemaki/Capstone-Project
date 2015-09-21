@@ -1,0 +1,22 @@
+<recipeItem>
+   <name>Tallarines de calabacín con pollo</name>
+   <type>starter</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 calabacines</string>
+      <string>100 g carne picada de pollo</string>
+      <string>Cebolla al gusto</string>
+      <string>Tomate solís</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cortamos los calabacines como si fueran spaghetti (hay un pelador que ya los saca así y si tenéis una mandolina, mejor que mejor).</string>
+      <string>Doramos la carne y la cebolla con un poco de aceite, cuando ya este casi hecha la carne añadimos el calabacín y doramos durante 2-3 minutos para que queden al dente.</string>
+      <string>Añadimos un chorrito de tomate solís, removemos y listo!</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/tallarines-de-calabacin-con-pollo-tania.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>1</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

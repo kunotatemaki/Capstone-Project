@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Guiso de ternera con verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.13.25.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de ternera para guisar</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>1 zanahoria grande</string>
+      <string>120 gr de habas desgranadas</string>
+      <string>1 pimiento verde</string>
+      <string>1 pimiento rojo</string>
+      <string>1 vaso grande de vino, yo use shyrah</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 hoja de laurel</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el fondo de la Cookeo un buen chorro de aceite de oliva virgen extra, seleccionamos función dorar y mientras está precalentando vamos agregando las verduras.</string>
+      <string>Primero ponemos la cebolla cortada en juliana y los ajos laminados. A continuación ponemos la zanahoria pelada y cortada en rodajas junto con las habas, las mías eran congeladas.</string>
+      <string>Seguimos con los pimientos, ambos cortados en tiras finas.</string>
+      <string>Rehogamos todo muy bien y cuando el precalentamiento finalice, le damos a ok y ponemos la carne.</string>
+      <string>Rehogamos bien hasta que la carne esté toda doradita, o al menos con el color de crudo cambiado.</string>
+      <string>Ponemos sal, pimienta, laurel y el vino.</string>
+      <string>Dejamos que hierva unos minutos para que el alcohol se evapore.</string>
+      <string>Ponemos un poco de agua, lo justo para cubrir pero sin que cubra totalmente los ingredientes.</string>
+      <string>Apagamos la función dorar y seleccionamos cocción rápido 20 minutos.</string>
+      <string>Abrimos, comprobamos que está la carne tierna, rectificamos de sal y de caldo, si necesitamos que evapore un poco, función dorar un ratito para que reduzca.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150126/guiso-de-ternera-con-verduras-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Yo use un vino shyrah pero podemos usar cualquier vino que tengamos en casa, preferentemente tintos, riojas, a la ternera le viene muy bien los vinos oscuros.</tip>
+</recipeItem>

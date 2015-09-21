@@ -1,0 +1,39 @@
+<recipeItem>
+   <name>Rollito de pechugas de pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.09.40.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>4 pechugas de pollo</string>
+      <string>4 lonchas de bacon</string>
+      <string>4 lonchas de queso</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajos</string>
+      <string>200 gr de champiñones</string>
+      <string>200 ml de nata de cocinar</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Abrimos las pechugas dejando una amplia manta para poder poner dentro de ellas la loncha de bacon y la loncha de queso.</string>
+      <string>Liamos bien dando forma de rollo y cerramos usando hilo de cocinar.</string>
+      <string>Salpimentamos las pechugas.</string>
+      <string>Ponemos en la Cookeo, función dorar, un fondo de aceite de oliva virgen extra y agregamos los rollitos para que sellen por fuera.</string>
+      <string>Vamos dando vueltas a los rollitos.</string>
+      <string>Cortamos la cebolla en juliana y picamos los ajos. Incorporamos a la Cookeo y vamos rehogando.</string>
+      <string>Laminamos los champiñones y cuando veamos la cebolla blandita, los incorporamos también.</string>
+      <string>Añadimos el vino y dejamos hervir unos dos o tres minutos.</string>
+      <string>Si vemos poco jugo, ponemos un poco de agua, pero poca, un culito de un vaso.</string>
+      <string>Apagamos la función dorar y cerramos la Cookeo. Seleccionamos cocción rápida, 5 minutos.</string>
+      <string>Abrimos e incorporamos la nata, removemos para que todo se ligue bien. Salpimentamos al gusto.</string>
+      <string>Ponemos función dorar y dejamos que la nata hierva un par de minutos.</string>
+      <string>Servimos los rollitos, sin el hilo de cocinar y cortados en rodajas sobre la salsa de champiñones y nata.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150410/rollito-de-pechugas-de-pollo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

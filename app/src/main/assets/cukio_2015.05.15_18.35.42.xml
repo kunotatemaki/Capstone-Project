@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Muslos de pollo con almendras</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.35.42.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de muslos de pollo</string>
+      <string>2 cebollas</string>
+      <string>2 pimientos</string>
+      <string>4 dientes de ajo</string>
+      <string>120 gr de almendras crudas</string>
+      <string>75 gr de aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cortamos la cebolla y pimiento en tiras ( juliana) y picamos el ajo.</string>
+      <string>Ponemos en la cubeta de Cookeo el aceite con la cebolla, pimiento y ajo. Seleccionamos dorar.</string>
+      <string>Cuando tengamos el sofrito tierno, agregamos las almendras y el pollo y seguimos sofriendo.</string>
+      <string>Cuando el pollo haya cambiado de color, agregamos el vino.</string>
+      <string>Dejamos unos minutos hervir y salpimentamos.</string>
+      <string>Agregamos un poco de agua, no mucha, recuerda que la Cookeo pierde poco caldo con la evaporación.</string>
+      <string>Apagamos la función dorar, cerramos la olla y seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141121/muslos-de-pollo-con-almendras/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Un pollo que vamos hacer con almendras enteras y crudas y podéis encontrar directamente en los supermercados.</tip>
+</recipeItem>

@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Paella valenciana</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_20.26.06.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Arroz 400 g</string>
+      <string>Agua</string>
+      <string>Verdura de paella (judía plana verde, judión -garrofó- congelada o fresca)</string>
+      <string>Pollo y conejo (suelen vender bandejas preparadas para tal fin)</string>
+      <string>Azafrán</string>
+      <string>Pimentón dulce</string>
+      <string>Sal</string>
+      <string>Colorante alimenticio</string>
+      <string>Romero (si se quiere echar)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos la opción dorar en nuestra Cookeo y echamos una cucharada sopera de aceite, la carne (pollo y conejo) troceados y echamos sal al gusto.</string>
+      <string>Una vez la carne esté muy dorada, echamos la verdura (la carne se puede retirar para que quepa mejor la verdura) y también la doramos.</string>
+      <string>Una vez dorada la verdura (añadimos la carne si la hemos separado) añadimos el tomate y lo sofreímos junto con la carne y la verdura.</string>
+      <string>Una vez sofrito lo anterior, echamos el azafrán y el pimentón dulce, y lo removemos durante 10 segundos.</string>
+      <string>Echamos el arroz y el caldo de pollo (hasta cubrir ingredientes).</string>
+      <string>Elegimos la opción de cocción manual, 8 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/07/paella-valenciana.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>La máquina nos dará el error de que no hay suficiente agua, simplemente volver a poner cocción manual, descontando el tiempo anterior a transcurrir el error.</tip>
+</recipeItem>

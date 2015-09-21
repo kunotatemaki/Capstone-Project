@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Pechuga de pollo en salsa castellana</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.24.58.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>4 pechugas de pollo</string>
+      <string>2 cebollas</string>
+      <string>4 dientes de ajo</string>
+      <string>120 gr de champiñones</string>
+      <string>100 gr de taquitos de bacon</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de rioja</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el fondo de la Cookeo un chorro de aceite y seleccionamos dorar.</string>
+      <string>Añadimos las pechugas salpimentadas y enteras. Doramos.</string>
+      <string>Cortamos las cebolla en juliana y laminamos los ajos.</string>
+      <string>Agregamos y vamos salteando.</string>
+      <string>Laminamos mientras los champiñones.</string>
+      <string>Cuando las pechugas estén doradas, introducimos el bacon y los champiñones y salteamos un poco más.</string>
+      <string>Agregamos el vino y dejamos unos minutos que evapore el alcohol.</string>
+      <string>Apagamos la función dorar, salpimentamos y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida y seleccionamos 10 minutos.</string>
+      <string>Abrimos la Cookeo, sacamos las pechugas y fileteamos.</string>
+      <string>Servimos en una fuente con la salsa castellana en los laterales para que cada comensal se sirva a su gusto. No te olvides de una buena fuente de patatas fritas.</string>
+      <string>Listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141208/pechuga-de-pollo-en-salsa-castellana-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Jugosas pechugas de pollo que cocinadas con un buen rioja y el plato ya es de categoría total. Si no tienes rioja, podemos hacerlo con vino fino, con pedro jiménez, con cerveza o con lo que tengamos en casa, pero lo suyo, para esta receta es hacerlo con rioja. Paralelamente freímos unas patatas y tenemos un estupendo plato.</tip>
+</recipeItem>

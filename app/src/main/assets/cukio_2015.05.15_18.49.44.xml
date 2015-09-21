@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Lentejas con calabaza</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.49.44.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de lentejas</string>
+      <string>1 cebolla</string>
+      <string>1 tomate</string>
+      <string>1 cabeza de ajos</string>
+      <string>1 pimiento</string>
+      <string>1 trozo de calabaza</string>
+      <string>1 patata</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimentón dulce</string>
+      <string>Comino molido</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos la calabaza y la troceamos.</string>
+      <string>Pelamos la patata y la troceamos.</string>
+      <string>Pelamos la cebolla.</string>
+      <string>Ponemos en la Cookeo las lentejas, las patatas, la calabaza, la cebolla entera, el tomate entero, el pimiento entero y la cabeza de ajo entera.</string>
+      <string>Añadimos un chorro de aceite de oliva virgen extra.</string>
+      <string>Salamos, ponemos un poco de pimentón y un poco de comino molido.</string>
+      <string>Añadimos agua, la justa, que no llegue a cubrir del todo los ingredientes.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 7 minutos.</string>
+      <string>Abrimos, comprobamos que las lentejas están tiernas, si necesita un par de minutos más repetimos en olla cerrada, cocción rápida.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141110/lentejas-con-calabaza-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si no eres amante a la calabaza, simplemente no se las pongas, quedarán las lentejas igual de ricas. La patata le da a las lentejas un toque espeso a las lentejas, si quieres las lentejas con el caldo mas ligero, no le pongas la patata.</tip>
+</recipeItem>

@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Filetes de lomo al tamari y barbacoa</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.24.26.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de filetes de lomo, unos 16 filetes</string>
+      <string>Salsa tamari</string>
+      <string>Salsa barbacoa</string>
+      <string>4 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo aceite de oliva virgen extra y añadimos los ajos pelados y picados.</string>
+      <string>Seleccionamos función dorar y cuando comience el aceite a freír los ajos, incorporamos los filetes y vamos removiendo hasta que cambien de color.</string>
+      <string>Añadimos un chorro de salsa tamari y un chorrito de salsa barbacoa.</string>
+      <string>Ligamos y apagamos la función dorar.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 3 minutos.</string>
+      <string>Puede que nos salte el aviso que hay poco líquido en la Cookeo, apagamos y abrimos.</string>
+      <string>Si no nos salta el aviso, cuando finalice la cocción, abrimos y solo nos queda servir.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150429/filetes-de-lomo-al-tamari-y-barbacoa-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si no tienes salsa tamari, solo tienes que poner salsa de soja, el resultado es el mismo puesto que la salsa tamari es salsa de soja pero fermentada solo con agua y sal, mucho más rica y más espesa.</tip>
+</recipeItem>

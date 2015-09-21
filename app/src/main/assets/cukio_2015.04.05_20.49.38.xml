@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Arroz con mejillones</name>
+   <type>main</type>
+   <picture>cukio_2015.04.05_20.49.38.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>250 g mejillones</string>
+      <string>4 vaso/s arroz</string>
+      <string>1 unidad/es cebolla</string>
+      <string>3 unidad/es dientes de ajo</string>
+      <string>2 unidad/es tomate</string>
+      <string>2 unidad/es pimientos</string>
+      <string>75 g aceite de oliva virgen extra</string>
+      <string>1 cucharada/s sopera sal y pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos los mejillones bien limpios en el cestillo de cocer al vapor y lo ponemos dentro de la Cookeo junto a 200 ml de agua. Seleccionamos 5 minutos cocción rápida. Sacamos, enfriamos y quitamos los mejillones de las conchas.</string>
+      <string>Ponemos el aceite, cebolla, pimiento, ajo y tomate, todo muy picado, en la Cookeo y seleccionamos función dorar. Dejamos que se haga el sofrito. Agregamos el arroz, rehogamos y salpimentamos. Cubrimos con el caldo de haber cocido los mejillones previamente colado y los mejillones. Paramos la función dorar y ponemos función cocción rápida, 8 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141107/arroz-con-mejillones-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>35</minutes>
+   <language>Spanish</language>
+   <tip>Puedes hacer la misma receta con almejas o gambas</tip>
+</recipeItem>

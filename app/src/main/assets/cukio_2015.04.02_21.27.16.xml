@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Tortilla de patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_21.27.16.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>4 huevos</string>
+      <string>1 cebolla</string>
+      <string>3 patatas</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner el robot de cocina Cookeo, en modo dorar con un pequeño chorro de aceite (dos cucharadas soperas).</string>
+      <string>Mientras esta precalentando, picar la cebolla, pelar las patatas y cortarlas.</string>
+      <string>Verter la cebolla y la patata para que se doren.</string>
+      <string>Batir los huevos y una vez la patata esté hecha, entonces verter los huevos en el recipiente de Cookeo.</string>
+      <string>A partir de aquí tenemos dos formas de terminar la receta:</string>
+      <string>Opción 1 de olga casas abad.</string>
+      <string>Cuando esté dorada la primera cara de la tortilla, darle la vuelta con la ayuda de un plato pequeño, y luego para volver a introducirla, utilizar papel de cocinar.</string>
+      <string>Opción 2</string>
+      <string>Una vez la parte inferior está hecha, pasar a modo cocción rápida, hará un precalentamiento (tarda un poco mas de lo normal) y una vez termine éste, mostrará un error de que no hay suficiente líquido en la olla para hacer la cocción rápida y cancelará la cocción, pero la tortilla estará lista.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/tortilla-de-patatas-por-olga-casas-abad.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

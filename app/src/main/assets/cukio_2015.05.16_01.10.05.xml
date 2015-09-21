@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Guiso de patatas con alcachofas y pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.10.05.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>4 alcachofas</string>
+      <string>1 pechuga de pollo grande</string>
+      <string>150 gr de guisantes</string>
+      <string>2 zanahorias</string>
+      <string>1 kg de patatas</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso pequeño de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Pimentón dulce</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el fondo de la Cookeo un chorro de aceite de oliva virgen extra y seleccionamos función manual, dorar.</string>
+      <string>Mientras está precalentando, vamos picando la cebolla y los dientes de ajo, agregamos y removemos.</string>
+      <string>Troceamos las pechugas de pollo y agregamos a la Cookeo cuando la cebolla esté tierna.</string>
+      <string>Rehogamos y añadimos el vino.</string>
+      <string>Limpiamos las alcachofas y cortamos por la mitad. Agregamos a la Cookeo.</string>
+      <string>Pelamos la zanahoria y troceamos, incorporamos a la Cookeo con los guisantes, removemos bien.</string>
+      <string>Seguimos pelando las patatas, troceamos e incluimos en la Cookeo.</string>
+      <string>Cubrimos de agua, salpimentamos y ponemos un poco de pimentón dulce.</string>
+      <string>Removemos bien y apagamos la función dorar.</string>
+      <string>Seleccionamos cocción rápida con la Cookeo cerrada y seleccionamos 15 minutos.</string>
+      <string>Cuando finalice la cocción, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150313/guiso-de-patatas-con-alcachofas-y-pollo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>El pollo podemos poner pechugas de pollo en dados como puse yo o bien podemos poner trozo troceado, con hueso pero a poder ser sin piel para que no nos deje el caldo muy grasiento.</tip>
+</recipeItem>

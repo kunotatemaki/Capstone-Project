@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Arroz con leche</name>
+   <type>dessert</type>
+   <picture>cukio_2015.03.30_15.34.43.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>110 de arroz redondo</string>
+      <string>400 de leche</string>
+      <string>80 de azúcar</string>
+      <string>1 rama de canela</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Todo en manual, cocción express 10 min</string>
+      <string>Adornar con canela en polvo</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/arroz-con-leche-por-carmen-ramos.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

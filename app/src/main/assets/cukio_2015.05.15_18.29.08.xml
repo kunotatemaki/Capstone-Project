@@ -1,0 +1,31 @@
+<recipeItem>
+   <name>Pechuga de pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.29.08.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 pechugas grandes de pollo</string>
+      <string>2 cebollas</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Vino</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un fondo de aceite y seleccionamos dorar.</string>
+      <string>Mientras precalienta, pelamos las cebollas y cortamos en juliana.</string>
+      <string>Añadimos la cebolla a la Cookeo y hacemos el sofrito.</string>
+      <string>Añadimos las pechugas y doramos por sus caras.</string>
+      <string>Salpimentamos, ponemos el vino y dejamos un par de minuto hirviendo para que evapore el alcohol.</string>
+      <string>Agregamos un poco de agua, poco, que la Cookeo evapora poco líquido mientras está con la tapa cerrada, como medio vaso o algo más estará bien.</string>
+      <string>Apagamos la función dorar, cerramos la tapa y seleccionamos cocción rápida.</string>
+      <string>Seleccionamos 15 minutos y dejamos que el programa termine.</string>
+      <string>Comprobamos que las pechugas están a nuestro gusto, sacamos y cortamos en filetes.</string>
+      <string>Servimos junto con la cebolla y el jugo de la olla.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141125/pechuga-de-pollo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si en vez de pechugas de pollo tenemos pechugas de pavo, la receta es la misma y obtendremos un estupendo resultado de igual forma.</tip>
+</recipeItem>

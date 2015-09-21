@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Carrilleras de ternera en salsa</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_19.23.15.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Carrilleras de ternera</string>
+      <string>2 zanahorias</string>
+      <string>1 puerro</string>
+      <string>1 cebolla</string>
+      <string>Vino tinto</string>
+      <string>Agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se les echa a las carrilleras sal y pimienta y se doran un poco en la Cookeo.</string>
+      <string>Se reservan. En ese mismo aceite, rehogar el puerro, la zanahoria y la cebolla.</string>
+      <string>Se echan las carrilleras al sofrito y se le añade un vaso de vino tinto.</string>
+      <string>Cuando se evapore el alcohol (4 minutos más o menos) se le añaden dos vasos de agua y una pastilla de caldo de carne.</string>
+      <string>Se pone la Cookeo en cocción rápida 25 minutos.</string>
+      <string>Se sacan las carrilleras y se tritura la salsa.</string>
+      <string>Por último se junta todo. Poner en modo dorar muy poco tiempo para espesar la salsa.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/carrileras-de-ternera-en-salsa-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

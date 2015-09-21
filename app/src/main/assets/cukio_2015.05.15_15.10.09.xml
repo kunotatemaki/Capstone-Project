@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Alubias con guisantes y calabaza</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.10.09.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de alubias blancas</string>
+      <string>120 gr de guisantes congelados</string>
+      <string>1 trozo de calabaza</string>
+      <string>1 patata</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 tomate</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>2 dientes de ajo</string>
+      <string>Pimentón dulce</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, pimiento, tomate y ajo. Seleccionamos la función dorar y añadimos el aceite, un chorrito que cubra el fondo. Cuando finalice el precalentamiento, agregamos las verduras. Si tenemos Thermomix, podemos usarla para picar las verduras, se pone todo junto, 5 segundos velocidad 5.</string>
+      <string>Cuando la verdura esté tierna, unos 5 - 7 minutos, apagamos la función dorar y agregamos las alubias que hemos tenido en remojo toda la noche.</string>
+      <string>Las cubrimos de agua, que no llegue a tapar las alubias por completo sino que se vea el agua a través de ellas.</string>
+      <string>Agregamos la calabaza troceada, los guisantes congelados, la patata troceada.</string>
+      <string>Añadimos el pimentón y la sal.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 30 minutos.</string>
+      <string>Cuando finalice, abrimos y comprobamos que las alubias están tiernas y rectificamos, si fuera necesario, la sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141113/alubias-con-guisantes-y-calabaza-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si quieres poner garbanzos en vez de alubias, el resultado será el mismo, sólo que con una legumbre diferente.</tip>
+</recipeItem>

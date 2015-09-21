@@ -1,0 +1,40 @@
+<recipeItem>
+   <name>Patatas con ternera</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.16_02.01.09.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de ternera</string>
+      <string>1 kg de patatas</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>1 tomate</string>
+      <string>1 pimiento verde</string>
+      <string>1 vaso de vino blanco</string>
+      <string>2 zanahorias</string>
+      <string>100 gr de aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el vaso de la Thermomix el tomate, cebolla, ajo y pimiento, todo troceado. Seleccionamos 5 segundos velocidad 5.</string>
+      <string>Bajamos la verdura y ponemos el aceite.</string>
+      <string>Seleccionamos 5 minutos temperatura varoma, velocidad 1.</string>
+      <string>Ahora podemos hacer dos cosas, o dejar el sofrito listo o hacer como hice yo, pulsar varias veces el botón turbo para que el sofrito se triture.</string>
+      <string>Añadimos la ternera cortada en tiras y seleccionamos 3 minutos, temperatura varoma, giro a la izquierda, velocidad cuchara.</string>
+      <string>Ponemos la sal, la pimienta y el vino.</string>
+      <string>Seleccionamos de nuevo 3 minutos, temperatura varoma, giro a la izquierda, velocidad cuchara.</string>
+      <string>Pasamos todo el contenido del vaso de la Thermomix a la Cookeo.</string>
+      <string>Añadimos la zanahoria pelada y cortada en rodajas.</string>
+      <string>Agregamos también las patatas y cortadas en dados.</string>
+      <string>Cubrimos de agua, pero sin que llegue a cubrir.</string>
+      <string>Ligamos y cerramos la Cookeo.</string>
+      <string>Seleccionamos 15 minutos cocción rápida.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150211/patatas-con-ternera-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

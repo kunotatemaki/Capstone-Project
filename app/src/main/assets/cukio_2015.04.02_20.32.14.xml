@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Potaje de alubias con chorizo</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_20.32.14.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Un puñado de alubias por persona</string>
+      <string>Aceite</string>
+      <string>3 ajos</string>
+      <string>1/2 pimiento</string>
+      <string>1/2 cebolla</string>
+      <string>1/2 tomate</string>
+      <string>1 pastilla de avecren</string>
+      <string>1 hoja de laurel</string>
+      <string>3 patatas</string>
+      <string>2 o 3 chorizos</string>
+      <string>Agua según quieras más caldo o menos</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Dejamos las alubias el día anterior en remojo.</string>
+      <string>Las patatas la cortamos resquebrajándolas, para que espese más el caldo.</string>
+      <string>Se echan todos los ingredientes.</string>
+      <string>Cocción rápida 25 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/potaje-de-alubias-con-chorizo-por-mili.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

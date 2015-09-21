@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Fideos con tomate y merluza</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_20.46.29.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>5-6 dientes de ajo</string>
+      <string>1 tomate</string>
+      <string>1 lata pequeña tomate triturado</string>
+      <string>2-3 filetes de merluza sin piel a trozos (no muy pequeños)</string>
+      <string>250 g fideos grosor medio</string>
+      <string>400 cl agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Encendemos nuestra Cookeo, ponemos manual-dorar.</string>
+      <string>Comenzamos a echar los ingredientes en la cubeta, aceite,  la cebolla y ajos picados. Dejamos dorar un poco.</string>
+      <string>A continuación el tomate a trocitos, el tomate triturado, el pescado, los fideos, la sal y el agua.</string>
+      <string>Pasamos a cocción rápida, y ponemos los minutos que nos indique el envase del fabricante de los fídeos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/fideos-con-tomate-y-merluza-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Lomo con verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.40.38.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 trozo de lomo de cerdo</string>
+      <string>2 zanahorias grandes</string>
+      <string>8 - 10 vainas grandes de judias verdes</string>
+      <string>2 tomates rojos</string>
+      <string>4 pimientos verdes</string>
+      <string>4 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 vaso de vino blanco</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo un fondo de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Añadimos los dientes de ajos enteros y pelados.</string>
+      <string>Ponemos el trozo de lomo y doramos bien por todas sus caras.</string>
+      <string>Agregamos el vino y salpimentamos.</string>
+      <string>Dejamos unos minutos que el vino evapore y añadimos medio vaso de agua.</string>
+      <string>Ponemos encima de la carne toda la verdura, tomates, pimientos, judías verdes, zanahorias y ponemos un poco más de sal.</string>
+      <string>Apagamos la función dorado, cerramos la Cookeo y seleccionamos cocción rápida.</string>
+      <string>Seleccionamos 20 minutos.</string>
+      <string>Cuando finalice, dejamos la carne enfriar para cortar en lonchas.</string>
+      <string>Para servir los filetes calientes, solo tenemos que calentar un poco el jugo con las verduras, agregar los filetes cortados y una vez comiencen a hervir, servir los filetes con las verduras y un poco de salsa.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150120/lomo-con-verduras-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

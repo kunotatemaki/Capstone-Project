@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Alubias blancas con jamón</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.17.15.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de alubias</string>
+      <string>200 gr de jamón</string>
+      <string>1 cebolla</string>
+      <string>2 tomates</string>
+      <string>1 pimiento verde grande o un trozo de pimiento rojo, verde y amarillo</string>
+      <string>3 dientes de ajo</string>
+      <string>75 gr de aceite de oliva virgen extra</string>
+      <string>1 zanahoria</string>
+      <string>1 patata</string>
+      <string>Sal</string>
+      <string>Pimentón dulce</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos las alubias blancas en remojo la noche antes.</string>
+      <string>Ponemos en el vaso de la Thermomix la cebolla, pimientos, tomates y ajo.</string>
+      <string>Seleccionamos 5 segundos velocidad 5.</string>
+      <string>Bajamos las verduras y añadimos el aceite.</string>
+      <string>Seleccionamos 7 minutos, temperatura varoma, velocidad 1.</string>
+      <string>Cuando finalice, pasamos el sofrito a la Cookeo.</string>
+      <string>Agregamos los taquitos de jamón y cubrimos de agua.</string>
+      <string>Pelamos la zanahoria y la patata, troceamos y agregamos.</string>
+      <string>Ponemos sal y el pimentón.</string>
+      <string>Removemos bien.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 35 minutos.</string>
+      <string>Abrimos, rectificamos de caldo y de sal.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150107/alubias-blancas-con-jamon/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>45</minutes>
+   <language>Spanish</language>
+   <tip>El sofrito lo hicimos en la Thermomix pero si no tienes Thermomix, picas las verduras a manos y haces el sofrito en la Cookeo, función dorar.</tip>
+</recipeItem>

@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Bizcocho de chocolate</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.05_13.16.38.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>150 gramos de azúcar, preferiblemente que no sea de azúcar moreno.</string>
+      <string>5 huevos, de los frescos y medianos</string>
+      <string>80 gramos de harina para cocinar</string>
+      <string>35 gramos de cacao en polvo, sin aditivos.</string>
+      <string>Harina y mantequilla para el molde, mantequilla prefieriblemente que tenga poca sal.</string>
+      <string>Agua y azúcar glass</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Preparación de la masa: primero comenzaremos con la separación del huevo, es decir, separaremos la clara por un lado y la yema por otro.</string>
+      <string>En segundo lugar procedemos al montaje de las mismas, es decir, batimos las yemas con ayuda de una varilla batiendo durante quince u veinte minutos aproximadamente, y luego montamos la clara echándole quizás un poco de zumo de limón para que ayude en su esponjosidad y levantamiento de la masa del bizcocho.</string>
+      <string>Acto seguido mezclamos toda esa yema y clara junto con el azúcar, la harina y el cacao teniendo mucho cuidado de que no se desmote lo que ya hemos montado.</string>
+      <string>Cocción bizcocho: tan solo hay que preparar la masa del bizcocho, y si se quiere, tal y como se ha hecho en este caso, se ha puesto nueces en la mitad del bizcocho. Pero podéis poner nueces a todo el bizcocho o sin ellas, a gusto consumidor.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/04/bizcocho-de-chocolate-por-vasilica.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,37 @@
+<recipeItem>
+   <name>Lentejas con calabacín, zanahorias y patatas</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.52.39.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de lentejas</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>2 dientes de ajo</string>
+      <string>1 tomate rojo</string>
+      <string>1 calabacín</string>
+      <string>1 patata grande</string>
+      <string>1 zanahoria grande</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Pimentón dulce</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el fondo de la Cookeo un chorro de aceite de oliva virgen extra.</string>
+      <string>Picamos la cebolla, pimiento, ajos y tomate y añadimos.</string>
+      <string>Seleccionamos función dorar y comenzamos hacer el sofrito.</string>
+      <string>Mientras el sofrito se hace, pelamos la patata, la zanahoria y el calabacín. Cortamos en pequeños dados.</string>
+      <string>Cuando el sofrito esté listo, agregamos la zanahoria, patata y calabacín y rehogamos.</string>
+      <string>Agregamos las lentejas y rehogamos.</string>
+      <string>Cubrimos de agua. Salpimentamos y ponemos pimentón, un poco.</string>
+      <string>Apagamos la función dorar y seleccionamos cocción rápida, 10 minutos con tapa cerrada.</string>
+      <string>Abrimos, rectificamos de caldo y de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150319/lentejas-en-cookeo-con-calabacin-zanahorias-y-patatas/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

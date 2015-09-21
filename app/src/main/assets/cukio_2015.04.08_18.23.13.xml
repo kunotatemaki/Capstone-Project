@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Albaricoques al vapor</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_18.23.13.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>8 unidad/es albaricoques en mitades</string>
+      <string>80 g mantequilla</string>
+      <string>80 g azúcar</string>
+      <string>30 g piñones</string>
+      <string>120 g agua</string>
+      <string>1 cucharada/s sopera sirope de granadina</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir los albaricoques en mitades en la cesta de vapor y los ingredientes restantes dentro del bol.</string>
+      <string>Cocina en baja presión: 3 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>8</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

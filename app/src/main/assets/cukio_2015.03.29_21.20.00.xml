@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Coliflor gratinada</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>250 gr coliflor</string>
+      <string>1 ajo</string>
+      <string>Trocitos de pavo (al gusto)</string>
+      <string>Aceite de oliva 30 ml</string>
+      <string>Agua 50 ml</string>
+      <string>Sal y pimienta</string>
+      <string>Queso para gratinar</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Nos basaremos en la recta de brócoli al ajillo.</string>
+      <string>Cambiaremos brócoli por coliflor y las avellanas por trocitos de pavo (podéis poner lo que más os guste, jamón, bacón, etc).</string>
+      <string>Cuando termina se pasa a la bandeja de horno, se espolvorea un poco de queso rallado y a gratinar.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/coliflor-gratinada-por-vanesa-adelantado.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

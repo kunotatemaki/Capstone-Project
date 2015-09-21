@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Patatas con carne</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_14.51.05.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 o 2 cebollas</string>
+      <string>1 o 2 pimientos</string>
+      <string>1 tomate</string>
+      <string>2 o 3 dientes de ajo</string>
+      <string>1 kg de patatas</string>
+      <string>300 gr de carne de cerdo</string>
+      <string>120 gr de guisantes</string>
+      <string>1 o 2 zanahorias</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, ajo, pimiento y tomate.</string>
+      <string>Seleccionamos en la Cookeo la función manual, dorar y agregamos un poco de aceite.</string>
+      <string>Cuando finalice el precalentamiento, agregamos las verduras picadas y hacemos el sofrito.</string>
+      <string>En unos 4 minutos estará listo y añadimos la carne, rehogamos.</string>
+      <string>Ponemos las zanahorias peladas y cortadas en dados y los guisantes.</string>
+      <string>Añadimos las patatas peladas y cortadas en dados grandes.</string>
+      <string>Salpimentamos, ponemos el vino y como 500 ml de agua.</string>
+      <string>Apagamos la función dorar y cerramos la olla.</string>
+      <string>Seleccionamos inicio rápido, programamos 15 minutos y dejamos que el programa finalice.</string>
+      <string>Abrimos la olla cuando haya expulsado todo el vapor y rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2014/11/cookeo-de-moulinex-patatas-con-carne.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>20</portions>
+   <minutes>15</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

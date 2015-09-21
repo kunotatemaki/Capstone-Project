@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Arroz con carne de cabeza de lomo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.19.19.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de cabeza de lomo de cerdo</string>
+      <string>300 gr de arroz redondo</string>
+      <string>1 cebolla grande</string>
+      <string>2 dientes de ajo</string>
+      <string>1 pimiento verde grande</string>
+      <string>2 tomates rojos</string>
+      <string>75 gr de aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Thermomix la cebolla, pimiento, tomate y ajo. Seleccionamos 5 segundos velocidad 5. Añadimos el aceite y seleccionamos 10 minutos, temperatura varoma, giro a la izquierda, velocidad cuchara. Mientras se hace el sofrito, ponemos la carne en la Cookeo junto con un chorro de aceite y seleccionamos dorar. Doramos bien la carne por todas sus caras. Cuando esté listo el sofrito de la Thermomix, lo volcamos en la Cookeo.</string>
+      <string>Si no tienes Thermomix, picamos la verdura a mano y la ponemos en Cookeo con el aceite. Seleccionamos dorar y sofreímos la verdura. Cuando esté tierna, añadimos la carne y rehogamos bien la carne por todas sus caras.</string>
+      <string>Hayas elegido la forma que hayas elegido, en este punto tenemos la carne en la Cookeo junto con las verduras, y en función dorar. Añadimos el vino, sal, pimienta molida y dejamos unos minutos que evapore el alcohol.</string>
+      <string>Apagamos la función dorar, agregamos un poco de agua, como medio litro de agua. Cerramos la Cookeo y seleccionamos función rápida, 15 minutos.</string>
+      <string>Abrimos la Cookeo y agregamos el arroz. Removemos bien y seleccionamos 8 minutos, cooción rápida.</string>
+      <string>Abrimos, rectificamos de sal y de caldo si fuera necesario, el arroz este es más bien seco.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141122/arroz-con-carne-de-cabeza-de-lomo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>El arroz siempre queda en su punto exacto en poco menos de 10 minutos, exactamente entre 8 y 9 minutos tendremos el arroz en su punto justo.</tip>
+</recipeItem>

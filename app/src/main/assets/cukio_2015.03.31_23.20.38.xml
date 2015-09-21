@@ -1,0 +1,31 @@
+<recipeItem>
+   <name>Filetes de lomo con manzana</name>
+   <type>main</type>
+   <picture>cukio_2015.03.31_23.20.38.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de filetes de lomo de cerdo</string>
+      <string>1 cebolla</string>
+      <string>1 cucharada de azúcar</string>
+      <string>1 cucharada y media de maicena</string>
+      <string>100 ml de vino dulce o tinto</string>
+      <string>100 ml de salsa de soja</string>
+      <string>100 ml agua o caldo de carne</string>
+      <string>50 ml de zumo de naranja</string>
+      <string>2 manzanas</string>
+      <string>1 cucharada de mantequilla</string>
+      <string>Sal y pimienta al gusto</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Primero se le quitan los bordes a la grasa de los filetes, si es que tiene, y se salpimienta al gusto.</string>
+      <string>Freír en la Cookeo (opción dorar). Una vez frito se aparta y en el mismo aceite se fríe la cebolla picada.</string>
+      <string>Cuando esté blanda, se introduce la manzana, (pelada, descorazonada y troceada en tacos), con la cucharada de mantequilla.</string>
+      <string>Cuando coja color, se le añaden los líquidos, excepto el agua, donde primero se disuelve la cucharada y media de maicena y se termina poniendo el azúcar.</string>
+      <string>Ponemos cocción rápida 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/04/filetes-de-lomo-con-manzana-por-agueda.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip>Se puede acompañar con patatas fritas.</tip>
+</recipeItem>

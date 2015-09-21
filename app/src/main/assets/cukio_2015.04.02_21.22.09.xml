@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Tortellini de carne con tomate y jamón serrano</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_21.22.09.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>Un brick pequeño de tomate frito</string>
+      <string>Una cucharada sopera de aceite</string>
+      <string>Tortellini de carne (150 g aproximadamente)</string>
+      <string>250 ml de agua</string>
+      <string>Sal y pimienta al gusto</string>
+      <string>Jamón serrano a taquitos</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla y añadimos el resto de ingredientes en el recipiente de Cookeo.</string>
+      <string>Removemos para que todo quede uniforme y coccion rápida durante 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/tortellini-de-carne-con-tomate-y-jamon.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

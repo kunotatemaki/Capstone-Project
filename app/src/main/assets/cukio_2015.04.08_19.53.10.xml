@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Peras al vino</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_19.53.10.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 unidad/es peras peladas</string>
+      <string>500 ml vino tinto</string>
+      <string>100 g azúcar</string>
+      <string>1/2 rama/s canela</string>
+      <string>1/2 unidad/es anís estrellado</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Trocear las peras, añadir todos los ingredientes dentro del bol y mezclarlos bien. Retirar y dejar enfriar. Tipo de cocción: dorar: 2 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

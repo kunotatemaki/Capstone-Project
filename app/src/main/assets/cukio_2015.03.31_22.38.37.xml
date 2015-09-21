@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Lentejas con marisco y setas</name>
+   <type>main</type>
+   <picture>cukio_2015.03.31_22.38.37.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 pimiento verde</string>
+      <string>1/2 tomate</string>
+      <string>2 dientes de ajo</string>
+      <string>1 cebolla</string>
+      <string>300 g de gamba pelada</string>
+      <string>200 g de calamar troceado</string>
+      <string>350 g de lentejas</string>
+      <string>1 l de agua</string>
+      <string>1guindilla cayena (opcional)</string>
+      <string>Setas al gusto</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Seleccionamos la opción dorar en Cookeo.</string>
+      <string>Durante el precalentamiento cortamos a daditos la verdura, la cayena (si se decide añadirla) y el ajo.</string>
+      <string>Echamos una cucharada sopera de aceite y preparamos un sofrito con las verduras troceadas.</string>
+      <string>Una vez haya tomado color, añadimos las gambas, el calamar troceado y las gambas.</string>
+      <string>Ahora ponemos un litro de agua (un poco menos si queremos que el caldo sea mas espeso) y las lentejas (yo las he utilizado de bote por cuestión de tiempo) y seleccionamos cocción manual 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/lentejas-con-marisco-y-setas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si utilizáis lenteja natural, dejar como siempre en remojo y utilizad el tiempo normal. Los calamares y la cayena son totalmente opcionales. Depende del gusto de cada uno.</tip>
+</recipeItem>

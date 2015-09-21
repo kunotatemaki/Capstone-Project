@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Burritos mexicanos</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.14.25.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Preparado para hacer burritos mexicanos oldelpaso (opcional)</string>
+      <string>Carne picada 1kg (mezcla de ternera y cerdo)</string>
+      <string>1 cebolla</string>
+      <string>500 gr de champiñones laminados (opcional)</string>
+      <string>4 o 5 lonchas de jamón de york</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+      <string>Leche entera</string>
+      <string>Tomate frito</string>
+      <string>Queso rallado</string>
+      <string>Lechuga</string>
+      <string>Tomate natural</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Lavamos bien los champiñones, cortamos la cebolla muy picadita, y las lonchas de jamón york en tiras o cuadraditos, como más os guste.</string>
+      <string>Ponemos nuestra Cookeo en modo dorar con una gotita de aceite en el fondo.</string>
+      <string>Una vez se ha precalentado nuestra máquina, añadimos los champiñones, la cebolla y el jamón york para que se vayan haciendo.</string>
+      <string>Una vez están estos ingredientes pasados añadimos la carne picada (la cual he sazonado previamente con un poquito de sal y de perejil). Cuando la carne adquiere un tono doradito, añadir un chorrito de leche entera (hace que la carne quede más tierna) y tomate frito al gusto.</string>
+      <string>Añadir la bolsita de especias que viene con el preparado de burritos de oldelpaso, pero podemos añadir simplemente las especias que más nos gusten (orégano, pimienta blanca, pimienta negra, cúrcuma, pimentón, etc).</string>
+      <string>Cubrimos la carne con agua y dejamos seguir dorando en nuestra Cookeo hasta que espese bien la salsa.</string>
+      <string>Mientras se termina de dorar nuestra carne, calentamos un poquito las tortas en el microondas o en el horno.</string>
+      <string>Una vez que tenemos todo listo, procedemos al montaje de los burritos: ponemos en una de las tostas o fajitas un poquito de lechuga. Colocamos encima una cucharadita o dos de nuestro preparado de la carne picada.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/burritos-mexicanos-por-alba-padin.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si os gusta, también se podría añadir a nuestra receta pimiento rojo, pimiento verde, zanahoria e incluso hacer la receta con taquitos de pollo en vez de con carne picada.</tip>
+</recipeItem>

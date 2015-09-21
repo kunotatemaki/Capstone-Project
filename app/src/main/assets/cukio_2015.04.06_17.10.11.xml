@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Rape en salsa</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_17.10.11.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g colas de rape</string>
+      <string>2 diente/s ajo</string>
+      <string>300 g tomate frito</string>
+      <string>1 manojo/s perejil</string>
+      <string>75 g pimentón</string>
+      <string>1 pizca aceite y sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Cortar el ajo y dorarlo. Añadir el tomate y sofreír unos 4 minutos. Tipo de cocción: dorar: 4 minutos.</string>
+      <string>Agregar el resto de los ingrediente en el bol y cocer. Servirlo después del tiempo indicado. Tipo de cocción: rápida: 4 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>12</minutes>
+   <language>Spanish</language>
+   <tip>Puedes añadir gambas al plato para completarlo.</tip>
+</recipeItem>

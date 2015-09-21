@@ -1,0 +1,41 @@
+<recipeItem>
+   <name>Arroz con costillas</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.23.37.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de costillas de cerdo</string>
+      <string>300 gr de arroz</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>1 pimiento rojo</string>
+      <string>1 pimiento amarillo</string>
+      <string>4 dientes de ajo</string>
+      <string>2 zanahorias</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 vaso de vino blanco</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Seleccionamos función dorar y agregamos un chorro de aceite en el fondo de la Cookeo.</string>
+      <string>Mientras precalienta, picamos la cebolla, ajos y pimientos.</string>
+      <string>Agregamos las verduras cuando así nos lo indique la Cookeo y rehogamos.</string>
+      <string>Mientras pelamos las zanahorias y cortamos en dados.</string>
+      <string>Añadimos las costillas cuando la cebolla esté tierna y rehogamos para que cambien de color.</string>
+      <string>Añadimos las zanahorias y el vino.</string>
+      <string>Dejamos unos minutos a que el vino evapore su alcohol.</string>
+      <string>Añadimos agua, como 1 litro o algo menos.</string>
+      <string>Salpimentamos y pararmos función dorar y seleccionamos, con Cookeo ya cerrada, función cocción rápida.</string>
+      <string>Seleccionamos 15 minutos.</string>
+      <string>Cuando finalice, abrimos la olla y añadimos el arroz.</string>
+      <string>Removemos para que se ligue bien y cerramos de nuevo.</string>
+      <string>Seleccionamos 8 minutos.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141111/arroz-con-costillas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

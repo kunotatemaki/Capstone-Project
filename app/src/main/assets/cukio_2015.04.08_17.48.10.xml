@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Sopa de coliflor</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.08_17.48.10.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 g coliflor</string>
+      <string>1 unidad/es puerro</string>
+      <string>2 unidad/es zanahoria</string>
+      <string>1 unidad/es patata</string>
+      <string>75 g aceite de oliva virgen extra</string>
+      <string>1 cucharada/s sopera sal</string>
+      <string>1 cucharadita/s pimienta molida</string>
+      <string>2 l agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos la patata y la zanahoria. Pelamos el puerro. Picamos el puerro, zanahoria y patata. Ponemos en la cubeta de la Cookeo el aceite de oliva virgen extra. Añadimos las verduras cuando termine el precalentamiento. Hacemos el sofrito e incorporamos la coliflor cortada en pequeños ramilletes y la parte del tronco muy picado. Agregamos el agua, salpimentamos al gusto. Tipo de cocción: dorar: 10 minutos.</string>
+      <string>Cerramos la olla y dejamos que se complete el programa, seleccionamos sólo 5 minutos, no se necesita más tiempo. Tipo de cocción: rápida: 5 minutos.</string>
+      <string>Abrimos, rectificamos de sal, servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141127/sopa-de-coliflor-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip>Si quieres hacer de esta sencilla sopa, una sopa mas espectacular, agrega al momento de servir, un poco de huevo cocido y picado junto con un poco de parmesano recién rallado.</tip>
+</recipeItem>

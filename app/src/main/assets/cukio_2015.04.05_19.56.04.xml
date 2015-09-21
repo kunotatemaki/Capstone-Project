@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Setas al estilo griego</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_19.56.04.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>800 g champiñones</string>
+      <string>50 ml aceite de oliva</string>
+      <string>2 cucharada/s sopera zumo de limón</string>
+      <string>20 unidad/es semillas de cilantro</string>
+      <string>1 pizca sal</string>
+      <string>1 pizca pimienta</string>
+      <string>2 cucharada/s sopera tomate frito</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Limpiar los champiñones y exprimir el zumo de limón. Agregar todos los ingredientes en el bol y cocer el tiempo sugerido. Tipo de cocción: rápida : 4 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

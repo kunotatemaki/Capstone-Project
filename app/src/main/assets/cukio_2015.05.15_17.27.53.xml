@@ -1,0 +1,42 @@
+<recipeItem>
+   <name>Garbanzos con acelgas y pringá</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.27.53.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gramos de garbanzos</string>
+      <string>1 manojo de acelgas o en su defecto, 1 bolsa</string>
+      <string>1 patata</string>
+      <string>4 dientes de ajo</string>
+      <string>1 cucharada de comino</string>
+      <string>2 rebanadas de pan</string>
+      <string>Pimentón dulce</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>1 trozo de magro de cerdo, como 250 gr</string>
+      <string>1 costillar de cerdo, como 500 gr</string>
+      <string>1 trozo grande de tocino</string>
+      <string>1 chorizo dulce</string>
+      <string>1 morcilla</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos los garbanzos en remojo la noche anterior.</string>
+      <string>Tiramos el agua y ponemos los garbanzo dentro de la Cookeo.</string>
+      <string>Cubrimos de agua, sin que llegue a cubrir totalmente los garbanzos.</string>
+      <string>Sobre los garbanzos ponemos las acelgas troceadas, las carnes, tocino, chorizo y morcilla.</string>
+      <string>Ponemos la patata pelada y troceada.</string>
+      <string>Salamos al gusto y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida, 30 minutos.</string>
+      <string>Mientras en una cazuela ponemos un fondo de aceite y freímos el pan y los dientes de ajo.</string>
+      <string>Cuando el pan esté frito, ponemos una cucharada grande de pimentón dulce y una de comino molido o en grano, como queramos, removemos y retiramos del fuego. Ponemos un poco de agua para que el pan se ablande.</string>
+      <string>Trituramos o machacamos con la machacadera, como prefiramos.</string>
+      <string>Abrimos la Cookeo y añadimos el majado. Removemos.</string>
+      <string>Cerramos la Cookeo y dejamos reposar 5 minutos pero sin ningún programa, solo cerrada.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141112/garbanzos-con-acelgas-y-pringa-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

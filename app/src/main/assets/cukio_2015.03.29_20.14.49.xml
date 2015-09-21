@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Solomillo de cerdo al vino blanco con champiñones</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Solomillo de cerdo</string>
+      <string>Bandeja de champiñones</string>
+      <string>Cebolla</string>
+      <string>2 dientes de ajo</string>
+      <string>150ml de vino blanco</string>
+      <string>1 cucharadita de concentrado de carne bovril</string>
+      <string>Sal y pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Primero salpimentamos los solomillos.</string>
+      <string>En nuestra Cookeo seleccionamos - ingredientes-carne-cerdo-piezas. En este punto nos pide el peso. Lo introducimos.</string>
+      <string>Empieza a dorar, sellamos la carne primero, la retiramos y sofreímos la cebolla.</string>
+      <string>Añadimos los champiñones y los dientes de ajo, le damos unas vueltas y añadimos el vino.</string>
+      <string>Dejamos reducir un poco y ponemos el concentrado de carne.</string>
+      <string>Una vez está todo mezclado, paramos el proceso de dorado, Cookeo nos dice que añadamos agua y la carne en el cesto, pero nosotros ya lo tenemos todo en la cubeta así que cerramos la tapa y esperamos que termine la cocción rápida. En este caso indicaba 14 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/solomillo-de-cerdo-al-vino-blanco-con.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si la salsa os parece líquida, podéis reducirla unos minutos en modo dorar.</tip>
+</recipeItem>

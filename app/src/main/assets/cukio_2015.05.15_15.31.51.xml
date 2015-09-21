@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Besugo encebollado</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.31.51.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 besugo grande</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>75 gr de aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Harina</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Sacamos al besugo los lomos, les ponemos sal y pasamos por harina, reservamos.</string>
+      <string>Picamos la cebolla y los ajos, la cebolla en juliana y los ajos en láminas. Lo ponemos en la Cookeo con el aceite, función dorar hasta que finalice el precalentamiento, en ese tiempo, se ha puesto la cebolla tierna y no ha cogido mucho color.</string>
+      <string>Agregamos los lomos harinados con cuidado y dejamos que siga la función dorar hasta que se doren los lomos del besugo por ambas caras. Salpimentamos.</string>
+      <string>Agregamos el vino, y dejamos evarporar el alcohol 3 minutos.</string>
+      <string>Añadimos medio vaso de agua y apagamos la función dorar para iniciar al función cocción rápida. Cerramos la Cookeo.</string>
+      <string>Seleccionamos 3 minutos y dejamos que se termine el programa.</string>
+      <string>Abrimos, rectificamos de sal si fuera necesario y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141115/besugo-encebollado-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

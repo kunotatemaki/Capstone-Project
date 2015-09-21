@@ -1,0 +1,22 @@
+<recipeItem>
+   <name>Tiras de calamar en salsa</name>
+   <type>main</type>
+   <picture>cukio_2015.04.08_18.04.21.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 g tiras de calamar</string>
+      <string>2 unidad/es cebolla</string>
+      <string>250 g tomate frito</string>
+      <string>1 hoja/s albahaca</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir la cebolla, el aceite y las tiras de calamar.</string>
+      <string>Dorar durante 5 minutos. Añadir el tomate frito.</string>
+      <string>Cocinar alta presión 4 minutos. Para 4 personas cocinar alta presión minutos. Para 6 personas cocinar alta presión 10 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>14</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

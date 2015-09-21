@@ -1,0 +1,42 @@
+<recipeItem>
+   <name>Arroz con ternera y verduras</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.29.14.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de arroz</string>
+      <string>500 gr de carne de ternera</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>1 tomate grande</string>
+      <string>1 pimiento verde</string>
+      <string>120 gr de champiñones enteros</string>
+      <string>100 gr de guisantes</string>
+      <string>1 zanahoria</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 vaso de vino tinto</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un poco de aceite de oliva virgen extra y seleccionamos dorar. Mientras precalienta, picamos la cebolla, ajo, pimiento y tomate.</string>
+      <string>Añadimos y que comience el sofrito.</string>
+      <string>Pelamos la zanahoria y troceamos, añadimos.</string>
+      <string>Ponemos ahora la carne y salteamos.</string>
+      <string>Ponemos el vino y dejamos que evapore el alcohol.</string>
+      <string>Incorporamos los guisantes y los champiñones cortados en cuartos.</string>
+      <string>Cubrimos de agua y salpimentamos.</string>
+      <string>Apagamos la función dorado y cerramos la Cookeo.</string>
+      <string>Seleccionamos función cocción rápida y seleccionamos 20 minutos.</string>
+      <string>Abrimos y añadimos el arroz.</string>
+      <string>Removemos y volvemos a cerrar la Cookeo.</string>
+      <string>Seleccionamos 9 minutos cocción rápida.</string>
+      <string>Abrimos, rectificamos de caldo y de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141204/arroz-con-ternera-y-verduras-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Yo use el arroz redondo pero podemos usar también el arroz largo. El arroz redondo nos quedará el guiso más meloso y con el arroz largo nos quedará el arroz mas caldoso. Ya como prefiramos el resultado final.</tip>
+</recipeItem>

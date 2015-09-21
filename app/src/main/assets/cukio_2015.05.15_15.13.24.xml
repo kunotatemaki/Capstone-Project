@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Alubias blancas con patatas, zanahorias y guisantes</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.13.24.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de alubias blancas</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>1 tomate</string>
+      <string>1 pimiento verde</string>
+      <string>1 zanahoria grande</string>
+      <string>1 patata grande</string>
+      <string>100 gr de guisantes</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Pimentón dulce</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, pimiento, tomate y ajos, todo muy picado y lo ponemos en la Cookeo con un fondo de aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar y dejamos que se haga el sofrito. Cuando el sofrito esté listo, apagamos la función dorar, añadimos el pimentón, la cantidad al gusto, y removemos para que no se queme.</string>
+      <string>Las alubias las hemos tenido en remojo toda la noche, escurrimos y añadimos a la cubeta de la Cookeo, cubrimos de agua.</string>
+      <string>Pelamos la patata y la zanahoria, troceamos y añadimos.</string>
+      <string>Ponemos sal y los guisantes.</string>
+      <string>Cerramos la Cookeo y seleccionamos 30 minutos función cocción rápida.</string>
+      <string>Cuando finalice la cocción, abrimos y rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150306/alubias-blancas-con-patatas-zanahorias-y-guisantes/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>45</minutes>
+   <language>Spanish</language>
+   <tip>El caldo queda espesito gracias a las patatas. Si le queréis poner un toque de grasa, podemos añadir un poco de chorizo al potaje y quedará bien rico de sabor.</tip>
+</recipeItem>

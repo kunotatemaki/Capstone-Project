@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Papas guisadas con pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_19.30.05.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>4 o 5 patatas grandes</string>
+      <string>400 g pollo a trozos</string>
+      <string>1 cebolla</string>
+      <string>1 zanahoria</string>
+      <string>1 pimiento</string>
+      <string>4 dientes de ajo</string>
+      <string>Vino blanco</string>
+      <string>Aceite</string>
+      <string>Sal</string>
+      <string>Pimentón (sólo un poco)</string>
+      <string>Agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Manual-dorar. Pon aceite  y ve introduciendo los ingredientes picados: cebolla, zanahoria, pimiento, ajo, y también el pollo.</string>
+      <string>Añade un chorretón de vino blanco y deja evaporar un poco.</string>
+      <string>Trocea las patatas, incorpora el agua (500 ml), sal, pimentón.</string>
+      <string>Pasa a cocción rápida 15 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/papas-guisadas-con-pollo-por-virtudes.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

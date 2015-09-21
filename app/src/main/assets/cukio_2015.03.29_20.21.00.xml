@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Solomillo al roquefort</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>8 o 9 medallones de solomillo de cerdo</string>
+      <string>1 cuñita de 100 g de queso roquefort o queso azul</string>
+      <string>1 brick pequeño de nata de cocinar de Mercadona o leche vaporada</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se doran y sellan los medallones de solomillo en la Cookeo (y se retira) en modo dorar o en la sartén.</string>
+      <string>En modo dorar se echa la nata y la cuñita de queso, removiendo con una cuchara de palo para que no se pegue.</string>
+      <string>Cuando esté ya derretido el queso y veamos que ha ligado ya con la nata, añadimos el solomillo.</string>
+      <string>Salpimentamos y echamos un poco de nuez moscada.</string>
+      <string>Pasamos a modo cocción rápida unos 5 o 6 minutos ¡y listo!</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/solomillo-al-roquefort-maria-coronado.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

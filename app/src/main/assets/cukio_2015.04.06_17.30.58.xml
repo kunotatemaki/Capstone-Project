@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Roast beef</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_17.30.58.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>600 roast beef</string>
+      <string>150 ml vino blanco seco</string>
+      <string>1 cucharada/s sopera mostaza</string>
+      <string>100 g cebollas</string>
+      <string>1 cucharada/s sopera aceite de girasol</string>
+      <string>1 pizca sal</string>
+      <string>1 pizca pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Dorar el roast beef con el aceite en el bol y añadir los ingredientes. Cerrar la tapa y cocer el tiempo indicado. Tipo de cocción: rápida: 16 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>26</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Patatas aliñadas al vinagre de pedro jiménez</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.33.01.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>8 patatas medianas</string>
+      <string>3 huevos</string>
+      <string>1 cebolleta nueva</string>
+      <string>2 latas pequeñas de atún</string>
+      <string>Sal</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Vinagre de pedro jiménez</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo las patatas y los huevos, cubrimos con agua y ponemos un poco de sal.</string>
+      <string>Encendemos la Cookeo, seleccionamos ingredientes, frutas y verduras, patatas, 8 unidades, comenzar cocción, y se nos programará sola en 28 minutos.</string>
+      <string>Cerramos la Cookeo y damos a ok para que comience a funcionar la Cookeo.</string>
+      <string>Finalizado el programa, abrimos , escurrimos de agua y dejamos que las patatas y los huevos se enfríen.</string>
+      <string>Pelamos las patatas y troceamos. Las ponemos en un bol con un poco de sal.</string>
+      <string>Picamos la cebolla y los huevos, ponemos junto a las patatas.</string>
+      <string>Agregamos un par de latas de atún escurridas.</string>
+      <string>Aliñamos con aceite de oliva virgen extra y vinagre de pedro jiménez</string>
+      <string>Ligamos bien</string>
+      <string>Dejamos enfriar en el frigorífico hasta el momento de servir.</string>
+      <string>Listas nuestras patatas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150422/patatas-alinadas-al-vinagre-de-pedro-jimenez-receta-con-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>El vinagre de pedro jiménez tiene un tono oscuro, por lo que teñirá un poco los ingredientes tal y como hace el vinagre de módena, de ahí que las patatas se vean un poco oscuras. Las patatas las hemos cocido en la Cookeo, de manera rápida y sencilla. Esta vez hemos seguido el programa de cocción por ingredientes, una función que trae la Cookeo y que no os he hablado mucho de ella, hoy lo vamos hacer. Seguir los pasos a través de  los programas específicos por ingredientes es rápido, exacto y sencillo.</tip>
+</recipeItem>

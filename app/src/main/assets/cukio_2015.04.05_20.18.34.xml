@@ -1,0 +1,22 @@
+<recipeItem>
+   <name>Tortellini de jamón</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_20.18.34.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>240 g tortellini de jamón</string>
+      <string>150 ml nata líquida</string>
+      <string>20 ml aceite de oliva</string>
+      <string>40 g parmesano rallado</string>
+      <string>1 pizca sal y pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol.</string>
+      <string>Tipo de cocción: rápida : 2 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>5</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

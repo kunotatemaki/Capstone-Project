@@ -1,0 +1,37 @@
+<recipeItem>
+   <name>Costillas de ternera a la mostaza</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_14.11.07.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de costillas de ternera</string>
+      <string>1 cebolla grande</string>
+      <string>6 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de vino tinto</string>
+      <string>1 vaso de agua</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 cucharada de mostaza</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Troceamos las costillas de ternera en trozos grandes. Lo más cómodo es pedirle a nuestro carnicero que nos lo trocee.</string>
+      <string>En la olla donde vallamos hacer la cocción, ponemos un fondo de aceite y añadimos las costillas de ternera. Doramos por todas sus caras. En la Cookeo donde yo las hice, función dorar y doramos por todas sus caras las costillas.</string>
+      <string>Agregamos la cebolla en trozos grandes y los ajos pelados y enteros.</string>
+      <string>Dejamos que se pongan tiernos junto con las costillas, en la Cookeo seguimos con la función dorar.</string>
+      <string>Agregamos el vino y dejamos que evapore un poco el alcohol dejando hervir.</string>
+      <string>Añadimos el agua y salpimentamos.</string>
+      <string>Cerramos la olla, sea la olla que sea, la cerramos y a cada una le calculamos el tiempo del que antes hemos hablado. En Cookeo, 30 minutos, función cocción rápida. Si hemos optado por la olla tradicional, 1 vaso de agua es poco, pondremos 2 vasos de agua.</string>
+      <string>Una vez finalizado el tiempo, abrimos la olla.</string>
+      <string>Pasamos los trozos de costillas de ternera a una fuente apta para el horno.</string>
+      <string>La cebolla junto con los ajos, los pasamos al vaso de la batidora.</string>
+      <string>Agregamos la cucharada de mostaza y un poco del caldo de la olla, un poco, vamos agregando mas a medida que veamos que la salsa lo necesita, necesitamos una salsa líquida pero con consistencia.</string>
+      <string>Con esa salsa cubrimos las costillas que tenemos en la fuente de horno. La salsa debe de quedar por la mitad de la fuente en cuanto a altura, no hay que dejar las costillas totalmente cubiertas.</string>
+      <string>Llevamos la fuente al horno, 180 grados y dejamos entre 30 a 45 minutos, dependerá de la potencia de nuestro horno y de lo dorada que nos gusten las costillas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.losblogsdemaria.com/2014/11/costillas-de-ternera-la-mostaza.html&quot;&gt;Los Blogs de María&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>75</minutes>
+   <language>Spanish</language>
+   <tip>Servimos junto a una buena fritada de patatas fritas al bastón.</tip>
+</recipeItem>

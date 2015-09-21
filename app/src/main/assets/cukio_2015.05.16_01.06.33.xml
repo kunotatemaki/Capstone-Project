@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Carne de cerdo a la sidra</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.06.33.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de carne de cerdo</string>
+      <string>150 gr de guisantes</string>
+      <string>2 zanahorias</string>
+      <string>2 cebollas</string>
+      <string>4 dientes de ajo</string>
+      <string>1 botellín de sidra</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo el aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar.</string>
+      <string>Picamos la cebolla y los dientes de ajo y añadimos a la Cookeo.</string>
+      <string>Vamos haciendo el sofrito y cuando la cebolla esté tierna, agregamos la carne troceada y salteamos bien hasta que cambie de color.</string>
+      <string>Pelamos y troceamos las zanahorias.</string>
+      <string>Agregamos las zanahorias, los guisantes y la sidra.</string>
+      <string>Salpimentamos.</string>
+      <string>Cubrimos levemente de agua.</string>
+      <string>Apagamos la función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos 20 minutos.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos junto con unas patatas fritas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150427/carne-de-cerdo-a-la-sidra-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

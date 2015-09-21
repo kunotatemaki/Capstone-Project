@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Bacalao con garbanzos y huevo</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_18.46.56.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Cebolla</string>
+      <string>Zanahoria</string>
+      <string>Pimiento verde</string>
+      <string>1 bote pequeño de garbanzos (precocinados)</string>
+      <string>Bacalao</string>
+      <string>1 huevo por persona</string>
+      <string>Caldo vegetal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Hacer un sofrito con la cebolla, la zanahoria y el pimiento verde (que previamente han sido picados) con la opción dorar.</string>
+      <string>Cuando el sofrito ya está, añadir  los garbanzos y el bacalao (desalado) y cubrir con el caldo.</string>
+      <string>Cuando empiece a hervir, añadir los huevos, 5 min en cocción rápida.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/bacalao-con-garbanzos-y-huevo-por-siran.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>5</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Guiso de patatas , carne y calabaza</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.08.30.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de patatas</string>
+      <string>600 gr de carne de cerdo</string>
+      <string>1 trozo de calabaza</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Comino en grano o molido, el que prefieras</string>
+      <string>Vino blanco</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla y el ajo y lo ponemos en la Cookeo con un fondo de aceite de oliva virgen extra.</string>
+      <string>Seleccionamos función dorar y comenzará el precalentamiento.</string>
+      <string>Mientras, vamos troceando la carne y retirando la grasa que tenga.</string>
+      <string>Cuando termine el precalentamiento, agregamos la carne y rehogamos.</string>
+      <string>Salpimentamos, ponemos un poco de comino y añadimos el vino. Damos un hervor.</string>
+      <string>Ponemos como 1 litro de agua y apagamos la función dorar.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Abrimos la Cookeo y agregamos las patatas y la calabaza, peladas y troceadas.</string>
+      <string>Removemos bien y cerramos la Cookeo de nuevo.</string>
+      <string>Función cocción rápida, 10 minutos.</string>
+      <string>Abrimos, comprobamos que la carne está tierna y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141129/guiso-de-patatas-carne-y-calabaza/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Guiso de cerdo, que también podemos hacer con ternera, ya lo dejo a tu elección, con ambos queda el guiso espectacular, con ternera un poco más de color naranja marrón.</tip>
+</recipeItem>

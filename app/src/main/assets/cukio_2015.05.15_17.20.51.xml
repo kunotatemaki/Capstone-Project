@@ -1,0 +1,41 @@
+<recipeItem>
+   <name>Falda de ternera rellena de carne picada, orejones, piñones y pasas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.20.51.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 falda de ternera</string>
+      <string>200 gr de carne picada</string>
+      <string>30 gr de piñones</string>
+      <string>30 gr de orejones</string>
+      <string>30 gr de pasas sin huesos</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Vino blanco o tinto</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 o 2 cebollas</string>
+      <string>2 o 3 dientes de ajos</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos los orejones y las pasas. Los ligamos con los piñones y agregamos a la carne picada. Ligamos todo y salpimentamos.</string>
+      <string>Extendemos la falda de ternera y colocamos el relleno dentro.</string>
+      <string>Enrollamos , apretando bien y atamos con hilo de cocina o con malla de cocina.</string>
+      <string>Salpimentamos por fuera.</string>
+      <string>En el fondo de la Cookeo ponemos un poco de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Mientras precaliente, pelamos la cebolla y cortamos en juliana. Pelamos los dientes de ajos y dejamos enteros.</string>
+      <string>Añadimos a la Cookeo y cuando finalice la función dorar, damos a ok para que siga esa función y agregamos la carne y doramos por todas sus caras.</string>
+      <string>Añadimos el vino y dejamos unos minutos que evapore.</string>
+      <string>Ponemos un poco de agua y apagamos la función dorar.</string>
+      <string>Seleccionamos función cocción rápida y cerramos la Cookeo.</string>
+      <string>Seleccionamos 20 minutos.</string>
+      <string>Abrimos, comprobamos que la carne está en su punto, tiene que salir jugo al pinchar pero no con sangre.</string>
+      <string>Sacamos la carne, dejamos en temple para poder cortarla.</string>
+      <string>Pasamos las cebollas y ajos al vaso de la batidora y trituramos bien. Ya tenemos la salsa lista.</string>
+      <string>Cortamos el rollo en rodajas y servimos con la salsa bien caliente.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150103/falda-de-ternera-rellena-de-carne-picada-orejones-pinones-y-pasas/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

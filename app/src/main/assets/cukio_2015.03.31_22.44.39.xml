@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Lentejas con chorizo</name>
+   <type>main</type>
+   <picture>cukio_2015.03.31_22.44.39.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Cebolla 1 ud</string>
+      <string>Lentejas 150 g</string>
+      <string>Ajo 2 dientes</string>
+      <string>Guindilla 1 ud</string>
+      <string>Agua 1 l</string>
+      <string>Chorizo sarta picante o dulce, al gusto</string>
+      <string>Tomate frito 75 ml</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Tal y como dice la receta, lo primero es dorar el chorizo, la cebolla y el ajo. En la receta dice utilizar pimiento verde, pero no disponía en casa y tampoco es que seamos muy fans de este ingrediente.</string>
+      <string>Una vez dorados, agregar las lentejas y dejar que se rehoguen un poco con el sofrito anterior, remover un poco y listo.</string>
+      <string>El siguiente paso es echar el tomate, se deja un poco más sofriendo, se pone sal y ya terminamos el dorado.</string>
+      <string>Una vez hecho esto te pide el agua (yo eché el litro que me pedía, pero perfectamente 750 ml seria suficiente). Aquí la receta hizo el precalentamiento y terminó de inmediato, yo lo que hice fue continuar cocción 15 minutos y listo.</string>
+      <string>Una vez terminado, dejar la tapa levantada y que repose el guiso.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/02/lentejas-con-chorizo.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Como sugerencia, la inclusión (si gusta) de hortalizas como la zanahoria o incluir patatas cortadas en cubos, o incluso añadir un poco de vino en el sofrito.</tip>
+</recipeItem>

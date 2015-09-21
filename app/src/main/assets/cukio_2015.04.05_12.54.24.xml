@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Flan de huevo</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.05_12.54.24.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>6 huevos de tamaño normal</string>
+      <string>800 ml de leche entera</string>
+      <string>1 cucharada de azúcar por cada huevo, es decir sobre 12 cucharadas de azúcar, depende cómo os guste de dulce)</string>
+      <string>Esencia de vainilla</string>
+      <string>Un sobre de gelatina de sabor neutro (opcional)</string>
+      <string>Caramelo líquido</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Preparación: batimos bien los 6 huevos y los mezclamos con la leche.</string>
+      <string>Añadimos el azúcar y unas gotitas de esencia de vainilla. Podemos añadir también el sobre de gelatina que le dará una mayor consistencia y dureza a nuestro flan.</string>
+      <string>Ponemos el modo cocción rápida durante 40 minutos más o menos y metemos dentro nuestro recipiente con el preparado para el flan.</string>
+      <string>Yo en el fondo del recipiente pongo una buena capa de caramelo líquido.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/flan-de-huevo-por-alba-padin-fuentes.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Os recomiendo dejarlo enfriar en la nevera por lo menos una noche antes de desmoldarlo.</tip>
+</recipeItem>

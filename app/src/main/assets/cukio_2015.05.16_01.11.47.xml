@@ -1,0 +1,40 @@
+<recipeItem>
+   <name>Guiso de patatas con pollo al tomate</name>
+   <type>main</type>
+   <picture>cukio_2015.05.16_01.11.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 pollo entero y troceado</string>
+      <string>5 o 6 patatas medianas</string>
+      <string>1 lata de tomate triturado, yo la puse grande pero si quieres puedes poner la pequeña</string>
+      <string>1 cebolla</string>
+      <string>2 dientes de ajo</string>
+      <string>1 trozo de pimiento rojo</string>
+      <string>1 trozo de pimiento verde</string>
+      <string>1 vaso de vino de guiso</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un fondo de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Añadimos la cebolla y el ajo picado.</string>
+      <string>Agregamos a continuación los dos pimientos cortados en dados.</string>
+      <string>Removemos y dejamos que se haga el sofrito, cuando salte el precalientamiento como finalizado, damos a ok y seguimos en la función dorar.</string>
+      <string>Añadimos el pollo, troceado y sin piel, rehogamos para que se ligue bien con el sofrito.</string>
+      <string>Ponemos el vino y salpimentamos. Dejamos unos minutos hirviendo para que evapore el alcohol.</string>
+      <string>Ponemos la lata de tomate triturado. Removemos.</string>
+      <string>Mientras está hirviendo, pelamos y troceamos las patatas para guiso.</string>
+      <string>Ponemos las patatas en la Cookeo y removemos para que se ligue todo.</string>
+      <string>Agregamos un poco de agua, poco, como medio vaso.</string>
+      <string>Apagamos la función dorar y seleccionamos función cocción rápida, 20 minutos.</string>
+      <string>Puede que nos salte el avisador que la Cookeo no tiene líquido, si nos salta, solo tenemos que abrir, remover para que se ligue bien, comprobaremos que si tiene líquido y cerramos de nuevo, volvemos a seleccionar cocción rápida y pondremos los minutos que quedaban cuando nos saltó el aviso.</string>
+      <string>Cuando finalice el programa, abrimos, rectificamos de sal y servimos con cuidado de no romper mucho las patatas.</string>
+      <string>A comer.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150221/guiso-de-patatas-con-pollo-al-tomate-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

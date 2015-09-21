@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Patatas gratinadas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.38.09.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>8 patatas</string>
+      <string>1 lata de maíz</string>
+      <string>1 o 2 latas de atún</string>
+      <string>120 gr de aceitunas verdes sin hueso</string>
+      <string>1 zanahoria rallada</string>
+      <string>100 gr de jamón dulce</string>
+      <string>Tomate frito</string>
+      <string>Mahonesa</string>
+      <string>Sal</string>
+      <string>Queso rallado</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo 300 gr de agua.</string>
+      <string>Ponemos las patatas en el cestillo y el cestillo dentro de la Cookeo. Cerramos la Cookeo.</string>
+      <string>Seleccionamos ingredientes, buscamos patatas dentro de verduras y le damos a ok.</string>
+      <string>Seleccionamos patatas enteras y 8 unidades.</string>
+      <string>Comienza el programa, cuando finalice, sacamos las patatas y dejamos enfriar.</string>
+      <string>Pelamos u cortamos en gruesas rodajas que pondremos en una fuente. Ponemos sal.</string>
+      <string>Cubrimos con salsa de tomate frito y mahonesa, ligamos un poco.</string>
+      <string>Agregamos el maíz, las aceitunas picadas, la zanahoria rallada, el atún bien escurrido y el jamón dulce en tiras.</string>
+      <string>Ponemos el queso rallado por encima de manera que lo cubra todo.</string>
+      <string>Gratinamos en el horno hasta que el queso esté bien fundido.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141117/como-cocer-patatas-en-cookeo-patatas-gratinadas/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,39 @@
+<recipeItem>
+   <name>Gratinado de brócolis con patatas y huevos</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_15.33.43.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>6 patatas medianas</string>
+      <string>1 brócolis mediano</string>
+      <string>4 huevos</string>
+      <string>Pimientos del piquillo</string>
+      <string>Bechamel: 30 gramos de aceite de oliva virgen extra</string>
+      <string>40 gr de harina de trigo</string>
+      <string>400 gr de leche entera</string>
+      <string>5 gr de sal</string>
+      <string>Un poco de pimienta</string>
+      <string>Un poco de nuez moscada</string>
+      <string>Queso rallado</string>
+      <string>Sal y pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos las patatas y las troceamos. Lavamos bien.</string>
+      <string>Troceamos el brócolis en ramilletes.</string>
+      <string>Ponemos en la Cookeo las patatas con el brócolis y los huevos enteros.</string>
+      <string>Cubrimos de agua y ponemos sal.</string>
+      <string>Seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Abrimos, escurrimos de agua y pasamos a una fuente o bandeja las patatas con el brócolis.</string>
+      <string>Pelamos los huevos, troceamos y añadimos a la bandeja.</string>
+      <string>Picamos los pimientos del piquillo y añadimos también.</string>
+      <string>Hacemos en la Thermomix la bechamel, todos los ingredientes juntos, 8 minutos, 100 grados de temperatura, velocidad 4.</string>
+      <string>Cubrimos la bandeja con la bechamel y a su vez, lo cubrimos todo con el queso rallado.</string>
+      <string>Gratinamos, 180 grados, unos 20 minutos más o menos.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150423/gratinado-de-brocolis-con-patatas-y-huevos/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Si no tenéis brócoli podéis poner coliflor, os quedará el plato igual de rico. A falta de Thermomix, la hacemos a modo tradicional y listo.</tip>
+</recipeItem>

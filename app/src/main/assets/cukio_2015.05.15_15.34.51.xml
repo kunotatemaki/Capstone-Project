@@ -1,0 +1,37 @@
+<recipeItem>
+   <name>Cabeza de lomo de cerdo con verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.34.51.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>800 gr de cabeza de lomo de cerdo</string>
+      <string>3 tallos de apio</string>
+      <string>1 puerro</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>2 zanahorias</string>
+      <string>1 pimiento verde</string>
+      <string>100 gr de champiñones</string>
+      <string>120 gr de habas baby o guisantes, lo que prefieras</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, ajo, apio, puerro y pimiento. Lo ponemos en la Cookeo con un fondo de aceite de oliva virgen extra, función dorar.</string>
+      <string>Mientras se precalienta, comenzará el sofrito, y nosotros mientras pelamos y troceamos las zanahorias y laminamos los champiñones.</string>
+      <string>Agregamos a las verduras sofritas la zanahoria, champiñones y habas ( o guisantes ) mis habas eran congeladas.</string>
+      <string>Removemos un poco para que las verduras se liguen y añadimos la carne troceada.</string>
+      <string>Removemos para que la carne cambie un poco de color y ponemos el vino y salpimentamos.</string>
+      <string>Damos un hervor para que el vino evapore y agregamos 1 vaso de agua.</string>
+      <string>Apagamos la función dorar, cerramos la Cookeo y seleccionamos cocción rápida, 20 minutos.</string>
+      <string>Abrimos cuando finalice el programa y comprobamos que la carne está tierna, está todo bien de sabor y el caldo bien reducido, de no ser así, función dorar hasta que se evapore el caldo o se termine de poner la carne tierna.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141201/cabeza-de-lomo-de-cerdo-con-verduras-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>
