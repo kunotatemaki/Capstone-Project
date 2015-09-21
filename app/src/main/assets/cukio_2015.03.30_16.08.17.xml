@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Bacalao en salsa verde</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.08.17.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Lomos grandes de bacalao (tantos como comensales sean)</string>
+      <string>Almejas 400 g</string>
+      <string>Gambas peladas (tamaño mediano o grande)</string>
+      <string>1/2 vaso de vino blanco</string>
+      <string>1/2 vaso de agua</string>
+      <string>Harina</string>
+      <string>Aceite de oliva</string>
+      <string>Perejil picado una cucharada</string>
+      <string>1 ajo picado</string>
+      <string>Sal y pimenta</string>
+      <string>1 cayena entera, si se desea un toque picante</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner el aceite.</string>
+      <string>Enharinar el bacalao y en el menú dorar hacer 1 o 2 minutos hasta que se dore un poco.</string>
+      <string>Añadir el ajo y el perejil picados y una cucharadita de harina. Detener el menú dorado.</string>
+      <string>Añadir el resto de ingredientes. En cocción rápida 5 min y listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/07/bacalao-en-salsa-verde-por-loli.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>5</minutes>
+   <language>Spanish</language>
+   <tip>El bacalao y las gambas peladas, las he puesto de las congeladas (todo descongelado previamente). Las almejas las he puesto 10 min en agua con un poco de sal para que soltaran la arena.</tip>
+</recipeItem>

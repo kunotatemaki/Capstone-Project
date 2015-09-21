@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Arroz 5 delicias</name>
+   <type>starter</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de arroz basmati</string>
+      <string>1 tortilla francesa de dos huevos cortada en cuadritos</string>
+      <string>1 pechuga de pollo asada y troceada</string>
+      <string>100 gr de guisantes congelados</string>
+      <string>100 gr de zanahoria baby congelada</string>
+      <string>1 lata de maíz</string>
+      <string>800 ml de caldo de pollo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner todo junto en modo manual 7 minutos y listo!!!</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/arroz-5-delicicas-por-pilar-calle.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>7</minutes>
+   <language>Spanish</language>
+   <tip>Si os gusta la salsa de soja, queda genial añadirla en el momento de comer.</tip>
+</recipeItem>

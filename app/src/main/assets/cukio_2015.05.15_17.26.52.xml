@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Garbanzos a la catalana</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.26.52.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de garbanzos</string>
+      <string>4 dientes de ajo</string>
+      <string>Pimentón dulce</string>
+      <string>100 gr de almendras</string>
+      <string>2 cebollas</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>6 tomates</string>
+      <string>12 patata</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un chorro de aceite y seleccionamos función dorar. Mientras precalienta, vamos a picar la cebolla y los ajos pequeños y vamos a rallar los tomates.</string>
+      <string>Añadimos a la Cookeo y rehogamos. Tenemos que sofreír bien para que el tomate se haga.</string>
+      <string>Picamos las almendras en la picadora.</string>
+      <string>Añadimos y rehogamos junto con el sofrito.</string>
+      <string>Ponemos los garbanzos que habrán estado toda la noche en remojo y una patata pequeña troceada.</string>
+      <string>Ponemos sal, pimienta molida y pimentón dulce.</string>
+      <string>Cubrimos de agua, lo justo para que quede a ras de los garbanzos.</string>
+      <string>Apagamos la función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida y 35 minutos.</string>
+      <string>Abrimos, comprobamos que el garbanzo está tierno y rectificamos de sal si fuese necesario.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141212/garbanzos-a-la-catalana-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

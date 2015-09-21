@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Lomo de cerdo</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.39.00.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 cebollas</string>
+      <string>4 dientes de ajo</string>
+      <string>1 trozo de lomo, el mío tenía algo mas de 1 kg</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Instructions</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Endendemos la Cookeo y seleccionamos modo manual, función dorar.</string>
+      <string>Añadimos un fondo de aceite de oliva virgen extra.</string>
+      <string>Mientras va precalentando, agregamos la cebolla en cuartos, los dientes de ajo enteros y pelados y el trozo de lomo.</string>
+      <string>Cuando finalice el precalentamiento, damos ok a dorar ingredientes y doramos el lomo por todas sus caras.</string>
+      <string>Cuando lo tengamos dorado, salpimentamos y ponemos el vino.</string>
+      <string>Dejamos que hierva un par de minutos.</string>
+      <string>Agregamos 1 vaso de agua grande.</string>
+      <string>Paramos la función dorar, cerramos la Cookeo y seleccionamos manual, cocción rápida, 20 minutos, inicio inmediato.</string>
+      <string>Cuando finalice, sacamos el lomo y dejamos templar mientras pasamos la cebolla al vaso de la batidora y trituramos.</string>
+      <string>Cortamos la carne en filetes y servimos con la salsa al lado.</string>
+      <string>Listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141105/lomo-de-cerdo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

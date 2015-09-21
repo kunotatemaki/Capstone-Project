@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Lentejas con cardillo y zanahoria</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.47.36.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de lentejas</string>
+      <string>3 o 4 tallos de cardillos</string>
+      <string>2 zanahorias</string>
+      <string>1 o 2 patatas</string>
+      <string>1 cebolla</string>
+      <string>1 tomate</string>
+      <string>1 pimiento</string>
+      <string>Media cabeza de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimentón dulce</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos dentro de la Cookeo las lentejas cubiertas de agua.</string>
+      <string>Agregamos la cebolla pelada y entera. La cabeza de ajo entera, no deshagas los dientes, el tomate entero y el pimiento entero.</string>
+      <string>Añadimos un chorro generoso de aceite, sal y pimentón.</string>
+      <string>Pelamos las zanahorias y añadimos troceadas.</string>
+      <string>Pelamos las patatas y agregamos troceadas.</string>
+      <string>Pelamos los cardillos y añadimos cortados en tiras. Quitaremos todas las hebras que podamos.</string>
+      <string>Removemos todo y cerramos la olla.</string>
+      <string>Seleccionamos inicio rápido , 20 minutos.</string>
+      <string>Abrimos, comprobamos que está bien de sal y las lentejas tiernas.</string>
+      <string>Sacamos el tomate , pimiento y cebolla al vaso de la batidora y trituramos, añadimos de nuevo al guiso. Ligamos.</string>
+      <string>La cabeza de ajo desechamos.</string>
+      <string>Listas nuestras lentejas para servir.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150213/lentejas-con-cardillo-y-zanahoria-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

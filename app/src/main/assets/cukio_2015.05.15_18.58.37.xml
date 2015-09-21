@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Higaditos de pollo con arroz</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.58.37.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de higaditos de pollo</string>
+      <string>300 gr de arroz</string>
+      <string>1 pimiento verde</string>
+      <string>1 pimiento rojo</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, ajos y pimientos.</string>
+      <string>Ponemos en la Cookeo, función dorar, un fondo de aceite y la verdura.</string>
+      <string>Cuando el sofrito esté listo, añadimos los higaditos limpios y troceados.</string>
+      <string>Rehogamos bien y ponemos el vino.</string>
+      <string>Salpimentamos.</string>
+      <string>Damos un hervor fuerte para que evapore el alcohol.</string>
+      <string>Agregamos el vino y rehogamos.</string>
+      <string>Cubrimos de agua y paramos la función dorar.</string>
+      <string>Cerramos la Cookeo y seleccionamos 10 minutos.</string>
+      <string>Abrimos, rectificamos de sal y de caldo.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141202/higaditos-de-pollo-con-arroz-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Con los higaditos de pollo no hace falta porque como requieren de poco tiempo de cocinar, ponemos los higaditos y el arroz juntos y juntos se cocinan quedando ambos en su punto exacto de cocción.</tip>
+</recipeItem>

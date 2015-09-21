@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Merluza con patatas y verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_19.21.02.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Merluza</string>
+      <string>Patatas</string>
+      <string>1 cebolla</string>
+      <string>1 zanahoria</string>
+      <string>1 pimiento</string>
+      <string>2 calabacines</string>
+      <string>1 tomate</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos todo muy fino.</string>
+      <string>Dorar con aceite 5 minutos en el Cookeo.</string>
+      <string>Poner un vaso de agua, las patatas cortadas en rodajas, los lomos de merluza, sal, pimienta y una hoja de laurel.</string>
+      <string>Cerramos Cookeo y seleccionamos cocción rápida 5 min y listo para emplatar.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/merluza-con-patatas-y-verduras-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

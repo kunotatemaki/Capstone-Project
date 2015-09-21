@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Ternera con pimientos</name>
+   <type>main</type>
+   <picture>cukio_2015.04.08_18.01.16.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de filetes de ternera</string>
+      <string>4 dientes de ajo</string>
+      <string>2 pimientos grandes verdes tipo de asar</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Salsa de soja</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la cubeta de la Cookeo un fondo de aceite de oliva virgen extra junto con los ajos picados.</string>
+      <string>Seleccionamos función dorar.</string>
+      <string>Mientras vamos cortando los filetes de ternera en tiras anchas.</string>
+      <string>Añadimos a la cubeta de la Cookeo y salteamos bien hasta que los filetes hayan cambiando completamente de color.</string>
+      <string>Agregamos los pimientos cortados en tiras anchas y salteamos.</string>
+      <string>Añadimos un buen chorro de salsa de soja.</string>
+      <string>Apagamos la función dorar y seleccionamos cocción rápida con la Cookeo cerrada.</string>
+      <string>Seleccionamos 5 minutos.</string>
+      <string>Abrimos y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150331/ternera-con-pimientos-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Te recomiendo un pimiento verde que sea carnoso. Yo usé los pimientos verdes de asar porque son los que más carnes tienen. Podemos usar otro tipo de pimiento pero que tenga una carne gruesa para que quede como veis en la foto.</tip>
+</recipeItem>

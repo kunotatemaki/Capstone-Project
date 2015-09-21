@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Macarrones con tomate y atún</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_21.10.14.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 g de pasta</string>
+      <string>1 lata de tomate frito</string>
+      <string>1 cebolla pequeña</string>
+      <string>2 latas pequeñas de atún al natural</string>
+      <string>Un chorrito de aceite</string>
+      <string>Agua hasta cubrir los ingredientes</string>
+      <string>2 hojas de laurel</string>
+      <string>Sal y orégano al gusto</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se mezcla todo a la vez, se remueve bien y 6 minutos en cocción rápida.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/macarrones-con-tomate-y-atun-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

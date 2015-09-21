@@ -1,0 +1,37 @@
+<recipeItem>
+   <name>Pollo con patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.13.11.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 pollo troceado, yo puse cuartos traseros troceados</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>1 zanahoria</string>
+      <string>4 dientes de ajo</string>
+      <string>6-8 patatas</string>
+      <string>1 vasito de whisky, vino blanco o cerveza</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, pimiento, ajo y zanahoria.</string>
+      <string>Seleccionamos en la Cookeo función dorar y agregamos un fondo de aceite de oliva virgen extra.</string>
+      <string>Agregamos el pollo, sin piel y salteamos hasta que cambie de color. Sacamos y reservamos.</string>
+      <string>En esa mismo aceite ponemos ahora las verduras picadas.</string>
+      <string>Hacemos el sofrito e incorporamos de nuevo el pollo.</string>
+      <string>Agregamos el whisky o el vino y dejamos que evapore el alcohol.</string>
+      <string>Salpimentamos y añadimos las patatas peladas y troceadas.</string>
+      <string>Cubrimos de agua, que quede por debajo de las patatas.</string>
+      <string>Apagamos función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida, 10 minutos.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141205/pollo-con-patatas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Con whisky, con vino, con cerveza, es indiferente el ingrediente que pongas, cada uno tiene sus matices y cambiará un poco el sabor pero os puedo asegurar que de cualquiera de las maneras es un guiso espectacular.</tip>
+</recipeItem>

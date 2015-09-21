@@ -1,0 +1,41 @@
+<recipeItem>
+   <name>Cocido de espárragos con pringá</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.36.12.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>750 gr de garbanzos</string>
+      <string>500 gr de cabeza de lomo de cerdo</string>
+      <string>300 gr de costillas de cerdo</string>
+      <string>1 chorizo</string>
+      <string>1 morcilla</string>
+      <string>1 trozo de tocino fresco</string>
+      <string>1 ramillete de espárragos verdes</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Media cabeza de ajo</string>
+      <string>3 clavos de olor</string>
+      <string>Sal</string>
+      <string>Pimentón dulce</string>
+      <string>1 rebanada de pan</string>
+      <string>1 patata</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo los garbanzos que los hemos tenido en remojo toda la noche.</string>
+      <string>Añadimos la carne, costillas y tocino.</string>
+      <string>Troceamos los espárragos.</string>
+      <string>Cubrimos de agua.</string>
+      <string>Agregamos un generoso chorro de aceite de oliva virgen extra, ponemos sal y pimentón.</string>
+      <string>Cerramos la Cookeo y seleccionamos 25 minutos, cocción rápida.</string>
+      <string>Mientras la Cookeo está funcionando, en una sartén con un poco de aceite, tostamos el pan y los ajos.</string>
+      <string>Ponemos los clavos de olor y pasamos al vaso de la batidora con agua y trituramos bien.</string>
+      <string>Abrimos la Cookeo cuando haya finalizado, incorporamos el chorizo, morcilla, el triturado del vaso de la batidora y la patata pelada y troceada.</string>
+      <string>Ligamos y damos un hervor en función dorar hasta que la patata esté tierna.</string>
+      <string>Sacamos la pringá a un plato y tenemos el segundo plato listo.</string>
+      <string>Servimos los garbanzos de primer plato junto con los espárragos y las patatas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150513/cocido-de-esparragos-con-pringa-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>8</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Receta no apta para los días de mucho calor. Es una receta que apetece mucho en los días fresquitos o de invierno.</tip>
+</recipeItem>

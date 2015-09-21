@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Garbanzos</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.25.55.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de garbanzos</string>
+      <string>1 tomate grande</string>
+      <string>1 cebolla</string>
+      <string>1 cabeza de ajo</string>
+      <string>1 pimiento verde</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimentón dulce</string>
+      <string>1 patata</string>
+      <string>1 trozo de chorizo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos la noche antes los garbanzos en remojo.</string>
+      <string>En la Cookeo ponemos los garbanzos escurridos y cubrimos de agua.</string>
+      <string>Agregamos el tomate, pimiento, cebolla y ajo. Todo entero y la cebolla pelada.</string>
+      <string>Agregamos un chorro de aceite, sal y un poco de pimentón dulce.</string>
+      <string>Añadimos la patata pelada y troceada así como el trozo de chorizo.</string>
+      <string>Cerramos la Cookeo, seleccionamos cocción rápida y 30 minutos.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141128/garbanzos-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Garbanzos con tagarninas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.30.00.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de garbanzos</string>
+      <string>1 pimiento verde</string>
+      <string>1 cebolla</string>
+      <string>1 tomate</string>
+      <string>4 dientes de ajo</string>
+      <string>250 gr de tagarninas</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Pimentón dulce</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un fondo de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Añadimos la cebolla y los ajos picados.</string>
+      <string>A continuación ponemos el pimiento y el tomate también picados.</string>
+      <string>Rehogamos y cuando el sofrito esté listo, agregamos las tagarninas limpias y troceadas.</string>
+      <string>Salteamos y ponemos una cucharada sopera de pimentón.</string>
+      <string>Removemos y añadimos los garbanzos que tendremos en remojo desde la noche anterior.</string>
+      <string>Cubrimos de agua, que quede a ras de los garbanzos.</string>
+      <string>Ponemos sal y apagamos la función dorar.</string>
+      <string>Cerramos la olla y seleccionamos cocción rápida, 20 minutos.</string>
+      <string>Abrimos, comprobamos que los garbanzos están tiernos y rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150413/garbanzos-con-tagarninas/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

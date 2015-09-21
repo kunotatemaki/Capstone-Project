@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Gambas al cilantro</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_15.39.32.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>12 unidad/es gambas grandes</string>
+      <string>50 ml crema líquida</string>
+      <string>50 ml caldo de pescado</string>
+      <string>1 cucharada/s sopera cilantro picado</string>
+      <string>100 g tomates pelados enlatados</string>
+      <string>1 pizca sal</string>
+      <string>1 pizca pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol. Tipo de cocción: rápida: 1 minuto.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>11</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

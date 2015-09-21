@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Pechugas de pollo al cava</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 pechuga de pollo grande (fileteada)</string>
+      <string>3 cebollas medianas</string>
+      <string>Cava</string>
+      <string>Sal</string>
+      <string>Pimienta blanca</string>
+      <string>Nata para cocinar</string>
+      <string>Harina</string>
+      <string>Aceite</string>
+      <string>Champiñones</string>
+      <string>Patatas</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos aceite en nuestra Cookeo para freír el pollo (medio cm o así), mientras se calienta enharinamos el pollo y cortamos la cebolla.</string>
+      <string>Freímos el pollo y reservamos.</string>
+      <string>En ese mismo aceite doramos la cebolla hasta que este transparente.</string>
+      <string>Trituramos la cebolla y la ponemos en la Cookeo de nuevo.</string>
+      <string>Añadimos el cava, sal, pimienta blanca y un chorrito de nata. Removemos, añadimos el pollo ¡y listo!</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/pechugas-de-pollo-al-cava-tania-cuella.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Podemos añadir champiñones y/o patatas fritas a dados.</tip>
+</recipeItem>

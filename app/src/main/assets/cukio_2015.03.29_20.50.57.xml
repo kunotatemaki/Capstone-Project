@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Fabada asturiana</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_20.50.57.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g de fabes de la granja remojadas 12 horas</string>
+      <string>2 chorizos</string>
+      <string>1 morcilla</string>
+      <string>1 tira de panceta</string>
+      <string>1 diente de ajo</string>
+      <string>Azafrán en hebra</string>
+      <string>100 ml de aceite de oliva</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos todos los ingredientes a la vez y en crudo en la cubeta, excepto la sal.</string>
+      <string>Añadimos agua hasta que cubra las fabes y programamos en cocción rápida 30 minutos.</string>
+      <string>Al finalizar salamos y retiramos agua, si hay demasiado líquido. Continuamos la cocción 10 minutos más.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/fabada-asturiana-por-begona-diaz.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>40</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

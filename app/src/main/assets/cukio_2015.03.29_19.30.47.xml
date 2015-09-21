@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Estofado de ternera</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g de carne para guisar</string>
+      <string>2 cebollas grandes a dados</string>
+      <string>3 dientes de ajo chafados y pelados</string>
+      <string>Sal y pimienta</string>
+      <string>2 hojas de laurel</string>
+      <string>Medio litro de agua con dos pastillas de caldo de carne</string>
+      <string>Un brick pequeño de crema de leche</string>
+      <string>Nuez moscada</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Dorar la cebolla y la carne.</string>
+      <string>Salpimentar.</string>
+      <string>Añadirlo todo y cocción rápida 45 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/estofado-de-ternera-cris-pal-martin.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>45</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Carne de caballo con ajos tiernos</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.17.34.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Carne de caballo o potro: 400 g</string>
+      <string>Manojo de ajos tiernos</string>
+      <string>Pimienta</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner el aceite en la olla y seleccionar cocción manual/dorar.</string>
+      <string>Echar los ajos tiernos troceados y dorar.</string>
+      <string>Una vez dorados los ajos, añadir sal y pimienta.</string>
+      <string>Añadir la carne y seleccionar cocción rápida, un minuto.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/carne-de-caballo-con-ajos-tiernos.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Se puede tomar tanto al plato como en un exquisito bocadillo, a elegir.</tip>
+</recipeItem>

@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Arroz con salsa, rabo de toro y jamón</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_18.36.54.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>200 g de jamon a tacos</string>
+      <string>250 g de arroz</string>
+      <string>Aceite</string>
+      <string>Sal</string>
+      <string>Salsa de rabo de toro</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picar la cebolla, y seleccionar cocción manual --&gt; dorar. Echar un poco de aceite y sofreír la cebolla y el jamón.</string>
+      <string>Una vez bien dorado todo, echar el arroz, remover junto el sofrito y cubrir con agua.</string>
+      <string>Seleccionar ingredientes --&gt;cereales y arroz --&gt; arroz blanco y dar dos minutos menos de lo que indica Cookeo (con el tiempo que indica la maquina el arroz se queda demasiado hecho).</string>
+      <string>Una vez hecho el arroz, añadiremos la cantidad que queramos de salsa de rabo de toro y listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/arroz-con-salsa-rabo-de-toro-y-jamon.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Crema de zanahoria</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_13.27.58.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla grande</string>
+      <string>700 g de zanahorias cortadas en rodajas</string>
+      <string>300 g de patatas cortadas en dados</string>
+      <string>Un chorrito de aceite</string>
+      <string>1 pastilla de Avecrem de caldo de pollo</string>
+      <string>Y un poco de nuez moscada</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos opción de dorar y tenemos 5minutos la cebolla bien picada dorando. Luego, durante 3 minutos más, ponemos junto a la cebolla las zanahorias.</string>
+      <string>Ponemos opción manual, cocción express y añadimos agua hasta cubrir, las patatas, una pastilla de Avecrem de caldo de pollo y dejamos hacerse durante 10 minutos.</string>
+      <string>Sacamos de la olla y trituramos hasta que quede fina la crema y al tiempo de servir echamos al plato nuez moscada.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/crema-de-zanahoria-por-carmen-ramos.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

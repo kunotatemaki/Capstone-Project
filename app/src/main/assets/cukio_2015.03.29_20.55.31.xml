@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Pollo a la cerveza</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Muslos de pollo 10 unidades</string>
+      <string>2 cebollas</string>
+      <string>Harina (1 cucharada)</string>
+      <string>Azúcar (1 cucharada)</string>
+      <string>Vinagre (2 cucharadas)</string>
+      <string>Caldo de pollo (250 ml)</string>
+      <string>Laurel (1 hoja)</string>
+      <string>Cerveza (33 cl)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Dorar los muslitos de pollo, retirarlos en un plato.</string>
+      <string>Dorar dos cebollas cortadas en juliana, añadir una cucharada de harina, volver a meter el pollo, mezclar una cucharada de azúcar con dos de vinagre y añadir.</string>
+      <string>Un vaso de caldo de pollo,una hoja de laurel y una cerveza.</string>
+      <string>Cocción rápida 15 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/pollo-la-cerveza-por-lydia-bonillo.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>-1</portions>
+   <minutes>15</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

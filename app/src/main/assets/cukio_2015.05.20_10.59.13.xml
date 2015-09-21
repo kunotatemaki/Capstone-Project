@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Pollo asado con champiñones</name>
+   <type>dessert</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 pollo entero</string>
+      <string>Champiñones</string>
+      <string>Sazonador de pollo</string>
+      <string>50ml de vino</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Seleccionamos en nuestra Cookeo ingredientes - carne de ave-  entero - y el peso (el de la receta 1,5kg).</string>
+      <string>Mientras se calienta en modo dorar untamos el pollo con aceite o mantequilla y le espolvoreamos el sazonador de pollo y lo doramos por ambos lados al gusto de cada uno.</string>
+      <string>Cancelamos dorar y añadimos champiñones y rociamos con el vino, cerramos la tapa y nos da el tiempo en este caso 25 minutos.</string>
+      <string>Cuando termina ya tenemos nuestro pollo asado con su salsita hace mucha entre la grasa del pollo y el agua de los champiñones.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/pollo-asado-con-champinones-por-vanesa.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

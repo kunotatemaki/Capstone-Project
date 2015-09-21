@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Cocido</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.35.41.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>5 puñados de garbanzos ablandados del día anterior (dejar en agua)</string>
+      <string>Tocino</string>
+      <string>2 huesos de jamón</string>
+      <string>Chorizo: un trozo por persona</string>
+      <string>Costilla: 2 por persona</string>
+      <string>Rabos de cerdo</string>
+      <string>Agua hasta la marca de máximo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner en modo manual, cocción rápida y 30 minutos.</string>
+      <string>Cuando esté terminado echar sal al gusto.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/cocido-por-rocio-lopez.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip>Los ingredientes pueden variarse según los gustos de cada uno.</tip>
+</recipeItem>

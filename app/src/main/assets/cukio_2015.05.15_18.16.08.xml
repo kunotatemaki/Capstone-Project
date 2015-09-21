@@ -1,0 +1,31 @@
+<recipeItem>
+   <name>Pimientos amarillos rellenos de tortilla</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.15_18.16.08.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 patatas</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>4 huevos</string>
+      <string>3 o 4 pimientos amarillos de los grandes</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos las patatas y las troceamos, ponemos a freír.</string>
+      <string>Cortamos la cebolla y los pimientos en juliana pequeño y sofreímos.</string>
+      <string>Ligamos las patatas con los pimientos y los metemos en el huevo batido. Ponemos sal.</string>
+      <string>Quitamos la parte de arriba a los pimientos para poder rellenar con la mezcla de la tortilla.</string>
+      <string>Ponemos en la Cookeo 300 gr de agua y ponemos los pimientos en el cestillo.</string>
+      <string>Introducimos el cestillo en la Cookeo.</string>
+      <string>Cerramos y seleccionamos cocción rápida, 10 minutos.</string>
+      <string>Abrimos y sacamos el cestillo.</string>
+      <string>Servimos los pimientos cortados en cuartos o en rodajas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141128/pimientos-amarillos-rellenos-de-tortilla-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>La tortilla la hicimos con patatas, cebolla y pimientos verdes, bien rebozada en huevo para que la tortilla quedara jugosa. Una receta que en Cookeo se hace en 10 minutos.</tip>
+</recipeItem>

@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Huevos duros</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_14.23.00.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Número de huevos deseado</string>
+      <string>Vinagre</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Para ello simplemente poner los huevos dentro de la máquina.</string>
+      <string>Echar un litro de agua y un poco de vinagre (esto es para que la cascara sea mas fácil de quitar después)</string>
+      <string>Poner cocción rápida 4 minutos.</string>
+      <string>Una vez terminado pasar los huevos por agua fría para cortar la cocción de éstos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/huevos-duros.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>-1</portions>
+   <minutes>4</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

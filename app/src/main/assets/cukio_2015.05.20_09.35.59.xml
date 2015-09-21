@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Cocido (2)</name>
+   <type>main</type>
+   <picture>cukio_2015.05.20_09.35.59.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>250 gr de gallina de corral,</string>
+      <string>1 punta de jamón</string>
+      <string>Hueso de espinazo,</string>
+      <string>250 gr de morcillo de ternera</string>
+      <string>Tira de falda de ternera,</string>
+      <string>1 chorizo</string>
+      <string>1 morcilla</string>
+      <string>Una tira de tocino de cerdo</string>
+      <string>2 patatas</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Echar todos los ingredientes en la olla y en el cestillo, cinco puñados de garbanzos, puestos en remojo el día anterior, y dos patatas peladas y partidas a trocitos.</string>
+      <string>Cubrir todo con agua hasta el límite máximo de la olla (hay una marca en la pared de la olla).</string>
+      <string>La olla la hemos puesto manual, cocción rápida 45min.</string>
+      <string>Del caldo, se puede hacer sopa de primero o guardar para otro dia.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/cocido-por-lidia-seldas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>45</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Pavo con champiñones a la naranja</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>700 g de pavo en dados</string>
+      <string>300 g de champiñones</string>
+      <string>2 naranjas</string>
+      <string>Sal y pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se doran los champiñones y el pavo, se echa sal y pimienta al gusto.</string>
+      <string>Finalmente se añade el zumo de las dos naranjas, se remueve y se pone en cocción rápida 15 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/pavo-con-champinones-la-naranja.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>15</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Se puede acompañar de huevo cocido, patatas fritas...</tip>
+</recipeItem>

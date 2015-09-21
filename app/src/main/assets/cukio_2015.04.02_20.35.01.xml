@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Risotto integral de jamón y verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_20.35.01.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 g de arroz integral</string>
+      <string>100 g de jamón curado en taquitos</string>
+      <string>1 puerro cortado a rodajas finas</string>
+      <string>100 g de champiñones laminados</string>
+      <string>100 g de espárragos verdes troceados</string>
+      <string>100 g de pimiento verde y rojo a dados</string>
+      <string>100 ml de vino blanco</string>
+      <string>1 pastilla de caldo de carne</string>
+      <string>2 cucharadas de queso, tipo philadelphia</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo todos los ingredientes mencionados (menos el queso) junto con un chorrito de aceite y 600 ml de agua.</string>
+      <string>Seleccionamos la receta de risotto con setas para 4 personas y anulamos el proceso de dorado.</string>
+      <string>Tapamos y cocemos durante 7 minutos, que es el tiempo sugerido.</string>
+      <string>Al acabar abrimos la Cookeo e incorporamos las dos cucharadas de philadelphia para dar cremosidad y removemos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/risotto-integral-de-jamon-y-verduras.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

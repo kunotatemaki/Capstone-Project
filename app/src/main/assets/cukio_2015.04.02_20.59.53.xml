@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Secreto ibérico con salsa</name>
+   <type>main</type>
+   <picture>cukio_2015.04.02_20.59.53.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>750 g de secreto ibérico</string>
+      <string>Una zanahoria</string>
+      <string>Medio puerro</string>
+      <string>Un tomate mediano</string>
+      <string>Una cebolla</string>
+      <string>Medio pimiento verde</string>
+      <string>1/2 vaso de agua</string>
+      <string>1/2 vaso de vino blanco o tinto</string>
+      <string>Sal y aceite de oliva</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Primero ponemos en el fondo de la olla aceite de oliva y le damos a dorar en la Cookeo.</string>
+      <string>Doramos el secreto por ambos lados hasta que quede tostado por fuera y crudo por dentro. Lo retiramos.</string>
+      <string>En ese mismo aceite ponemos todas las verduras cortadas a trozos no muy grandes y rehogamos unos 5 minutos.</string>
+      <string>Cuando esté rehogado añadimos el secreto, el 1/2 vaso de agua, 1/2 vaso de vino y la sal. Ponemos cocción rápida 15 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/secreto-iberico-con-salsa-por-pepita.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Se puede poner cualquier verdura que tengáis por casa, lo único que si lo vais a triturar, el pimiento rojo deja trocitos (para tenerlo en cuenta).</tip>
+</recipeItem>

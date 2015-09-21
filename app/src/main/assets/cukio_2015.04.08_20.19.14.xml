@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Tocino de cielo</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_20.19.14.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 huevos</string>
+      <string>2 yemas de huevo</string>
+      <string>200 gr de agua</string>
+      <string>200 gr de azúcar</string>
+      <string>Caramelo para el molde</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Hacemos un almíbar, ponemos en un cazo el agua con el azúcar, llevamos al fuego y dejamos que hierva hasta que lo veamos un poco espeso. Si queremos hacerlo en la Cookeo, función dorar, ponemos el agua con el azúcar hasta que esté espeso el almíbar. Retiramos de la cubeta y reservamos.</string>
+      <string>En un bol ponemos los huevos y las yemas y removemos con un tenedor o varilla hasta que estén bien integrados. No batir para que no salga espuma.</string>
+      <string>Vamos agregando el almíbar poco a poco hasta tener todo el almíbar integrado en los huevos. Si tienes Thermomix, ponemos las yemas y huevos en el vaso limpio y seco, velocidad 3 y medio y vamos añadiendo el almíbar poco a poco, en forma de hilo, para ello ponemos el cubilete y vamos depositando el almíbar en la tapa para que vaya entrando poco a poco, sin tiempo, cuando todo el almíbar esté dentro es cuando paramos.</string>
+      <string>Pasamos la mezcla a un molde caramelizado.</string>
+      <string>Metemos el molde en el cestillo al vapor de la Cookeo.</string>
+      <string>Ponemos en la Cookeo 300 gr de agua y el castillo con el molde que hemos tapado bien con papel de aluminio.</string>
+      <string>Seleccionamos cocción rápida, 35 minutos.</string>
+      <string>Cuando finalice, dejamos la olla cerrada 10 minutos más.</string>
+      <string>Abrimos, sacamos y dejamos enfriar totalmente el molde antes de desmoldar.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141116/tocino-de-cielo-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>65</minutes>
+   <language>Spanish</language>
+   <tip>Sugerencia de presentación, un trozo de tocino de cielo junto con un poco de nata montada.</tip>
+</recipeItem>

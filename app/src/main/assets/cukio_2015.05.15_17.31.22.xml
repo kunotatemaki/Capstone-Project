@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Garbanzos pequeños con zanahoria y judías verdes</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_17.31.22.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>400 gr de garbanzos pequeños</string>
+      <string>1 o 2 zanahorias</string>
+      <string>100 gr de judías verdes</string>
+      <string>1 patata grande</string>
+      <string>1 tomate</string>
+      <string>1 pimiento verde</string>
+      <string>1 cabeza de ajo</string>
+      <string>1 cebolla</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimentón molido</string>
+      <string>1 hoja de laurel</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos los garbanzos en remojo la noche anterior.</string>
+      <string>Añadimos a la cookeo los garbanzos, la cebolla pelada y entera y la cabeza de ajo entera.</string>
+      <string>Agregamos el pimiento y el tomate.</string>
+      <string>Ponemos la patata pelada y troceada, las judías verdes troceadas y la zanahoria pelada y cortada en dados.</string>
+      <string>Cubrimos de agua, ponemos un chorro de aceite, pimentón, la hoja de laurel y sal al gusto.</string>
+      <string>Cerramos la Cookeo y seleccionamos inicio rápido, 30 minutos.</string>
+      <string>Abrimos, rectificamos de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;Recetas Cookeo&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Recuerda no poner mucha agua, solo la justa para cubrir, en la Cookeo los líquidos apenas evaporan.</tip>
+</recipeItem>

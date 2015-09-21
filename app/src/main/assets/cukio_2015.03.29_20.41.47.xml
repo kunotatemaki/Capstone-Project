@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Gazpacho manchego</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_20.41.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1/2 conejo</string>
+      <string>1 cabeza de ajos</string>
+      <string>1/2 pimiento</string>
+      <string>2 tomates maduros</string>
+      <string>Laurel</string>
+      <string>Tomillo</string>
+      <string>1/4 kg de setas</string>
+      <string>1 torta de gazpachos</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Trocear el conejo, trocear los tomates y pimientos y pelar los ajos.</string>
+      <string>Partir la torta de gazpacho manchego en trozos, un puñado por persona.</string>
+      <string>Dorar unos minutos la carne.</string>
+      <string>Añadir laurel, los ajos, el tomate y el pimiento y sofreír otros 5 minutos.</string>
+      <string>Añadir el agua, las setas y sal al gusto y poner en cocción rápida 15 minutos.</string>
+      <string>Añadir tomillo y la torta de gazpacho y poner 5 minutos más en cocción rápida. (sólo para que se haga la torta. Si queda demasiado duro o blando modificar el tiempo al gusto)</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/sin-duda-esta-es-una-de-las-recetas-que.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

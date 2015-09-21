@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Sopa de miso</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_20.00.03.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>100 g setas shitake</string>
+      <string>1&apos;5 ml miso</string>
+      <string>1 taza/s salsa de soja (taza café)</string>
+      <string>250 ml caldo de pesacado</string>
+      <string>75 g fideos japoneses</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol y procedes a la cocción de los mismos. Si se quiere suavizar su sabor agregar agua. Tipo de cocción: rápida: 6 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Puedes agregar tofu.</tip>
+</recipeItem>

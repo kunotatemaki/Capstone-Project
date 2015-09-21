@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Macarrones con carne</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_18.37.21.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 gr de macarrones</string>
+      <string>500 gr de carne de cerdo</string>
+      <string>6 tomates rojos y maduros</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>1 pimiento verde</string>
+      <string>1 zanahoria grande</string>
+      <string>Vino blanco</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, ajo, pimiento y ponemos en la Cookeo, función dorar con un fondo de aceite de oliva virgen extra.</string>
+      <string>Rehogamos bien y picamos los tomates.</string>
+      <string>Agregamos los tomates y seguimos sofriendo.</string>
+      <string>Pelamos y cortamos la zanahoria. Añadimos a la cubeta de la Cookeo.</string>
+      <string>Picamos la carne, cortamos en pequeños dados.</string>
+      <string>Añadimos la carne cuando el tomate esté bien frito, salteamos.</string>
+      <string>Salpimentamos y añadimos un chorro de vino.</string>
+      <string>Dejamos evaporar un poco el alcohol.</string>
+      <string>Apagamos la función dorar, cerramos la Cookeo y seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Mientras cocemos los macarrones en agua con un poco de sal. Escurrimos y repartimos entre los platos.</string>
+      <string>Rectificamos la carne de sal y repartimos entre los platos, sobre los macarrones. Otra opción es introducir los macarrones en la Cookeo bien escurridos de agua y ligar con la carne en salsa y luego repartir entre los platos, de ambas maneras está bien rico este plato.</string>
+      <string>Solo queda servir y comer.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141203/macarrones-con-carne-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

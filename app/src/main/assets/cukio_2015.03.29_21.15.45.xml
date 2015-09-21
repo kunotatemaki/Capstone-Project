@@ -1,0 +1,32 @@
+<recipeItem>
+   <name>Menestra de verduras</name>
+   <type>starter</type>
+   <picture>cukio_2015.03.29_21.15.45.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1/2 bandeja de ternera troceada ( yo la compro en Mercadona)</string>
+      <string>1 bolsa de menestra congelada (también del Mercadona)</string>
+      <string>1 pastilla de caldo de carne</string>
+      <string>1/2 vaso de vino blanco</string>
+      <string>6 espárragos pequeños troceados</string>
+      <string>Sal</string>
+      <string>Pimienta negra molida</string>
+      <string>Aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos Cookeo modo dorar.</string>
+      <string>Cuando este caliente, añadimos una cucharada de aceite y la carne troceada en cachitos más pequeños (previamente salpimentada).</string>
+      <string>La marcamos durante 2 minutos.</string>
+      <string>Cancelamos modo dorar, y pasamos a modo cocción rápida.</string>
+      <string>Añadimos la pastilla de caldo, el 1/2 vaso de vino blanco, la bolsa entera de menestra sin descongelar, los espárragos troceados y sal al gusto.</string>
+      <string>Cerramos la tapa y cocemos durante 20 minutos.</string>
+      <string>Pasados los 20 minutos, probamos y rectificamos de sal, si es necesario.</string>
+      <string>Si la ternera os queda un poquito dura, volver a cocer 2-3 minutos más.</string>
+      <string>Dependiendo de la cantidad de vino, os quedará mas caldosa o menos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/menestra-de-verduras-por-ramon-esteban.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip>No hace falta añadir agua, pues la menestra al estar congelada soltara su propia agua.</tip>
+</recipeItem>

@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Arros en fesols i naps (arroz con alubias y nabo)</name>
+   <type>starter</type>
+   <picture>cukio_2015.03.29_19.08.17.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Tomate triturado</string>
+      <string>Pimentón de la vera</string>
+      <string>Pimienta molida</string>
+      <string>Panceta de cerdo (300 g)</string>
+      <string>Partes  de cerdo (morro, oreja, manitas...)</string>
+      <string>Morcilla de cebolla</string>
+      <string>Blanquet (morcilla blanca)</string>
+      <string>Alubias cocidas (de bote)</string>
+      <string>Cardo</string>
+      <string>Napicol (o en su defecto nabo normal)</string>
+      <string>Arroz(500 g)</string>
+      <string>Agua</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Seleccionamos manual, dorar. Calentamos el aceite y echamos el tomate junto con un par de cucharadas de pimentón de la vera, sal y pimienta molida.</string>
+      <string>Una vez hecho el sofrito, echar 1&apos;5 l de agua, el cardo, el napicol (previamente troceado), la panceta y las partes de cerdo.</string>
+      <string>Rectificar de sal y pimienta y seleccionar cocción rápida, 20 minutos.</string>
+      <string>Al pasar los 20 minutos, se añade la morcilla, el blanquet y las alubias (fesols) y seleccionar de nuevo 20 minutos en cocción rápida.</string>
+      <string>Por último, pasados estos 20 minutos, echar el arroz y en ingredientes seleccionar arroz blanco. Seleccionar la cantidad de arroz que se ha añadido (en nuestro caso 500 g).</string>
+      <string>Una vez terminada la cocción, remover todo y dejar reposar unos minutos (sin el modo mantener caliente).</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/12/arros-en-fesols-i-naps-arroz-con.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Para acompañar este arroz, es típico preparar cebolla tierna con aceite y sal para el centro de mesa.</tip>
+</recipeItem>

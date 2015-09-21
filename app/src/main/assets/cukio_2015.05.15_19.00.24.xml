@@ -1,0 +1,38 @@
+<recipeItem>
+   <name>Higaditos de pollo con verduras</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_19.00.24.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de higaditos de pollo</string>
+      <string>1 o 2 cebollas</string>
+      <string>1 pimiento verde</string>
+      <string>1 pimiento rojo</string>
+      <string>1 pimiento amarillo</string>
+      <string>120 gr de champiñones</string>
+      <string>1 zanahoria grande</string>
+      <string>3 dientes de ajo</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Medio vaso de vino blanco o tinto, el que mas nos guste</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Abrimos la Cookeo, agregamos un poco de aceite de oliva virgen extra y seleccionamos, manual, dorar.</string>
+      <string>Mientras va precalentando, vamos agregando las verduras muy picadas, la cebolla, los pimientos, los dientes de ajo.</string>
+      <string>Removemos bien para que las verduras se comiencen a sofreír un poco.</string>
+      <string>Ponemos los higaditos bien limpios y troceados, los champiñones laminados y la zanahoria cortada en rodajas finas.</string>
+      <string>Removemos y ponemos el vino y salpimentamos.</string>
+      <string>Si finaliza el proceso de precalentamoiento, le damos a ok para seguir con nuestra receta.</string>
+      <string>Cubrimos levemente de agua, un poco, no tiene que tener mucha, como 1 vaso grande.</string>
+      <string>Paramos la función dorar y carramos la Cookeo.</string>
+      <string>Iniciamos manual, cocción rápida y seleccionamos 5 minutos.</string>
+      <string>Abrimos, rectificamos de sal y comprobamos que los higaditos están tiernos.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141106/higaditos-de-pollo-con-verduras-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

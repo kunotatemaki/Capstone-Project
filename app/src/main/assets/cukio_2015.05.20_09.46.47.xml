@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Pasta negra con gambas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.20_09.46.47.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Nidos de pasta negra (250 g)</string>
+      <string>Ajo picado congelado (al gusto)</string>
+      <string>Cebolla picada congelada (al gusto)</string>
+      <string>Gambas congeladas (300 g)</string>
+      <string>Aceite (2 cucharadas soperas)</string>
+      <string>Sal</string>
+      <string>Crema para cocinar (50 ml)</string>
+      <string>Agua (250 ml)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Elegimos en platos principales, la receta de los tortellini.</string>
+      <string>Añadimos todos los ingredientes, removemos e iniciamos coccion (se añaden los ingredientes congelados)</string>
+      <string>En pocos minutos tenemos la receta lista para ser servida.</string>
+      <string>No os olvidéis de tener queso parmesano para servir la pasta.</string>
+      <string>Opcionalmente (yo si los cocino para mi solo lo hago) se puede añadir una guindilla cayena para así darle un toque picante al plato y también esta riquísimo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/pasta-negra-con-gambas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,32 @@
+<recipeItem>
+   <name>Pollo al ajillo con champiñones</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_19.46.32.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg pechuga de pollo</string>
+      <string>4 patatas medianas</string>
+      <string>2 latas medianas de champiñones laminados</string>
+      <string>1 vaso vino blanco</string>
+      <string>1/2 vaso aceite de oliva virgen extra</string>
+      <string>Zumo de un limón</string>
+      <string>1 pastilla de avecren</string>
+      <string>Laurel</string>
+      <string>Guindilla al gusto</string>
+      <string>Un poco de romero</string>
+      <string>Sal y pimienta</string>
+      <string>1 vaso de agua</string>
+      <string>1 cabeza de ajos cortado en láminas</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se dora primero los ajos.</string>
+      <string>A continuación, una vez dorados los ajos, se echa el pollo y las patatas.</string>
+      <string>Se vierten el resto de ingredientes y seguimos con el proceso de dorado.</string>
+      <string>Controlar que no nos quedemos sin caldo antes de terminar la receta. De ser asi, añadir un poco de agua.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/pollo-al-ajillo-con-champinomes-por-jos.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Como el dorado se hace con la tapa levantada, no miramos el tiempo, en cuanto esté hecho se para y a servir.</tip>
+</recipeItem>

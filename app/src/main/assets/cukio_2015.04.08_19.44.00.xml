@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Mermelada de melocotón</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_19.44.00.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de melocotones</string>
+      <string>1 limón</string>
+      <string>300 gr de azúcar</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Lavamos bien los melocotones y secamos.</string>
+      <string>Abrimos por la mitad, luego cortamos en cuartos y retiramos el hueso. No pelamos, dejamos con la piel.</string>
+      <string>Ponemos dentro de la cubeta de la Cookeo los melocotones con el azúcar y el zumo del limón.</string>
+      <string>Ponemos un poco de agua, poca, como medio vaso pequeño.</string>
+      <string>Cerramos la Cookeo y seleccionamos cocción rápida, 5 minutos.</string>
+      <string>Puede que nos salte un aviso de que no tiene agua la Cookeo, si es así , paramos y abrimos. Si nos deja completar los 5 minutos, mejor, esto va a depender mucho del jugo que suelte nuestros melocotones.</string>
+      <string>Pasamos el contenido de la Cookeo a un bol y trituramos.</string>
+      <string>Repartimos en tarros de cristal con tapadera de rosca previamente esterilizados.</string>
+      <string>Cerramos bien. Si vamos a guardar, hay que cerrar al vacío, para ello hay que poner 12 horas el tarro boca abajo y luego 40 minutos al baño maría.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141126/mermelada-de-melocoton-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>42</minutes>
+   <language>Spanish</language>
+   <tip>Esta mermelada es fantástica para servir junto a una tabla de quesos como aperitivo.</tip>
+</recipeItem>

@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Arroz en amarillo</name>
+   <type>main</type>
+   <picture>cukio_2015.04.05_20.57.40.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 unidad/es cebolla</string>
+      <string>1 unidad/es calamar</string>
+      <string>150 g gambas</string>
+      <string>1 l caldo de pescado</string>
+      <string>250 g arroz</string>
+      <string>1 pizca colorante</string>
+      <string>4 cucharada/s sopera aceite</string>
+      <string>1 loncha/s pimiento morron</string>
+      <string>1 cucharada/s sopera sal</string>
+      <string>1 vaso/s guisantes</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos todos los ingredientes picaditos: cebolla, pimento morron para hacer el sofrito junto con el aceite. Tipo de cocción: dorar: 7 minutos.</string>
+      <string>Añadir resto de ingredientes: calamar, gambas, colorante, guisantes. Tipo de cocción: dorar: 10 minutos.</string>
+      <string>Añadimos el arroz. Tipo de cocción: dorar: 5 minutos.</string>
+      <string>Añadimos por último el caldo de pescado. Buscamos la opción de nuestra Cookeo legumbres arroz blanco e iniciamos la cocción. Tipo de cocción: rápida: 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.descubriendonuevossabores.com/recetas/arroz-en-amarillo-en-cookeo/3819/&quot;&gt;Descubriendo nuevos sabores&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>77</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

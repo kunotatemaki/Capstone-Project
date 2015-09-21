@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Guisado de patatas con salchichas</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_14.17.49.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>4 patatas grandes</string>
+      <string>1/2 kg de salchichas frescas</string>
+      <string>1 pimiento verde</string>
+      <string>1 tomate</string>
+      <string>Tomate frito</string>
+      <string>Cebolla</string>
+      <string>Pimentón</string>
+      <string>Hoja de laurel</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+      <string>Caldo de pollo o agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En opción dorar: doramos la cebolla y las salchichas, añadimos ahí un poquito de pimentón y un poquito de tomate frito.</string>
+      <string>En opción de ingredientes: poner para 4 personas patatas el tiempo que marque y añadimos el caldo o agua hasta cubrir los ingredientes. Echamos la hoja de laurel, el pimiento verde, el tomate natural y sal.</string>
+      <string>Cuando se termine de cocer todo, sacamos el tomate (yo le quito la piel) y el pimiento, lo trituramos con un poquito de caldo de la cocción y lo echamos de nuevo junto a las patatas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/guisado-de-patatas-con-salchichas-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

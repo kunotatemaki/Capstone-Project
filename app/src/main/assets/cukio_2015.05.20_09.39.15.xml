@@ -1,0 +1,27 @@
+<recipeItem>
+   <name>Espinacas con garbanzos</name>
+   <type>starter</type>
+   <picture>cukio_2015.05.20_09.39.15.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr espinacas congeladas</string>
+      <string>Un chorretón de aceite</string>
+      <string>6-7 dientes de ajo picados</string>
+      <string>1 cucharadita de comino</string>
+      <string>1 cucharadita de pimentón</string>
+      <string>1 cucharadita especias para caracoles (opcional)</string>
+      <string>Sal</string>
+      <string>200 gr agua</string>
+      <string>1 bote de garbanzos cocidos</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Enciende la Cookeo manual dorar. Echa en la cubeta al aceite, los ajos, las especias ligeramente machacadas junto con el pimentón y la sal.</string>
+      <string>Añade las espinacas y los garbanzos y el agua.</string>
+      <string>Pasa a cocción rápida 12 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/espinacas-con-garbanzos-por-virtudes.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>15</minutes>
+   <language>Spanish</language>
+   <tip>El tiempo dependerá del tipo de espinacas y como se hayan congelado, si las descongelais antes, poner solo 10 minutos</tip>
+</recipeItem>

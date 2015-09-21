@@ -1,0 +1,31 @@
+<recipeItem>
+   <name>Garbanzos con habas</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_15.47.08.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>250 gr de garbanzos</string>
+      <string>250 gr de habas desgranadas</string>
+      <string>1 cebolla</string>
+      <string>1 pimiento verde</string>
+      <string>1 tomate</string>
+      <string>2 dientes de ajo</string>
+      <string>1 cucharada de pimentón dulce</string>
+      <string>Sal</string>
+      <string>75 gr de aceite de oliva virgen extra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Tendremos los garbanzos en remojo desde la noche anterior.</string>
+      <string>Ponemos dentro de la Cookeo el aceite junto con la cebolla, pimiento, ajo y tomate, todo muy picado. Seleccionamos función dorar y se irá haciendo el sofrito. Si cuando pase del precalentamiento a dorar, la verdura aún no está tierna, dejamos un poco más.</string>
+      <string>Apagamos la función dorar y rápidamente, antes de que se vaya el calor, ponemos el pimentón y removemos.</string>
+      <string>Agregamos los garbanzos, las habas y cubrimos de agua, ojo, este tipo de robot no pierden apenas líquidos así que no nos pasemos cubriendo de agua.</string>
+      <string>Salamos un poco y cerramos la Cookeo.</string>
+      <string>Seleccionamos 35 minutos, función Cocción rápida.</string>
+      <string>Abrimos, rectificamos de sal y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141118/garbanzos-con-habas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>50</minutes>
+   <language>Spanish</language>
+   <tip>Las habas siempre es preferible frescas, a falta de habas frescas, habas congeladas, en los supermercados la encontramos sin problemas.</tip>
+</recipeItem>

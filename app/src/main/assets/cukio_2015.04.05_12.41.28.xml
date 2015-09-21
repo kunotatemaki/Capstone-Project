@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Bizcocho de yogur</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.05_12.41.28.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>3 huevos,</string>
+      <string>1 yogur natural,</string>
+      <string>3 vasos del yogur de harina( yo utilizo bizcochona del Mercadona k ya lleva levadura),</string>
+      <string>2 vasos de azucar,</string>
+      <string>1 vaso de aceite.</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Mezclamos primero los huevos y el azucar.</string>
+      <string>Cuando doble volumen vamos agregando el resto de ingredientes.</string>
+      <string>Cuando tenemos la masa podemos añadirle algo de chocolate fundido o en polvo, eso a gusto de cada uno.</string>
+      <string>Ponemos 350 ml de agua en la cubeta y dentro de ella el molde con la masa, tapamos con film (buscar film resistente para cocinar) .</string>
+      <string>Cocción rápida 1 hora.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/bizcocho-de-yoghourt-por-vanesa.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>60</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

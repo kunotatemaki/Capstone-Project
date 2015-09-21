@@ -1,0 +1,20 @@
+<recipeItem>
+   <name>Piña en almíbar avainillado</name>
+   <type>dessert</type>
+   <picture>cukio_2015.04.08_19.55.49.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>100 ml agua</string>
+      <string>1 rama/s vainilla</string>
+      <string>2 unidad/es piña en rodajas</string>
+      <string>150 g azúcar</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Trocear la piña y reservarla. Añadir todos los ingredientes en el bol excepto la piña. Dorarlos durante al menos 7 minutos. Dejar enfriar al gusto.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>12</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

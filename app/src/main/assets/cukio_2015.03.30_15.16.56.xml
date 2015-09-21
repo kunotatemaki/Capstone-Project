@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Arroz a banda</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_15.16.56.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Gambas peladas</string>
+      <string>Sepia</string>
+      <string>Arroz (250 g)</string>
+      <string>Tomate natural triturado 200 g</string>
+      <string>Ñora</string>
+      <string>Cebolla</string>
+      <string>Ajo</string>
+      <string>Sal</string>
+      <string>Aceite</string>
+      <string>Caldo de pescado</string>
+      <string>Pimentón dulce en polvo</string>
+      <string>Cayena (1 pequeña)</string>
+      <string>Azafrán</string>
+      <string>Colorante alimenticio</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner en modo manual, la opción dorar, añadimos un chorrito de aceite.</string>
+      <string>Añadimos la cebolla, el ajo muy picados y la ñora (que luego retiraremos) en trozos lo mas grande posible y sin semillas.</string>
+      <string>Cuando la cebolla dore un poco, retiramos la ñora, añadimos las gambas y la sepia troceada.</string>
+      <string>Cuando las gambas y la sepia estén hechas, echamos medio bote de tomate, removemos y echamos un poco de pimentón dulce y azafrán y removemos.</string>
+      <string>Posteriormente echamos el arroz y lo removemos bien, para que se sofría con todos los ingredientes.</string>
+      <string>Echamos el caldo de pescado hasta cubrir todos los ingredientes, y echamos un poco de colorante alimenticio.</string>
+      <string>Paramos la opción de dorar, y vamos a la opción ingredientes, arroces y legumbres y seleccionamos arroz blanco e iniciamos cocción.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/arroz-banda.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Cuando lo sirváis hacedlo con ajoaceite para mezclar con el arroz, si gusta.</tip>
+</recipeItem>

@@ -1,0 +1,22 @@
+<recipeItem>
+   <name>Estofado de cerdo oriental</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_15.09.26.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 unidad/es pechuga de cerdo fresco de 200 g</string>
+      <string>10 g ajo</string>
+      <string>10 salsa de soja</string>
+      <string>3 cucharada/s sopera miel</string>
+      <string>200 ml agua</string>
+      <string>10 g jengibre fresco triturado</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol. Tipo de cocción: rápida: 25 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>31</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

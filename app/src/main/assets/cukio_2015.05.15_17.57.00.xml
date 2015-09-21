@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>bizcocho de melón</name>
+   <type>dessert</type>
+   <picture>cukio_2015.05.15_17.57.00.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 tajadas de melón dulce</string>
+      <string>2 huevos m</string>
+      <string>Medio vaso de leche</string>
+      <string>1 vasos de azúcar</string>
+      <string>1 vaso y medio de harina de repostería</string>
+      <string>Medio vaso de aceite de girasol</string>
+      <string>1 sobre de levadura química tipo royal</string>
+      <string>Caramelo casero ( 4 - 6 cucharadas de azúcar)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos el azúcar en una sartén y hacemos el caramelo.</string>
+      <string>Troceamos el melón y lo ponemos en un molde que entre en el cocedero al vapor de la Cookeo.</string>
+      <string>Cubrimos con el caramelo y reservamos.</string>
+      <string>En el vaso de la Thermomix ponemos el resto de ingredientes y seleccionamos 1 minuto velocidad progresiva 3-8.</string>
+      <string>Si no tenemos Thermomix, ponemos los ingredientes en un bol y batimos con batidora.</string>
+      <string>Pasamos la mezcla al molde.</string>
+      <string>Llenamos la olla Cookeo con 300 ml de agua.</string>
+      <string>Ponemos el molde dentro del cocedero al vapor de la Cookeo y a su vez lo ponemos dentro de la Cookeo.</string>
+      <string>Cerramos la olla y seleccionamos función manual, cocción rápida, 30 minutos, inicio inmediato.</string>
+      <string>Cuando finalice el proceso, sacamos el cocedero al vapor, retiramos el molde y dejamos templar.</string>
+      <string>Desmoldamos el bizcocho.</string>
+      <string>Dejamos enfriar totalmente y servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141106/bizcocho-de-melon-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>A falta de melón, en la base puedes poner piña o melocotón en almíbar o manzanas caramelizadas o frutos secos.</tip>
+</recipeItem>

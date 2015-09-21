@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Potaje de judías con chorizo y costilla de cerdo</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>Tomate triturado</string>
+      <string>1 pimiento</string>
+      <string>1 costilla</string>
+      <string>1 chorizo</string>
+      <string>Laurel</string>
+      <string>Sal</string>
+      <string>300 g de judías</string>
+      <string>1 patata</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Hacer un refrito de cebolla, tomate y pimiento.</string>
+      <string>Agregar un trozo de costillas, un chorizo, laurel sal y las judías.</string>
+      <string>Seleccionar cocción rápida 15 minutos.</string>
+      <string>Echar una patata cortada a trozos y volver a cocinar otros 15 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/potaje-de-judias-con-chorizo-y-costilla.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Barquitas mexicana y burritos</name>
+   <type>main</type>
+   <picture>default_picture</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Kit de burritos</string>
+      <string>Pack de barquitas mexicanas</string>
+      <string>500 g de carne picada</string>
+      <string>Queso en lonchas</string>
+      <string>Queso rallado emmental</string>
+      <string>Guacamole fresco</string>
+      <string>Cebolla</string>
+      <string>Pimiento rojo y verde</string>
+      <string>Ajo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Preparamos la olla de Cookeo en dorar y ponemos un poco de aceite para dorar la carne. La echamos toda y le agregamos poco a poco el sobre sazonador de burritos, la cebolla con los trozos de pimientos y un ajito picado.</string>
+      <string>Una vez hecha la carne (pararemos dorar y apagaremos la Cookeo), la reservamos y nos ponemos a elaborar primero las barquitas.</string>
+      <string>En las barquitas primero pondremos por este orden los alimentos: loncha de queso, carne y guacamole (2 veces) y se cubre con el queso rallado emmental.</string>
+      <string>Lo metemos en el horno un ratito a no muy alta temperatura para que la barquita se dore y los ingredientes se integren.</string>
+      <string>Burritos: metemos las tortitas en el microondas 5 o 10 segundos, las rellenamos de la carne reservada y las liamos poco a poco con ayuda de algunos palillos para sujetarlas y mantenerlas liadas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/08/barquitas-mexicanas-y-burritos-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

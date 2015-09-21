@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Arroz con pimiento</name>
+   <type>starter</type>
+   <picture>cukio_2015.03.30_15.31.24.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g de arroz</string>
+      <string>Pimientos (cantidad dependiendo del gusto de cada uno, en mi caso puse un bote de pimientos en aceite)</string>
+      <string>Dos cebollas (cortar lo más pequeño posible)</string>
+      <string>Tomate frito (150 ml)</string>
+      <string>Patatas cortadas en pequeños cubos (opcional)</string>
+      <string>Especias: sal, pimienta roja dulce (o picante), ajedrea (hierba aromática), sal y un poco de pimienta negra</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Lo primero es dorar la cebolla y los pimientos durante unos minutos (2-3 min).</string>
+      <string>Después una vez pasado el tiempo, ponemos el arroz y el tomate frito; la máquina debe seguir en opción de dorado unos minutos más para que el tomate frito se adhiera al arroz.</string>
+      <string>Mientras removemos, añadimos todas las especias (1-2 cucharadas de pimienta roja, 1-2 cucharadas de ajedrea, la sal y la pimienta negra al gusto).</string>
+      <string>Cuando todo se haya mezclado bien, vamos a la opción de &quot;ingredientes&quot;, seleccionamos el arroz y siguiendo las instrucciones de la pantalla lo ponemos a cocer.</string>
+      <string>Tras nueve minutos, nuestro arroz estará listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/09/arroz-con-pimiento-por-jordi-iliev.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,24 @@
+<recipeItem>
+   <name>Arroz blanco con solomillos de pollo al romero</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_15.20.28.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Solomillos de pollo 400 g</string>
+      <string>Arroz 200 g</string>
+      <string>Agua</string>
+      <string>Romero</string>
+      <string>Ajo</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Primero pondremos la opción dorar y doraremos los solomillos de pollo durante 2-3 minutos. Añadiremos al dorado ajo en polvo, sal y el romero.</string>
+      <string>Echamos 200 g de arroz y cubrimos todo con agua.</string>
+      <string>Luego ponemos el menú ingredientes, arroz y legumbres, y arroz blanco. Le decimos la cantidad de arroz que hemos puesto (en nuestro caso 200 g) y 8 minutos (es lo que recomienda).</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/07/arroz-blanco-con-solomillos-de-pollo-al.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>15</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

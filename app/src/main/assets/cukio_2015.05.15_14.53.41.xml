@@ -1,0 +1,34 @@
+<recipeItem>
+   <name>Tortilla de patatas (2)</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_14.53.41.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>6 huevos grandes</string>
+      <string>600 gr de patatas</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Pelamos las patatas y las cortamos en lascas.</string>
+      <string>Ponemos la Cookeo en función dorar y agregamos un fondo de aceite de oliva virgen extra, que cubra el fondo solamente.</string>
+      <string>Añadimos las patatas a las que hemos puesto sal.</string>
+      <string>Rehogamos las patatas mientras dure el precalentamiento del dorar.</string>
+      <string>Una vez que finalice el precalentamiento, paramos y seleccionamos función cocción rápida con la Cookeo ya cerrada.</string>
+      <string>Da igual el tiempo que pongamos, no va a influir en la cocción de las patatas porque una vez que finalice el precalentamiento la Cookeo nos dará un aviso de error porque no hay líquido.</string>
+      <string>Paramos la Cookeo y abrimos.</string>
+      <string>Volvemos a poner función dorar y rehogamos un poco esas patatas para que tomen un poco de color porque estarán las patatas tiernas pero muy blancas.</string>
+      <string>Una vez que estén doradas las patatas, retiramos y pasamos a un bol donde tenemos los huevos batidos.</string>
+      <string>Pasamos la mezcla a la Cookeo, no hace falta aceite porque se habrá quedado impregnada del aceite de las patatas.</string>
+      <string>Cerramos la olla una vez que hayamos distribuido bien la mezcla de la tortilla.</string>
+      <string>Seleccionamos función cocción rápida y nos vuelve a dar igual el tiempo porque nuevamente, una vez que finalice el precalentamiento, nos saldrá el aviso de error porque falta líquido.</string>
+      <string>Abrimos la Cookeo y nos encontramos con la tortilla cuajada, solo que la parte de arriba ha quedado blanca.</string>
+      <string>Solo tenemos que meter un plato pequeño que entre en la Cookeo hasta la tortilla, sacamos la tortilla y pasamos a un plato más grande con la parte de abajo hacia arriba, para mostrar siempre la parte más dorada.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141120/tortilla-de-patata-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

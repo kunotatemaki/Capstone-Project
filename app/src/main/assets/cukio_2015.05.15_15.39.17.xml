@@ -1,0 +1,36 @@
+<recipeItem>
+   <name>Cordero con patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.39.17.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg de cordero troceado</string>
+      <string>1 cebolla</string>
+      <string>4 dientes de ajo</string>
+      <string>1 tomate</string>
+      <string>2 zanahorias</string>
+      <string>120 gr de guisantes</string>
+      <string>1 kg de patatas</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>Tomillo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos el cordero en la Cookeo previamente salpimentado, función dorar, con un chorro de aceite.</string>
+      <string>Mientras va dorando, picamos las cebollas y ajo, rallamos el tomate y troceamos las patatas y zanahorias.</string>
+      <string>Sacamos el cordero pero dejamos el aceite,. Ahora ponemos la cebolla y los ajos y sofreímos,</string>
+      <string>Incorporamos el tomate y sofreímos bien.</string>
+      <string>Cuando el tomate se haya tornado salsa, ponemos el tomillo, el vino y damos dejamos 3 minutos que evapore el alcohol.</string>
+      <string>Incorporamos el cordero, apagamos la función dorar y cerramos la Cookeo.</string>
+      <string>Seleccionamos cocción rápida y 30 minutos.</string>
+      <string>Abrimos, ponemos las patatas, zanahorias y guisantes, salpimentamos. Ligamos todo para que se mezcle bien y volvemos a cerrar.</string>
+      <string>Seleccionamos cocción rápida y 10 minutos.</string>
+      <string>Abrimos, dejamos que repose 10 minutos y servimos rectificando de sal previamente.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141207/cordero-con-patatas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,31 @@
+<recipeItem>
+   <name>Guiso de chocos y patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.03.31_23.28.48.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1/2 kg chocos (sepia en valencia)</string>
+      <string>1/2 kg patatas</string>
+      <string>3 ajos</string>
+      <string>1 pimiento</string>
+      <string>1 cebolla</string>
+      <string>Vino blanco</string>
+      <string>Aceite</string>
+      <string>Avecrem (o caldo de pescado)</string>
+      <string>Sal</string>
+      <string>Azafrán</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Picamos la cebolla, los ajos y el pimiento .</string>
+      <string>Una vez terminado el precalentamiento, procedemos a dorarlos y cuando la cebolla esté transparente (4 minutos) le echamos el choco y la sal</string>
+      <string>Cuando haya soltado un poco de agua y empiece a cambiar de color, le añadiremos un chorrito de vino y dejamos que se evapore.</string>
+      <string>Añadimos las patatas y le damos unas vueltecitas.</string>
+      <string>Cubrimos con agua y añadimos Avecrem (o el caldo) y azafrán.</string>
+      <string>Cerramos la máquina, le damos cocción rápida 10 minutos y listo.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/04/guiso-de-chocos-y-patatas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>25</minutes>
+   <language>Spanish</language>
+   <tip>No echar mucho aceite para sofreír porque ya sabemos que esta máquina cocina con muy poquito aceite. Si nos gustan los guisos con caldo espeso no echar demasiada agua al cubrir y cortar las patatas rompiéndolas en el corte.</tip>
+</recipeItem>

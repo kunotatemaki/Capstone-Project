@@ -1,0 +1,21 @@
+<recipeItem>
+   <name>Muslitos de pollo con champiñones</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_19.23.58.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Champiñones</string>
+      <string>Nata</string>
+      <string>Muslos de pollo (4 unidades)</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes y seleccionar el programa de pollo al curry.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/muslitos-de-pollo-con-champinones-por.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

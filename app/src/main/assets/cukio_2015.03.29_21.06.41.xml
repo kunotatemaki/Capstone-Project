@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Pechugas de pollo con chorizo</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_21.06.41.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Bandeja de pechugas fileteadas</string>
+      <string>1/2 cebolla</string>
+      <string>4 o 5 dientes de ajo</string>
+      <string>1 vaso de vino blanco</string>
+      <string>1 vaso de agua</string>
+      <string>1 cucharada de pimentón</string>
+      <string>1 cucharada de tomate frito</string>
+      <string>Unas rodajas de chorizo</string>
+      <string>Aceite</string>
+      <string>Sal</string>
+      <string>Pastilla de caldo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Modo dorar.</string>
+      <string>Ponemos el aceite mientras se precalienta la Cookeo.</string>
+      <string>Añadimos las pechugas fileteadas y cortadas en trozos.</string>
+      <string>Cuando cojan un poco de color las pechugas le ponemos los ajos fileteados, la cebolla, el chorizo y la sal.</string>
+      <string>Cuando esté doradito el pollo y la cebolla le añadimos el pimentón y la pastilla de caldo. Removemos y añadimos el vino.</string>
+      <string>Cuando se haya evaporado el alcohol añadimos el vaso de agua y una cucharada de tomate. El proceso durará unos 20 minutos.</string>
+      <string>Detenemos el proceso de dorado y pasamos a cocción rápida de 5 a 10 minutos, para que se espese la salsa y penetre dentro de las pechugas.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/pechugas-de-pollo-con-chorizo-por-inma.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

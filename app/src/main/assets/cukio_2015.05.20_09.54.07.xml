@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Ternera con champiñones</name>
+   <type>main</type>
+   <picture>cukio_2015.05.20_09.54.07.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>600 gr carne de ternera para guisar</string>
+      <string>1 cebolla</string>
+      <string>1 bandeja pequeña de champiñones</string>
+      <string>1 pastilla de caldo de carne</string>
+      <string>75 ml de vino blanco</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Poner la Cookeo en modo dorar y echar la cebolla.</string>
+      <string>Echar sal a la carne y añadirla.</string>
+      <string>Cuando está lista, echar la pastilla de caldo de carne</string>
+      <string>Echar los champiñones con una pizca de sal, remover un poco y añadir el vino.</string>
+      <string>Poner 20 minutos en modo cocción rápida.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/ternera-con-champinones-por-sonia-onieva.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip>Como los champiñones sueltan agua, a mí me ha quedado con mucho caldo, así que lo he puesto otra vez en modo dorar hasta que se ha consumido. Unos 5 minutos.</tip>
+</recipeItem>

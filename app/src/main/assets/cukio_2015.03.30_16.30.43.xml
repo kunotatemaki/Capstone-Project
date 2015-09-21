@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Chili con carne</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.30.43.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>300 g ternera picada</string>
+      <string>1 c/c comino en polvo</string>
+      <string>200 g habas pintas</string>
+      <string>150 g tomate frito</string>
+      <string>1 unidad/es cebolla</string>
+      <string>1 pizca sal y pimienta</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Añadir todos los ingredientes dentro del bol y triturar.</string>
+      <string>Cocinar baja presión minutos. Para 4 personas cocinar baja presión 5 minutos. Para 6 personas cocinar baja presión 9 minutos.</string>
+   </steps>
+   <author>Programada en el robot</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>10</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

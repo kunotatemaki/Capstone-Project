@@ -1,0 +1,35 @@
+<recipeItem>
+   <name>Potaje de garbanzos con chorizo y morcilla</name>
+   <type>main</type>
+   <picture>cukio_2015.05.20_09.48.27.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 cebolla</string>
+      <string>1pimiento verde</string>
+      <string>1 tomate</string>
+      <string>2 patatas grandes</string>
+      <string>1 trozo calabaza</string>
+      <string>4 dientes de ajo</string>
+      <string>1 cucharada sopera de pimenton dulce</string>
+      <string>1/2 vaso de vino blanco solera</string>
+      <string>1 hoja de laurel</string>
+      <string>Judias verdes al gusto</string>
+      <string>Garbanzos</string>
+      <string>Chorizo</string>
+      <string>Morcilla</string>
+      <string>Muslo de pollo</string>
+      <string>Trozo de cerdo</string>
+      <string>Trozo de ternera y trozo de tocino fresco de beta.</string>
+      <string>Sal al gusto.</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Los garbanzos hay que tenerlos en agua la noche antes de preparar la receta</string>
+      <string>Trocear todos los ingredientes</string>
+      <string>En manual, poner coccion rapida durante 20 minutos</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/potaje-de-garbanzos-con-chorizo-y.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

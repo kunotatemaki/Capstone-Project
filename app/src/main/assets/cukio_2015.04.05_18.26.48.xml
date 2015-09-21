@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Crema de zanahoria y calabaza al curry</name>
+   <type>starter</type>
+   <picture>cukio_2015.04.05_18.26.48.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>200 g cebolla</string>
+      <string>50 g aceite de oliva</string>
+      <string>500 g zanahorias</string>
+      <string>250 g calabaza</string>
+      <string>250 g patatas</string>
+      <string>800 g agua</string>
+      <string>1 cucharada/s sopera curry en polvo</string>
+      <string>1 unidad/es pastilla de caldo de ave</string>
+      <string>1 unidad/es sal y pimienta</string>
+      <string>2 cucharada/s sopera yogur de coco</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Antes de empezar, preparamos todos los ingredientes. Picamos la cebolla, cortamos la zanahoria en rodajas y troceamos las patatas y la calabaza.</string>
+      <string>Ponemos un poco de aceite en la cubeta de la cookeo y sofreímos la cebolla. Después añadimos la zanahoria, la patata y la calabaza y le damos unas vueltas. Tipo de cocción: dorar: 15 minutos.</string>
+      <string>Añadimos el agua, el curry, la pastilla de caldo y salpimentamos. Dejamos cocer y antes de servir trituramos. Acompañar con un poco de yogur de coco.</string>
+      <string>Tipo de cocción: rápida : 20 minutos.</string>
+   </steps>
+   <author>Dit i Fet Cuina </author>
+   <vegetarian>true</vegetarian>
+   <portions>6</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

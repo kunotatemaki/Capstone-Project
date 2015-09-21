@@ -1,0 +1,30 @@
+<recipeItem>
+   <name>Medallones de merluza</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_14.39.08.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 bolsa de medallones de merluza, Hacendado</string>
+      <string>1 cebolla mediana</string>
+      <string>2 ajos</string>
+      <string>1 vaso de caldo de pescado</string>
+      <string>Medio vaso de vino blanco</string>
+      <string>Medio vaso de agua</string>
+      <string>1 cucharada y media pequeña de maicena</string>
+      <string>Guisantes al gusto</string>
+      <string>Coquinas o almejas al gusto</string>
+      <string>Sal y colorante.</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se descongelan los medallones, y se conecta el modo dorar en la cockeo.</string>
+      <string>Se ralla la cebolla y se dora con un poco de aceite. Después se incorporan los medallones y se doran ligeramente.</string>
+      <string>Se incorpora el vino con los ajos machacados, y después los guisantes, las almejas y el vaso de caldo.</string>
+      <string>Y por último, añadimos los dos dedos de agua con la maicena (se disuelve para que no queden grumos), la sal, el colorante y las almejas o coquinas.</string>
+      <string>Cocción rápida 4 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/medallones-de-merluza-por-conchi-sevilla.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

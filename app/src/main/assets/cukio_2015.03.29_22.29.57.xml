@@ -1,0 +1,29 @@
+<recipeItem>
+   <name>Alitas de pollo al ajillo con patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_22.29.57.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1 kg alitas</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal y pimienta</string>
+      <string>Tomillo</string>
+      <string>200 ml vinagre</string>
+      <string>4 ajos picados</string>
+      <string>4 patatas grandes (las corté en rodajas no muy finas)</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Salpimentamos las alitas y le añadimos un poco de tomillo.</string>
+      <string>A continuación las introducimos en la cubeta precalentada (modo dorar) con un poco de aceite y las freímos durante 10 minutos.</string>
+      <string>Añadimos el vino blanco y las dejamos hacer 10 minutos. Sacamos y reservamos.</string>
+      <string>Añadimos en el mismo aceite de las alitas, las patatas con un poquito de sal.</string>
+      <string>Las freímos 10 minutos (en modo dorar). Las movemos para que se hagan bien por todos lados.</string>
+      <string>Cuando hayan pasado los 10 minutos, las sacamos y echamos de nuevo las alitas, encima echamos las patatas y le añadimos los ajos picados machacados con el vino blanco y vinagre y movemos bien.</string>
+      <string>Dejamos unos 10 minutos y a comer.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/alitas-de-pollo-al-ajillo-con-patatas.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

@@ -1,0 +1,26 @@
+<recipeItem>
+   <name>Arroz blanco con verduras y pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_15.43.37.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>1/2 calabacín</string>
+      <string>1 cebolla</string>
+      <string>1 pechuga de pollo troceada</string>
+      <string>200 gr de arroz</string>
+      <string>Agua</string>
+      <string>Aceite</string>
+      <string>Sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En primer lugar cortar el calabacín y la cebolla en dados pequeños, y trocear el pollo.</string>
+      <string>Verter los ingredientes en la Moulinex Cookeo, con la opción dorar. Una vez dorada la verdura y la carne (4 minutos es suficiente), retirar y guardar, pero dejando el jugo que han dejado el pollo y las verduras.</string>
+      <string>Verter el arroz, cubrir con agua e ir a ingredientes, arroces y legumbres, arroz blanco.</string>
+      <string>Una vez terminada la cocción, añadir al arroz las verduras que anteriormente habíamos separado, y hecho.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/04/arroz-blanco-con-verduras-y-pollo.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

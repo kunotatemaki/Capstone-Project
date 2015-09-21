@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Pollo al chocolate</name>
+   <type>main</type>
+   <picture>cukio_2015.04.01_20.03.10.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 pechugas de pollo enteras</string>
+      <string>Sal</string>
+      <string>Pimienta</string>
+      <string>1 cucharada de maicena disuelta en un poco de agua</string>
+      <string>65 g cobertura chocolate</string>
+      <string>1 vaso caldo de pollo</string>
+      <string>1 cebolla</string>
+      <string>2 dientes de ajo</string>
+      <string>1 vaso de vino blanco</string>
+      <string>1/2 vaso de agua</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Salpimentar las pechugas y dorar un poco, aparte doramos la cebolla y los ajos troceados, añadimos la maicena y mover hasta espesar la salsa sin grumos.</string>
+      <string>A continuación echamos el vino, agua, caldo de pollo y el chocolate (previamente derretido).</string>
+      <string>Echamos dentro las pechugas y en cocción rápida le durante 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/10/pollo-al-chocolate-por-jose-antonio.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>20</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

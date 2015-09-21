@@ -1,0 +1,23 @@
+<recipeItem>
+   <name>Sofrito</name>
+   <type>main</type>
+   <picture>cukio_2015.03.29_19.36.53.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>2 cebollas</string>
+      <string>1 cabeza de ajo</string>
+      <string>3 pimientos</string>
+      <string>1 kg de tomate</string>
+      <string>Aceite</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Encendemos nuestra Cookeo, seleccionamos manual, dorar.</string>
+      <string>Echamos el aceite, la cebolla picada, el ajo picado, los pimientos picados, doramos un poco. Incorporamos el tomate también a trocitos. Doramos un poco.</string>
+      <string>Pasamos a cocción rápida 5 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/11/sofrito-por-virtudes-gonzalez.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>true</vegetarian>
+   <portions>2</portions>
+   <minutes>30</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

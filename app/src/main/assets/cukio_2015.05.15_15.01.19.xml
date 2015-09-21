@@ -1,0 +1,40 @@
+<recipeItem>
+   <name>Alcachofas rellenas</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.01.19.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>12 alcachofas grandes</string>
+      <string>300 gr de magro de cerdo</string>
+      <string>1 cebolla</string>
+      <string>1 zanahoria</string>
+      <string>100 gr de jamón curado en taquitos</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>1 cebolla grande</string>
+      <string>4 dientes de ajo</string>
+      <string>1 vaso de vino blanco</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en el vaso de la Thermomix la carne magra de cerdo junto con una cebolla cortada en cuartos ya pelada, la zanahoria pelada y troceada y el jamón curado en taquitos. Salpimentamos.</string>
+      <string>Damos unos golpes de turbo para que todo quede bien picado y ligado. Si no tenemos Thermomix o tenemos la carne ya picada, solo tenemos que rallar la zanahoria, rallar la cebolla y picar muy fino el jamón. Ligamos todo en un bol para que se mezcle todo muy bien.</string>
+      <string>Limpiamos las alcachofas y dejamos solo la parte del corazón.</string>
+      <string>Abrimos un poco la alcachofa para que entre el relleno, con cuidado para no partirla, solo necesitamos abrir.</string>
+      <string>Rellenamos las alcachofas con el relleno del vaso de la Thermomix.</string>
+      <string>Presionamos bien y reservamos.</string>
+      <string>En la Cookeo ponemos un fondo de aceite y agregamos la cebolla cortada en juliana junto con los ajos picados.</string>
+      <string>Hacemos el sofrito con la función dorar.</string>
+      <string>Cuando la cebolla esté tierna, ponemos las alcachofas con el relleno hacia arriba.</string>
+      <string>Añadimos el vino y dejamos unos minutos que evapore el alcohol.</string>
+      <string>Agregamos agua, más o menos para que llegue a la mita de las alcachofas.</string>
+      <string>Salpimentamos.</string>
+      <string>Apagamos función dorar. Cerramos la Cookeo, función cocción rápida, 10 minutos.</string>
+      <string>Abrimos, comprobamos que las alcachofas están tiernas y solo nos queda servir.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20150416/alcachofas-rellenas-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>En la Thermomix lo que hicimos fue picar la carne junto con el resto de ingredientes del relleno. Si tu ya tienes la carne picada de la carnicería, este paso te lo saltas y solo tienes que ligar los ingredientes del relleno.</tip>
+</recipeItem>

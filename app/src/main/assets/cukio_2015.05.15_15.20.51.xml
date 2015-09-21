@@ -1,0 +1,39 @@
+<recipeItem>
+   <name>Arroz con carne a la sidra</name>
+   <type>main</type>
+   <picture>cukio_2015.05.15_15.20.51.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 gr de carne de guiso de cerdo</string>
+      <string>300 gr de arroz redondo</string>
+      <string>1 botella de sidra pequeña</string>
+      <string>Aceite de oliva virgen extra</string>
+      <string>Sal</string>
+      <string>Pimienta molida</string>
+      <string>1 cebolla</string>
+      <string>3 dientes de ajo</string>
+      <string>1 tomate</string>
+      <string>1 pimiento verde</string>
+      <string>1 zanahoria</string>
+      <string>120 gr de guisantes, yo use congelados</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos en la Cookeo un fondo de aceite de oliva virgen extra y seleccionamos función dorar.</string>
+      <string>Mientras precalienta, picamos muy fino la cebolla, tomate, ajo y pimiento.</string>
+      <string>Hacemos el sofrito y añadimos la carne. Salteamos y agregamos la sidra.</string>
+      <string>Dejamos que hierva un rato mientras pelamos y troceamos la zanahoria.</string>
+      <string>Añadimos la zanahoria y los guisantes.</string>
+      <string>Cubrimos de agua y salpimentamos.</string>
+      <string>Paramos la función dorar , cerramos la Cookeo y seleccionamos cocción rápida, 15 minutos.</string>
+      <string>Abrimos y ponemos el arroz.</string>
+      <string>Removemos para que se ligue el arroz con la carne.</string>
+      <string>Cerramos la olla y seleccionamos 9 minutos.</string>
+      <string>Abrimos, rectificamos de caldo y de sal.</string>
+      <string>Servimos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://cocinayrecetas.hola.com/lacocinaperfecta/20141217/arroz-con-carne-a-la-sidra-en-cookeo/&quot;&gt;La Cocina Perfecta&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

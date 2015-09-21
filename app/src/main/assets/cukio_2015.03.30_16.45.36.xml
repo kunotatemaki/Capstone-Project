@@ -1,0 +1,32 @@
+<recipeItem>
+   <name>Cuscús con verduras y pollo</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_16.45.36.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>250 g de cuscús</string>
+      <string>Un trozo de calabaza</string>
+      <string>Un calabacín</string>
+      <string>2 o 3 hojas de lechuga</string>
+      <string>3 o 4 zanahorias pequeñas o cortadas a trocitos</string>
+      <string>Un trozo picado de pimiento verde y también de pimiento rojo</string>
+      <string>Un puñado de garbanzos</string>
+      <string>Una pechuga de pollo cortada a trocitos o un cuarto trasero de pollo entero (sin la piel)</string>
+      <string>Agua 250 ml.</string>
+      <string>Una pizca de sal</string>
+      <string>5 cucharadas del sazonador ras el naout (variará de la intensidad de sabor que queráis darle al cuscús)</string>
+      <string>Una cucharada y media de mantequilla</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Vertemos 250 ml de agua en el interior de nuestra Cookeo y ponemos el cestillo de vapor (esto lo hacemos para que luego podamos sacar las verduras y el pollo sin problemas y dejar el agua para hacer el cuscús) e introducimos todas las verduras, los garbanzos y el pollo en su interior. Añadimos la cucharadita de sal y sólo 3 cucharadas del sazonador.</string>
+      <string>Programamos cocción rápida unos 15-20 min (pensad que la verdura se hace antes, pero esperamos un poco más para que se haga el pollo).</string>
+      <string>Una vez terminada la cocción, reservar las verduras y el pollo.</string>
+      <string>Continuamos con la cocción del cuscús: en el agua ya preparada para el cuscús, programamos la olla para “dorar” y, cuando esté el líquido en ebullición, añadiremos los 250 g de cuscús a la vez que el restante de cucharadas del sazonador para que tome el sabor durante la cocción.</string>
+      <string>Cuando veamos que se está terminando de hacer, terminamos con la programación de “dorar” y con el calor remanente de la olla se terminará añadiendo la mantequilla ya derretida (la mantequilla es para que el el grano del cuscús esté suelto y no pegado con el resto).</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/06/cuscus-con-verduras-y-pollo-por-julieta.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Una vez terminado con el cuscús . La presentación podrá disponerse en una bandeja o en un recipiente ancho y hondo, donde separaremos cuscús y verduras.</tip>
+</recipeItem>

@@ -1,0 +1,28 @@
+<recipeItem>
+   <name>Muslos de pollo en salsa</name>
+   <type>main</type>
+   <picture>cukio_2015.04.05_13.36.38.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Una bolsa de muslos del Mercadona de esos congelados</string>
+      <string>1 rebanada de pan bimbo</string>
+      <string>4 ajos sin pelar</string>
+      <string>Dos dedos de vino blanco</string>
+      <string>Especias provenzales</string>
+      <string>1 cebolla</string>
+      <string>Y dos cucharadas soperas de almendras molidas</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Se dora el pan y los ajos y se apartan.</string>
+      <string>Se corta la cebolla y los muslos, se procede a dorarlos, en el modo dorar de nuestra Cookeo.</string>
+      <string>En el vaso de la batidora se echa caldo de pollo, el pan, la almendra y se tritura.</string>
+      <string>Incorporamos el vino y lo que ha sido triturado en la batidora.</string>
+      <string>Seleccionamos el modo manual, cocción rápida durante 8 minutos.</string>
+      <string>Después se sacan los muslos y se bate el caldo, para que quede la salsa fina.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2015/03/muslos-de-pollo-en-salsa-por-conchi.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>-1</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip>Se puede acompañar con unas patatas fritas.</tip>
+</recipeItem>

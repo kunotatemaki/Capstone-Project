@@ -1,0 +1,33 @@
+<recipeItem>
+   <name>Arroz al horno</name>
+   <type>main</type>
+   <picture>cukio_2015.03.30_15.40.06.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>Arroz 200 g</string>
+      <string>Panceta</string>
+      <string>Costilla</string>
+      <string>Morcilla</string>
+      <string>Garbanzos cocidos</string>
+      <string>Patata 1 unidad</string>
+      <string>Aceite</string>
+      <string>Ajo 4 dientes</string>
+      <string>Colorante</string>
+      <string>Tomate</string>
+      <string>Caldo de pollo</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>En primer lugar, pondremos nuestro robot Cookeo, en modo dorar.</string>
+      <string>Mientras dura el calentamiento, iremos pelando las patatas y cortando el tomate. Ambos cortes los haremos en rodajas.</string>
+      <string>Una vez hecho esto, dorar las patatas hasta que empiecen a cambiar el color, para inmediatamente añadir el ajo (entero y sin pelar), la panceta, la costilla y los garbanzos cocidos.</string>
+      <string>Cuando todo esté bien dorado, echar el arroz, remover un poco para que coja el gusto del sofrito.</string>
+      <string>Poner encima las morcillas y el tomate y cubrir con el caldo pollo.</string>
+      <string>Añadir colorante alimenticio.</string>
+      <string>Detener el dorado y poner en modo cocción rápida durante 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://recetascookeo.blogspot.com.es/2014/05/arroz-al-horno.html&quot;&gt;Recetas Cookeo&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>2</portions>
+   <minutes>-1</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>

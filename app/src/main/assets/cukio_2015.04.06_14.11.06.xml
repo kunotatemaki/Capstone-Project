@@ -1,0 +1,25 @@
+<recipeItem>
+   <name>Chocos con patatas</name>
+   <type>main</type>
+   <picture>cukio_2015.04.06_14.11.06.jpg</picture>
+   <ingredients class="java.util.ArrayList">
+      <string>500 g chocos</string>
+      <string>500 g patatas</string>
+      <string>3 unidad/es ajo</string>
+      <string>1 unidad/es pimiento</string>
+      <string>1 unidad/es cebolla</string>
+      <string>1 vaso/s vino blanco</string>
+      <string>1 unidad/es pastilla avecren pescado</string>
+      <string>1 pizca sal</string>
+   </ingredients>
+   <steps class="java.util.ArrayList">
+      <string>Ponemos a la Cookeo en funcionamiento precalentando en la opción de dorar. Echamos un poquito de aceite fondo para sofreír. Tipo de cocción: dorar: 3 minutos.</string>
+      <string>Picamos cebolla, los ajos y el pimiento, sofreimos, le echamos el choco y sal, cuando haya soltado un poco de agua y empiece a cambiar de color le añadiremos el vasito de vino y dejamos que se evapore. Añadimos las patatas chascadas y le vamos dando unas vueltecitas. Cubrimos agua y añadimos Avecrem (de pescado). Cerramos la máquina y le damos cocción rápida 10 minutos.</string>
+   </steps>
+   <author>&lt;a href=&quot;http://www.descubriendonuevossabores.com/recetas/papas-con-chocos/3392/&quot;&gt;Descubriendo nuevos sabores&lt;/a&gt;</author>
+   <vegetarian>false</vegetarian>
+   <portions>4</portions>
+   <minutes>43</minutes>
+   <language>Spanish</language>
+   <tip></tip>
+</recipeItem>
