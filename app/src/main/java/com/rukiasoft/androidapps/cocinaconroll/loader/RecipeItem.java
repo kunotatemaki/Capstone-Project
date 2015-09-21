@@ -1,9 +1,9 @@
-package com.rukiasoft.androidapps.cocinaconroll.classes;
+package com.rukiasoft.androidapps.cocinaconroll.loader;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.rukiasoft.androidapps.cocinaconroll.utils.CocinaConRollConstants;
+import com.rukiasoft.androidapps.cocinaconroll.Constants;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -22,7 +22,7 @@ public class RecipeItem implements Parcelable {
     @Element
     private String type = "";
     @Element
-    private String picture = CocinaConRollConstants.DEFAULT_PICTURE_NAME;
+    private String picture = Constants.DEFAULT_PICTURE_NAME;
     @ElementList
     private List<String> ingredients = new ArrayList<>();
     @ElementList
