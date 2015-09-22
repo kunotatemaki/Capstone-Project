@@ -1,6 +1,9 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +13,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class RecipeListActivity extends ToolbarAndRefreshActivity {
@@ -17,6 +21,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
 
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.navview)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }else{
             setDefaultValuesForOptions(R.xml.options_not_vibrate);
         }
+
+        setupDrawerLayout();
     }
 
 
@@ -54,17 +64,65 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 
+    /**
+     * Setup the drawer layout
+     */
+    private void setupDrawerLayout(){
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        switch (menuItem.getItemId()) {
+                            case R.id.menu_all_recipes:
+                                Tools tools = new Tools();
+                                //showTitle(tools.getApplicationName(getApplicationContext()));
+                                break;
+                            case R.id.menu_starters:
+                                //showTitle(getResources().getString(R.string.starters));
+                                break;
+                            case R.id.menu_main_courses:
+                                //showTitle(getResources().getString(R.string.main_courses));
+                                break;
+                            case R.id.menu_desserts:
+                                //showTitle(getResources().getString(R.string.desserts));
+                                break;
+                            case R.id.menu_vegetarians:
+                                //showTitle(getResources().getString(R.string.vegetarians));
+                                break;
+                            case R.id.menu_favorites:
+                                //showTitle(getResources().getString(R.string.favourites));
+                                break;
+                            case R.id.menu_own_recipes:
+                                //showTitle(getResources().getString(R.string.own_recipes));
+                                break;
+                            case R.id.menu_last_downloaded:
+                                //showTitle(getResources().getString(R.string.last_downloaded));
+                                break;
+                        }
+
+                        //menuItem.setChecked(true);
+                        getSupportActionBar().setTitle(menuItem.getTitle());
+
+                        drawerLayout.closeDrawers();
+
+                        return true;
+                    }
+                });
+    }
     /**
      * Check the device to make sure it has the Google Play Services APK. If
      * it doesn't, display a dialog that allows users to download the APK from
@@ -86,6 +144,13 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         return true;
     }
 
+    /**
+     * Show the selected text in the supportActionbar
+     */
+    private void showTitle(String title) {
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setTitle(title);
+    }
 
 
 }

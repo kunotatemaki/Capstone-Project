@@ -80,4 +80,12 @@ public class Tools {
             ((ToolbarAndRefreshActivity) activity).hideRefreshLayoutSwipeProgress();
         }
     }
+
+    /**
+     * get the application name
+     */
+    public static String getApplicationName(Context context) {
+        int stringId = context.getApplicationInfo().labelRes;
+        return context.getString(stringId);
+    }
 }
