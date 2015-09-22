@@ -2,9 +2,13 @@
 <resources>
     <color name="ColorPrimary">#FF5722</color>
     <color name="ColorPrimaryDark">#E64A19</color>
+    <color name="ColorAccent">#00fff3</color>
+    <color name="ColorScrollBar">#ff00fb</color>
 
     <color name="color_refresh_1">#33B5E5</color>
     <color name="color_refresh_2">#99CC00</color>
     <color name="color_refresh_3">#FFBB33</color>
     <color name="color_refresh_4">#FF4444</color>
+
+    <color name="accent_translucent">#800409ff</color>
 </resources>

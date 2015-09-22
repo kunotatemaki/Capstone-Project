@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 
+import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -38,6 +39,8 @@ public class RecipeListFragment extends Fragment implements
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout refreshLayout;
+    @Bind((R.id.fastscroller))
+    FastScroller fastScroller;
 
 
     public RecipeListFragment() {
@@ -115,23 +118,17 @@ public class RecipeListFragment extends Fragment implements
         mRecyclerView.setHasFixedSize(true);
 
         SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(adapter);
-        slideAdapter.setInterpolator(new OvershootInterpolator(0.8f));
-        slideAdapter.setDuration(1000);
+        slideAdapter.setInterpolator(new OvershootInterpolator(1.0f));
+        slideAdapter.setDuration(1500);
         mRecyclerView.setAdapter(slideAdapter);
         //mRecyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
-        mRecyclerView.scheduleLayoutAnimation();
-        //supportStartPostponedEnterTransition();
-        //mAdapter.setData(data);
+        //Set the fast Scroller
+        fastScroller.setRecyclerView(mRecyclerView);
 
-        /*if (isResumed()) {
-            setListShown(true);
-        } else {
-            setListShownNoAnimation(true);
-        }*/
     }
 
     @Override

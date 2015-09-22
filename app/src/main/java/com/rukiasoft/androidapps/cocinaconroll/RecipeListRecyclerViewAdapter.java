@@ -23,16 +23,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListDateComparator;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -44,9 +45,13 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     private OnItemClickListener onItemClickListener;
     private Context mContext;
     private int lastPosition = -1;
+    private Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
+    private Comparator<RecipeItem> comparatorDate = new RecipesListDateComparator();
+
 
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {
         this.items = items;
+        Collections.sort( this.items, comparatorName);
         this.mContext = context;
     }
 
@@ -100,11 +105,15 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             Glide.with(context)
                     .load(Uri.parse(item.getPath()))
                     .centerCrop()
-                    .error(R.drawable.default_image)
+                    .error(R.drawable.default_dish)
                     .into(recipeThumbnail);
         }
     }
 
+    private void refresh(){
+        Collections.sort(items, comparatorName);
+        notifyDataSetChanged();
+    }
 
     public interface OnItemClickListener {
 

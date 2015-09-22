@@ -1,17 +1,12 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.rukiasoft.androidapps.cocinaconroll.gcm.GcmRegistrationAsyncTask;
-import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -34,7 +29,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             //TODO - comprobar el service tanto con el endpoint como con el servidor raspberry
             //Intent intent = new Intent(this, RegistrationIntentService.class);
             //startService(intent);
-            new GcmRegistrationAsyncTask(this).execute();
+            //new GcmRegistrationAsyncTask(this).execute();
         }
 
         //Set default values for preferences

@@ -4,5 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="no_storage_available">Can\'t access to device storage</string>
 
-
+    <string name="fastscroller_track">FastScroller track</string>
+    <string name="fastscroller_handle">FastScroller handle</string>
 </resources>
