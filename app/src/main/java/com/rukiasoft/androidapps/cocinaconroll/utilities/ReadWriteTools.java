@@ -1,8 +1,9 @@
 package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
@@ -11,7 +12,6 @@ import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,27 +23,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
  */
 public class ReadWriteTools {
+    Context mContext;
+    
+    public ReadWriteTools(Context mContext){
+        this.mContext = mContext;
+    }
 
-    public static List<String> loadFiles(Context context, FilenameFilter filter, Boolean external_storage){
+    public List<String> loadFiles(FilenameFilter filter, Boolean external_storage){
         List<String> list = new ArrayList<>();
         Boolean ret;
         //TODO - era writable. Cambiado a readable. Comprobar
-        ret = ReadWriteTools.isExternalStorageReadable();
+        ret = isExternalStorageWritable();
         if(!ret){
             return list;
         }
         // Get the directory for the app's private recipes directory.
         String path;
         if(external_storage)
-            path = getEditedStorageDir(context);
+            path = getEditedStorageDir();
         else
-            path = getOriginalStorageDir(context);
+            path = getOriginalStorageDir();
         File file = new File(path);
         if (file.exists()) {
             String[] files = file.list(filter);
@@ -53,7 +56,7 @@ public class ReadWriteTools {
     }
 
     /* Checks if external storage is available for read and write */
-    public static boolean isExternalStorageWritable() {
+    public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
@@ -61,9 +64,8 @@ public class ReadWriteTools {
 
     /**
      * Checks if external storage is available to at least read
-     * @return
      */
-    public static boolean isExternalStorageReadable() {
+    public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state) ||
                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
@@ -71,11 +73,9 @@ public class ReadWriteTools {
 
     /**
      * Get
-     * @param context
-     * @return
      */
-    public static String getOriginalStorageDir(Context context){
-        String path = context.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
+    public String getOriginalStorageDir(){
+        String path = mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
                 + Constants.RECIPES_DIR + String.valueOf(File.separatorChar);
         File file = new File(path);
         if (!file.exists()) {
@@ -84,10 +84,10 @@ public class ReadWriteTools {
         return path;
     }
 
-    public static String getEditedStorageDir(Context context){
+    public String getEditedStorageDir(){
         File rootPath = Environment.getExternalStoragePublicDirectory("");
-        int stringId = context.getApplicationInfo().labelRes;
-        String dir = context.getString(stringId);
+        int stringId = mContext.getApplicationInfo().labelRes;
+        String dir = mContext.getString(stringId);
         dir = dir.replaceAll("\\s","");
         String path = rootPath.getAbsolutePath() + String.valueOf(File.separatorChar) +
                 dir + String.valueOf(File.separatorChar) +
@@ -101,33 +101,29 @@ public class ReadWriteTools {
 
     /**
      * Read recipe from xml
-     * @param context
-     * @param name
-     * @param type
-     * @return
      */
-    public static RecipeItem readRecipe(Context context, String name, Integer type) {
+    public RecipeItem readRecipe(String name, Integer type) {
         RecipeItem recipeItem;
         String path = "";
         File source;
         if(type.equals(Constants.PATH_TYPE_ASSETS)) {
             InputStream inputStream;
             try {
-                inputStream = context.getAssets().open(name);
+                inputStream = mContext.getAssets().open(name);
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
             }
-            source = createFileFromInputStream(context, inputStream);
+            source = createFileFromInputStream(inputStream);
             recipeItem = parseFileIntoRecipe(source);
             recipeItem.setState(Constants.FLAG_ASSETS);
             recipeItem.setFileName(name);
             source.delete();
         }else {
             if (type.equals(Constants.PATH_TYPE_ORIGINAL))
-                path = getOriginalStorageDir(context) + name;
+                path = getOriginalStorageDir() + name;
             else if (type.equals(Constants.PATH_TYPE_EDITED))
-                path = getEditedStorageDir(context) + name;
+                path = getEditedStorageDir() + name;
             source = new File(path);
             recipeItem = parseFileIntoRecipe(source);
             if(recipeItem == null)
@@ -137,15 +133,15 @@ public class ReadWriteTools {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
                 if(recipeItem.getDate() == null){
                     recipeItem.setDate(System.currentTimeMillis());
-                    saveRecipeOnOrigialPath(context, recipeItem);
+                    saveRecipeOnOrigialPath(recipeItem);
                 }
             }
         }
 
         if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
-            recipeItem.setPath(getEditedStorageDir(context) + recipeItem.getPicture());
+            recipeItem.setPath(getEditedStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ORIGINAL) != 0)
-            recipeItem.setPath(getOriginalStorageDir(context) + recipeItem.getPicture());
+            recipeItem.setPath(getOriginalStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
             recipeItem.setPath(Constants.ASSETS_PATH + recipeItem.getPicture());
 
@@ -157,11 +153,11 @@ public class ReadWriteTools {
     }
 
 
-    private static File createFileFromInputStream(Context context, InputStream inputStream) {
+    private File createFileFromInputStream(InputStream inputStream) {
 
         try{
-            //File f = new File(context.getFilesDir() + "temp.txt");
-            File f = getTempFile(context);
+            //File f = new File(mContext.getFilesDir() + "temp.txt");
+            File f = getTempFile();
             OutputStream outputStream = new FileOutputStream(f);
             byte buffer[] = new byte[1024];
             int length;
@@ -177,10 +173,10 @@ public class ReadWriteTools {
         return null;
     }
 
-    private static File getTempFile(Context context) {
+    private File getTempFile() {
         File file;
         try {
-            file = File.createTempFile("tmp.xml", null, context.getCacheDir());
+            file = File.createTempFile("tmp.xml", null, mContext.getCacheDir());
             return file;
         } catch (IOException e) {
             e.printStackTrace();// Error while creating file
@@ -188,7 +184,7 @@ public class ReadWriteTools {
         return null;
     }
 
-    private static RecipeItem parseFileIntoRecipe(File source){
+    private RecipeItem parseFileIntoRecipe(File source){
         RecipeItem recipeItem = new RecipeItem();
         Serializer serializer = new Persister();
         try {
@@ -203,21 +199,24 @@ public class ReadWriteTools {
         return recipeItem;
     }
 
-    public static Boolean saveRecipeOnOrigialPath(Context context, RecipeItem recipe){
-        String path = getOriginalStorageDir(context);
-        return saveRecipe(context, recipe, path);
+    public Boolean saveRecipeOnOrigialPath(RecipeItem recipe){
+        String path = getOriginalStorageDir();
+        return saveRecipe(recipe, path);
     }
 
-    public static Boolean saveRecipeOnEditedPath(Context context, RecipeItem recipe){
-        String path = getEditedStorageDir(context);
-        return saveRecipe(context, recipe, path);
+    public Boolean saveRecipeOnEditedPath(RecipeItem recipe){
+        String path = getEditedStorageDir();
+        return saveRecipe(recipe, path);
     }
 
-    public static Boolean saveRecipe(Context context, RecipeItem recipe, String path){
+    public Boolean saveRecipe(RecipeItem recipe, String path){
         Boolean ret;
         ret = isExternalStorageWritable();
         if(!ret){
-            Tools.showToast(context, context.getResources().getString(R.string.no_storage_available));
+            if(mContext instanceof AppCompatActivity) {
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.no_storage_available), Toast.LENGTH_LONG)
+                .show();
+            }
             return ret;
         }
 
@@ -241,18 +240,18 @@ public class ReadWriteTools {
 
     }
 
-    public static void deleteRecipe(Context context, RecipeItem recipeItem, Integer flags){
+    public void deleteRecipe(RecipeItem recipeItem, Integer flags){
         String pathFile = "";
         String pathPicture = "";
         if((flags & Constants.FLAG_EDITED) != 0) {
-            pathFile = getEditedStorageDir(context) + recipeItem.getFileName();
+            pathFile = getEditedStorageDir() + recipeItem.getFileName();
         }
         if((flags & Constants.FLAG_EDITED_PICTURE) != 0) {
             pathPicture = recipeItem.getPath();
         }
         if((flags & Constants.FLAG_ORIGINAL) != 0) {
-            pathFile = getOriginalStorageDir(context) + recipeItem.getFileName();
-            pathPicture = getOriginalStorageDir(context) + recipeItem.getPicture();
+            pathFile = getOriginalStorageDir() + recipeItem.getFileName();
+            pathPicture = getOriginalStorageDir() + recipeItem.getPicture();
         }
         File file = new File(pathFile);
         if(file.exists())
@@ -263,39 +262,26 @@ public class ReadWriteTools {
 
     }
 
-    public static List<String> loadRecipesFromAssets(Context context) {
+    public List<String> loadRecipesFromAssets() {
 
         List<String> list = new ArrayList<>();
-        AssetManager am = context.getAssets();
-        RecipeAssetsItemLoader recipeAssetsItemLoader;
-        try {
-            recipeAssetsItemLoader = new RecipeAssetsItemLoader(am.open("preinstalled_recipes.xml"), context);
-            list = recipeAssetsItemLoader.getItems();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
         File source;
         InputStream inputStream;
         try {
-            inputStream = context.getAssets().open("preinstalled_recipes.xml");
+            inputStream = mContext.getAssets().open("preinstalled_recipes.xml");
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        source = createFileFromInputStream(context, inputStream);
-        parseFileIntoRecipeList(source);
+        source = createFileFromInputStream(inputStream);
+        list = parseFileIntoRecipeList(source);
         source.delete();
 
         return list;
     }
 
-    private static List<RecipeItem> parseFileIntoRecipeList(File source){
+    private List<String> parseFileIntoRecipeList(File source){
 
-        List<RecipeItem> list = new ArrayList<>();
         Serializer serializer = new Persister();
         PreinstalledRecipeNamesList preinstalledRecipeNames = new PreinstalledRecipeNamesList();
         try {
@@ -307,7 +293,6 @@ public class ReadWriteTools {
             e.printStackTrace();
             return null;
         }
-        //TODO-pass recipes to list and delete XMLFActory
-        return list;
+        return preinstalledRecipeNames.getPreinstalledRecipeNameListAsListOfStrings();
     }
 }

@@ -5,8 +5,8 @@ package com.rukiasoft.androidapps.cocinaconroll.loader;
  */
 
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
@@ -52,9 +52,8 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
         Log.d(TAG, "+++ loadInBackground() called! +++");
 
         // Create corresponding array of entries and load their labels.
-        List<RecipeItem> recipes = loadRecipes();
 
-        return recipes;
+        return loadRecipes();
     }
 
     /*******************************************/
@@ -220,13 +219,15 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
     private List<RecipeItem> loadRecipes() {
         List<RecipeItem> recipes = new ArrayList<>();
         MyFileFilter filter = new MyFileFilter();
-        List<String> listEdited = ReadWriteTools.loadFiles(getContext(), filter, true);
-        List<String> listOriginal = ReadWriteTools.loadFiles(getContext(), filter, false);
-        List<String> listAssets = ReadWriteTools.loadRecipesFromAssets(getContext());
+        ReadWriteTools readWriteTools = new ReadWriteTools(getContext());
+        Tools tools = new Tools();
+        List<String> listEdited = readWriteTools.loadFiles(filter, true);
+        List<String> listOriginal = readWriteTools.loadFiles(filter, false);
+        List<String> listAssets = readWriteTools.loadRecipesFromAssets();
 
         for(int i=0; i<listEdited.size(); i++) {
 
-            RecipeItem recipeItem= ReadWriteTools.readRecipe(getContext(), listEdited.get(i),
+            RecipeItem recipeItem= readWriteTools.readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
                 recipes.add(recipeItem);
@@ -236,7 +237,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
         for(int i=0; i<listOriginal.size(); i++) {
             if(listEdited.contains(listOriginal.get(i)))
                 continue;
-            RecipeItem recipeItem= ReadWriteTools.readRecipe(getContext(), listOriginal.get(i),
+            RecipeItem recipeItem= readWriteTools.readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
                 recipes.add(recipeItem);
@@ -248,12 +249,13 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
 
             RecipeItem recipeItem;
             if(listOriginal.contains(listAssets.get(i))){
-                recipeItem = ReadWriteTools.readRecipe(getContext(), listAssets.get(i),
+                recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                         Constants.PATH_TYPE_ORIGINAL);
-                if(Tools.isInTimeframe(recipeItem))
+
+                if(tools.isInTimeframe(recipeItem))
                     continue;
                 else {
-                    ReadWriteTools.deleteRecipe(getContext(), recipeItem, Constants.FLAG_ORIGINAL);
+                    readWriteTools.deleteRecipe(recipeItem, Constants.FLAG_ORIGINAL);
                     for (int j = 0; j < recipes.size(); j++) {
                         if (recipes.get(j).getFileName().compareTo(listAssets.get(i)) == 0) {
                             recipes.remove(j);
@@ -264,7 +266,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             }
             if(listEdited.contains(listAssets.get(i)))
                 continue;
-            recipeItem = ReadWriteTools.readRecipe(getContext(), listAssets.get(i),
+            recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if(recipeItem != null) {
                 recipes.add(recipeItem);

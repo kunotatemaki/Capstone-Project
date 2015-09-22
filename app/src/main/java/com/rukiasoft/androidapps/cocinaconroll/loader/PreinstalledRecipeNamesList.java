@@ -13,8 +13,15 @@ import java.util.List;
 public class PreinstalledRecipeNamesList {
 
     @ElementList(required=true, inline=true)
-    private List<PreinstalledRecipeName> list = new ArrayList<>();
+    private List<PreinstalledRecipeName> mPreinstalledRecipeNames = new ArrayList<>();
 
+    public List<String> getPreinstalledRecipeNameListAsListOfStrings(){
+        List<String> list = new ArrayList<>();
+        for(PreinstalledRecipeName recipeName : mPreinstalledRecipeNames){
+            list.add(recipeName.getName());
+        }
+        return list;
+    }
 }
 
 
