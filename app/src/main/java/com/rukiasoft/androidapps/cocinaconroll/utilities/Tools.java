@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Vibrator;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
@@ -65,9 +64,8 @@ public class Tools {
     /**
      * set the refresh layout to be shown in the activity
      * @param activity activity having refresh layout
-     * @param refreshLayout refresh layout
      */
-    public void showRefreshLayout(Activity activity, SwipeRefreshLayout refreshLayout){
+    public void showRefreshLayout(Activity activity){
         if(activity instanceof ToolbarAndRefreshActivity) {
             ((ToolbarAndRefreshActivity) activity).showRefreshLayoutSwipeProgress();
         }
@@ -76,9 +74,8 @@ public class Tools {
     /**
     * set the refresh layout to be hidden in the activity
     * @param activity activity having refresh layout
-    * @param refreshLayout refresh layout
     */
-    public void hideRefreshLayout(Activity activity, SwipeRefreshLayout refreshLayout){
+    public void hideRefreshLayout(Activity activity){
         if(activity instanceof ToolbarAndRefreshActivity) {
             ((ToolbarAndRefreshActivity) activity).hideRefreshLayoutSwipeProgress();
         }

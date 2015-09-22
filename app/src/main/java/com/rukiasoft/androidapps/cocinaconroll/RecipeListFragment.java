@@ -6,7 +6,6 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -23,11 +22,8 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.List;
 
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
 
 /**
@@ -71,9 +67,9 @@ public class RecipeListFragment extends Fragment implements
         Tools tools = new Tools();
         if(getActivity() instanceof ToolbarAndRefreshActivity){
             if(((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh){
-                tools.showRefreshLayout(getActivity(), refreshLayout);
+                tools.showRefreshLayout(getActivity());
             }else{
-                tools.hideRefreshLayout(getActivity(), refreshLayout);
+                tools.hideRefreshLayout(getActivity());
             }
         }
     }
@@ -95,7 +91,7 @@ public class RecipeListFragment extends Fragment implements
         if(getActivity() instanceof ToolbarAndRefreshActivity){
             if(isResumed()){
                 Tools tools = new Tools();
-                tools.showRefreshLayout(getActivity(), refreshLayout);
+                tools.showRefreshLayout(getActivity());
             }else {
                 ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = true;
             }
@@ -108,7 +104,7 @@ public class RecipeListFragment extends Fragment implements
         Log.i("", "+++ onLoadFinished() called! +++");
         if(isResumed()){
             Tools tools = new Tools();
-            tools.hideRefreshLayout(getActivity(), refreshLayout);
+            tools.hideRefreshLayout(getActivity());
         }else {
             ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
         }
@@ -142,7 +138,7 @@ public class RecipeListFragment extends Fragment implements
     public void onLoaderReset(Loader<List<RecipeItem>> loader) {
         mRecyclerView.setAdapter(null);
         Tools tools = new Tools();
-        tools.hideRefreshLayout(getActivity(), refreshLayout);
+        tools.hideRefreshLayout(getActivity());
     }
 
     @Override

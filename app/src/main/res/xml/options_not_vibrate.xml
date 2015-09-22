@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/category_application">
+        <CheckBoxPreference
+            android:key="option_screen_on"
+            android:title="@string/screen_on"
+            android:summaryOn="@string/screen_on_description"
+            android:summaryOff="@string/screen_of_description"
+            android:defaultValue="true" />
+        <CheckBoxPreference
+            android:key="option_update_wifi"
+            android:title="@string/update_wifi"
+            android:summaryOn="@string/update_with_wifi_description"
+            android:summaryOff="@string/update_wihtout_wifi_description"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/notifications">
+        <RingtonePreference
+            android:showDefault="true"
+            android:key="option_notification"
+            android:title="@string/audio_notification"
+            android:summary="@string/audio_notification_description"
+            android:ringtoneType="notification"/>
+    </PreferenceCategory>
+</PreferenceScreen>
