@@ -17,5 +17,15 @@
     <string name="description_not_vibrate">El dispositivo no vibrará cuando reciba una notificación de nuevas recetas</string>
     <string name="audio_notification">Tono de notificación</string>
     <string name="audio_notification_description">Selecciona un sonido para las notificaciones de nuevas recetas</string>
+    <string name="all_recipes">Todas las recetas</string>
+    <string name="starters">Entrantes</string>
+    <string name="main_courses">Platos principales</string>
+    <string name="desserts">Postres</string>
+    <string name="vegetarians">Platos vegetarianos</string>
+    <string name="favourites">Favoritos</string>
+    <string name="favourite">Favorito</string>
+    <string name="search_by_ingredients">Búsqueda por ingredientes</string>
+    <string name="own_recipes">Recetas propias</string>
+    <string name="last_downloaded">Últimas recetas descargadas</string>
 
 </resources>

@@ -21,30 +21,45 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/drawer_home"
+            android:id="@+id/all_recipes"
             android:checked="true"
-            android:icon="@drawable/ic_main"
-            android:title="main"/>
+            android:icon="@drawable/ic_all_recipes_48"
+            android:title="@string/all_recipes"/>
 
         <item
-            android:id="@+id/drawer_favourite"
+            android:id="@+id/starters"
+            android:icon="@drawable/ic_main_24_bis"
+            android:title="@string/starters"/>
+
+        <item
+            android:id="@+id/main_courses"
+            android:icon="@drawable/ic_main_24"
+            android:title="@string/main_courses"/>
+
+        <item
+            android:id="@+id/desserts"
+            android:icon="@drawable/ic_dessert_24"
+            android:title="@string/desserts"/>
+
+        <item
+            android:id="@+id/vegetarians"
+            android:icon="@drawable/ic_vegetarian_24"
+            android:title="@string/vegetarians"/>
+
+        <item
+            android:id="@+id/favorites"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="string/favourite"/>
+            android:title="string/favourites"/>
 
         <item
-            android:id="@+id/drawer_downloaded"
-            android:icon="@drawable/ic_share_black_24dp"
-            android:title="string/downloaded"/>
+            android:id="@+id/own_recipes"
+            android:icon="@drawable/ic_own_24"
+            android:title="@string/own_recipes"/>
 
         <item
-            android:id="@+id/drawer_more"
-            android:icon="@drawable/ic_delete_black_24dp"
-            android:title="string/more"/>
-
-        <item
-            android:id="@+id/drawer_settings"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="string/settings"/>
+            android:id="@+id/last_downloaded"
+            android:icon="@drawable/ic_latest_24"
+            android:title="@string/last_downloaded"/>
 
     </group>
 </menu>
