@@ -1,12 +1,19 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -26,11 +33,35 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     @Bind(R.id.navview)
     NavigationView navigationView;
 
+    private RecipeListFragment mRecipeListFragment;
+    private SearchView mSearchView;
+
+    ToolbarAndRefreshActivity mActivity;
+
+    //Listener for the searchview widget
+    SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            //getFilteredRecipes(query);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String query) {
+            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+            if(mRecipeListFragment != null){
+                mRecipeListFragment.onQueryTextChange(query);
+            }
+            return true;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
+        mActivity = this;
 
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
@@ -56,6 +87,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_recipe_list, menu);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) searchMenuItem.getActionView();
+        mSearchView.setOnQueryTextListener(listener);
+
         return true;
     }
 
@@ -85,11 +120,12 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        String title = menuItem.getTitle().toString();
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_all_recipes:
                                 Tools tools = new Tools();
-                                //showTitle(tools.getApplicationName(getApplicationContext()));
+                                title = tools.getApplicationName(getApplicationContext());
                                 break;
                             case R.id.menu_starters:
                                 //showTitle(getResources().getString(R.string.starters));
@@ -115,7 +151,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                         }
 
                         //menuItem.setChecked(true);
-                        getSupportActionBar().setTitle(menuItem.getTitle());
+                        showTitle(title);
 
                         drawerLayout.closeDrawers();
 
@@ -152,5 +188,11 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             getSupportActionBar().setTitle(title);
     }
 
+    /*private void getFilteredRecipes(String filter){
+        if(mRecipeListFragment == null){
+            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        }
+        mRecipeListFragment.getFilteredRecipes(filter);
+    }*/
 
 }

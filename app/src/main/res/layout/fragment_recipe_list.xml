@@ -28,15 +28,14 @@
                 android:paddingRight="@dimen/list_side_margin"
                 android:paddingBottom="@dimen/list_bottom_margin"
                 />
-
             <com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller
-                android:id="@+id/fastscroller"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@id/recycler_view"
-                android:layout_alignBottom="@id/recycler_view"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                 android:id="@+id/fastscroller"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_alignTop="@id/recycler_view"
+                 android:layout_alignBottom="@id/recycler_view"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
 
@@ -58,4 +57,13 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways" />
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        app:fabSize="normal"
+        style="@style/FabStyle"
+        android:layout_gravity="bottom|right|end"
+        android:id="@+id/share_fab"
+        app:layout_behavior="com.rukiasoft.androidapps.cocinaconroll.ScrollAwareFABBehavior"
+        />
+
 </android.support.design.widget.CoordinatorLayout>

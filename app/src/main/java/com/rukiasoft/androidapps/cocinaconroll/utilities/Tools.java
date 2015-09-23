@@ -11,6 +11,8 @@ import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
+import java.text.Normalizer;
+
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
  */
@@ -84,8 +86,18 @@ public class Tools {
     /**
      * get the application name
      */
-    public static String getApplicationName(Context context) {
+    public String getApplicationName(Context context) {
         int stringId = context.getApplicationInfo().labelRes;
         return context.getString(stringId);
+    }
+
+    public String getNormalizedString(String input){
+        String normalized;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+            input = normalized.replaceAll("[^\\p{ASCII}]", "");
+        }
+        return input.toLowerCase();
+
     }
 }

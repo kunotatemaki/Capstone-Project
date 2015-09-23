@@ -6,4 +6,7 @@
 
     <string name="fastscroller_track">FastScroller track</string>
     <string name="fastscroller_handle">FastScroller handle</string>
+    <string name="action_share">Share</string>
+
+
 </resources>

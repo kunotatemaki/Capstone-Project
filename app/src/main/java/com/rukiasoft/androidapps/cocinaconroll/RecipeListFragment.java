@@ -4,10 +4,12 @@ package com.rukiasoft.androidapps.cocinaconroll;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,12 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Filter;
 
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -31,7 +39,7 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  * A placeholder fragment containing a simple view.
  */
 public class RecipeListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener {
+        LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener{
 
     private static final int LOADER_ID = 1;
     @Nullable
@@ -42,6 +50,9 @@ public class RecipeListFragment extends Fragment implements
     @Bind((R.id.fastscroller))
     FastScroller fastScroller;
 
+    private SlideInBottomAnimationAdapter slideAdapter;
+    private RecipeListRecyclerViewAdapter adapter;
+    List<RecipeItem> mRecipes;
 
     public RecipeListFragment() {
     }
@@ -105,23 +116,24 @@ public class RecipeListFragment extends Fragment implements
     @Override
     public void onLoadFinished(Loader<List<RecipeItem>> loader, List<RecipeItem> data) {
         Log.i("", "+++ onLoadFinished() called! +++");
-        if(isResumed()){
+        mRecipes = data;
+        Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
+        Collections.sort(mRecipes, comparatorName);
+        ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
+        if(isResumed()) {
             Tools tools = new Tools();
             tools.hideRefreshLayout(getActivity());
-        }else {
-            ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
         }
 
-        RecipeListRecyclerViewAdapter adapter = new RecipeListRecyclerViewAdapter(getActivity(), data);
-        adapter.setHasStableIds(true);
+        adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
+        //adapter.setHasStableIds(true);
         adapter.setOnItemClickListener(this);
-        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setHasFixedSize(true);
 
-        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(adapter);
-        slideAdapter.setInterpolator(new OvershootInterpolator(1.0f));
-        slideAdapter.setDuration(1500);
-        mRecyclerView.setAdapter(slideAdapter);
-        //mRecyclerView.setAdapter(adapter);
+        wrapAdapter(adapter);
+
+        //mRecyclerView.setAdapter(slideAdapter);
+        mRecyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
@@ -129,6 +141,12 @@ public class RecipeListFragment extends Fragment implements
         //Set the fast Scroller
         fastScroller.setRecyclerView(mRecyclerView);
 
+    }
+
+    private void wrapAdapter(RecipeListRecyclerViewAdapter adapter){
+        slideAdapter = new SlideInBottomAnimationAdapter(adapter);
+        slideAdapter.setInterpolator(new OvershootInterpolator(2.0f));
+        slideAdapter.setDuration(2000);
     }
 
     @Override
@@ -141,5 +159,31 @@ public class RecipeListFragment extends Fragment implements
     @Override
     public void onItemClick(View view, RecipeItem recipeItem) {
         //TODO aquí va el click
+    }
+
+    public void getFilteredRecipes(String filter) {
+
+    }
+
+
+    public boolean onQueryTextChange(String query) {
+        final List<RecipeItem> filteredModelList = filter(mRecipes, query);
+        adapter.animateTo(filteredModelList);
+        mRecyclerView.scrollToPosition(0);
+        return false;
+    }
+
+    //TODO - meter el filter de la otra app
+    private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
+        Tools tools = new Tools();
+        query = tools.getNormalizedString(query);
+        final List<RecipeItem> filteredModelList = new ArrayList<>();
+        for (RecipeItem item : recipes) {
+            final String name = tools.getNormalizedString(item.getName());
+            if (name.contains(query)) {
+                filteredModelList.add(item);
+            }
+        }
+        return filteredModelList;
     }
 }

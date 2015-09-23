@@ -23,12 +23,12 @@
         <item
             android:id="@+id/menu_all_recipes"
             android:checked="true"
-            android:icon="@drawable/ic_all_recipes_48"
+            android:icon="@drawable/ic_all2_24"
             android:title="@string/all_recipes"/>
 
         <item
             android:id="@+id/menu_starters"
-            android:icon="@drawable/ic_main_24_bis"
+            android:icon="@drawable/ic_starters_24"
             android:title="@string/starters"/>
 
         <item
@@ -43,7 +43,7 @@
 
         <item
             android:id="@+id/menu_vegetarians"
-            android:icon="@drawable/ic_vegetarian_24"
+            android:icon="@drawable/ic_vegetarians_24"
             android:title="@string/vegetarians"/>
 
         <item

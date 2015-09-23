@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 import static android.support.v7.widget.RecyclerView.OnScrollListener;
 
 public class FastScroller extends LinearLayout {
@@ -25,8 +28,10 @@ public class FastScroller extends LinearLayout {
     private static final String SCALE_Y = "scaleY";
     private static final String ALPHA = "alpha";
 
-    private View bubble;
-    private View handle;
+    @Bind(R.id.fastscroller_bubble)
+    View bubble;
+    @Bind(R.id.fastscroller_handle)
+    View handle;
 
     private RecyclerView recyclerView;
 
@@ -50,9 +55,8 @@ public class FastScroller extends LinearLayout {
         setOrientation(HORIZONTAL);
         setClipChildren(false);
         LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(R.layout.fastscroller, this);
-        bubble = findViewById(R.id.fastscroller_bubble);
-        handle = findViewById(R.id.fastscroller_handle);
+        View view = inflater.inflate(R.layout.fastscroller, this);
+        ButterKnife.bind(this, view);
     }
 
     @Override
@@ -63,6 +67,15 @@ public class FastScroller extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
+        //only when the bubble is touched
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
+            float pressedY = event.getY();
+            float minY = bubble.getY();
+            float maxY = minY + bubble.getHeight();
+            if(pressedY < minY || pressedY > maxY){
+                return false;
+            }
+        }
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             setPosition(event.getY());
             if (currentAnimator != null) {
@@ -83,7 +96,7 @@ public class FastScroller extends LinearLayout {
 
     public void setRecyclerView(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
-        recyclerView.setOnScrollListener(scrollListener);
+        recyclerView.addOnScrollListener(scrollListener);
     }
 
     private void setRecyclerViewPosition(float y) {

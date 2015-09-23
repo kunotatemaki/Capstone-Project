@@ -21,8 +21,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.widget.TextView;
 
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
+
+import java.lang.reflect.Field;
 
 /**
  * Base activity for activities that need to show a Refresh Layout and a Custom Toolbar
@@ -56,6 +60,24 @@ public abstract class ToolbarAndRefreshActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        try {
+            if(toolbar.getClass() != null) {
+                Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
+                f.setAccessible(true);
+                TextView titleTextView = (TextView) f.get(toolbar);
+                titleTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                titleTextView.setFocusable(true);
+                titleTextView.setFocusableInTouchMode(true);
+                titleTextView.requestFocus();
+                titleTextView.setSingleLine(true);
+                titleTextView.setSelected(true);
+                titleTextView.setMarqueeRepeatLimit(-1);
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setRefreshLayout(SwipeRefreshLayout _refreshLayout){

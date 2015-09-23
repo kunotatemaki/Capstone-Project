@@ -74,13 +74,7 @@ public class Constants {
 
     public static final String PROGRAMMED_IN_ROBOT = "Programada en el robot";
 
-    /*public static final String KEY_1 = "MIIBIjANBgkqhkiG9w0BAQEF";
-    public static final String KEY_2 = "AAOCAQ8AMIIBCgKCAQEAj4+QeT3B5csd6AHiZi5SD1PNGed6PgQjqd";
-    public static final String KEY_3 = "1+ahvVAI/2w2DViZZdvSlXCZVaoBcTc0e0J0XbWgdXi6ukGDdRGdXVzi8Lm5d";
-    public static final String KEY_4 = "2jcY3CXU1Bk8kA9sTFr0U/v2cQxdAMGILWgm/L5I3BM2bEDDU7dPwwXgUTFbd2";
-    public static final String KEY_5 = "svfWtJfY83n0chD64YaHroTyI8I7a2+eXqqre+6OF8akuzrW+UQuWjKwysEGEw8hGQ9Q8TY3YOCVNeu2UAGNrgZArv0brs5VU5+eNtLR1h4eVQIo+V9mJJN2HqZl8+2ZP3RnMGsPlm";
-    public static final String KEY_6 ="ucq1whFT8ZRjtzs2vB3zE2zZcp06izMVC9MY6T0+y03sdSwIDAQAB";
-*/
+
     public static final String EMAIL = "rukiasoft@gmail.com";
 
 }
