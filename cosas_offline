@@ -1,0 +1,23 @@
+Here’s on how to tint your icons:
+
+1. Retrieve your drawable and wrap it first. Then set the tint
+
+    Drawable drawable = getyourdrawablehere;
+    drawable = DrawableCompat.wrap(drawable);
+    DrawableCompat.setTint(drawable, Color.GREEN);
+
+2. Set the Tint mode
+
+    DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+
+If you want to retrieve the original drawable, don’t forget to unwrap using DrawableCompat.unwrap() .
+
+
+UIRS para Glide
+"http://site.com/image.png" // from Web
+"file:///mnt/sdcard/image.png" // from SD card
+"file:///mnt/sdcard/video.mp4" // from SD card (video thumbnail)
+"content://media/external/images/media/13" // from content provider
+"content://media/external/video/media/13" // from content provider (video thumbnail)
+"assets://image.png" // from assets
+"drawable://" + R.drawable.img // from drawables (non-9patch images)
