@@ -23,7 +23,7 @@
         <item
             android:id="@+id/menu_all_recipes"
             android:checked="true"
-            android:icon="@drawable/ic_all2_24"
+            android:icon="@drawable/ic_all_24"
             android:title="@string/all_recipes"/>
 
         <item

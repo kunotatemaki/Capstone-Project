@@ -1,5 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -90,6 +93,11 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) searchMenuItem.getActionView();
         mSearchView.setOnQueryTextListener(listener);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchableInfo prueba = searchManager.getSearchableInfo(getComponentName());
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
 
         return true;
     }

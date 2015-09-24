@@ -21,3 +21,6 @@ UIRS para Glide
 "content://media/external/video/media/13" // from content provider (video thumbnail)
 "assets://image.png" // from assets
 "drawable://" + R.drawable.img // from drawables (non-9patch images)
+
+para el content provider
+http://www.vogella.com/tutorials/AndroidSQLite/article.html

@@ -33,6 +33,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
 
 /**
@@ -132,8 +133,8 @@ public class RecipeListFragment extends Fragment implements
 
         wrapAdapter(adapter);
 
-        //mRecyclerView.setAdapter(slideAdapter);
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(slideAdapter);
+        //mRecyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
@@ -173,7 +174,6 @@ public class RecipeListFragment extends Fragment implements
         return false;
     }
 
-    //TODO - meter el filter de la otra app
     private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
         Tools tools = new Tools();
         query = tools.getNormalizedString(query);
@@ -187,3 +187,5 @@ public class RecipeListFragment extends Fragment implements
         return filteredModelList;
     }
 }
+
+//TODO - scroll listener para quitar el search

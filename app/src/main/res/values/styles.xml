@@ -12,18 +12,24 @@
 
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
-
-
+        <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
+        <item name="android:dropDownItemStyle">@style/myDropDownItemStyle</item>
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="myDropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textColor">@color/secondary_text_default_material_light</item>
+        <item name="android:textSize">14dp</item>
+    </style>
 
+    <style name="myDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:background">#FFF</item>
+    </style>
 
     <style name="FabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/fab_margin</item>
-        <item name="android:src">@drawable/ic_add_circle_outline_black_18dp</item>
         <item name="borderWidth">0dp</item>
         <item name="elevation">6dp</item>
         <item name="pressedTranslationZ">12dp</item>
@@ -31,5 +37,7 @@
         <item name="android:contentDescription">@string/action_share</item>
 
     </style>
+
+
 
 </resources>

@@ -188,7 +188,7 @@ public class ReadWriteTools {
         RecipeItem recipeItem = new RecipeItem();
         Serializer serializer = new Persister();
         try {
-            recipeItem = serializer.read(RecipeItem.class, source);
+            recipeItem = serializer.read(RecipeItem.class, source, false);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
