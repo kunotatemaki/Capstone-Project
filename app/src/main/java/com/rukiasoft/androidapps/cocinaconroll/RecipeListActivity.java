@@ -2,24 +2,20 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.SearchManager;
 import android.app.SearchableInfo;
+import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.database.SearchableActivity;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -92,11 +88,12 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         getMenuInflater().inflate(R.menu.menu_recipe_list, menu);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) searchMenuItem.getActionView();
-        mSearchView.setOnQueryTextListener(listener);
+        //mSearchView.setOnQueryTextListener(listener);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchableInfo prueba = searchManager.getSearchableInfo(getComponentName());
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        SearchableInfo prueba = searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class));
+        //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
 
 
         return true;

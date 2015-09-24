@@ -6,10 +6,14 @@ package com.rukiasoft.androidapps.cocinaconroll.loader;
 
 
 import android.content.AsyncTaskLoader;
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
+import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -269,16 +273,30 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if(recipeItem != null) {
-                recipes.add(recipeItem);
+                addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                //recipes.add(recipeItem);
             }
         }
         //Log.d(TAG, "leido assets");
         return recipes;
     }
 
+    private void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
+        recipeItemList.add(recipeItem);
+        Tools tools = new Tools();
+        ContentValues values = new ContentValues();
+        values.put(SuggestionsTable.FIELD_NAME, recipeItem.getName());
+        values.put(SuggestionsTable.FIELD_NAME_NORMALIZED, tools.getNormalizedString(recipeItem.getName()));
+        int icon;
+        if(recipeItem.getType().equals(Constants.TYPE_DESSERTS))    icon = R.drawable.ic_dessert_24;
+        else if(recipeItem.getType().equals(Constants.TYPE_STARTERS))    icon = R.drawable.ic_starters_24;
+        else if(recipeItem.getType().equals(Constants.TYPE_MAIN))    icon = R.drawable.ic_main_24;
+        else icon = R.drawable.ic_all_24;
+        values.put(SuggestionsTable.FIELD_ICON, icon);
+        getContext().getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values);
+    }
 
-
-    public class MyFileFilter implements FilenameFilter {
+    private class MyFileFilter implements FilenameFilter {
 
         @Override
         public boolean accept(File directory, String fileName) {

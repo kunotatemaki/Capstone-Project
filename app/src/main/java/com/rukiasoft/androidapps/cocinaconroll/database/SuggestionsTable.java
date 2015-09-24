@@ -13,18 +13,22 @@ public class SuggestionsTable {
     public static final String FIELD_ID = "_id";
     public static final String FIELD_NAME = "name";
     public static final String FIELD_ICON = "icon";
+    public static final String FIELD_NAME_NORMALIZED = "normalized";
+
     public static final String TABLE_NAME = "suggestions";
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = " create table " + TABLE_NAME + "" +
             " ( " +
             FIELD_ID + " integer primary key autoincrement, " +
-            FIELD_NAME + " varchar(100), " +
+            FIELD_NAME + " varchar(500), " +
+            FIELD_NAME_NORMALIZED + " varchar(500), " +
             FIELD_ICON + "  int " +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
+
     }
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,

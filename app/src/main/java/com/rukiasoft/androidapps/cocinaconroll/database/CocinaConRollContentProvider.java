@@ -5,14 +5,13 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.net.Uri;
-
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
 
 public class CocinaConRollContentProvider extends ContentProvider {
 
 
-	public static final String AUTHORITY = Constants.PACKAGE_NAME + ".database" + CocinaConRollContentProvider.class.getSimpleName();
+	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
 	public static final Uri CONTENT_URI_SUGGESTIONS = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
 
     SuggestionsDB mSuggestionsDB = null;
@@ -31,9 +30,9 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
         // This URI is invoked, when user presses "Go" in the Keyboard of Search Dialog
         // Listview items of SearchableActivity is provided by this uri
-        uriMatcher.addURI(AUTHORITY, "recipesuggestions", SEARCH_RECIPE);
+        uriMatcher.addURI(AUTHORITY, "suggestions", SEARCH_RECIPE);
         // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
-        uriMatcher.addURI(AUTHORITY, "recipesuggestions/#", GET_RECIPE);
+        uriMatcher.addURI(AUTHORITY, "suggestions/#", GET_RECIPE);
 
         return uriMatcher;
     }
@@ -75,7 +74,14 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        throw new UnsupportedOperationException();
+        Uri _uri = null;
+        switch (mUriMatcher.match(uri)){
+            case SEARCH_RECIPE:
+                mSuggestionsDB.insert(values);
+                break;
+            default: throw new SQLException("Failed to insert row into " + uri);
+        }
+        return _uri;
     }
 
 
