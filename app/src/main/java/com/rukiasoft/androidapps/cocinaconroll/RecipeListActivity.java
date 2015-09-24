@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +14,7 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -94,7 +97,21 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         SearchableInfo prueba = searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class));
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
         mSearchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
 
+                return false;
+            }
+        });
+        mSearchView.setOnSearchClickListener(new SearchView.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#95CDBA")));
+                return;
+            }
+        });
 
         return true;
     }

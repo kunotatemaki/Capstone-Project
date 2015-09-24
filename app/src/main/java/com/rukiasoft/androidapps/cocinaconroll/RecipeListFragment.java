@@ -68,6 +68,7 @@ public class RecipeListFragment extends Fragment implements
         Tools tools = new Tools();
         tools.setRefreshLayout(getActivity(), refreshLayout);
 
+
         return view;
     }
 
@@ -184,3 +185,4 @@ public class RecipeListFragment extends Fragment implements
 }
 
 //TODO - scroll listener para quitar el search
+//TODO - mantener la posición de scroll al girar pantalla
