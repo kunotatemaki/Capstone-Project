@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll.suggestions;
+package com.rukiasoft.androidapps.cocinaconroll.database;
 
 import android.app.SearchManager;
 import android.content.Intent;

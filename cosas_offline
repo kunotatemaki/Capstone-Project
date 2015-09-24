@@ -24,3 +24,6 @@ UIRS para Glide
 
 para el content provider
 http://www.vogella.com/tutorials/AndroidSQLite/article.html
+multiples tablas
+http://stackoverflow.com/questions/13572352/own-contentprovider-with-sqlite-and-multiple-tables
+http://stackoverflow.com/questions/3814005/best-practices-for-exposing-multiple-tables-using-content-providers-in-android

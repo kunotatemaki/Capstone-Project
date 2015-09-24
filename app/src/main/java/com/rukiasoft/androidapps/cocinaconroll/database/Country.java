@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll.suggestions;
+package com.rukiasoft.androidapps.cocinaconroll.database;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
 

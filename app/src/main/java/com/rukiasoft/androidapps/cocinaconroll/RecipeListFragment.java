@@ -4,12 +4,10 @@ package com.rukiasoft.androidapps.cocinaconroll;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Loader;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Filter;
 
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
@@ -25,7 +22,6 @@ import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,7 +29,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.animators.ScaleInAnimator;
 import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
 
 /**
@@ -127,7 +122,7 @@ public class RecipeListFragment extends Fragment implements
         }
 
         adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
-        //adapter.setHasStableIds(true);
+        adapter.setHasStableIds(true);
         adapter.setOnItemClickListener(this);
         //mRecyclerView.setHasFixedSize(true);
 
