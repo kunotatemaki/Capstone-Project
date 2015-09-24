@@ -4,8 +4,8 @@
     <color name="ColorPrimaryDark">#E64A19</color>
     <color name="ColorAccent">#00fff3</color>
     <color name="ColorScrollBar">#ff00fb</color>
-    <color name="ColorPrimarySearch">#ffffff</color>
-    <color name="ColorPrimarySearchDark">#849e9e9e</color>
+    <color name="ColorPrimarySearch">#FFBB33</color>
+    <color name="ColorPrimarySearchDark">#99CC00</color>
 
 
     <color name="color_refresh_1">#33B5E5</color>

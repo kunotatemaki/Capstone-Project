@@ -182,6 +182,11 @@ public class RecipeListFragment extends Fragment implements
         }
         return filteredModelList;
     }
+
+    @Nullable
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
 }
 
 //TODO - scroll listener para quitar el search

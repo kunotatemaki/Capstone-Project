@@ -1,20 +1,28 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -37,26 +45,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     private RecipeListFragment mRecipeListFragment;
     private SearchView mSearchView;
-
+    int cx;
+    int cy;
     ToolbarAndRefreshActivity mActivity;
-
-    //Listener for the searchview widget
-    SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            //getFilteredRecipes(query);
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String query) {
-            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-            if(mRecipeListFragment != null){
-                mRecipeListFragment.onQueryTextChange(query);
-            }
-            return true;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,28 +81,103 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_recipe_list, menu);
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, new MenuItemCompat.OnActionExpandListener() {
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                final Toolbar toolbar = mRecipeListFragment.getToolbar();
+                if (toolbar == null)
+                    return true;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = mActivity.getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimaryDark));
+                    toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                            v.removeOnLayoutChangeListener(this);
+                            // get the top right corner of the view for the clipping circle
+                            cx = toolbar.getLeft() + toolbar.getRight();
+                            cy = toolbar.getTop() + toolbar.getBottom();
+
+                            Animator animator = ViewAnimationUtils.createCircularReveal(
+                                    toolbar,
+                                    cx,
+                                    cy,
+                                    (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()),
+                                    0);
+
+                            // Set a natural ease-in/ease-out interpolator.
+                            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+                            // make the view invisible when the animation is done
+                            animator.addListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    toolbar.setBackgroundResource(R.color.ColorPrimary);
+                                }
+                            });
+
+                            // make the view visible and start the animation
+                            animator.start();
+                        }
+                    });
+                } else {
+                    toolbar.setBackgroundResource(R.color.ColorPrimary);
+                }
+
+                //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(mActivity, R.color.ColorPrimary)));
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                final Toolbar toolbar = mRecipeListFragment.getToolbar();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = mActivity.getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearchDark));
+                    toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                            v.removeOnLayoutChangeListener(this);
+                            // get the top right corner of the view for the clipping circle
+                            cx = toolbar.getLeft() + toolbar.getRight();
+                            cy = toolbar.getTop() + toolbar.getBottom();
+
+                            Animator animator = ViewAnimationUtils.createCircularReveal(
+                                    toolbar,
+                                    cx,
+                                    cy,
+                                    0,
+                                    (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()));
+
+                            // Set a natural ease-in/ease-out interpolator.
+                            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                            // make the view visible and start the animation
+                            animator.start();
+                        }
+                    });
+                }
+                toolbar.setBackgroundResource(R.color.ColorPrimarySearch);
+                //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearch)));
+                return true;
+            }
+
+        });
         mSearchView = (SearchView) searchMenuItem.getActionView();
-        //mSearchView.setOnQueryTextListener(listener);
+        cx = (int) mSearchView.getX();
+        cy = (int) mSearchView.getY();//mSearchView.setOnQueryTextListener(listener);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchableInfo prueba = searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class));
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
         mSearchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
-        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
 
-                return false;
-            }
-        });
-        mSearchView.setOnSearchClickListener(new SearchView.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#95CDBA")));
-                return;
-            }
-        });
 
         return true;
     }
@@ -202,6 +268,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         return true;
     }
 
+    public void onResume(){
+        super.onResume();
+
+    }
     /**
      * Show the selected text in the supportActionbar
      */
