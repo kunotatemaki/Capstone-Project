@@ -222,14 +222,14 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         String title = menuItem.getTitle().toString();
-
+                        mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                         switch (menuItem.getItemId()) {
                             case R.id.menu_all_recipes:
                                 Tools tools = new Tools();
                                 title = tools.getApplicationName(getApplicationContext());
                                 break;
                             case R.id.menu_starters:
-                                //showTitle(getResources().getString(R.string.starters));
+                                mRecipeListFragment.filterRecipes(Constants.TYPE_STARTERS);
                                 break;
                             case R.id.menu_main_courses:
                                 //showTitle(getResources().getString(R.string.main_courses));

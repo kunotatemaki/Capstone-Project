@@ -8,7 +8,6 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -154,9 +153,9 @@ public class RecipeListFragment extends Fragment implements
         adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         adapter.setHasStableIds(true);
         adapter.setOnItemClickListener(this);
-        //mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
-        wrapAdapter(adapter);
+        slideAdapter = wrapAdapter(adapter);
 
         mRecyclerView.setAdapter(slideAdapter);
         //mRecyclerView.setAdapter(adapter);
@@ -172,10 +171,11 @@ public class RecipeListFragment extends Fragment implements
 
     }
 
-    private void wrapAdapter(RecipeListRecyclerViewAdapter adapter){
-        slideAdapter = new SlideInBottomAnimationAdapter(adapter);
+    private SlideInBottomAnimationAdapter wrapAdapter(RecipeListRecyclerViewAdapter adapter){
+        SlideInBottomAnimationAdapter slideAdapter = new SlideInBottomAnimationAdapter(adapter);
         slideAdapter.setInterpolator(new OvershootInterpolator(2.0f));
         slideAdapter.setDuration(2000);
+        return slideAdapter;
     }
 
     @Override
@@ -210,7 +210,37 @@ public class RecipeListFragment extends Fragment implements
         return false;
     }*/
 
-    private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
+    public void filterRecipes(String query) {
+        Tools tools = new Tools();
+        query = tools.getNormalizedString(query);
+        final List<RecipeItem> filteredModelList = new ArrayList<>();
+        for (RecipeItem item : mRecipes) {
+            if(item.getType().equals(query)){
+                filteredModelList.add(item);
+            }
+        }
+        RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), filteredModelList);
+        newAdapter.setHasStableIds(true);
+        newAdapter.setOnItemClickListener(this);
+        mRecyclerView.setHasFixedSize(true);
+
+        SlideInBottomAnimationAdapter newSlideAdapter = wrapAdapter(newAdapter);
+
+        mRecyclerView.swapAdapter(newSlideAdapter, false);
+        //mRecyclerView.setAdapter(adapter);
+        int columnCount = getResources().getInteger(R.integer.list_column_count);
+        StaggeredGridLayoutManager sglm =
+                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+
+        adapter = newAdapter;
+        slideAdapter = newSlideAdapter;
+        mRecyclerView.setLayoutManager(sglm);
+        mRecyclerView.scrollToPosition(0);
+        //Set the fast Scroller
+        fastScroller.setRecyclerView(mRecyclerView);
+
+    }
+private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
         Tools tools = new Tools();
         query = tools.getNormalizedString(query);
         final List<RecipeItem> filteredModelList = new ArrayList<>();
