@@ -18,6 +18,7 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -89,14 +90,14 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         RecipeItem item = mItems.get(position);
         holder.bindRecipe(mContext, item);
-        //holder.itemView.setTag(item);
+        holder.itemView.setTag(item);
     }
 
     @Override public int getItemCount() {
         return mItems.size();
     }
 
-    public void animateTo(List<RecipeItem> recipes) {
+    /*public void animateTo(List<RecipeItem> recipes) {
         applyAndAnimateRemovals(recipes);
         applyAndAnimateAdditions(recipes);
         applyAndAnimateMovedItems(recipes);
@@ -145,7 +146,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         final RecipeItem model = mItems.remove(fromPosition);
         mItems.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
-    }
+    }*/
     
     @Override public void onClick(final View v) {
         // Give some time to the ripple to finish the effect

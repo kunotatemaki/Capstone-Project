@@ -2,4 +2,6 @@
 <!-- Default boolean values -->
 <resources>
     <bool name="tablet">false</bool>
+    <bool name="detail_is_card">false</bool>
+
 </resources>

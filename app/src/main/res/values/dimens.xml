@@ -23,4 +23,10 @@
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="fab_press_translation_z">6dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="title_margin_expanded">16dp</dimen>
+    <dimen name="title_margin_collapsed">72dp</dimen>
+
+    <dimen name="title_toolbar_collapsed">18sp</dimen>
+    <dimen name="title_toolbar_expanded">32sp</dimen>
 </resources>

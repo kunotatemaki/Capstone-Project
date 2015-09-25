@@ -1,27 +1,32 @@
-package com.rukiasoft.androidapps.cocinaconroll.database;
+package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
 
-public class SearchableActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class SearchableActivity extends ToolbarAndRefreshActivity implements LoaderCallbacks<Cursor> {
 	
-	ListView mLVCountries;
+	ListView mLVRecipes;
 	SimpleCursorAdapter mCursorAdapter;
-	
+	@Bind(R.id.toolbar_search_activity)
+	Toolbar mToolbarSearchActivity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,24 +34,19 @@ public class SearchableActivity extends FragmentActivity implements LoaderCallba
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_searchable);
-		
+		ButterKnife.bind(this);
+		setToolbar(mToolbarSearchActivity);
 		// Getting reference to Country List
-		mLVCountries = (ListView)findViewById(R.id.lv_countries);		
+		mLVRecipes = (ListView)findViewById(R.id.lv_recipes);
 		
 		// Setting item click listener		
-		mLVCountries.setOnItemClickListener(new OnItemClickListener() {
+		mLVRecipes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
-                /*Intent countryIntent = new Intent(getApplicationContext(), CountryActivity.class);
-                
-                // Creating a uri to fetch country details corresponding to selected listview item
-                Uri data = Uri.withAppendedPath(RecipeSuggestionsContentProvider.CONTENT_URI, String.valueOf(id));
-                
-                // Setting uri to the data on the intent
-                countryIntent.setData(data);
-                
-                // Open the activity
-                startActivity(countryIntent);*/
+                int i = 0;
+                i++;
+                TextView txt1 = (TextView) view.findViewById(android.R.id.text1);
+                sendRecipeName(txt1.getText().toString());
+
             }
         });
 
@@ -58,23 +58,29 @@ public class SearchableActivity extends FragmentActivity implements LoaderCallba
 	            new int[] { android.R.id.text1}, 0);
 		
 		// Setting the cursor adapter for the country listview
-		mLVCountries.setAdapter(mCursorAdapter);
+		mLVRecipes.setAdapter(mCursorAdapter);
 		
 		// Getting the intent that invoked this activity
 		Intent intent = getIntent();		
 		
 		// If this activity is invoked by selecting an item from Suggestion of Search dialog or 
 		// from listview of SearchActivity
-		if(intent.getAction().equals(Intent.ACTION_VIEW)){ 
-			/*Intent countryIntent = new Intent(this, CountryActivity.class);
-			countryIntent.setData(intent.getData());
-            startActivity(countryIntent);*/
-			finish();
+		if(intent.getAction().equals(Intent.ACTION_VIEW)){
+            Uri uri = intent.getData();
+            sendRecipeName(uri.getLastPathSegment());
+
 		}else if(intent.getAction().equals(Intent.ACTION_SEARCH)){ // If this activity is invoked, when user presses "Go" in the Keyboard of Search Dialog
 			String query = intent.getStringExtra(SearchManager.QUERY);
 			doSearch(query);
 		}		
-	}	
+	}
+
+    private void sendRecipeName(String recipeName){
+        Intent detailIntent = new Intent(this, RecipeListActivity.class);
+        detailIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipeName);
+        startActivity(detailIntent);
+        finish();
+    }
 	
 	private void doSearch(String query){
 		Bundle data = new Bundle();
@@ -102,5 +108,7 @@ public class SearchableActivity extends FragmentActivity implements LoaderCallba
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		// TODO Auto-generated method stub		
-	}		
+	}
+
+
 }

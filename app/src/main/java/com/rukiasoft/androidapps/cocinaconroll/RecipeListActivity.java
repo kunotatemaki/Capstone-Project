@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -20,13 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.rukiasoft.androidapps.cocinaconroll.database.SearchableActivity;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -37,17 +38,21 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
+    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
+
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.navview)
     NavigationView navigationView;
 
+    MenuItem searchMenuItem;
     private RecipeListFragment mRecipeListFragment;
     private SearchView mSearchView;
-    int cx;
-    int cy;
+    int magnifyingX, magnifyingY, openCircleRevealX, openCircleRevealY;
+
     ToolbarAndRefreshActivity mActivity;
+    private boolean animate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,55 +80,63 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         setupDrawerLayout();
     }
 
+    @Override
+    public void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        if(mRecipeListFragment != null && intent.hasExtra(KEY_RECIPE)){
+            String name = intent.getStringExtra(KEY_RECIPE);
+            //TODO - buscar la receta sabiendo el nombre y llamar a showRecipeDetails
+            //mRecipeListFragment.showRecipeDetails();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_recipe_list, menu);
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        searchMenuItem = menu.findItem(R.id.action_search);
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, new MenuItemCompat.OnActionExpandListener() {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                final Toolbar toolbar = mRecipeListFragment.getToolbar();
+                final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
                 if (toolbar == null)
                     return true;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Window window = mActivity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimaryDark));
-                    toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                        @Override
-                        public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                            v.removeOnLayoutChangeListener(this);
-                            // get the top right corner of the view for the clipping circle
-                            cx = toolbar.getLeft() + toolbar.getRight();
-                            cy = toolbar.getTop() + toolbar.getBottom();
+                    if (animate) {
+                        toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                                v.removeOnLayoutChangeListener(this);
+                                Animator animator = ViewAnimationUtils.createCircularReveal(
+                                        toolbar,
+                                        openCircleRevealX,
+                                        openCircleRevealY,
+                                        (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()),
+                                        0);
 
-                            Animator animator = ViewAnimationUtils.createCircularReveal(
-                                    toolbar,
-                                    cx,
-                                    cy,
-                                    (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()),
-                                    0);
+                                // Set a natural ease-in/ease-out interpolator.
+                                animator.setInterpolator(new AccelerateDecelerateInterpolator());
+                                // make the view invisible when the animation is done
+                                animator.addListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        toolbar.setBackgroundResource(R.color.ColorPrimary);
+                                    }
+                                });
 
-                            // Set a natural ease-in/ease-out interpolator.
-                            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-                            // make the view invisible when the animation is done
-                            animator.addListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    super.onAnimationEnd(animation);
-                                    toolbar.setBackgroundResource(R.color.ColorPrimary);
-                                }
-                            });
-
-                            // make the view visible and start the animation
-                            animator.start();
-                        }
-                    });
+                                // make the view visible and start the animation
+                                animator.start();
+                            }
+                        });
+                    } else toolbar.setBackgroundResource(R.color.ColorPrimary);
                 } else {
                     toolbar.setBackgroundResource(R.color.ColorPrimary);
                 }
@@ -135,8 +148,11 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                final Toolbar toolbar = mRecipeListFragment.getToolbar();
+                final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
+                if (toolbar == null)
+                    return true;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    animate = true;
                     Window window = mActivity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearchDark));
@@ -145,17 +161,14 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                         @Override
                         public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                             v.removeOnLayoutChangeListener(this);
-                            // get the top right corner of the view for the clipping circle
-                            cx = toolbar.getLeft() + toolbar.getRight();
-                            cy = toolbar.getTop() + toolbar.getBottom();
-
                             Animator animator = ViewAnimationUtils.createCircularReveal(
                                     toolbar,
-                                    cx,
-                                    cy,
+                                    magnifyingX,
+                                    magnifyingY,
                                     0,
                                     (float) Math.hypot(toolbar.getWidth(), toolbar.getHeight()));
-
+                            openCircleRevealX = magnifyingX;
+                            openCircleRevealY = magnifyingY;
                             // Set a natural ease-in/ease-out interpolator.
                             animator.setInterpolator(new AccelerateDecelerateInterpolator());
 
@@ -171,8 +184,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
         });
         mSearchView = (SearchView) searchMenuItem.getActionView();
-        cx = (int) mSearchView.getX();
-        cy = (int) mSearchView.getY();//mSearchView.setOnQueryTextListener(listener);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
@@ -192,6 +203,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_settings:
+                Intent finalIntent = new Intent(this, SettingsActivity.class);
+                startActivity(finalIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -270,8 +283,40 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     public void onResume(){
         super.onResume();
+        closeSearchView();
+        //to start the reveal effecy from the magnifying glass
+        final ViewTreeObserver viewTreeObserver = getWindow().getDecorView().getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+                View menuButton = findViewById(R.id.action_search);
+                // This could be called when the button is not there yet, so we must test for null
+                if (menuButton != null) {
+                    // Found it! Do what you need with the button
+                    int[] location = new int[2];
+                    menuButton.getLocationInWindow(location);
+                    //Log.d(TAG, "x=" + location[0] + " y=" + location[1]);
+                    magnifyingX = location[0] + menuButton.getWidth()/2;
+                    magnifyingY = location[1];
+                    // Now you can get rid of this listener
+                    if(magnifyingX != 0 && magnifyingY != 0 && viewTreeObserver.isAlive()) {
+                        if (Build.VERSION.SDK_INT < 16) {
+                            viewTreeObserver.removeGlobalOnLayoutListener(this);
+                        } else {
+                            viewTreeObserver.removeOnGlobalLayoutListener(this);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public void onPause(){
+        super.onPause();
 
     }
+
     /**
      * Show the selected text in the supportActionbar
      */
@@ -287,4 +332,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         mRecipeListFragment.getFilteredRecipes(filter);
     }*/
 
+    public void closeSearchView(){
+        animate = false;
+        if(searchMenuItem != null){
+            searchMenuItem.collapseActionView();
+        }
+    }
 }
