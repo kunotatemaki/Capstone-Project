@@ -63,14 +63,14 @@ public class Constants {
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;
     public static final Integer NO_ERROR = 0;
 
-    public static final String ALL_RECIPES_FILTER ="all";
-    public static final String STARTER_RECIPES_FILTER ="starter";
-    public static final String MAIN_RECIPES_FILTER ="main";
-    public static final String DESSERT_RECIPES_FILTER ="dessert";
-    public static final String VEGETARIAN_RECIPES_FILTER ="vegetarians";
-    public static final String FAVOURITE_RECIPES_FILTER ="favourites";
-    public static final String OWN_RECIPES_FILTER ="own_recipes";
-    public static final String LATEST_RECIPES_FILTER ="latest";
+    public static final String FILTER_ALL_RECIPES = PACKAGE_NAME + ".allrecipes";
+    public static final String FILTER_STARTER_RECIPES = PACKAGE_NAME + ".starters";
+    public static final String FILTER_MAIN_COURSES_RECIPES = PACKAGE_NAME + ".maincourses";
+    public static final String FILTER_DESSERT_RECIPES = PACKAGE_NAME + ".desserts";
+    public static final String FILTER_VEGETARIAN_RECIPES = PACKAGE_NAME + ".vegetarians";
+    public static final String FILTER_FAVOURITE_RECIPES = PACKAGE_NAME + ".favourites";
+    public static final String FILTER_OWN_RECIPES = PACKAGE_NAME + ".ownrecipes";
+    public static final String FILTER_LATEST_RECIPES = PACKAGE_NAME + ".latest";
 
     public static final String PROGRAMMED_IN_ROBOT = "Programada en el robot";
 

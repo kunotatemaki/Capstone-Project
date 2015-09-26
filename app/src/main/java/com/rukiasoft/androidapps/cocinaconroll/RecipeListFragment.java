@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
@@ -36,7 +38,8 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  * A placeholder fragment containing a simple view.
  */
 public class RecipeListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener{
+        LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener,
+        AppBarLayout.OnOffsetChangedListener{
 
     private static final int LOADER_ID = 1;
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
@@ -49,11 +52,15 @@ public class RecipeListFragment extends Fragment implements
     protected SwipeRefreshLayout refreshLayout;
     @Bind((R.id.fastscroller))
     FastScroller fastScroller;
+    @Bind(R.id.appbar_layout)
+    AppBarLayout mAppBarLayout;
 
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
     List<RecipeItem> mRecipes;
     int scrollPosition = 0;
+    private int columnCount = 10;
+
     public RecipeListFragment() {
     }
 
@@ -83,7 +90,9 @@ public class RecipeListFragment extends Fragment implements
             scrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
         }
 
-
+        if(mAppBarLayout != null){
+            mAppBarLayout.addOnOffsetChangedListener(this);
+        }
         return view;
     }
 
@@ -115,7 +124,6 @@ public class RecipeListFragment extends Fragment implements
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save currently selected layout manager.
         if (mRecyclerView.getLayoutManager() != null) {
-            int columnCount = getResources().getInteger(R.integer.list_column_count);
             int[] scrollPosition = new int[columnCount];
             scrollPosition = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager())
                     .findFirstCompletelyVisibleItemPositions(scrollPosition);
@@ -159,7 +167,7 @@ public class RecipeListFragment extends Fragment implements
 
         mRecyclerView.setAdapter(slideAdapter);
         //mRecyclerView.setAdapter(adapter);
-        int columnCount = getResources().getInteger(R.integer.list_column_count);
+        columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
 
@@ -210,15 +218,50 @@ public class RecipeListFragment extends Fragment implements
         return false;
     }*/
 
-    public void filterRecipes(String query) {
+    public void filterRecipes(String filter) {
         Tools tools = new Tools();
-        query = tools.getNormalizedString(query);
-        final List<RecipeItem> filteredModelList = new ArrayList<>();
+        List<RecipeItem> filteredModelList = new ArrayList<>();
         for (RecipeItem item : mRecipes) {
-            if(item.getType().equals(query)){
+            /*if(item.getType().equals(query)){
                 filteredModelList.add(item);
+            }*/
+            if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
+                filteredModelList = new ArrayList<>(mRecipes);
+            }if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0) {
+                if(item.getType().equals(Constants.TYPE_MAIN)) {
+                    filteredModelList.add(item);
+                }
+            }if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0) {
+                if(item.getType().equals(Constants.TYPE_STARTERS)) {
+                    filteredModelList.add(item);
+                }
+            }if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0) {
+                if(item.getType().equals(Constants.TYPE_DESSERTS)) {
+                    filteredModelList.add(item);
+                }
+            }else  if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0) {
+                if(item.getVegetarian()) {
+                    filteredModelList.add(item);
+                }
+            }else  if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0) {
+                if(item.getFavourite()) {
+                    filteredModelList.add(item);
+                }
+            }else  if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0) {
+                if((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) !=0){
+                    filteredModelList.add(item);
+                }
+            }else  if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0) {
+                if(tools.isInTimeframe(item)){
+                    filteredModelList.add(item);
+                }
             }
         }
+        if(filteredModelList.size() == 0){
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_matches), Toast.LENGTH_LONG).show();
+            filteredModelList = new ArrayList<>(mRecipes);
+        }
+        //Change the adapter
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), filteredModelList);
         newAdapter.setHasStableIds(true);
         newAdapter.setOnItemClickListener(this);
@@ -238,8 +281,8 @@ public class RecipeListFragment extends Fragment implements
         mRecyclerView.scrollToPosition(0);
         //Set the fast Scroller
         fastScroller.setRecyclerView(mRecyclerView);
-
     }
+
 private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
         Tools tools = new Tools();
         query = tools.getNormalizedString(query);
@@ -257,7 +300,18 @@ private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
     public Toolbar getToolbarRecipeListFragment() {
         return mToolbarRecipeListFragment;
     }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(offset) / (float) maxScroll;
+        if(percentage > 0.5f){
+            if(getActivity() instanceof RecipeListActivity){
+                ((RecipeListActivity) getActivity()).closeSearchView();
+            }
+        }
+    }
 }
 
-//TODO - scroll listener para quitar el search
+
 //TODO - quitar y poner FAB con searchwidget

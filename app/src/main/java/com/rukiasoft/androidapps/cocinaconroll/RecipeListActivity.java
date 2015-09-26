@@ -229,25 +229,25 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                                 title = tools.getApplicationName(getApplicationContext());
                                 break;
                             case R.id.menu_starters:
-                                mRecipeListFragment.filterRecipes(Constants.TYPE_STARTERS);
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_STARTER_RECIPES);
                                 break;
                             case R.id.menu_main_courses:
-                                //showTitle(getResources().getString(R.string.main_courses));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_MAIN_COURSES_RECIPES);
                                 break;
                             case R.id.menu_desserts:
-                                //showTitle(getResources().getString(R.string.desserts));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_DESSERT_RECIPES);
                                 break;
                             case R.id.menu_vegetarians:
-                                //showTitle(getResources().getString(R.string.vegetarians));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_VEGETARIAN_RECIPES);
                                 break;
                             case R.id.menu_favorites:
-                                //showTitle(getResources().getString(R.string.favourites));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_FAVOURITE_RECIPES);
                                 break;
                             case R.id.menu_own_recipes:
-                                //showTitle(getResources().getString(R.string.own_recipes));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_OWN_RECIPES);
                                 break;
                             case R.id.menu_last_downloaded:
-                                //showTitle(getResources().getString(R.string.last_downloaded));
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
                                 break;
                         }
 

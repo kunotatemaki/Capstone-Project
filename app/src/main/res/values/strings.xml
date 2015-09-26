@@ -10,6 +10,7 @@
     <string name="search_hint">Search recipes</string>
     <string name="search_settings">Search settings</string>
     <string name="matches">Matches</string>
+    <string name="no_matches">No matches</string>
 
 
 </resources>
