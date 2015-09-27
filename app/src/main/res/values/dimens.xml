@@ -10,7 +10,10 @@
     <dimen name="list_toolbar_side_margin">24dp</dimen>
     <integer name="list_column_count">2</integer>
 
+
     <dimen name="search_elevation">8dp</dimen>
+    <dimen name="margin_recipe_icon_type">4dp</dimen>
+
 
     <!-- fast scroller -->
     <dimen name="fastscroller_handle_corner">20dp</dimen>

@@ -6,7 +6,7 @@
     <color name="ColorScrollBar">#ff00fb</color>
     <color name="ColorPrimarySearch">#FFBB33</color>
     <color name="ColorPrimarySearchDark">#99CC00</color>
-
+    <color name="ColorTextDark">#dd000000</color>
 
     <color name="color_refresh_1">#33B5E5</color>
     <color name="color_refresh_2">#99CC00</color>

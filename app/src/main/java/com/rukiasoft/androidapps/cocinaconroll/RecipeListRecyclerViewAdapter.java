@@ -16,31 +16,21 @@
 
 package com.rukiasoft.androidapps.cocinaconroll;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListDateComparator;
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -49,19 +39,14 @@ import butterknife.ButterKnife;
 public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>
         implements View.OnClickListener {
 
-    private final LayoutInflater mInflater;
     private List<RecipeItem> mItems;
     //private List<RecipeItem> filteredItems;
     //private List<RecipeItem> shownItems;
     private OnItemClickListener onItemClickListener;
     private Context mContext;
-    //private int lastPosition = -1;
-    private Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
-    private Comparator<RecipeItem> comparatorDate = new RecipesListDateComparator();
 
 
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {
-        mInflater = LayoutInflater.from(context);
         this.mItems = new ArrayList<>(items);
         //this.filteredItems = new ArrayList<>(items);
         //this.shownItems = new ArrayList<>(items);
@@ -81,7 +66,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = mInflater.from(parent.getContext()).inflate(R.layout.recipe_recycler_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_recycler_item, parent, false);
         v.setOnClickListener(this);
         return new RecipeViewHolder(v);
     }
@@ -160,10 +145,12 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     }
 
     protected static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public @Bind(R.id.recipe_thumbnail) ImageView recipeThumbnail;
+        public @Bind(R.id.recipe_item_thumbnail) ImageView recipeThumbnail;
         public @Bind(R.id.recipe_title) TextView recipeTitle;
-        public @Bind(R.id.item_layout_container)
-        FrameLayout container;
+        public @Bind(R.id.recipe_item_background_protection) ImageView backgroundProtection;
+        public @Bind(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
+        public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
+        public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -172,6 +159,24 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
 
         public void bindRecipe(Context context, RecipeItem item) {
             recipeTitle.setText(item.getName());
+            int visibilityProtection = View.GONE;
+            if(item.getFavourite()){
+                visibilityProtection = View.VISIBLE;
+                favoriteIcon.setVisibility(View.VISIBLE);
+            }
+            if((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) !=0){
+                visibilityProtection = View.VISIBLE;
+                ownRecipeIcon.setVisibility(View.VISIBLE);
+            }
+            backgroundProtection.setVisibility(visibilityProtection);
+
+            if(item.getType().equals(Constants.TYPE_DESSERTS)){
+                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_dessert_18)));
+            }else if(item.getType().equals(Constants.TYPE_MAIN)){
+                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_main_18)));
+            }else if(item.getType().equals(Constants.TYPE_STARTERS)){
+                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
+            }
             //TODO - ver cómo lee las recetas de los otros sitios
             Glide.with(context)
                     .load(Uri.parse(item.getPath()))
