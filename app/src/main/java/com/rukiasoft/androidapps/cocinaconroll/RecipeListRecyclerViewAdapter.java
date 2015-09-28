@@ -48,17 +48,8 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
 
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {
         this.mItems = new ArrayList<>(items);
-        //this.filteredItems = new ArrayList<>(items);
-        //this.shownItems = new ArrayList<>(items);
-        //Collections.sort( this.mItems, comparatorName);
         this.mContext = context;
     }
-
-    /*public void setData(List<RecipeItem> items){
-        this.shownItems = new ArrayList<>(items);
-        Collections.sort( this.shownItems, comparatorName);
-        notifyDataSetChanged();
-    }*/
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -82,57 +73,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         return mItems.size();
     }
 
-    /*public void animateTo(List<RecipeItem> recipes) {
-        applyAndAnimateRemovals(recipes);
-        applyAndAnimateAdditions(recipes);
-        applyAndAnimateMovedItems(recipes);
-    }
 
-    private void applyAndAnimateRemovals(List<RecipeItem> newModels) {
-        for (int i = mItems.size() - 1; i >= 0; i--) {
-            final RecipeItem model = mItems.get(i);
-            if (!newModels.contains(model)) {
-                removeItem(i);
-            }
-        }
-    }
-
-    private void applyAndAnimateAdditions(List<RecipeItem> newModels) {
-        for (int i = 0, count = newModels.size(); i < count; i++) {
-            final RecipeItem model = newModels.get(i);
-            if (!mItems.contains(model)) {
-                addItem(i, model);
-            }
-        }
-    }
-
-    private void applyAndAnimateMovedItems(List<RecipeItem> newModels) {
-        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
-            final RecipeItem model = newModels.get(toPosition);
-            final int fromPosition = mItems.indexOf(model);
-            if (fromPosition >= 0 && fromPosition != toPosition) {
-                moveItem(fromPosition, toPosition);
-            }
-        }
-    }
-
-    public RecipeItem removeItem(int position) {
-        final RecipeItem model = mItems.remove(position);
-        notifyItemRemoved(position);
-        return model;
-    }
-
-    public void addItem(int position, RecipeItem model) {
-        mItems.add(position, model);
-        notifyItemInserted(position);
-    }
-
-    public void moveItem(int fromPosition, int toPosition) {
-        final RecipeItem model = mItems.remove(fromPosition);
-        mItems.add(toPosition, model);
-        notifyItemMoved(fromPosition, toPosition);
-    }*/
-    
     @Override public void onClick(final View v) {
         // Give some time to the ripple to finish the effect
         if (onItemClickListener != null) {
@@ -145,7 +86,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     }
 
     protected static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public @Bind(R.id.recipe_item_thumbnail) ImageView recipeThumbnail;
+        public @Bind(R.id.recipe_pic) ImageView recipeThumbnail;
         public @Bind(R.id.recipe_title) TextView recipeTitle;
         public @Bind(R.id.recipe_item_background_protection) ImageView backgroundProtection;
         public @Bind(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
@@ -196,11 +137,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                     .into(recipeThumbnail);
         }
     }
-
-    /*private void refresh(){
-        Collections.sort(filteredItems, comparatorName);
-        notifyDataSetChanged();
-    }*/
 
     public interface OnItemClickListener {
 

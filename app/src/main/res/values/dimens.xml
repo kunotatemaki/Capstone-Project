@@ -33,4 +33,7 @@
     <dimen name="title_toolbar_collapsed">18sp</dimen>
     <dimen name="title_toolbar_expanded">32sp</dimen>
     <dimen name="activity_horizontal_title">72dp</dimen>
+
+    <dimen name="detail_card_max_width">10000dp</dimen> <!-- force match_parent -->
+
 </resources>

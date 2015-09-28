@@ -1,7 +1,7 @@
 <recipeItem>
    <name>Albaricoques al vapor</name>
    <type>dessert</type>
-   <picture>cukio_2015.04.08_18.23.13.jpg</picture>
+   <picture>default_picture</picture>
    <ingredients class="java.util.ArrayList">
       <string>8 unidad/es albaricoques en mitades</string>
       <string>80 g mantequilla</string>

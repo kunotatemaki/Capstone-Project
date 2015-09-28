@@ -8,11 +8,6 @@
         android:layout_height="200dp"
         android:src="@drawable/kitchen"
         android:scaleType="centerCrop" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/photo_background_protection"
-        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -16,7 +16,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(getIntent().hasExtra(RecipeListActivity.KEY_RECIPE))
             recipeItem = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
-        String text = recipeItem.getName();
-
+        else{
+            finish();
+        }
+        RecipeDetailsFragment recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
+        if(recipeDetailsFragment != null){
+            recipeDetailsFragment.setRecipe(recipeItem);
+        }else{
+            finish();
+        }
     }
 }
