@@ -2,7 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -26,13 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.classes.ObservableScrollView;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -228,41 +225,31 @@ public class RecipeDetailsFragment extends Fragment implements
             actionBar.setTitle(recipe.getName());
         }
         if(mPhotoView != null){
-            Glide.with(getActivity())
+            Glide.with(this)
                     .load(Uri.parse(recipe.getPath()))
-                    .centerCrop()
-                    .error(R.drawable.default_dish)
-                    .into(mPhotoView);
+                    .asBitmap()
+                    .into(new BitmapImageViewTarget(mPhotoView) {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                            super.onResourceReady(bitmap, anim);
+                            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                                @Override
+                                public void onGenerated(Palette palette) {
+                                    mVibrantColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
+                                    mVibrantDarkColor = palette.getDarkMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimaryDark));
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        Window window = getActivity().getWindow();
+                                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                                        window.setStatusBarColor(mVibrantDarkColor);
+                                    }
+                                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(mVibrantColor));
+                                }
+                            });
+                        }
+                    });
 
         }
-        try{
-            Uri path = Uri.parse(recipe.getPath());
-            String sPath = path.getLastPathSegment();
-            InputStream imageStream = getContext().getAssets().open(sPath);;
-            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-            Palette.from( bitmap ).generate(new Palette.PaletteAsyncListener() {
 
-
-                @Override
-                public void onGenerated(Palette palette) {
-                    mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
-                    mVibrantDarkColor = palette.getDarkVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimaryDark));
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Window window = getActivity().getWindow();
-                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                        window.setStatusBarColor(mVibrantDarkColor);
-                    }
-                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(mVibrantColor));
-                }
-            });
-
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         recipeLoaded = true;
     }
 
