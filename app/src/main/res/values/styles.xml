@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="colorAccent">@color/ColorAccent</item>
-        <item name="colorControlHighlight">@color/accent_translucent</item> 
+        <!-- <item name="colorControlHighlight">@color/accent_translucent</item>  -->
 
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
@@ -70,11 +70,16 @@
         <item name="android:textSize">@dimen/title_toolbar_expanded</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:lineSpacingMultiplier">0.9</item>
-
     </style>
-        <style name="Theme.ExpandedText.Trasparent" parent="Theme.ExpandedText">
+
+    <style name="Theme.ExpandedText.Trasparent" parent="Theme.ExpandedText">
         <item name="android:textColor">#00ffffff</item>
     </style>
+
+    <style name="SettingsTheme" parent="BaseTheme">
+        <item name="colorAccent">@color/ColorSettings</item>
+    </style>
+
 
 
 

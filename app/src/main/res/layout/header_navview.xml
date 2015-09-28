@@ -6,16 +6,24 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/default_dish"
+        android:src="@drawable/kitchen"
         android:scaleType="centerCrop" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/photo_background_protection"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="usuario"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:textStyle="bold"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp" />
+        android:text="@string/designed_by"
+        android:textAppearance="?attr/subtitle"
+        android:textColor="@android:color/white"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+
+        />
 </FrameLayout>
