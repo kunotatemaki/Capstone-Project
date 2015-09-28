@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appbarlayout_recipe_details"
+        app:contentScrim="@android:color/transparent"
         >
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_recipe_details"
@@ -40,6 +41,8 @@
                 android:id="@+id/toolbar_recipe_details"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:contentScrim="@android:color/transparent"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:contentInsetStart="@dimen/title_margin_collapsed"
                 app:layout_collapseMode="pin"/>

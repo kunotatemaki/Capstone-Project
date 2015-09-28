@@ -8,6 +8,12 @@
           <item name="android:windowDrawsSystemBarBackgrounds">true</item>
           <item name="android:statusBarColor">@android:color/transparent</item>
 
+          <item name="android:windowSharedElementEnterTransition">
+              @transition/grid_detail_transition
+          </item>
+          <item name="android:windowSharedElementExitTransition">
+              @transition/grid_detail_transition
+          </item>
       </style>
 
 </resources>

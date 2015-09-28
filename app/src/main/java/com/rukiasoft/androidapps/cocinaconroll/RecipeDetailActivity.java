@@ -8,6 +8,12 @@ import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    // View name of the header image. Used for activity scene transitions
+    public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
+
+    // View name of the header title. Used for activity scene transitions
+    public static final String VIEW_NAME_HEADER_TITLE = "detail:header:title";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

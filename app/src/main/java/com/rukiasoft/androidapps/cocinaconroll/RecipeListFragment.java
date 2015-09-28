@@ -22,15 +22,12 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -221,7 +218,19 @@ public class RecipeListFragment extends Fragment implements
         showRecipeDetails(recipeItem);
     }
 
-    public void showRecipeDetails(RecipeItem recipeItem){
+    public void showRecipeDetails(/*View view, */RecipeItem recipeItem){
+        /*ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+
+                // Now we provide a list of Pair items which contain the view we can transitioning
+                // from, and the name of the view it is transitioning to, in the launched activity
+                new Pair<View, String>(view.findViewById(R.id.imageview_item),
+                        DetailActivity.VIEW_NAME_HEADER_IMAGE),
+                new Pair<View, String>(view.findViewById(R.id.textview_name),
+                        DetailActivity.VIEW_NAME_HEADER_TITLE));
+
+        // Now we can start the Activity, providing the activity options as a bundle
+        ActivityCompat.startActivity(this, intent, activityOptions.toBundle());*/
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeItem);
@@ -300,12 +309,6 @@ public class RecipeListFragment extends Fragment implements
             type = getResources().getString(R.string.last_downloaded);
             iconResource = R.drawable.ic_latest_24;
         }
-        /*if(filteredModelList.size() == 0){
-            Toast.makeText(getActivity(), getResources().getString(R.string.no_matches), Toast.LENGTH_LONG).show();
-            filteredModelList = new ArrayList<>(mRecipes);
-            type = getResources().getString(R.string.all_recipes);
-            iconResource = R.drawable.ic_all_24;
-        }*/
         typeRecipesInRecipeList.setText(type);
         nRecipesInRecipeList.setText(String.valueOf(filteredModelList.size()) + " " + getResources().getString(R.string.recipes));
         typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), iconResource));
