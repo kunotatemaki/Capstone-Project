@@ -32,4 +32,5 @@
 
     <dimen name="title_toolbar_collapsed">18sp</dimen>
     <dimen name="title_toolbar_expanded">32sp</dimen>
+    <dimen name="activity_horizontal_title">72dp</dimen>
 </resources>

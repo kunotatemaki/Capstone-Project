@@ -11,6 +11,7 @@
     <string name="search_settings">Search settings</string>
     <string name="matches">Matches</string>
     <string name="no_matches">No matches</string>
+    <string name="recipes">recipes</string>
 
 
 </resources>

@@ -8,6 +8,8 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -17,6 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
@@ -24,6 +29,8 @@ import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +61,16 @@ public class RecipeListFragment extends Fragment implements
     FastScroller fastScroller;
     @Bind(R.id.appbar_layout)
     AppBarLayout mAppBarLayout;
+    @Bind(R.id.recipe_list_number_recipes)
+    TextView nRecipesInRecipeList;
+    @Bind(R.id.recipe_list_type_recipes)
+    TextView typeRecipesInRecipeList;
+    @Bind(R.id.recipe_list_type_icon)
+    ImageView typeIconInRecipeList;
+    @Bind(R.id.numberandtype_recipes_bar)
+    RelativeLayout numberAndTypeBar;
+    @Bind(R.id.add_recipe_fab)
+    FloatingActionButton addRecipeButton;
 
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
@@ -93,6 +110,9 @@ public class RecipeListFragment extends Fragment implements
         if(mAppBarLayout != null){
             mAppBarLayout.addOnOffsetChangedListener(this);
         }
+
+        typeRecipesInRecipeList.setText(getResources().getString(R.string.all_recipes));
+        typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_all_24));
         return view;
     }
 
@@ -177,6 +197,9 @@ public class RecipeListFragment extends Fragment implements
         //Set the fast Scroller
         fastScroller.setRecyclerView(mRecyclerView);
 
+        //set the number of recipes
+        nRecipesInRecipeList.setText(String.valueOf(mRecipes.size()) + " " + getResources().getString(R.string.recipes));
+
     }
 
     private SlideInBottomAnimationAdapter wrapAdapter(RecipeListRecyclerViewAdapter adapter){
@@ -213,43 +236,79 @@ public class RecipeListFragment extends Fragment implements
     public void filterRecipes(String filter) {
         Tools tools = new Tools();
         List<RecipeItem> filteredModelList = new ArrayList<>();
-        for (RecipeItem item : mRecipes) {
-            if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
-                filteredModelList = new ArrayList<>(mRecipes);
-            }if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0) {
-                if(item.getType().equals(Constants.TYPE_MAIN)) {
-                    filteredModelList.add(item);
-                }
-            }if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0) {
-                if(item.getType().equals(Constants.TYPE_STARTERS)) {
-                    filteredModelList.add(item);
-                }
-            }if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0) {
-                if(item.getType().equals(Constants.TYPE_DESSERTS)) {
-                    filteredModelList.add(item);
-                }
-            }else  if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0) {
-                if(item.getVegetarian()) {
-                    filteredModelList.add(item);
-                }
-            }else  if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0) {
-                if(item.getFavourite()) {
-                    filteredModelList.add(item);
-                }
-            }else  if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0) {
-                if((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) !=0){
-                    filteredModelList.add(item);
-                }
-            }else  if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0) {
-                if(tools.isInTimeframe(item)){
+        String type = "";
+        int iconResource = 0;
+
+        if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
+            filteredModelList = new ArrayList<>(mRecipes);
+            type = getResources().getString(R.string.all_recipes);
+            iconResource = R.drawable.ic_all_24;
+        }else if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0){
+            for (RecipeItem item : mRecipes) {
+                if (item.getType().equals(Constants.TYPE_MAIN)) {
                     filteredModelList.add(item);
                 }
             }
+            type = getResources().getString(R.string.main_courses);
+            iconResource = R.drawable.ic_main_24;
+        }else if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0){
+            for (RecipeItem item : mRecipes) {
+                if (item.getType().equals(Constants.TYPE_STARTERS)) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.starters);
+            iconResource = R.drawable.ic_starters_24;
+        }else if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0){
+            for (RecipeItem item : mRecipes) {
+                if (item.getType().equals(Constants.TYPE_DESSERTS)) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.desserts);
+            iconResource = R.drawable.ic_dessert_24;
+        }else if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0){
+            for (RecipeItem item : mRecipes) {
+                if (item.getVegetarian()) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.vegetarians);
+            iconResource = R.drawable.ic_vegetarians_24;
+        }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
+            for (RecipeItem item : mRecipes) {
+                if (item.getFavourite()) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.favourites);
+            iconResource = R.drawable.ic_favorite_black_24dp;
+        }else if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0){
+            for(RecipeItem item : mRecipes) {
+                if ((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) != 0) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.own_recipes);
+            iconResource = R.drawable.ic_own_24;
+        }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
+            for(RecipeItem item : mRecipes) {
+                if (tools.isInTimeframe(item)) {
+                    filteredModelList.add(item);
+                }
+            }
+            type = getResources().getString(R.string.last_downloaded);
+            iconResource = R.drawable.ic_latest_24;
         }
-        if(filteredModelList.size() == 0){
+        /*if(filteredModelList.size() == 0){
             Toast.makeText(getActivity(), getResources().getString(R.string.no_matches), Toast.LENGTH_LONG).show();
             filteredModelList = new ArrayList<>(mRecipes);
-        }
+            type = getResources().getString(R.string.all_recipes);
+            iconResource = R.drawable.ic_all_24;
+        }*/
+        typeRecipesInRecipeList.setText(type);
+        nRecipesInRecipeList.setText(String.valueOf(filteredModelList.size()) + " " + getResources().getString(R.string.recipes));
+        typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), iconResource));
         //Change the adapter
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), filteredModelList);
         newAdapter.setHasStableIds(true);
@@ -272,18 +331,6 @@ public class RecipeListFragment extends Fragment implements
         fastScroller.setRecyclerView(mRecyclerView);
     }
 
-private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
-        Tools tools = new Tools();
-        query = tools.getNormalizedString(query);
-        final List<RecipeItem> filteredModelList = new ArrayList<>();
-        for (RecipeItem item : recipes) {
-            final String name = tools.getNormalizedString(item.getName());
-            if (name.contains(query)) {
-                filteredModelList.add(item);
-            }
-        }
-        return filteredModelList;
-    }
 
     @Nullable
     public Toolbar getToolbarRecipeListFragment() {
@@ -299,6 +346,12 @@ private List<RecipeItem> filter(List<RecipeItem> recipes, String query) {
                 ((RecipeListActivity) getActivity()).closeSearchView();
             }
         }
+    }
+
+    public void setVisibilityWithSearchWidget(int visibility){
+        numberAndTypeBar.setVisibility(visibility);
+        if(visibility == View.GONE) addRecipeButton.hide();
+        else addRecipeButton.show();
     }
 }
 

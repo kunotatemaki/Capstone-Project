@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,8 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -105,9 +102,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 if (toolbar == null)
                     return true;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Window window = mActivity.getWindow();
+                    /*Window window = mActivity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimaryDark));
+                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimaryDark));*/
                     if (animate) {
                         toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -141,7 +138,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                     toolbar.setBackgroundResource(R.color.ColorPrimary);
                 }
 
-                //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(mActivity, R.color.ColorPrimary)));
+                //show the bar and button
+                mRecipeListFragment.setVisibilityWithSearchWidget(View.VISIBLE);
                 return true;
             }
 
@@ -153,9 +151,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                     return true;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     animate = true;
-                    Window window = mActivity.getWindow();
+                    /*Window window = mActivity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearchDark));
+                    window.setStatusBarColor(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearchDark));*/
                     toolbar.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                         @Override
@@ -178,7 +176,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                     });
                 }
                 toolbar.setBackgroundResource(R.color.ColorPrimarySearch);
-                //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(mActivity, R.color.ColorPrimarySearch)));
+                //hide the bar and button
+                mRecipeListFragment.setVisibilityWithSearchWidget(View.GONE);
+                //hide the floating button
+
                 return true;
             }
 
@@ -221,12 +222,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        String title = menuItem.getTitle().toString();
                         mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                         switch (menuItem.getItemId()) {
                             case R.id.menu_all_recipes:
-                                Tools tools = new Tools();
-                                title = tools.getApplicationName(getApplicationContext());
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
                                 break;
                             case R.id.menu_starters:
@@ -251,9 +249,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
                                 break;
                         }
-
-                        //menuItem.setChecked(true);
-                        showTitle(title);
 
                         drawerLayout.closeDrawers();
 
@@ -325,13 +320,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(getSupportActionBar() != null)
             getSupportActionBar().setTitle(title);
     }
-
-    /*private void getFilteredRecipes(String filter){
-        if(mRecipeListFragment == null){
-            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-        }
-        mRecipeListFragment.getFilteredRecipes(filter);
-    }*/
 
     public void closeSearchView(){
         animate = false;
