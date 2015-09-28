@@ -151,6 +151,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public @Bind(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
         public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
         public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
+        public @Bind(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
@@ -163,10 +164,20 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             if(item.getFavourite()){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
+            }else{
+                favoriteIcon.setVisibility(View.GONE);
             }
             if((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) !=0){
                 visibilityProtection = View.VISIBLE;
                 ownRecipeIcon.setVisibility(View.VISIBLE);
+            }else{
+                ownRecipeIcon.setVisibility(View.GONE);
+            }
+            if(item.getVegetarian()){
+                visibilityProtection = View.VISIBLE;
+                vegetarianIcon.setVisibility(View.VISIBLE);
+            }else{
+                vegetarianIcon.setVisibility(View.GONE);
             }
             backgroundProtection.setVisibility(visibilityProtection);
 

@@ -210,21 +210,10 @@ public class RecipeListFragment extends Fragment implements
 
     }
 
-
-    /*public boolean onQueryTextChange(String query) {
-        final List<RecipeItem> filteredModelList = filter(mRecipes, query);
-        adapter.animateTo(filteredModelList);
-        mRecyclerView.scrollToPosition(0);
-        return false;
-    }*/
-
     public void filterRecipes(String filter) {
         Tools tools = new Tools();
         List<RecipeItem> filteredModelList = new ArrayList<>();
         for (RecipeItem item : mRecipes) {
-            /*if(item.getType().equals(query)){
-                filteredModelList.add(item);
-            }*/
             if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
                 filteredModelList = new ArrayList<>(mRecipes);
             }if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0) {

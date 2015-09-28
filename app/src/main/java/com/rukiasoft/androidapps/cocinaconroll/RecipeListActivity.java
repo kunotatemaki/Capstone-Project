@@ -227,6 +227,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                             case R.id.menu_all_recipes:
                                 Tools tools = new Tools();
                                 title = tools.getApplicationName(getApplicationContext());
+                                mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
                                 break;
                             case R.id.menu_starters:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_STARTER_RECIPES);
