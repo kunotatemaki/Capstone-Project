@@ -11,7 +11,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_detail2);
+        setContentView(R.layout.activity_recipe_detail);
         RecipeItem recipeItem = new RecipeItem();
         Intent intent = getIntent();
         if(getIntent().hasExtra(RecipeListActivity.KEY_RECIPE))

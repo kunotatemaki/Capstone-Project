@@ -94,7 +94,6 @@
                 android:layout_toLeftOf="@id/recipe_list_number_recipes"
                 android:layout_toRightOf="@id/recipe_list_type_icon"
                 android:textColor="@android:color/white"
-                android:ellipsize="marquee"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>

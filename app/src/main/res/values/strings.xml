@@ -4,8 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="no_storage_available">Can\'t access to device storage</string>
 
-    <string name="fastscroller_track">FastScroller track</string>
-    <string name="fastscroller_handle">FastScroller handle</string>
+    <string name="fastscroller_track" translatable="false">FastScroller track</string>
+    <string name="fastscroller_handle" translatable="false">FastScroller handle</string>
     <string name="action_share">Share</string>
     <string name="search_hint">Search recipes</string>
     <string name="search_settings">Search settings</string>
@@ -13,6 +13,26 @@
     <string name="no_matches">No matches</string>
     <string name="recipes">recipes</string>
     <string name="designed_by">designed by Freepik.com</string>
+    <string name="audio_notification">Notification tone</string>
+    <string name="audio_notification_description">Choose a sound for new recipes incoming</string>
+    <string name="category_application">Application settings</string>
+    <string name="desserts">Desserts</string>
+    <string name="favourite">Favorite</string>
+    <string name="favourites">Favorites</string>
+    <string name="last_downloaded">Last downloaded recipes</string>
+    <string name="main_courses">Main courses</string>
+    <string name="notifications">New recipes notifications</string>
+    <string name="own_recipes">Own recipes</string>
+    <string name="screen_of_description"></string>
+    <string name="screen_on">Screen remains allways on</string>
+    <string name="search_by_ingredients">Search by ingredients</string>
+    <string name="starters">Starters</string>
+    <string name="update_wifi">Update only when Wifi connected</string>
+    <string name="update_wihtout_wifi_description">New recipes will be downloaded at any time</string>
+    <string name="update_with_wifi_description">New recipes will be downloaded only when Wifi connected</string>
+    <string name="vegetarians">Vegetarian dishes</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="all_recipes">All recipes</string>
 
 
 </resources>

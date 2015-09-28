@@ -351,7 +351,7 @@ public class RecipeListFragment extends Fragment implements
     public void setVisibilityWithSearchWidget(int visibility){
         numberAndTypeBar.setVisibility(visibility);
         if(visibility == View.GONE) addRecipeButton.hide();
-        else addRecipeButton.show();
+        //else addRecipeButton.show();
     }
 }
 
