@@ -115,6 +115,7 @@ public class RecipeListFragment extends Fragment implements
         return view;
     }
 
+
     @Override
     public void onResume(){
         super.onResume();
@@ -197,7 +198,8 @@ public class RecipeListFragment extends Fragment implements
         fastScroller.setRecyclerView(mRecyclerView);
 
         //set the number of recipes
-        nRecipesInRecipeList.setText(String.valueOf(mRecipes.size()) + " " + getResources().getString(R.string.recipes));
+        String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
+        nRecipesInRecipeList.setText(nrecipes);
 
     }
 

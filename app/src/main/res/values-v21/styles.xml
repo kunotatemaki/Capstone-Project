@@ -13,7 +13,7 @@
 
     <style name="Theme.Recipe.Detail" parent="BaseTheme">
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowEnterTransition">@transition/detail_window_enter_transition</item>
         <item name="android:windowReturnTransition">@transition/detail_window_return_transition</item>

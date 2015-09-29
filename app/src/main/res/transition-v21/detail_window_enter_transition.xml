@@ -4,12 +4,11 @@
     <fade
         android:duration="300">
         <targets>
-            <target android:excludeId="@android:id/statusBarBackground"/>
             <target android:excludeId="@android:id/navigationBarBackground"/>
             <target android:excludeId="@id/card_link_recipe"/>
             <target android:excludeId="@id/card_ingredients"/>
             <target android:excludeId="@id/card_steps"/>
-            <target android:excludeId="@id/favorite_fab"/>
+            <target android:excludeId="@id/recipe_description_fab"/>
         </targets>
 
     </fade>
@@ -27,7 +26,7 @@
            android:startDelay="300"
         android:interpolator="@android:interpolator/decelerate_cubic">
         <targets>
-            <target android:targetId="@id/favorite_fab"/>
+            <target android:targetId="@id/recipe_description_fab"/>
         </targets>
     </slide>
 
