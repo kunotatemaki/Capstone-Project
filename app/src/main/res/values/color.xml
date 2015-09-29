@@ -2,8 +2,8 @@
 <resources>
     <color name="ColorPrimary">#FF5722</color>
     <color name="ColorPrimaryDark">#E64A19</color>
-    <color name="ColorAccent">#00fff3</color>
-    <color name="ColorScrollBar">#ff00fb</color>
+    <color name="ColorAccent">#00e676</color>
+    <color name="ColorScrollBar">#00b0ff</color>
     <color name="ColorPrimarySearch">#FFBB33</color>
     <color name="ColorPrimarySearchDark">#99CC00</color>
     <color name="ColorTextDark">#dd000000</color>
@@ -13,7 +13,8 @@
     <color name="color_refresh_3">#FFBB33</color>
     <color name="color_refresh_4">#FF4444</color>
 
-    <color name="accent_translucent">#800409ff</color>
+    <color name="accent_translucent">#fff59d</color>
     <color name="ColorSettings">#fa5502</color>
     <color name="fastScrollBarColor">#984a23</color>
+    <color name="ColorDescriptions">#6b6b6b</color>
 </resources>

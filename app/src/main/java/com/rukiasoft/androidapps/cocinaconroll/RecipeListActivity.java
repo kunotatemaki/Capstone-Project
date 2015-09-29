@@ -313,13 +313,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     }
 
-    /**
-     * Show the selected text in the supportActionbar
-     */
-    private void showTitle(String title) {
-        if(getSupportActionBar() != null)
-            getSupportActionBar().setTitle(title);
-    }
 
     public void closeSearchView(){
         animate = false;

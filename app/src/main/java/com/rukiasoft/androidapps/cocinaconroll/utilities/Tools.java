@@ -54,7 +54,7 @@ public class Tools {
      * @param activity activity having refresh layout
      * @param refreshLayout refresh layout
      */
-    public static void setRefreshLayout(Activity activity, SwipeRefreshLayout refreshLayout){
+    public void setRefreshLayout(Activity activity, SwipeRefreshLayout refreshLayout){
         if(activity instanceof ToolbarAndRefreshActivity) {
             ((ToolbarAndRefreshActivity) activity).setRefreshLayout(refreshLayout);
             ((ToolbarAndRefreshActivity) activity).disableRefreshLayoutSwipe();

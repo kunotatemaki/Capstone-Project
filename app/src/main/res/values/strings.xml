@@ -11,7 +11,7 @@
     <string name="search_settings">Search settings</string>
     <string name="matches">Matches</string>
     <string name="no_matches">No matches</string>
-    <string name="recipes">recipes</string>
+    <string name="recipes">%1$d recipes</string>
     <string name="designed_by">designed by Freepik.com</string>
     <string name="audio_notification">Notification tone</string>
     <string name="audio_notification_description">Choose a sound for new recipes incoming</string>
@@ -33,10 +33,12 @@
     <string name="vegetarians">Vegetarian dishes</string>
     <string name="vibrate">Vibrate</string>
     <string name="all_recipes">All recipes</string>
-    <string name="recipe_image_transition_name" translatable="false">recipe_image_transition_name</string>
-    <string name="recipe_image_protection_transition_name" translatable="false">recipe_image_protection_transition_name</string>
-    <string name="recipe_name_transition_name" translatable="false">recipe_name_transition_name</string>
-    <string name="fab_transition_name" translatable="false">fab_transition_name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="null_content_description"/>
+    <string name="default_author">Preinstalled in Cookeo</string>
+    <string name="original_link" translatable="false">Link:</string>
+
 
 
 </resources>

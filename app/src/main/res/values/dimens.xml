@@ -20,7 +20,7 @@
     <dimen name="fastscroller_handle_size">50dp</dimen>
     <dimen name="fastscroller_reack_corner">3dp</dimen>
     <dimen name="fastscroller_track_height">30dp</dimen>
-    <dimen name="fastscroller_track_width">6dp</dimen>
+    <dimen name="fastscroller_track_width">4dp</dimen>
     <dimen name="fastscroller_track_padding">2dp</dimen>
 
     <dimen name="fab_elevation">2dp</dimen>
@@ -35,5 +35,6 @@
     <dimen name="activity_horizontal_title">72dp</dimen>
 
     <dimen name="detail_card_max_width">10000dp</dimen> <!-- force match_parent -->
-
+    <dimen name="margin_cardview">8dp</dimen>
+    <dimen name="margin_text_cardview">8dp</dimen>
 </resources>

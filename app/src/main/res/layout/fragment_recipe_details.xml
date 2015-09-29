@@ -27,7 +27,6 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
                 android:id="@+id/recipe_pic"
-                android:transitionName="@string/recipe_image_transition_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
@@ -35,7 +34,6 @@
                 />
             <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
                 android:id="@+id/recipe_pic_protection"
-                android:transitionName="@string/recipe_image_protection_transition_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/photo_background_protection"
@@ -51,7 +49,6 @@
                 app:layout_collapseMode="pin"/>
             <TextView
                 android:id="@+id/recipe_name_recipe_details"
-                android:transitionName="@string/recipe_name_transition_name"
                 android:textAppearance="@style/Theme.ExpandedText"
                 android:layout_gravity="bottom"
                 app:layout_anchor="@id/appbarlayout_recipe_details"
@@ -63,7 +60,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.rukiasoft.androidapps.cocinaconroll.classes.ObservableScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollview_recipe_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -77,51 +74,134 @@
                 android:id="@+id/card_link_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
+                android:layout_marginLeft="@dimen/margin_cardview"
+                android:layout_marginRight="@dimen/margin_cardview"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="@dimen/margin_cardview"
                 android:clickable="false"
                 android:focusable="false"
                 >
                 <TextView
-                    android:id="@+id/prueba1"
+                    android:id="@+id/cardview_link_textview"
                     style="@style/TextAppearance.AppCompat.Subhead"
-                    android:text="Aquí irá la dirección linkada a la receta original de la mierda de blog del señor pastor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:paddingLeft="4dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="4dp"
-                    android:paddingBottom="2dp"/>
+                    android:layout_marginLeft="@dimen/margin_text_cardview"
+                    android:layout_marginRight="@dimen/margin_text_cardview"
+                    android:layout_marginTop="@dimen/margin_text_cardview"
+                    android:layout_marginBottom="@dimen/margin_text_cardview"
+                    />
             </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/card_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="@dimen/margin_cardview"
+                android:layout_marginRight="@dimen/margin_cardview"
+                android:layout_marginTop="@dimen/margin_cardview"
+                android:layout_marginBottom="@dimen/margin_cardview"
                 android:clickable="false"
                 android:focusable="false"
                 >
-                <TextView
-                    android:id="@+id/prueba2"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:text="Aquí irán los ingredientes ricos para ganar mucha pasta con la gente que sube las recetas gratis"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:paddingLeft="4dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="4dp"
-                    android:paddingBottom="2dp"/>
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/ingredients_title_cardview"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold"
+                        android:textColor="@color/ColorDescriptions"
+                        android:text="@string/ingredients"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/margin_text_cardview"
+                        android:layout_marginRight="@dimen/margin_text_cardview"
+                        android:layout_marginTop="@dimen/margin_text_cardview"
+                        android:layout_marginBottom="@dimen/margin_text_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/margin_text_cardview"
+                        android:layout_marginRight="@dimen/margin_text_cardview"
+                        android:layout_marginTop="@dimen/margin_text_cardview"
+                        android:layout_marginBottom="@dimen/margin_text_cardview"
+                        android:src="@drawable/ic_ingredients_32"
+                        android:tint="@color/ColorDescriptions"/>
+                    <LinearLayout
+                        android:id="@+id/listview_ingredients_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@+id/ingredients_title_cardview">
+                    </LinearLayout>
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
-
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/card_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_cardview"
+                android:layout_marginRight="@dimen/margin_cardview"
+                android:layout_marginTop="@dimen/margin_cardview"
+                android:layout_marginBottom="@dimen/margin_cardview"
+                android:clickable="false"
+                android:focusable="false"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/steps_title_cardview"
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:textStyle="bold"
+                        android:textColor="@color/ColorDescriptions"
+                        android:text="@string/steps"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="@dimen/margin_text_cardview"
+                        android:layout_marginRight="@dimen/margin_text_cardview"
+                        android:layout_marginTop="@dimen/margin_text_cardview"
+                        android:layout_marginBottom="@dimen/margin_text_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:paddingBottom="@dimen/margin_cardview"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/margin_text_cardview"
+                        android:layout_marginRight="@dimen/margin_text_cardview"
+                        android:layout_marginTop="@dimen/margin_text_cardview"
+                        android:layout_marginBottom="@dimen/margin_text_cardview"
+                        android:src="@drawable/ic_procedure_32"
+                        android:tint="@color/ColorDescriptions"/>
+                    <LinearLayout
+                        android:id="@+id/listview_steps_cardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@id/steps_title_cardview"
+                        >
+                    </LinearLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
-    </com.rukiasoft.androidapps.cocinaconroll.classes.ObservableScrollView>
+    </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/favorite_fab"
         android:layout_width="wrap_content"
@@ -129,7 +209,6 @@
         app:fabSize="mini"
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        android:src="@drawable/ic_favorite_white_24dp"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/appbarlayout_recipe_details"
         app:layout_anchorGravity="bottom|right|end"

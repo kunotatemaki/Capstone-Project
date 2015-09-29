@@ -3,8 +3,9 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,7 +20,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -28,12 +30,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.rukiasoft.androidapps.cocinaconroll.classes.ObservableScrollView;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 
@@ -51,10 +53,8 @@ public class RecipeDetailsFragment extends Fragment implements
     //private View mRootView;
     private int mVibrantColor;
     private int mVibrantDarkColor;
-    @Bind(R.id.scrollview_recipe_details) ObservableScrollView mScrollView;
 
     @Bind(R.id.recipe_pic) ImageView mPhotoView;
-    @Bind(R.id.recipe_pic_protection) ImageView mPhotoViewProtection;
     @Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
     @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
     @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
@@ -62,9 +62,14 @@ public class RecipeDetailsFragment extends Fragment implements
     FloatingActionButton favoriteActionButton;
     @Bind(R.id.collapsing_toolbar_recipe_details)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.listview_ingredients_cardview)
+    LinearLayout ingredientsList;
+    @Bind(R.id.listview_steps_cardview)
+    LinearLayout stepsList;
     private RecipeItem recipe;
     boolean recipeLoaded;
     private ActionBar actionBar;
+    @Bind(R.id.cardview_link_textview) TextView author;
 
 
     @Override
@@ -72,7 +77,6 @@ public class RecipeDetailsFragment extends Fragment implements
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         getActivity().supportPostponeEnterTransition();
-        addTransitionListener();
         //setHasOptionsMenu(true);
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SAVE_RECIPE)){
             recipe = (RecipeItem)savedInstanceState.getParcelable(KEY_SAVE_RECIPE);
@@ -88,9 +92,6 @@ public class RecipeDetailsFragment extends Fragment implements
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    /*public ArticleDetailActivity getActivityCast() {
-        return (ArticleDetailActivity) getActivity();
-    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -186,12 +187,19 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
     private void loadRecipe(){
-        if(recipeLoaded == true) return;
+        if(recipeLoaded) return;
         if(recipeName != null){
             recipeName.setText(recipe.getName());
         }
         if(actionBar != null){
             actionBar.setTitle(recipe.getName());
+        }
+        if(favoriteActionButton != null){
+            if(recipe.getFavourite()) {
+                favoriteActionButton.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
+            }else {
+                favoriteActionButton.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
+            }
         }
         if(mPhotoView != null){
             Glide.with(this)
@@ -207,11 +215,48 @@ public class RecipeDetailsFragment extends Fragment implements
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable){
                             super.onLoadFailed(e, errorDrawable);
-                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_dish);
+                            Bitmap bitmap = ((BitmapDrawable)errorDrawable).getBitmap();
+                            //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_dish);
                             applyPalette(bitmap);
                         }
                     });
 
+        }
+
+        //Set the author
+        String sAuthor = getResources().getString(R.string.default_author);
+        if(recipe.getAuthor().equals(sAuthor))
+            author.setText(sAuthor);
+        else {
+            String link = getResources().getString(R.string.original_link).concat(" ").concat(recipe.getAuthor());
+            author.setText(Html.fromHtml(link));
+            author.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        //set ingredients and steps
+        ingredientsList.removeAllViews();
+        for(String ingredient : recipe.getIngredients()){
+            LayoutInflater inflater;
+            inflater = (LayoutInflater) getActivity()
+                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            View ingredientItem = inflater.inflate(R.layout.recipe_description_item, null);
+            TextView textView = (TextView) ingredientItem.findViewById(R.id.recipe_description_item_description);
+            textView.setText(ingredient);
+            ImageView icon = (ImageView) ingredientItem.findViewById(R.id.recipe_description_item_icon);
+            icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_bone));
+            ingredientsList.addView(ingredientItem);
+        }
+        stepsList.removeAllViews();
+        for(String step : recipe.getSteps()){
+            LayoutInflater inflater;
+            inflater = (LayoutInflater) getActivity()
+                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            View stepItem = inflater.inflate(R.layout.recipe_description_item, null);
+            TextView textView = (TextView) stepItem.findViewById(R.id.recipe_description_item_description);
+            textView.setText(step);
+            ImageView icon = (ImageView) stepItem.findViewById(R.id.recipe_description_item_icon);
+            icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_dog_foot));
+            stepsList.addView(stepItem);
         }
 
         recipeLoaded = true;
@@ -221,8 +266,8 @@ public class RecipeDetailsFragment extends Fragment implements
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
-                mVibrantDarkColor = palette.getDarkVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimaryDark));
+                mVibrantColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
+                mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Window window = getActivity().getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -236,69 +281,6 @@ public class RecipeDetailsFragment extends Fragment implements
 
     }
 
-    /**
-     * Try and add a {@link Transition.TransitionListener} to the entering shared element
-     * {@link Transition}. We do this so that we can load the full-size image after the transition
-     * has completed.
-     *
-     * @return true if we were successful in adding a listener to the enter transition
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private boolean addTransitionListener() {
 
-        final Transition transition = getActivity().getWindow().getSharedElementEnterTransition();
-        //final Transition transition = getSharedElementEnterTransition();
-
-        if (transition != null) {
-            // There is an entering shared element transition so add a listener to it
-            transition.addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    // As the transition has ended, we can now load the full-size image
-                    //loadFullSizeImage();
-                    Animator animator = ViewAnimationUtils.createCircularReveal(
-                            mAppBarLayout,
-                            0,
-                            0,
-                            0,
-                            (float) Math.hypot(mAppBarLayout.getWidth(), mAppBarLayout.getHeight()));
-                    // Set a natural ease-in/ease-out interpolator.
-                    animator.setInterpolator(new AccelerateDecelerateInterpolator());
-
-                    // make the view visible and start the animation
-                    animator.start();
-                    // Make sure we remove ourselves as a listener
-                    transition.removeListener(this);
-                }
-
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    LogHelper.d(TAG, "onTransitionStart");
-
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-                    // Make sure we remove ourselves as a listener
-                    LogHelper.d(TAG, "onTransitionStart");
-                    transition.removeListener(this);
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-                    LogHelper.d(TAG, "onTransitionStart");
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-                    LogHelper.d(TAG, "onTransitionStart");
-                }
-            });
-            return true;
-        }
-
-        // If we reach here then we have not added a listener
-        return false;
-    }
 
 }

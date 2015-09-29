@@ -72,7 +72,6 @@ public class Constants {
     public static final String FILTER_OWN_RECIPES = PACKAGE_NAME + ".ownrecipes";
     public static final String FILTER_LATEST_RECIPES = PACKAGE_NAME + ".latest";
 
-    public static final String PROGRAMMED_IN_ROBOT = "Programada en el robot";
 
 
     public static final String EMAIL = "rukiasoft@gmail.com";

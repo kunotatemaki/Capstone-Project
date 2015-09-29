@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -13,7 +12,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -219,38 +217,19 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onItemClick(View view, RecipeItem recipeItem) {
-        List<View> sharedViews = new ArrayList<>();
-        sharedViews.add(view.findViewById(R.id.recipe_pic_cardview));
-        sharedViews.add(view.findViewById(R.id.recipe_pic_protection_cardview));
-        sharedViews.add(view.findViewById(R.id.recipe_title_cardview));
-        sharedViews.add(view.findViewById(R.id.add_recipe_fab));
-        showRecipeDetails(recipeItem, sharedViews);
+        showRecipeDetails(recipeItem);
     }
 
-    public void showRecipeDetails(RecipeItem recipeItem, List<View> sharedViews){
+    public void showRecipeDetails(RecipeItem recipeItem){
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeItem);
         intent.putExtras(bundle);
         //TODO probar transiciones sencillas para pre-lollipop
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && sharedViews.size()>2) {
-            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());/*,
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
+        // Now we can start the Activity, providing the activity options as a bundle
+        ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
 
-                    // Now we provide a list of Pair items which contain the view we can transitioning
-                    // from, and the name of the view it is transitioning to, in the launched activity
-                    new Pair<>(sharedViews.get(0),
-                            getResources().getString(R.string.recipe_image_transition_name)),
-                    new Pair<>(sharedViews.get(1),
-                            getResources().getString(R.string.recipe_image_protection_transition_name)),
-                    new Pair<>(sharedViews.get(2),
-                            getResources().getString(R.string.recipe_name_transition_name)),
-                    new Pair<>(sharedViews.get(3),
-                            getResources().getString(R.string.fab_transition_name)));*/
-            // Now we can start the Activity, providing the activity options as a bundle
-            ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
-        } else {
-            startActivity(intent); //TODO - for result???
-        }
 
 
         //getActivity().startActivity(intent);
@@ -325,7 +304,8 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_latest_24;
         }
         typeRecipesInRecipeList.setText(type);
-        nRecipesInRecipeList.setText(String.valueOf(filteredModelList.size()) + " " + getResources().getString(R.string.recipes));
+        String nrecipes = String.format(getResources().getString(R.string.recipes), filteredModelList.size());
+        nRecipesInRecipeList.setText(nrecipes);
         typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), iconResource));
         //Change the adapter
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), filteredModelList);

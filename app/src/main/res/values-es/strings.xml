@@ -31,7 +31,7 @@
     <string name="designed_by">diseñado por Freepik.com</string>
     <string name="matches">Coincidencias</string>
     <string name="no_matches">Sin coincidencias</string>
-    <string name="recipes">recetas</string>
+    <string name="recipes">%1$d recetas</string>
     <string name="search_hint">Buscar recetas</string>
     <string name="search_settings">Ajustes de búsqueda</string>
 
