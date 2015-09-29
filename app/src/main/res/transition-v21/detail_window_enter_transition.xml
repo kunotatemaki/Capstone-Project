@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together">
+    <fade
+        android:duration="300">
+        <targets>
+            <target android:excludeId="@android:id/statusBarBackground"/>
+            <target android:excludeId="@android:id/navigationBarBackground"/>
+            <target android:excludeId="@id/card_link_recipe"/>
+            <target android:excludeId="@id/card_ingredients"/>
+            <target android:excludeId="@id/favorite_fab"/>
+        </targets>
+
+    </fade>
+    <slide android:slideEdge="bottom"
+        android:duration="500"
+        android:interpolator="@android:interpolator/decelerate_cubic">
+        <targets>
+            <target android:targetId="@id/card_link_recipe"/>
+            <target android:targetId="@id/card_ingredients"/>
+        </targets>
+    </slide>
+    <slide android:slideEdge="right"
+        android:duration="500"
+           android:startDelay="300"
+        android:interpolator="@android:interpolator/decelerate_cubic">
+        <targets>
+            <target android:targetId="@id/favorite_fab"/>
+        </targets>
+    </slide>
+
+
+</transitionSet>

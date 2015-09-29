@@ -1,8 +1,12 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
 
+import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,12 +19,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,18 +52,14 @@ public class RecipeDetailsFragment extends Fragment implements
     private int mVibrantColor;
     private int mVibrantDarkColor;
     @Bind(R.id.scrollview_recipe_details) ObservableScrollView mScrollView;
-    //private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
-    private ColorDrawable mStatusBarColorDrawable;
 
     @Bind(R.id.recipe_pic) ImageView mPhotoView;
     @Bind(R.id.recipe_pic_protection) ImageView mPhotoViewProtection;
-    private int mScrollY;
-    private int mStatusBarFullOpacityBottom;
     @Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
     @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
     @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
-    @Bind(R.id.share_fab)
-    FloatingActionButton floatingActionButton;
+    @Bind(R.id.favorite_fab)
+    FloatingActionButton favoriteActionButton;
     @Bind(R.id.collapsing_toolbar_recipe_details)
     CollapsingToolbarLayout collapsingToolbarLayout;
     private RecipeItem recipe;
@@ -69,6 +71,8 @@ public class RecipeDetailsFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        getActivity().supportPostponeEnterTransition();
+        addTransitionListener();
         //setHasOptionsMenu(true);
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SAVE_RECIPE)){
             recipe = (RecipeItem)savedInstanceState.getParcelable(KEY_SAVE_RECIPE);
@@ -112,24 +116,12 @@ public class RecipeDetailsFragment extends Fragment implements
             mAppBarLayout.addOnOffsetChangedListener(this);
         }
 
-        mScrollView = (ObservableScrollView) mRootView.findViewById(R.id.scrollview_recipe_details);
-        mScrollView.setCallbacks(new ObservableScrollView.Callbacks() {
-            @Override
-            public void onScrollChanged() {
-                mScrollY = mScrollView.getScrollY();
-                //getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                //mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
-                updateStatusBar();
-            }
-        });
 
-        mStatusBarColorDrawable = new ColorDrawable(0);
-
-        if(floatingActionButton != null) {
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        if(favoriteActionButton != null) {
+            favoriteActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO - hacer aquí lo del latiod
+                    //TODO - hacer aquí lo del latido
                     /*startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                             .setType("text/plain")
                             .setText("Some sample text")
@@ -138,26 +130,33 @@ public class RecipeDetailsFragment extends Fragment implements
             });
         }
 
-        updateStatusBar();
         if(recipe != null){
             loadRecipe();
         }
-        return mRootView;
-    }
 
-    private void updateStatusBar() {
-        int color = 0;
-        /*if (mPhotoView != null && mTopInset != 0 && mScrollY > 0) {
-            float f = progress(mScrollY,
-                    mStatusBarFullOpacityBottom - mTopInset * 3,
-                    mStatusBarFullOpacityBottom - mTopInset);
-            color = Color.argb((int) (255 * f),
-                    (int) (Color.red(mMutedColor) * 0.9),
-                    (int) (Color.green(mMutedColor) * 0.9),
-                    (int) (Color.blue(mMutedColor) * 0.9));
-        }*/
-        mStatusBarColorDrawable.setColor(color);
-        //mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mAppBarLayout != null) {
+            mAppBarLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    v.removeOnLayoutChangeListener(this);
+                    Animator animator = ViewAnimationUtils.createCircularReveal(
+                            mAppBarLayout,
+                            mAppBarLayout.getWidth()/2,
+                            mAppBarLayout.getHeight()/2,
+                            0,
+                            (float) Math.hypot(mAppBarLayout.getWidth(), mAppBarLayout.getHeight())/2);
+                    // Set a natural ease-in/ease-out interpolator.
+                    animator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    // make the view visible and start the animation
+                    animator.start();
+                }
+            });
+        }
+
+
+        return mRootView;
     }
 
 
@@ -181,36 +180,6 @@ public class RecipeDetailsFragment extends Fragment implements
         }
     }
 
-
-    /*private void handleAlphaOnTitle(float percentage) {
-
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-
-            if(mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleContainerVisible = false;
-            }
-
-        } else {
-
-            if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleContainerVisible = true;
-            }
-        }
-    }*/
-
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
-
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
-    }
-
     public void setRecipe(RecipeItem recipe) {
         this.recipe = recipe;
         loadRecipe();
@@ -228,23 +197,18 @@ public class RecipeDetailsFragment extends Fragment implements
             Glide.with(this)
                     .load(Uri.parse(recipe.getPath()))
                     .asBitmap()
+                    .error(R.drawable.default_dish)
                     .into(new BitmapImageViewTarget(mPhotoView) {
                         @Override
                         public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
                             super.onResourceReady(bitmap, anim);
-                            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                                @Override
-                                public void onGenerated(Palette palette) {
-                                    mVibrantColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
-                                    mVibrantDarkColor = palette.getDarkMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimaryDark));
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                        Window window = getActivity().getWindow();
-                                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                                        window.setStatusBarColor(mVibrantDarkColor);
-                                    }
-                                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(mVibrantColor));
-                                }
-                            });
+                            applyPalette(bitmap);
+                        }
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable){
+                            super.onLoadFailed(e, errorDrawable);
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_dish);
+                            applyPalette(bitmap);
                         }
                     });
 
@@ -253,5 +217,88 @@ public class RecipeDetailsFragment extends Fragment implements
         recipeLoaded = true;
     }
 
+    private void applyPalette(Bitmap bitmap){
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
+                mVibrantDarkColor = palette.getDarkVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimaryDark));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = getActivity().getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(mVibrantDarkColor);
+                }
+                collapsingToolbarLayout.setContentScrim(new ColorDrawable(mVibrantColor));
+                getActivity().supportStartPostponedEnterTransition();
+
+            }
+        });
+
+    }
+
+    /**
+     * Try and add a {@link Transition.TransitionListener} to the entering shared element
+     * {@link Transition}. We do this so that we can load the full-size image after the transition
+     * has completed.
+     *
+     * @return true if we were successful in adding a listener to the enter transition
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private boolean addTransitionListener() {
+
+        final Transition transition = getActivity().getWindow().getSharedElementEnterTransition();
+        //final Transition transition = getSharedElementEnterTransition();
+
+        if (transition != null) {
+            // There is an entering shared element transition so add a listener to it
+            transition.addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    // As the transition has ended, we can now load the full-size image
+                    //loadFullSizeImage();
+                    Animator animator = ViewAnimationUtils.createCircularReveal(
+                            mAppBarLayout,
+                            0,
+                            0,
+                            0,
+                            (float) Math.hypot(mAppBarLayout.getWidth(), mAppBarLayout.getHeight()));
+                    // Set a natural ease-in/ease-out interpolator.
+                    animator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                    // make the view visible and start the animation
+                    animator.start();
+                    // Make sure we remove ourselves as a listener
+                    transition.removeListener(this);
+                }
+
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    LogHelper.d(TAG, "onTransitionStart");
+
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+                    // Make sure we remove ourselves as a listener
+                    LogHelper.d(TAG, "onTransitionStart");
+                    transition.removeListener(this);
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+                    LogHelper.d(TAG, "onTransitionStart");
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+                    LogHelper.d(TAG, "onTransitionStart");
+                }
+            });
+            return true;
+        }
+
+        // If we reach here then we have not added a listener
+        return false;
+    }
 
 }

@@ -40,8 +40,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         implements View.OnClickListener {
 
     private List<RecipeItem> mItems;
-    //private List<RecipeItem> filteredItems;
-    //private List<RecipeItem> shownItems;
     private OnItemClickListener onItemClickListener;
     private Context mContext;
 
@@ -86,9 +84,9 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     }
 
     protected static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public @Bind(R.id.recipe_pic) ImageView recipeThumbnail;
-        public @Bind(R.id.recipe_title) TextView recipeTitle;
-        public @Bind(R.id.recipe_item_background_protection) ImageView backgroundProtection;
+        public @Bind(R.id.recipe_pic_cardview) ImageView recipeThumbnail;
+        public @Bind(R.id.recipe_title_cardview) TextView recipeTitle;
+        public @Bind(R.id.recipe_pic_protection_cardview) ImageView backgroundProtection;
         public @Bind(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
         public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
         public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;

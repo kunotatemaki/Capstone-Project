@@ -21,12 +21,12 @@
             android:layout_height="wrap_content">
         <!--suppress AndroidLintContentDescription -->
             <com.rukiasoft.androidapps.cocinaconroll.classes.TwoOneImageView
-                android:id="@+id/recipe_pic"
+                android:id="@+id/recipe_pic_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"/>
             <com.rukiasoft.androidapps.cocinaconroll.classes.TwoOneImageView
-                android:id="@+id/recipe_item_background_protection"
+                android:id="@+id/recipe_pic_protection_cardview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/photo_background_protection_right"
@@ -99,7 +99,7 @@
                 android:paddingRight="@dimen/margin_recipe_icon_type"
                 android:tint="@color/ColorPrimary"/>
             <TextView
-                android:id="@+id/recipe_title"
+                android:id="@+id/recipe_title_cardview"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

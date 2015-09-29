@@ -21,10 +21,12 @@
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- changeBounds is used for the TextViews which are shared -->
     <changeBounds />
-
+    <changeTransform/>
+    <changeClipBounds/>
 
     <!-- changeImageTransform is used for the ImageViews which are shared -->
     <changeImageTransform />
+
 
 </transitionSet>
 

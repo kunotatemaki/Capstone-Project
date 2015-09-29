@@ -33,6 +33,10 @@
     <string name="vegetarians">Vegetarian dishes</string>
     <string name="vibrate">Vibrate</string>
     <string name="all_recipes">All recipes</string>
+    <string name="recipe_image_transition_name" translatable="false">recipe_image_transition_name</string>
+    <string name="recipe_image_protection_transition_name" translatable="false">recipe_image_protection_transition_name</string>
+    <string name="recipe_name_transition_name" translatable="false">recipe_name_transition_name</string>
+    <string name="fab_transition_name" translatable="false">fab_transition_name</string>
 
 
 </resources>

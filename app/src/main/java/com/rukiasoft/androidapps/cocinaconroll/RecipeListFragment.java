@@ -5,11 +5,15 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -215,32 +219,43 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onItemClick(View view, RecipeItem recipeItem) {
-        showRecipeDetails(recipeItem);
+        List<View> sharedViews = new ArrayList<>();
+        sharedViews.add(view.findViewById(R.id.recipe_pic_cardview));
+        sharedViews.add(view.findViewById(R.id.recipe_pic_protection_cardview));
+        sharedViews.add(view.findViewById(R.id.recipe_title_cardview));
+        sharedViews.add(view.findViewById(R.id.add_recipe_fab));
+        showRecipeDetails(recipeItem, sharedViews);
     }
 
-    public void showRecipeDetails(/*View view, */RecipeItem recipeItem){
-        /*ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
-
-                // Now we provide a list of Pair items which contain the view we can transitioning
-                // from, and the name of the view it is transitioning to, in the launched activity
-                new Pair<View, String>(view.findViewById(R.id.imageview_item),
-                        DetailActivity.VIEW_NAME_HEADER_IMAGE),
-                new Pair<View, String>(view.findViewById(R.id.textview_name),
-                        DetailActivity.VIEW_NAME_HEADER_TITLE));
-
-        // Now we can start the Activity, providing the activity options as a bundle
-        ActivityCompat.startActivity(this, intent, activityOptions.toBundle());*/
+    public void showRecipeDetails(RecipeItem recipeItem, List<View> sharedViews){
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeItem);
         intent.putExtras(bundle);
-        getActivity().startActivity(intent);
+        //TODO probar transiciones sencillas para pre-lollipop
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && sharedViews.size()>2) {
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());/*,
+
+                    // Now we provide a list of Pair items which contain the view we can transitioning
+                    // from, and the name of the view it is transitioning to, in the launched activity
+                    new Pair<>(sharedViews.get(0),
+                            getResources().getString(R.string.recipe_image_transition_name)),
+                    new Pair<>(sharedViews.get(1),
+                            getResources().getString(R.string.recipe_image_protection_transition_name)),
+                    new Pair<>(sharedViews.get(2),
+                            getResources().getString(R.string.recipe_name_transition_name)),
+                    new Pair<>(sharedViews.get(3),
+                            getResources().getString(R.string.fab_transition_name)));*/
+            // Now we can start the Activity, providing the activity options as a bundle
+            ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
+        } else {
+            startActivity(intent); //TODO - for result???
+        }
+
+
+        //getActivity().startActivity(intent);
     }
 
-    public void getFilteredRecipes(String filter) {
-
-    }
 
     public void filterRecipes(String filter) {
         Tools tools = new Tools();

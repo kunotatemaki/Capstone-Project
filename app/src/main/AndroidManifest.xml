@@ -65,7 +65,7 @@
             android:name=".RecipeDetailActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@style/BaseTheme" >
+            android:theme="@style/Theme.Recipe.Detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".RecipeListActivity" />

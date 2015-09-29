@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appbarlayout_recipe_details"
-        app:contentScrim="@android:color/transparent"
-        >
+        android:background="@android:color/transparent"
+        app:contentScrim="@android:color/transparent">
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_recipe_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            android:background="@android:color/transparent"
             app:contentScrim="@android:color/transparent"
             app:expandedTitleMarginEnd="@dimen/title_margin_collapsed"
             app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
@@ -26,6 +27,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
                 android:id="@+id/recipe_pic"
+                android:transitionName="@string/recipe_image_transition_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
@@ -33,6 +35,7 @@
                 />
             <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
                 android:id="@+id/recipe_pic_protection"
+                android:transitionName="@string/recipe_image_protection_transition_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:background="@drawable/photo_background_protection"
@@ -48,6 +51,7 @@
                 app:layout_collapseMode="pin"/>
             <TextView
                 android:id="@+id/recipe_name_recipe_details"
+                android:transitionName="@string/recipe_name_transition_name"
                 android:textAppearance="@style/Theme.ExpandedText"
                 android:layout_gravity="bottom"
                 app:layout_anchor="@id/appbarlayout_recipe_details"
@@ -70,6 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/card_link_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
@@ -92,6 +97,7 @@
                     android:paddingBottom="2dp"/>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/card_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
@@ -117,7 +123,7 @@
         </LinearLayout>
     </com.rukiasoft.androidapps.cocinaconroll.classes.ObservableScrollView>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/share_fab"
+        android:id="@+id/favorite_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fabSize="mini"

@@ -8,12 +8,20 @@
           <item name="android:windowDrawsSystemBarBackgrounds">true</item>
           <item name="android:statusBarColor">@android:color/transparent</item>
 
-          <item name="android:windowSharedElementEnterTransition">
-              @transition/grid_detail_transition
-          </item>
-          <item name="android:windowSharedElementExitTransition">
-              @transition/grid_detail_transition
-          </item>
+
       </style>
+
+    <style name="Theme.Recipe.Detail" parent="BaseTheme">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowEnterTransition">@transition/detail_window_enter_transition</item>
+        <item name="android:windowReturnTransition">@transition/detail_window_return_transition</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@transition/grid_detail_transition</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
 
 </resources>
