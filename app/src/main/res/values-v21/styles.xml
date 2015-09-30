@@ -18,9 +18,12 @@
         <item name="android:windowEnterTransition">@transition/detail_window_enter_transition</item>
         <item name="android:windowReturnTransition">@transition/detail_window_return_transition</item>
 
-        <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">@transition/grid_detail_transition</item>
-        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
+    <style name="Theme.Recipe.List" parent="AppTheme">
+        <item name="android:windowContentTransitions">true</item>
+       <item name="android:windowReenterTransition">@transition/detail_window_reenter_transition</item>
+
     </style>
 
 

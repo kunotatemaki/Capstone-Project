@@ -28,9 +28,7 @@
     <slide android:slideEdge="bottom"
            android:interpolator="@android:interpolator/accelerate_cubic">
         <targets>
-            <target android:targetId="@id/card_link_recipe"/>
-            <target android:targetId="@id/card_ingredients"/>
-            <target android:targetId="@id/card_steps"/>
+            <target android:targetId="@+id/recipe_description_cards"/>
         </targets>
     </slide>
 </transitionSet>
