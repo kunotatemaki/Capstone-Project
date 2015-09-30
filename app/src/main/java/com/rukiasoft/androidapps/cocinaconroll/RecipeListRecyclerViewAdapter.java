@@ -141,4 +141,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         void onItemClick(View view, RecipeItem recipeItem);
 
     }
+
+
 }

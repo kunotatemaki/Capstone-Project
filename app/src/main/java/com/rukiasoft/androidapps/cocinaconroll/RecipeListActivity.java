@@ -16,6 +16,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,8 +28,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,6 +43,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
     public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
+    public static final int REQUEST_DETAILS = 189;
+    public static final int RESULT_UPDATE_RECIPE = 222;
+    public static final int RESULT_DELETE_RECIPE = 223;
+
 
 
     @Bind(R.id.drawer_layout)
@@ -66,6 +75,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +100,13 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
 
         setupDrawerLayout();
+
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
     }
 
     @Override
@@ -98,10 +115,32 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
         if(mRecipeListFragment != null && intent.hasExtra(KEY_RECIPE)){
             String name = intent.getStringExtra(KEY_RECIPE);
-            //TODO - buscar la receta sabiendo el nombre y llamar a showRecipeDetails
-            //mRecipeListFragment.showRecipeDetails();
+            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+            if(mRecipeListFragment != null){
+                mRecipeListFragment.searchAndShow(name);
+            }
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
+        if(requestCode == REQUEST_DETAILS){
+            if(resultCode == RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
+                int index = intentData.getIntExtra(KEY_RECIPE, -1);
+                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                if(mRecipeListFragment != null && index != -1) {
+                    mRecipeListFragment.deleteRecipe(index);
+                }
+            }else if(resultCode == RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(KEY_RECIPE);
+                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                if(mRecipeListFragment != null){
+                    mRecipeListFragment.updateRecipe(recipe);
+                }
+            }
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

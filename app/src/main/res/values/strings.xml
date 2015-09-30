@@ -47,6 +47,10 @@
     <string name="description_vibrate">Vibrate enabled on notifications</string>
     <string name="exit_application_title">Exit</string>
     <string name="exit_application">Wanna leave %1$s?</string>
+    <string name="sender">Sended by %1$s</string>
+    <string name="email_alert_title">Send recipe</string>
+    <string name="email_alert_body">Choose your favourite email client</string>
+    <string name="aceptar">Accept</string>
 
 
 </resources>

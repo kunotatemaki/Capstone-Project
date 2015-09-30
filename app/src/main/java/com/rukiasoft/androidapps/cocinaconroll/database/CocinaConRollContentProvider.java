@@ -49,15 +49,15 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
         Cursor c = null;
         switch(mUriMatcher.match(uri)){
-                case SUGGESTIONS_RECIPE:
-            c = mSuggestionsDB.getRecipes(selectionArgs);
-            break;
+            case SUGGESTIONS_RECIPE:
+                c = mSuggestionsDB.getRecipes(selectionArgs);
+                break;
             case SEARCH_RECIPE:
-            c = mSuggestionsDB.getRecipes(selectionArgs);
-            break;
+                c = mSuggestionsDB.getRecipes(selectionArgs);
+                break;
             case GET_RECIPE:
-            String id = uri.getLastPathSegment();
-            c = mSuggestionsDB.getRecipe(id);
+                String id = uri.getLastPathSegment();
+                c = mSuggestionsDB.getRecipe(id);
         }
         return c;
     }

@@ -46,6 +46,7 @@ public class RecipeItem implements Parcelable {
     private Long date;
     @Element
     private String language = "Spanish";
+    private int position;
 
     public RecipeItem(Parcel in){
         this.name= in.readString();
@@ -65,6 +66,7 @@ public class RecipeItem implements Parcelable {
         this.tip = in.readString();
         this.path = in.readString();
         this.language = in.readString();
+        this.position = in.readInt();
         this.date = in.readLong();
 
 
@@ -203,6 +205,14 @@ public class RecipeItem implements Parcelable {
         this.path = path;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -225,6 +235,7 @@ public class RecipeItem implements Parcelable {
         dest.writeString(getTip());
         dest.writeString(getPath());
         dest.writeString(getLanguage());
+        dest.writeInt(getPosition());
         if(getDate() != null)
             dest.writeLong(getDate());
         else

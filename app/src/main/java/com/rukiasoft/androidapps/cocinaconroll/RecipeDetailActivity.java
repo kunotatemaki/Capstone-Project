@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -31,5 +32,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }else{
             finish();
         }
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        Tools tools = new Tools();
+        tools.setScreenOnIfSettingsAllowed(this, true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Tools tools = new Tools();
+        tools.setScreenOnIfSettingsAllowed(this, false);
     }
 }

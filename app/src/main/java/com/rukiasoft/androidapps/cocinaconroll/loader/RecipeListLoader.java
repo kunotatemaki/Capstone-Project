@@ -33,6 +33,10 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
     // We hold a reference to the Loader's data here.
     private List<RecipeItem> mRecipes;
 
+    public void setRecipes(List<RecipeItem> recipes) {
+        mRecipes = new ArrayList<>(recipes);
+    }
+
     public RecipeListLoader(Context ctx) {
         // Loaders may be used across multiple Activitys (assuming they aren't
         // bound to the LoaderManager), so NEVER hold a reference to the context
@@ -48,8 +52,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
 
     /**
      * This method is called on a background thread and generates a List of
-     * {@link RecipeItem} objects. Each entry corresponds to a single installed
-     * application on the device.
+     * {@link RecipeItem} objects.
      */
     @Override
     public List<RecipeItem> loadInBackground() {
@@ -106,7 +109,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
     }
 
     /*********************************************************/
-    /** (3) Implement the Loader�s state-dependent behavior **/
+    /** (3) Implement the Loaderes state-dependent behavior **/
     /*********************************************************/
 
     @Override

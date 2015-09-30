@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -47,6 +48,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import butterknife.Bind;
@@ -88,10 +90,13 @@ public class RecipeDetailsFragment extends Fragment implements
                     Integer flags = Constants.FLAG_EDITED;
                     if((recipe.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
                         flags = flags|Constants.FLAG_EDITED_PICTURE;
-                    Tools tools = new Tools();
-                    /*tools.deleteRecipe(getActivity().getApplicationContext(), recipe, flags);
-                    ((MainActivity)getActivity()).loadRecipes(CocinaConRollConstants.ALL_RECIPES_FILTER);
-*/
+                    ReadWriteTools tools = new ReadWriteTools(getActivity().getApplicationContext());
+                    tools.deleteRecipe(recipe, flags);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipe.getPosition());
+                    getActivity().setResult(RecipeListActivity.RESULT_DELETE_RECIPE, resultIntent);
+                    getActivity().finish();
+
                     // TODO: 29/9/15 hacer lo de borrar la receta
                     break;
 
@@ -128,6 +133,7 @@ public class RecipeDetailsFragment extends Fragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.recipe_description_menu, menu);
         menu.findItem(R.id.menu_item_remove).setVisible(own);
+        menu.findItem(R.id.menu_item_share_recipe).setVisible(own);
 
         if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
             onPrepareOptionsMenu(menu);
@@ -152,6 +158,10 @@ public class RecipeDetailsFragment extends Fragment implements
                 return true;
             case R.id.menu_item_remove:
                 builder.show();
+                return true;
+            case R.id.menu_item_share_recipe:
+                Tools tools = new Tools();
+                tools.share(getActivity(), recipe);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -210,26 +220,23 @@ public class RecipeDetailsFragment extends Fragment implements
             recipeDescriptionFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO - hacer aquí lo del latido
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
-                            Tools tools = new Tools();
-                            if(!own) {
-                                if (recipe.getFavourite()) {
-                                    recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
-                                } else {
-                                    recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
-                                }
-                                recipe.setFavourite(!recipe.getFavourite());
-
-
-                                // TODO: 29/9/15 grabar recete y actualizar tools.saveRecipeOnEditedPath(getActivity(), recipe);
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                    scaleIn.run();
-                                }
-                            }else{
-                                // TODO: 29/9/15  tools.sendEmail(getActivity(), recipe); comprobar con resolveActivity
-
+                            ReadWriteTools tools = new ReadWriteTools(getActivity());
+                            if (recipe.getFavourite()) {
+                                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
+                            } else {
+                                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
+                            }
+                            recipe.setFavourite(!recipe.getFavourite());
+                            tools.saveRecipeOnEditedPath(recipe);
+                            Intent returnIntent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+                            returnIntent.putExtras(bundle);
+                            getActivity().setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, returnIntent);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                scaleIn.run();
                             }
                         }
                     }, 150);
@@ -263,8 +270,6 @@ public class RecipeDetailsFragment extends Fragment implements
                 }
             });
         }
-
-
         return mRootView;
     }
 

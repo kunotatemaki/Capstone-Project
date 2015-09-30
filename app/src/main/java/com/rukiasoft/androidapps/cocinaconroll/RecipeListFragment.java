@@ -3,6 +3,8 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -47,7 +49,6 @@ public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener,
         AppBarLayout.OnOffsetChangedListener{
 
-    private static final int LOADER_ID = 1;
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".scrollposition";
     public static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".recipelist";
 
@@ -77,15 +78,31 @@ public class RecipeListFragment extends Fragment implements
     List<RecipeItem> mRecipes;
     int scrollPosition = 0;
     private int columnCount = 10;
+    private String lastFilter;
 
     public RecipeListFragment() {
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+    }
+     @Override
+     public void onDetach(){
+         super.onDetach();
+     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,6 +133,7 @@ public class RecipeListFragment extends Fragment implements
 
         typeRecipesInRecipeList.setText(getResources().getString(R.string.all_recipes));
         typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_all_24));
+        lastFilter = Constants.FILTER_ALL_RECIPES;
         return view;
     }
 
@@ -140,9 +158,11 @@ public class RecipeListFragment extends Fragment implements
 
         // Initialize a Loader with id '1'. If the Loader with this id already
         // exists, then the LoaderManager will reuse the existing Loader.
-        //if(mRecipes == null || mRecipes.size() == 0) {
-            getLoaderManager().initLoader(LOADER_ID, null, this);
-        //}
+        if(mRecipes == null || mRecipes.size() == 0) {
+            getLoaderManager().initLoader(Constants.LOADER_ID, null, this);
+        }else{
+            setData();
+        }
 
     }
 
@@ -155,8 +175,9 @@ public class RecipeListFragment extends Fragment implements
                     .findFirstCompletelyVisibleItemPositions(scrollPosition);
             savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
         }
-        savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);
-
+        if(mRecipes != null) {
+            savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);
+        }
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -171,15 +192,26 @@ public class RecipeListFragment extends Fragment implements
                 ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = true;
             }
         }
-        return new RecipeListLoader(getActivity());
+        return new RecipeListLoader(getActivity().getApplicationContext());
     }
 
     @Override
     public void onLoadFinished(Loader<List<RecipeItem>> loader, List<RecipeItem> data) {
         Log.i("", "+++ onLoadFinished() called! +++");
         mRecipes = data;
+        setData();
+    }
+
+    private void orderRecipesByName(){
         Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
         Collections.sort(mRecipes, comparatorName);
+        for(int i=0; i<mRecipes.size(); i++){
+            mRecipes.get(i).setPosition(i);
+        }
+    }
+
+    private void setData(){
+        orderRecipesByName();
         ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
         if(isResumed()) {
             Tools tools = new Tools();
@@ -208,11 +240,6 @@ public class RecipeListFragment extends Fragment implements
         //set the number of recipes
         String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
         nRecipesInRecipeList.setText(nrecipes);
-
-    }
-
-    private void setAdapter(){
-
     }
 
     private SlideInBottomAnimationAdapter wrapAdapter(RecipeListRecyclerViewAdapter adapter){
@@ -242,7 +269,8 @@ public class RecipeListFragment extends Fragment implements
         //TODO probar transiciones sencillas para pre-lollipop
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
         // Now we can start the Activity, providing the activity options as a bundle
-        ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
+        int REQUEST_DETAILS = ((RecipeListActivity)getActivity()).REQUEST_DETAILS;
+        ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_DETAILS, activityOptions.toBundle());
 
 
 
@@ -251,6 +279,7 @@ public class RecipeListFragment extends Fragment implements
 
 
     public void filterRecipes(String filter) {
+        lastFilter = filter;
         Tools tools = new Tools();
         List<RecipeItem> filteredModelList = new ArrayList<>();
         String type = "";
@@ -364,6 +393,27 @@ public class RecipeListFragment extends Fragment implements
         numberAndTypeBar.setVisibility(visibility);
         if(visibility == View.GONE) addRecipeButton.hide();
         //else addRecipeButton.show();
+    }
+
+    public void updateRecipe(RecipeItem recipe) {
+        int index = recipe.getPosition();
+        mRecipes.remove(index);
+        mRecipes.add(index, recipe);
+        filterRecipes(lastFilter);
+    }
+
+    public void searchAndShow(String name) {
+        for(RecipeItem recipe : mRecipes){
+            if(recipe.getName().equals(name)) {
+                showRecipeDetails(recipe);
+                break;
+            }
+        }
+    }
+
+    public void deleteRecipe(int index) {
+        mRecipes.remove(index);
+        filterRecipes(lastFilter);
     }
 }
 
