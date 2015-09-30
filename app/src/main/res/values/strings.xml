@@ -23,7 +23,7 @@
     <string name="main_courses">Main courses</string>
     <string name="notifications">New recipes notifications</string>
     <string name="own_recipes">Own recipes</string>
-    <string name="screen_of_description"></string>
+    <string name="screen_of_description">Screen will be turned off, according to the user\'s settings</string>
     <string name="screen_on">Screen remains allways on</string>
     <string name="search_by_ingredients">Search by ingredients</string>
     <string name="starters">Starters</string>
@@ -35,13 +35,16 @@
     <string name="all_recipes">All recipes</string>
     <string name="ingredients">Ingredients</string>
     <string name="steps">Steps</string>
-    <string name="null_content_description"/>
+    <string name="null_content_description"> </string>
     <string name="default_author">Preinstalled in Cookeo</string>
     <string name="original_link" translatable="false">Link:</string>
     <string name="edit_recipe">Edit recipe</string>
     <string name="remove_recipe">Remove recipe</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="screen_on_description">Screen allways on while showing the selected recipe</string>
+    <string name="description_not_vibrate">Vibrate disabled on notifiactions</string>
+    <string name="description_vibrate">Vibrate enabled on notifications</string>
 
 
 </resources>

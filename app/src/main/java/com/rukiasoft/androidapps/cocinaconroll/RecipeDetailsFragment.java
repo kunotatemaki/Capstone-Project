@@ -91,7 +91,8 @@ public class RecipeDetailsFragment extends Fragment implements
                     Tools tools = new Tools();
                     /*tools.deleteRecipe(getActivity().getApplicationContext(), recipe, flags);
                     ((MainActivity)getActivity()).loadRecipes(CocinaConRollConstants.ALL_RECIPES_FILTER);
-*/// TODO: 29/9/15 hacer lo de borrar la receta
+*/
+                    // TODO: 29/9/15 hacer lo de borrar la receta
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:

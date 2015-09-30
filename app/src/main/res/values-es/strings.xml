@@ -35,5 +35,7 @@
     <string name="search_hint">Buscar recetas</string>
     <string name="search_settings">Ajustes de búsqueda</string>
     <string name="delete_recipe_confirmation">¿Estás seguro? Esta operación no puede deshacerse.</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="default_author">Programada en Cookeo</string>
 
 </resources>

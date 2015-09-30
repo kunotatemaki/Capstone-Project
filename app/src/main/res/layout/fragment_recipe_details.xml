@@ -136,7 +136,7 @@
                         android:layout_marginRight="@dimen/margin_text_cardview"
                         android:layout_marginTop="@dimen/margin_text_cardview"
                         android:layout_marginBottom="@dimen/margin_text_cardview"
-                        android:src="@drawable/ic_all_24"
+                        android:src="@drawable/ic_ingredients_32"
                         android:tint="@color/ColorDescriptions"/>
                     <LinearLayout
                         android:id="@+id/listview_ingredients_cardview"
@@ -189,7 +189,7 @@
                         android:layout_marginRight="@dimen/margin_text_cardview"
                         android:layout_marginTop="@dimen/margin_text_cardview"
                         android:layout_marginBottom="@dimen/margin_text_cardview"
-                        android:src="@drawable/ic_all_24"
+                        android:src="@drawable/ic_procedure_32"
                         android:tint="@color/ColorDescriptions"/>
                     <LinearLayout
                         android:id="@+id/listview_steps_cardview"
