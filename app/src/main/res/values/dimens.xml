@@ -37,4 +37,11 @@
     <dimen name="detail_card_max_width">10000dp</dimen> <!-- force match_parent -->
     <dimen name="margin_cardview">8dp</dimen>
     <dimen name="margin_text_cardview">8dp</dimen>
+    <dimen name="circle_space">5dp</dimen>
+    <dimen name="margin_rukia">10dp</dimen>
+    <dimen name="rukiasoft_sp">45sp</dimen>
+    <dimen name="imaginecreate_sp">35sp</dimen>
+    <dimen name="margin_imagine_right">10dp</dimen>
+    <dimen name="margin_create_left">5dp</dimen>
+    <dimen name="margin_create_right">5dp</dimen>
 </resources>

@@ -261,6 +261,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 Intent finalIntent = new Intent(this, SettingsActivity.class);
                 startActivity(finalIntent);
                 return true;
+            case R.id.menu_thanks:
+                finalIntent = new Intent(this, ThanksActivity.class);
+                startActivity(finalIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -352,6 +356,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     public void onResume(){
         super.onResume();
+        startActivity(new Intent(this, AnimationActivity.class));
+finish();
         closeSearchView();
         //to start the reveal effecy from the magnifying glass
         final ViewTreeObserver viewTreeObserver = getWindow().getDecorView().getViewTreeObserver();
