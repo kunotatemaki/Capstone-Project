@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -50,6 +52,19 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     ToolbarAndRefreshActivity mActivity;
     private boolean animate;
+
+    public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,6 +227,25 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            confirmExit();
+        }
+    }
+
+    private void confirmExit(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        int stringId = getApplicationInfo().labelRes;
+        String name = getString(stringId);
+        String question = String.format(getResources().getString(R.string.exit_application), name);
+        builder.setTitle(getResources().getString(R.string.exit_application_title));
+        builder.setMessage(question).setPositiveButton((getResources().getString(R.string.Yes)), dialogClickListener)
+                .setNegativeButton((getResources().getString(R.string.No)), dialogClickListener);
+        builder.show();
+    }
 
     /**
      * Setup the drawer layout

@@ -45,6 +45,8 @@
     <string name="screen_on_description">Screen allways on while showing the selected recipe</string>
     <string name="description_not_vibrate">Vibrate disabled on notifiactions</string>
     <string name="description_vibrate">Vibrate enabled on notifications</string>
+    <string name="exit_application_title">Exit</string>
+    <string name="exit_application">Wanna leave %1$s?</string>
 
 
 </resources>

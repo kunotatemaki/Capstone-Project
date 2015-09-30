@@ -75,7 +75,7 @@ public class RecipeDetailsFragment extends Fragment implements
     @Bind(R.id.listview_steps_cardview)
     LinearLayout stepsList;
     private RecipeItem recipe;
-    boolean recipeLoaded;
+    boolean recipeLoaded = false;
     private ActionBar actionBar;
     @Bind(R.id.cardview_link_textview) TextView author;
     private boolean own;
@@ -100,6 +100,7 @@ public class RecipeDetailsFragment extends Fragment implements
             }
         }
     };
+    private boolean collapsed;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,7 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save recipe
+        recipeLoaded = false;
         if (recipe != null) {
             savedInstanceState.putParcelable(KEY_SAVE_RECIPE, recipe);
         }
@@ -255,7 +257,9 @@ public class RecipeDetailsFragment extends Fragment implements
                     animator.setInterpolator(new AccelerateDecelerateInterpolator());
 
                     // make the view visible and start the animation
-                    animator.start();
+                    if(!collapsed) {
+                        animator.start();
+                    }
                 }
             });
         }
@@ -270,7 +274,11 @@ public class RecipeDetailsFragment extends Fragment implements
 
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
-
+        if(percentage == 1){
+            collapsed = true;
+        }else{
+            collapsed = false;
+        }
         handleTitleBehavior(percentage);
         //handleToolbarTitleVisibility(percentage);
 

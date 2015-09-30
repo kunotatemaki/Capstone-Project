@@ -48,7 +48,8 @@ public class RecipeListFragment extends Fragment implements
         AppBarLayout.OnOffsetChangedListener{
 
     private static final int LOADER_ID = 1;
-    private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
+    private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".scrollposition";
+    public static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".recipelist";
 
 
     @Nullable
@@ -105,6 +106,9 @@ public class RecipeListFragment extends Fragment implements
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SCROLL_POSITION)){
             scrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
         }
+        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_RECIPE_LIST)){
+            mRecipes = savedInstanceState.getParcelableArrayList(KEY_RECIPE_LIST);
+        }
 
         if(mAppBarLayout != null){
             mAppBarLayout.addOnOffsetChangedListener(this);
@@ -136,7 +140,9 @@ public class RecipeListFragment extends Fragment implements
 
         // Initialize a Loader with id '1'. If the Loader with this id already
         // exists, then the LoaderManager will reuse the existing Loader.
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        //if(mRecipes == null || mRecipes.size() == 0) {
+            getLoaderManager().initLoader(LOADER_ID, null, this);
+        //}
 
     }
 
@@ -149,6 +155,8 @@ public class RecipeListFragment extends Fragment implements
                     .findFirstCompletelyVisibleItemPositions(scrollPosition);
             savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
         }
+        savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);
+
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -200,6 +208,10 @@ public class RecipeListFragment extends Fragment implements
         //set the number of recipes
         String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
         nRecipesInRecipeList.setText(nrecipes);
+
+    }
+
+    private void setAdapter(){
 
     }
 

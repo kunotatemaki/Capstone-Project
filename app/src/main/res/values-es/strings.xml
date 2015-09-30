@@ -37,5 +37,8 @@
     <string name="delete_recipe_confirmation">¿Estás seguro? Esta operación no puede deshacerse.</string>
     <string name="ingredients">Ingredientes</string>
     <string name="default_author">Programada en Cookeo</string>
+    <string name="exit_application_title">Salir</string>
+    <string name="exit_application">¿Desea salir de %1$s</string>
+    <string name="edit_recipe">Editar receta</string>
 
 </resources>
