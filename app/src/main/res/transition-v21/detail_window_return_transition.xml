@@ -2,8 +2,7 @@
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
     android:transitionOrdering="together">
     <fade
-        android:duration="300"
-        android:startDelay="300">
+        android:duration="300">
         <targets>
             <target android:excludeId="@id/appbarlayout_recipe_details"/>
             <target android:excludeId="@id/card_link_recipe"/>
@@ -22,7 +21,6 @@
     </slide>
     <slide android:slideEdge="top"
         android:duration="300"
-        android:startDelay="300"
         android:interpolator="@android:interpolator/accelerate_cubic">
         <targets>
             <target android:targetId="@id/appbarlayout_recipe_details"/>
@@ -30,10 +28,11 @@
     </slide>
     <slide android:slideEdge="bottom"
         android:duration="300"
-        android:startDelay="300"
            android:interpolator="@android:interpolator/accelerate_cubic">
         <targets>
-            <target android:targetId="@+id/recipe_description_cards"/>
+            <target android:targetId="@id/card_link_recipe"/>
+            <target android:targetId="@id/card_ingredients"/>
+            <target android:targetId="@id/card_steps"/>
         </targets>
     </slide>
 </transitionSet>
