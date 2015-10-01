@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +42,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -60,17 +62,20 @@ public class RecipeDetailsFragment extends Fragment implements
     private static final String TAG = LogHelper.makeLogTag(RecipeDetailsFragment.class);
     private static final float PERCENTAGE_TO_ELLIPSIZE_TITLE  = 0.1f;
 
-    private static final String KEY_SAVE_RECIPE = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName();
+    private static final String KEY_SAVE_RECIPE = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName() + ".saverecipe";
+    private static final String KEY_ANIMATED = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName() + ".animate";
 
 
 
     @Bind(R.id.recipe_pic) ImageView mPhotoView;
-    @Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
+    @Nullable@Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
+    @Nullable@Bind(R.id.photo_container_recipe_details)
+    RelativeLayout photoContainer;
     @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
     @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
     @Bind(R.id.recipe_description_fab)
     FloatingActionButton recipeDescriptionFAB;
-    @Bind(R.id.collapsing_toolbar_recipe_details)
+    @Nullable@Bind(R.id.collapsing_toolbar_recipe_details)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.listview_ingredients_cardview)
     LinearLayout ingredientsList;
@@ -81,6 +86,9 @@ public class RecipeDetailsFragment extends Fragment implements
     private ActionBar actionBar;
     @Bind(R.id.cardview_link_textview) TextView author;
     private boolean own;
+    private boolean land;
+    private boolean animated;
+    View viewToReveal;
 
     public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
@@ -110,12 +118,11 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        setRetainInstance(false);
         getActivity().supportPostponeEnterTransition();
         setHasOptionsMenu(true);
-        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SAVE_RECIPE)){
-            recipe = savedInstanceState.getParcelable(KEY_SAVE_RECIPE);
-        }
+
+
     }
 
     @Override
@@ -125,6 +132,7 @@ public class RecipeDetailsFragment extends Fragment implements
         if (recipe != null) {
             savedInstanceState.putParcelable(KEY_SAVE_RECIPE, recipe);
         }
+        savedInstanceState.putBoolean(KEY_ANIMATED, animated);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -132,8 +140,8 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.recipe_description_menu, menu);
-        menu.findItem(R.id.menu_item_remove).setVisible(own);
-        menu.findItem(R.id.menu_item_share_recipe).setVisible(own);
+        //menu.findItem(R.id.menu_item_remove).setVisible(own);
+        //menu.findItem(R.id.menu_item_share_recipe).setVisible(own);
 
         if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
             onPrepareOptionsMenu(menu);
@@ -203,6 +211,7 @@ public class RecipeDetailsFragment extends Fragment implements
         View mRootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
         ButterKnife.bind(this, mRootView);
 
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbarRecipeDetails);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if(actionBar != null) {
@@ -213,7 +222,6 @@ public class RecipeDetailsFragment extends Fragment implements
         if(mAppBarLayout != null){
             mAppBarLayout.addOnOffsetChangedListener(this);
         }
-
 
         if(recipeDescriptionFAB != null) {
             recipeDescriptionFAB.setOnClickListener(new View.OnClickListener() {
@@ -243,31 +251,52 @@ public class RecipeDetailsFragment extends Fragment implements
             });
         }
 
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(KEY_SAVE_RECIPE)) {
+                recipe = savedInstanceState.getParcelable(KEY_SAVE_RECIPE);
+            }
+            animated = false;
+            if(savedInstanceState.containsKey(KEY_ANIMATED)) {
+                animated = savedInstanceState.getBoolean(KEY_ANIMATED);
+            }
+        }
         if(recipe != null){
             loadRecipe();
         }
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && mAppBarLayout != null) {
-            mAppBarLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        if(animated){
+            return mRootView;
+        }
+        //create de reveal effect either for landscape and portrait
+        land = getResources().getBoolean(R.bool.land);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (!land && mAppBarLayout != null) {
+                viewToReveal = mAppBarLayout;
+            } else if (land && photoContainer != null) {
+                viewToReveal = photoContainer;
+                collapsed = false;
+            }
+            viewToReveal.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                     v.removeOnLayoutChangeListener(this);
                     Animator animator = ViewAnimationUtils.createCircularReveal(
-                            mAppBarLayout,
-                            mAppBarLayout.getWidth()/2,
-                            mAppBarLayout.getHeight()/2,
+                            viewToReveal,
+                            viewToReveal.getWidth() / 2,
+                            viewToReveal.getHeight() / 2,
                             0,
-                            (float) Math.hypot(mAppBarLayout.getWidth(), mAppBarLayout.getHeight())/2);
+                            (float) Math.hypot(viewToReveal.getWidth(), viewToReveal.getHeight()) / 2);
                     // Set a natural ease-in/ease-out interpolator.
                     animator.setInterpolator(new AccelerateDecelerateInterpolator());
 
                     // make the view visible and start the animation
-                    if(!collapsed) {
+                    if (!collapsed) {
                         animator.start();
+                        animated = true;
                     }
                 }
             });
+
         }
         return mRootView;
     }
@@ -276,6 +305,10 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
 
+        if(land){
+            collapsed = false;
+            return;
+        }
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
         if(percentage == 1){
@@ -397,7 +430,9 @@ public class RecipeDetailsFragment extends Fragment implements
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(mMutedDarkColor);
                 }
-                collapsingToolbarLayout.setContentScrim(new ColorDrawable(mMutedColor));
+                if(collapsingToolbarLayout != null) {
+                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(mMutedColor));
+                }
                 recipeDescriptionFAB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{0}}, new int[]{mVibrantColor}));
                 getActivity().supportStartPostponedEnterTransition();
 

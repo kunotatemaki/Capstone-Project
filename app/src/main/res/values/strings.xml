@@ -53,12 +53,16 @@
     <string name="aceptar">Accept</string>
     <string name="thanks">Thanks</string>
     <string name="thanks_intro">This app is possible due to theese bloggers, who lend their content freely. Check them out!!</string>
-    <string name="colaborator1">http://recetascookeo.blogspot.com.es/</string>
-    <string name="colaborator2">http://www.descubriendonuevossabores.com/</string>
-    <string name="colaborator3">http://www.losblogsdemaria.com/</string>
-    <string name="colaborator4">http://cocinayrecetas.hola.com/lacocinaperfecta/</string>
+    <string name="colaborator1" translatable="false">http://recetascookeo.blogspot.com.es/</string>
+    <string name="colaborator2" translatable="false">http://www.descubriendonuevossabores.com/</string>
+    <string name="colaborator3" translatable="false">http://www.losblogsdemaria.com/</string>
+    <string name="colaborator4" translatable="false">http://cocinayrecetas.hola.com/lacocinaperfecta/</string>
     <string name="support_recipes">If you\'ve got your own Cuisine blog and wanna see your recipes in %1$s, email us to %2$s!</string>
     <string name="support_girl">To my girlfriend: she gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spend all those hours in front of my laptop. Love you!!</string>
+    <string name="delete_recipe_confirmation">Sure? This operations can\'t be undone!</string>
 
+    <string name="banner_ad_unit_id_list" translatable="false">ca-app-pub-8409265947000941/8141554119</string>
+    <string name="banner_ad_unit_id_details" translatable="false">ca-app-pub-8409265947000941/7907424516</string>
+    <string name="banner_ad_unit_id_intersticial" translatable="false">ca-app-pub-8409265947000941/9384157718</string>
 
 </resources>

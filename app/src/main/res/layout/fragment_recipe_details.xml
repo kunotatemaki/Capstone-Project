@@ -25,14 +25,14 @@
             app:expandedTitleTextAppearance="@style/Theme.ExpandedText.Trasparent"
             app:expandedTitleMarginStart="@dimen/title_margin_expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
+            <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoPortraitImageView
                 android:id="@+id/recipe_pic"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 />
-            <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
+            <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoPortraitImageView
                 android:id="@+id/recipe_pic_protection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

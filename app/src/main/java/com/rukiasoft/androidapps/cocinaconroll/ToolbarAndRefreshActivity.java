@@ -37,7 +37,7 @@ public abstract class ToolbarAndRefreshActivity extends AppCompatActivity {
 
     protected SwipeRefreshLayout refreshLayout;
     public Boolean needToShowRefresh = false;
-    public boolean isTablet;     //tablet or phone
+    //public boolean isTablet;     //tablet or phone
 
     public SwipeRefreshLayout getRefreshLayout() {
         return refreshLayout;
@@ -46,7 +46,7 @@ public abstract class ToolbarAndRefreshActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isTablet = getResources().getBoolean(R.bool.tablet);
+        //isTablet = getResources().getBoolean(R.bool.tablet);
 
     }
 

@@ -25,6 +25,8 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
@@ -50,6 +52,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     DrawerLayout drawerLayout;
     @Bind(R.id.navview)
     NavigationView navigationView;
+    @Bind(R.id.adview_list)
+    AdView mAdViewList;
+
+
 
     MenuItem searchMenuItem;
     private RecipeListFragment mRecipeListFragment;
@@ -97,6 +103,16 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
 
         setupDrawerLayout();
+
+        //set up advertises
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)        // All emulators
+                .addTestDevice("B29C1F71528C79C864D503360C5225C0")  // My Xperia Z3 test device
+                .setGender(AdRequest.GENDER_FEMALE)
+                .build();
+
+        mAdViewList.loadAd(adRequest);
+
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_STARTED)){
             started = savedInstanceState.getBoolean(KEY_STARTED);
         }
@@ -104,6 +120,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             Intent animationIntent = new Intent(this, AnimationActivity.class);
             startActivity(animationIntent);
         }
+
     }
 
     @Override
@@ -364,6 +381,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public void onResume(){
         super.onResume();
 
+        if (mAdViewList != null) {
+            mAdViewList.resume();
+        }
+
         closeSearchView();
         //to start the reveal effecy from the magnifying glass
         final ViewTreeObserver viewTreeObserver = getWindow().getDecorView().getViewTreeObserver();
@@ -395,7 +416,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     public void onPause(){
         super.onPause();
-
+        if (mAdViewList != null) {
+            mAdViewList.pause();
+        }
     }
 
 
