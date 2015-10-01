@@ -448,6 +448,9 @@ public class RecipeListFragment extends Fragment implements
 
     public void updateRecipe(RecipeItem recipe) {
         int index = recipe.getPosition();
+        if(mRecipes == null || index >= mRecipes.size()){
+            return;
+        }
         mRecipes.remove(index);
         mRecipes.add(index, recipe);
         filterRecipes(lastFilter);
