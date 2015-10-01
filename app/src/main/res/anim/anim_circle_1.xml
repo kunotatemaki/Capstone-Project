@@ -13,9 +13,9 @@
         android:interpolator="@android:anim/overshoot_interpolator"/>
     <translate
         android:toYDelta="-125"
-        android:duration="300"
+        android:duration="@integer/duration_enter"
         android:startOffset="@integer/enter_imagine"
-        android:interpolator="@android:anim/linear_interpolator"/>
+        android:interpolator="@android:anim/overshoot_interpolator"/>
 
 
 </set>

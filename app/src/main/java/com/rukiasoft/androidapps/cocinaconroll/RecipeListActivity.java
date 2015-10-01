@@ -38,7 +38,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
-    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
+    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + "." + RecipeListActivity.class.getSimpleName() + ".recipe";
+    private static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + RecipeListActivity.class.getSimpleName() + ".started";
     public static final int REQUEST_DETAILS = 189;
     public static final int RESULT_UPDATE_RECIPE = 222;
     public static final int RESULT_DELETE_RECIPE = 223;
@@ -52,11 +53,11 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     MenuItem searchMenuItem;
     private RecipeListFragment mRecipeListFragment;
-    private SearchView mSearchView;
     int magnifyingX, magnifyingY, openCircleRevealX, openCircleRevealY;
-
+    boolean started = false;
     ToolbarAndRefreshActivity mActivity;
     private boolean animate;
+
 
     public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
@@ -96,9 +97,20 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
 
         setupDrawerLayout();
-
+        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_STARTED)){
+            started = savedInstanceState.getBoolean(KEY_STARTED);
+        }
+        if(!started){
+            Intent animationIntent = new Intent(this, AnimationActivity.class);
+            startActivity(animationIntent);
+        }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle bundle){
+        bundle.putBoolean(KEY_STARTED, true);
+        super.onSaveInstanceState(bundle);
+    }
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -109,10 +121,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-        if(mRecipeListFragment != null && intent.hasExtra(KEY_RECIPE)){
-            String name = intent.getStringExtra(KEY_RECIPE);
-            mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-            if(mRecipeListFragment != null){
+        if(mRecipeListFragment != null){
+            if(intent != null && intent.hasExtra(KEY_RECIPE)) {
+                String name = intent.getStringExtra(KEY_RECIPE);
                 mRecipeListFragment.searchAndShow(name);
             }
         }
@@ -234,11 +245,11 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             }
 
         });
-        mSearchView = (SearchView) searchMenuItem.getActionView();
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
 
 
         return true;

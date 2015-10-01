@@ -24,8 +24,13 @@
         <activity
             android:name=".RecipeListActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <!-- Enabling Search Dialog -->
             <meta-data
                 android:name="android.app.default_searchable"
@@ -34,30 +39,27 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ThanksActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/SettingsTheme" />
         <activity
             android:name=".AnimationActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:theme="@style/AnimationTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:launchMode="singleTop"
+            android:theme="@style/AnimationTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- A Searchable activity, that handles the searches -->
         <activity
             android:name=".SearchableActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/BaseTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -75,7 +77,7 @@
         <activity
             android:name=".RecipeDetailActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:theme="@style/Theme.Recipe.Detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

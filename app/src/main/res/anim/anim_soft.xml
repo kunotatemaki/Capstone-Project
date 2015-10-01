@@ -3,16 +3,16 @@
     android:shareInterpolator="false">
     <translate
         android:fromYDelta="150"
-        android:duration="300"
+        android:duration="@integer/duration_enter"
         android:startOffset="@integer/enter_soft"
-        android:interpolator="@android:anim/linear_interpolator"/>
+        android:interpolator="@android:anim/overshoot_interpolator"/>
     <scale android:fromXScale="1.0"
         android:fromYScale="1.0"
         android:toXScale="0"
         android:toYScale="0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:duration="200"
+        android:duration="@integer/duration_exit"
         android:startOffset="@integer/finish_all"
         android:fillBefore="true"
         android:interpolator="@android:anim/anticipate_overshoot_interpolator"/>

@@ -3,6 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,6 +55,7 @@ public class AnimationActivity extends AppCompatActivity {
     private Animation softAnim;
     private Activity activity;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,19 @@ public class AnimationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_animation);
         ButterKnife.bind(this);
 
+        //configure the screen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        } else{
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
 
         circle1Anim = AnimationUtils.loadAnimation(this, R.anim.anim_circle_1);
         circle1Anim.setAnimationListener(new Animation.AnimationListener() {
@@ -224,8 +238,6 @@ public class AnimationActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(activity, RecipeListActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 }, 200);
@@ -246,21 +258,11 @@ public class AnimationActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onResume() {
         super.onResume();
         //Log.d(TAG, "onResume");
-        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentApiVersion >= Build.VERSION_CODES.JELLY_BEAN){
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-        } else{
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+
         circle1.startAnimation(circle1Anim);
                 circle2.startAnimation(circle2Anim);
                 circle3.startAnimation(circle3Anim);

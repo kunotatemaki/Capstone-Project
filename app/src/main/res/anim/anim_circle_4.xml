@@ -7,15 +7,15 @@
         android:toYScale="1"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:duration="700"
+        android:duration="600"
         android:startOffset="1000"
         android:fillBefore="true"
         android:interpolator="@android:anim/linear_interpolator"/>
     <translate
         android:toYDelta="-125"
-        android:duration="300"
+        android:duration="@integer/duration_enter"
         android:startOffset="@integer/enter_create"
-        android:interpolator="@android:anim/linear_interpolator"/>
+        android:interpolator="@android:anim/overshoot_interpolator"/>
 
 
 </set>

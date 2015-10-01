@@ -171,9 +171,8 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
     }
+
 
     Runnable scaleIn = new Runnable() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -406,6 +405,8 @@ public class RecipeDetailsFragment extends Fragment implements
         });
 
     }
+
+
 
 
 

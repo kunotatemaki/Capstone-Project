@@ -9,11 +9,6 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    // View name of the header image. Used for activity scene transitions
-    public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
-
-    // View name of the header title. Used for activity scene transitions
-    public static final String VIEW_NAME_HEADER_TITLE = "detail:header:title";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,4 +43,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Tools tools = new Tools();
         tools.setScreenOnIfSettingsAllowed(this, false);
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
 }

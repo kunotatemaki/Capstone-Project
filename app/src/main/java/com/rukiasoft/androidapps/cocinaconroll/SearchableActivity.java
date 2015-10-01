@@ -42,8 +42,6 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 		// Setting item click listener		
 		mLVRecipes.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int i = 0;
-                i++;
                 TextView txt1 = (TextView) view.findViewById(android.R.id.text1);
                 sendRecipeName(txt1.getText().toString());
 
@@ -78,6 +76,7 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
     private void sendRecipeName(String recipeName){
         Intent detailIntent = new Intent(this, RecipeListActivity.class);
         detailIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipeName);
+		detailIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(detailIntent);
         finish();
     }
