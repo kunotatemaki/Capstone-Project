@@ -1,9 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.content.Intent;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdRequest;
@@ -26,7 +25,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         RecipeItem recipeItem = new RecipeItem();
         Intent intent = getIntent();
-        if(getIntent().hasExtra(RecipeListActivity.KEY_RECIPE))
+        if(intent != null && intent.hasExtra(RecipeListActivity.KEY_RECIPE))
             recipeItem = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
         else{
             finish();
@@ -45,6 +44,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .build();
 
         mAdViewDetails.loadAd(adRequest);
+
+
     }
 
     @Override

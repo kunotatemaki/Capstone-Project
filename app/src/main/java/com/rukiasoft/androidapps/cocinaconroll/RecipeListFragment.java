@@ -3,7 +3,6 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -27,6 +26,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
@@ -79,6 +81,8 @@ public class RecipeListFragment extends Fragment implements
     int scrollPosition = 0;
     private int columnCount = 10;
     private String lastFilter;
+    private InterstitialAd mInterstitialAd;
+    private RecipeItem recipeToShow;
 
     public RecipeListFragment() {
     }
@@ -88,6 +92,32 @@ public class RecipeListFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.banner_ad_unit_id_intersticial));
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                if(recipeToShow != null) {
+                    launchActivityDetails();
+                    recipeToShow = null;
+                }
+            }
+        });
+
+        requestNewInterstitial();
+
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("B29C1F71528C79C864D503360C5225C0")  // My Xperia Z3 test device
+                .setGender(AdRequest.GENDER_FEMALE)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     @Override
@@ -262,9 +292,31 @@ public class RecipeListFragment extends Fragment implements
     }
 
     public void showRecipeDetails(RecipeItem recipeItem){
+        //interstitial
+        Tools tools = new Tools();
+        int number = tools.getIntegerFromPreferences(getActivity().getApplicationContext(), Constants.PREFERENCE_INTERSTITIAL);
+        if(number<0 || number>Constants.N_RECIPES_TO_INTERSTICIAL){
+            number = 0;
+        }
+        recipeToShow = recipeItem;
+        if(number != Constants.N_RECIPES_TO_INTERSTICIAL) {
+            launchActivityDetails();
+        }else if(mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            number = 0;
+        }else{
+            launchActivityDetails();
+            requestNewInterstitial();
+            return;
+        }
+        tools.savePreferences(getActivity(), Constants.PREFERENCE_INTERSTITIAL, ++number);
+
+    }
+
+    private void launchActivityDetails(){
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeItem);
+        bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeToShow);
         intent.putExtras(bundle);
         //TODO probar transiciones sencillas para pre-lollipop
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
@@ -272,9 +324,8 @@ public class RecipeListFragment extends Fragment implements
         int REQUEST_DETAILS = ((RecipeListActivity)getActivity()).REQUEST_DETAILS;
         ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_DETAILS, activityOptions.toBundle());
 
+        recipeToShow = null;
 
-
-        //getActivity().startActivity(intent);
     }
 
 

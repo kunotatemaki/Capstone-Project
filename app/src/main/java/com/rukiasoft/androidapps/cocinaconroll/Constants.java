@@ -7,6 +7,7 @@ public class Constants {
     public static String SENDER_ID = "962580870211";
     public static final String PACKAGE_NAME = "com.rukiasoft.androidapps.cocinaconroll";
 
+    public static final String PREFERENCE_INTERSTITIAL = PACKAGE_NAME + ".intertitial";
     public static final String RECIPES_DIR = "recipes";
     public static final String ZIPS_DIR = "zips";
     public static final Integer FLAG_ORIGINAL = 2;
@@ -73,6 +74,7 @@ public class Constants {
     public static final String FILTER_LATEST_RECIPES = PACKAGE_NAME + ".latest";
 
     public static final int LOADER_ID = 1;
+    public static final int N_RECIPES_TO_INTERSTICIAL = 5;
 
 
     public static final String EMAIL = "rukiasoft@gmail.com";

@@ -186,5 +186,56 @@ public class Tools {
         }
     }
 
+    public Integer getIntegerFromPreferences(Context context, String name) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(name, Integer.MIN_VALUE);
+
+    }
+
+    public void savePreferences(Context context, String name, String value) {
+
+        //SharedPreferences preferences = context.getSharedPreferences("sacarino",Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putString(name, value);
+        ed.apply();
+
+    }
+
+    public void savePreferences(Context context, String name, int value) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putInt(name, value);
+        ed.apply();
+
+    }
+
+    public void savePreferences(Context context, String name, long value) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putLong(name, value);
+        ed.apply();
+
+    }
+
+    public void savePreferences(Context context, String name, Double value) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putFloat(name, value.floatValue());
+        ed.apply();
+
+    }
+
+    public void savePreferences(Context context, String name, Boolean value) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed = preferences.edit();
+        ed.putBoolean(name, value);
+        ed.apply();
+
+    }
 
 }
