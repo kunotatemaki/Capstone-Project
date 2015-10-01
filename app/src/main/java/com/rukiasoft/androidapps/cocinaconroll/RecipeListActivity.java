@@ -29,6 +29,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.gcm.GcmRegistrationAsyncTask;
+import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -89,8 +91,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
             //TODO - comprobar el service tanto con el endpoint como con el servidor raspberry
-            //Intent intent = new Intent(this, RegistrationIntentService.class);
-            //startService(intent);
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
             //new GcmRegistrationAsyncTask(this).execute();
         }
 

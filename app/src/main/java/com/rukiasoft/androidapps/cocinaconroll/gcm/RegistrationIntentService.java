@@ -30,6 +30,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
 
 import java.io.IOException;
@@ -118,9 +119,9 @@ public class RegistrationIntentService extends IntentService {
             if (gcm == null) {
                 gcm = GoogleCloudMessaging.getInstance(this);
             }
-            String regId = gcm.register("962580870211");
+            String regId = gcm.register(Constants.SENDER_ID);
 
-            regService.register(token).execute();
+            regService.register(regId).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }

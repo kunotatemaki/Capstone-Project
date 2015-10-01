@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -12,6 +13,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
 
 import java.io.IOException;
@@ -27,8 +29,6 @@ public class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
     private Context context;
     String token;
 
-    // TODO: change to your own sender ID to Google Developers Console project number, as per instructions above
-    private static final String SENDER_ID = "962580870211";
 
     public GcmRegistrationAsyncTask(Context context) {
         this.context = context;
@@ -63,7 +63,7 @@ public class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
             // [END register_for_gcm]
         } catch (Exception e) {
-            //Log.d(TAG, "Failed to complete token refresh", e);
+            Log.d("GCMRegistrationAsync", "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
@@ -92,7 +92,7 @@ public class GcmRegistrationAsyncTask extends AsyncTask<Void, Void, String> {
             if (gcm == null) {
                 gcm = GoogleCloudMessaging.getInstance(context);
             }
-            String regId = gcm.register(SENDER_ID);
+            String regId = gcm.register(Constants.SENDER_ID);
             msg = "Device registered, registration ID=" + regId;
 
             // You should send the registration ID to your server over HTTP,
