@@ -66,7 +66,10 @@ public class RecipeDetailsFragment extends Fragment implements
     private static final String KEY_ANIMATED = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName() + ".animate";
 
 
-
+    @Bind(R.id.recipe_details_icon_minutes) ImageView iconMinutes;
+    @Bind(R.id.recipe_details_icon_portions) ImageView iconPortions;
+    @Bind(R.id.recipe_details_text_minutes) TextView textMinutes;
+    @Bind(R.id.recipe_details_text_portions) TextView textPortions;
     @Bind(R.id.recipe_pic) ImageView mPhotoView;
     @Nullable@Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
     @Nullable@Bind(R.id.photo_container_recipe_details)
@@ -140,8 +143,8 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.recipe_description_menu, menu);
-        //menu.findItem(R.id.menu_item_remove).setVisible(own);
-        //menu.findItem(R.id.menu_item_share_recipe).setVisible(own);
+        menu.findItem(R.id.menu_item_remove).setVisible(own);
+        menu.findItem(R.id.menu_item_share_recipe).setVisible(own);
 
         if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
             onPrepareOptionsMenu(menu);
@@ -210,13 +213,14 @@ public class RecipeDetailsFragment extends Fragment implements
                              Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
         ButterKnife.bind(this, mRootView);
+        land = getResources().getBoolean(R.bool.land);
 
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbarRecipeDetails);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(!land);
         }
 
         if(mAppBarLayout != null){
@@ -260,6 +264,7 @@ public class RecipeDetailsFragment extends Fragment implements
                 animated = savedInstanceState.getBoolean(KEY_ANIMATED);
             }
         }
+
         if(recipe != null){
             loadRecipe();
         }
@@ -267,7 +272,6 @@ public class RecipeDetailsFragment extends Fragment implements
             return mRootView;
         }
         //create de reveal effect either for landscape and portrait
-        land = getResources().getBoolean(R.bool.land);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (!land && mAppBarLayout != null) {
                 viewToReveal = mAppBarLayout;
@@ -341,6 +345,22 @@ public class RecipeDetailsFragment extends Fragment implements
 
         if(recipeName != null){
             recipeName.setText(recipe.getName());
+        }
+        if(recipe.getMinutes()>0){
+            textMinutes.setText(String.valueOf(recipe.getMinutes()));
+            textMinutes.setVisibility(View.VISIBLE);
+            iconMinutes.setVisibility(View.VISIBLE);
+        }else{
+            textMinutes.setVisibility(View.GONE);
+            iconMinutes.setVisibility(View.GONE);
+        }
+        if(recipe.getPortions()>0){
+            textPortions.setText(String.valueOf(recipe.getPortions()));
+            textPortions.setVisibility(View.VISIBLE);
+            iconPortions.setVisibility(View.VISIBLE);
+        }else{
+            textPortions.setVisibility(View.GONE);
+            iconPortions.setVisibility(View.GONE);
         }
         if(actionBar != null){
             actionBar.setTitle(recipe.getName());
