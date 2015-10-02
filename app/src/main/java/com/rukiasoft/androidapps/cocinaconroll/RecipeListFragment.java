@@ -314,7 +314,7 @@ public class RecipeListFragment extends Fragment implements
     }
 
     private void launchActivityDetails(){
-
+        //int i = 1/0;
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeToShow);

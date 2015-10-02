@@ -3,6 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Application;
 
+import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
@@ -61,5 +62,12 @@ public class CocinaConRollApplication  extends Application {
 
         // Enable automatic activity tracking for your app
         tracker.enableAutoActivityTracking(true);
+         /*Thread.UncaughtExceptionHandler myHandler = new ExceptionReporter(
+                tracker,                                        // Currently used Tracker.
+                Thread.getDefaultUncaughtExceptionHandler(),      // Current default uncaught exception handler.
+                this);                                         // Context of the application.
+
+// Make myHandler the new default uncaught exception handler.
+        Thread.setDefaultUncaughtExceptionHandler(myHandler);*/
     }
 }

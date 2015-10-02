@@ -9,6 +9,8 @@
             <target android:excludeId="@id/card_ingredients"/>
             <target android:excludeId="@id/card_steps"/>
             <target android:excludeId="@id/recipe_description_fab"/>
+            <target android:excludeId="@id/recipe_pic_protection"/>
+            <target android:excludeId="@id/recipe_pic"/>
         </targets>
 
     </fade>
