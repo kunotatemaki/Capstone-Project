@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Cooking with Cookeo</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="no_storage_available">Can\'t access to device storage</string>
 
@@ -35,7 +34,7 @@
     <string name="all_recipes">All recipes</string>
     <string name="ingredients">Ingredients</string>
     <string name="steps">Steps</string>
-    <string name="null_content_description"> </string>
+    <string name="null_content_description" translatable="false"> </string>
     <string name="default_author">Preinstalled in Cookeo</string>
     <string name="original_link" translatable="false">Link:</string>
     <string name="edit_recipe">Edit recipe</string>
@@ -58,7 +57,7 @@
     <string name="colaborator3" translatable="false">http://www.losblogsdemaria.com/</string>
     <string name="colaborator4" translatable="false">http://cocinayrecetas.hola.com/lacocinaperfecta/</string>
     <string name="support_recipes">If you\'ve got your own Cuisine blog and wanna see your recipes in %1$s, email us to %2$s!</string>
-    <string name="support_girl">To my girlfriend: she gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spend all those hours in front of my laptop. Love you!!</string>
+    <string name="support_girl">To my girlfriend: she gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spend all those hours in front of my laptop. Love you much!!</string>
     <string name="delete_recipe_confirmation">Sure? This operations can\'t be undone!</string>
 
     <string name="banner_ad_unit_id_list" translatable="false">ca-app-pub-8409265947000941/8141554119</string>

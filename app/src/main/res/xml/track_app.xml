@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ga_trackingId">UA-61746097-2</string>
+    <string name="ga_autoActivityTracking">true</string>
+    <string name="ga_logLevel">verbose</string>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.RecipeListActivity">RecipeList</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.RecipeDetailActivity">RecipeDetail</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.SettingsActivity">Settings</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ThanksActivity">Thanks</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.SearchableActivity">Searchable</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.AnimationActivity">Animation</screenName>
+
+</resources>

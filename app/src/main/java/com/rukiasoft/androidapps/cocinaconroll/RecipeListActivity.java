@@ -88,9 +88,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         ButterKnife.bind(this);
         mActivity = this;
 
+
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
-            //TODO - comprobar el service tanto con el endpoint como con el servidor raspberry
+            //TODO - comprobar el service con el servidor raspberry
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
             //new GcmRegistrationAsyncTask(this).execute();

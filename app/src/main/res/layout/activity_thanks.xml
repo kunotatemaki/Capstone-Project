@@ -114,8 +114,6 @@
             android:paddingBottom="10dp"
             android:text="@string/support_girl"
             android:id="@+id/textView_support_girl"
-            android:autoLink="email"
-            android:linksClickable="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             />
         <TextView
@@ -130,7 +128,6 @@
             android:text="@string/support_recipes"
             android:id="@+id/textView_support_recipes"
             android:autoLink="email"
-            android:linksClickable="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             />
     </LinearLayout>

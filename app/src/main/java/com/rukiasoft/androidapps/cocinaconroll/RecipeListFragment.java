@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.analytics.HitBuilders;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
@@ -107,7 +108,6 @@ public class RecipeListFragment extends Fragment implements
         });
 
         requestNewInterstitial();
-
     }
 
     private void requestNewInterstitial() {
@@ -314,6 +314,7 @@ public class RecipeListFragment extends Fragment implements
     }
 
     private void launchActivityDetails(){
+
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeToShow);
