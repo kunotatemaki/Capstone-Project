@@ -139,9 +139,9 @@ public class ReadWriteTools {
         }
 
         if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
-            recipeItem.setPath(getEditedStorageDir() + recipeItem.getPicture());
+            recipeItem.setPath(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ORIGINAL) != 0)
-            recipeItem.setPath(getOriginalStorageDir() + recipeItem.getPicture());
+            recipeItem.setPath(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
             recipeItem.setPath(Constants.ASSETS_PATH + recipeItem.getPicture());
 

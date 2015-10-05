@@ -78,7 +78,7 @@ public class RecipeDetailsFragment extends Fragment implements
     @Nullable@Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
     @Nullable@Bind(R.id.photo_container_recipe_details)
     RelativeLayout photoContainer;
-    @Bind(R.id.standard_toolbar)Toolbar toolbarRecipeDetails;
+    @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
     @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
     @Bind(R.id.recipe_description_fab)
     FloatingActionButton recipeDescriptionFAB;
@@ -164,12 +164,11 @@ public class RecipeDetailsFragment extends Fragment implements
         Boolean compatRequired = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
-                /*Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
+                Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("recipe", recipe);
+                bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
                 intent.putExtras(bundle);
-                getActivity().startActivityForResult(intent, MainActivity.RESULT_EDIT_RECIPE);*/
-                // TODO: 29/9/15 hacer lo de edit
+                getActivity().startActivityForResult(intent, RecipeListActivity.RESULT_UPDATE_RECIPE);
                 return true;
             case R.id.menu_item_remove:
                 builder.show();

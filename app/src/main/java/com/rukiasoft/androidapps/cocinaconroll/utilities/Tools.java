@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
@@ -31,6 +32,7 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
@@ -289,14 +291,26 @@ public class Tools {
                 e.printStackTrace();
             }
         }
-        return  filename;
+        String ret = Constants.FILE_PATH.concat(filename);
+        return  ret;
     }
 
-    public void loadImageFromPath(Context context, ImageView imageView, String path, int defaultImage) {
-        Glide.with(context)
-                .load(Uri.parse(path))
-                .centerCrop()
-                .error(defaultImage)
-                .into(imageView);
+    public void loadImageFromPath(Context context, ImageView imageView, String path, int defaultImage, boolean clear) {
+        if(clear){
+            Glide.clear(imageView);
+            Glide.with(context)
+                    .load(Uri.parse(path))
+                    .centerCrop()
+                    .skipMemoryCache(true)
+                    .error(defaultImage)
+                    .signature(new StringSignature(UUID.randomUUID().toString()))
+                    .into(imageView);
+        }else {
+            Glide.with(context)
+                    .load(Uri.parse(path))
+                    .centerCrop()
+                    .error(defaultImage)
+                    .into(imageView);
+        }
     }
 }

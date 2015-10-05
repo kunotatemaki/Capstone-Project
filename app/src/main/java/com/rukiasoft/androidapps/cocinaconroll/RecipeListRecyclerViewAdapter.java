@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,10 +92,12 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
         public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
         public @Bind(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
+        Tools mTools;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mTools = new Tools();
         }
 
         public void bindRecipe(Context context, RecipeItem item) {
@@ -128,11 +131,13 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                 typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
             }
             //TODO - ver cómo lee las recetas de los otros sitios
-            Glide.with(context)
-                    .load(Uri.parse(item.getPath()))
+            mTools.loadImageFromPath(context, recipeThumbnail, item.getPath(), R.drawable.default_dish, false);
+            /*Glide.with(context)
+                    //.load(Uri.parse(item.getPath()))
+                    .load(path)
                     .centerCrop()
                     .error(R.drawable.default_dish)
-                    .into(recipeThumbnail);
+                    .into(recipeThumbnail);*/
         }
     }
 

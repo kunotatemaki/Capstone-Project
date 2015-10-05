@@ -47,7 +47,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public static final int REQUEST_DETAILS = 189;
     public static final int RESULT_UPDATE_RECIPE = 222;
     public static final int RESULT_DELETE_RECIPE = 223;
-
+    //public static final int RESULT_EDIT_RECIPE = ;
 
 
     @Bind(R.id.drawer_layout)

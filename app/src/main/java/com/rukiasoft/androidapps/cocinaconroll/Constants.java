@@ -40,6 +40,8 @@ public class Constants {
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";
     public static final String ASSETS_PATH = "file:///android_asset/";
+    public static final String FILE_PATH = "file://";
+
 
     public static final String TEMP_CAMERA_NAME = "tmp_avatar_";
     public static final String TEMP_INTRO_NAME = "tmp_rukiasoft.mp4";

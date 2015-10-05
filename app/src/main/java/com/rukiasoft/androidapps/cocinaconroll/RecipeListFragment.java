@@ -3,10 +3,14 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -31,9 +35,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.analytics.HitBuilders;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
+import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.ArrayList;
@@ -57,7 +64,7 @@ public class RecipeListFragment extends Fragment implements
 
 
     @Nullable
-    @Bind(R.id.standard_toolbar) Toolbar mToolbarRecipeListFragment;
+    @Bind(R.id.toolbar_recipe_list_fragment) Toolbar mToolbarRecipeListFragment;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout refreshLayout;
@@ -74,7 +81,7 @@ public class RecipeListFragment extends Fragment implements
     @Bind(R.id.numberandtype_recipes_bar)
     RelativeLayout numberAndTypeBar;
     @Bind(R.id.add_recipe_fab)
-    FloatingActionButton addRecipeButton;
+    FloatingActionButton addRecipeButtonFAB;
 
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
@@ -164,6 +171,38 @@ public class RecipeListFragment extends Fragment implements
         typeRecipesInRecipeList.setText(getResources().getString(R.string.all_recipes));
         typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_all_24));
         lastFilter = Constants.FILTER_ALL_RECIPES;
+
+        if(addRecipeButtonFAB != null) {
+            addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override public void run() {
+                            final String[] selectionArgs = {"hummus"};
+                            final String[] projection = {SearchManager.SUGGEST_COLUMN_TEXT_1};
+                            String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+                            Cursor cursor = getActivity().getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
+                                    projection,
+                                    selection ,
+                                    selectionArgs, null);
+                            boolean ret;
+                            if (cursor.moveToFirst()) {
+                                int i = 0;
+                                i = i++;
+                                String s = cursor.getString(0).toString();
+                                String s1 = cursor.getString(1).toString();
+                                String s2 = cursor.getString(2).toString();
+                                String s3 = cursor.getString(3).toString();
+                                s = s.concat(s);
+                            }
+                            Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
+                            getActivity().startActivityForResult(intent, RecipeListActivity.RESULT_UPDATE_RECIPE);
+                        }
+                    }, 150);
+                }
+            });
+        }
+
         return view;
     }
 
@@ -443,7 +482,7 @@ public class RecipeListFragment extends Fragment implements
 
     public void setVisibilityWithSearchWidget(int visibility){
         numberAndTypeBar.setVisibility(visibility);
-        if(visibility == View.GONE) addRecipeButton.hide();
+        if(visibility == View.GONE) addRecipeButtonFAB.hide();
         //else addRecipeButton.show();
     }
 

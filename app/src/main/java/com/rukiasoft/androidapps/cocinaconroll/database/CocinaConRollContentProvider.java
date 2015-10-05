@@ -13,6 +13,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
 	public static final Uri CONTENT_URI_SUGGESTIONS = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
+    public static final Uri CONTENT_URI_RECIPES = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
 
     SuggestionsDB mSuggestionsDB = null;
 
@@ -53,7 +54,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
                 c = mSuggestionsDB.getRecipes(selectionArgs);
                 break;
             case SEARCH_RECIPE:
-                c = mSuggestionsDB.getRecipes(selectionArgs);
+                c = mSuggestionsDB.getRecipes(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_RECIPE:
                 String id = uri.getLastPathSegment();

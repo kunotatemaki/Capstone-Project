@@ -37,7 +37,7 @@ public class SuggestionsDB {
     	mAliasMap.put(SearchManager.SUGGEST_COLUMN_ICON_1, SuggestionsTable.FIELD_ICON + " as " + SearchManager.SUGGEST_COLUMN_ICON_1);
     	
     	// This value will be appended to the Intent data on selecting an item from Search result or Suggestions ( Optional )
-    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, SuggestionsTable.FIELD_NAME + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, SuggestionsTable.FIELD_NAME_NORMALIZED + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
 	}
 		
 
@@ -66,9 +66,73 @@ public class SuggestionsDB {
                 null,
 				SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ", "50"
         );
-	    
     }
-    
+
+    /** Returns Recipes  */
+    public Cursor getRecipes(String[] projection, String selection,
+                             String[] selectionArgs, String sortOrder){
+
+        if(selection == null){
+            selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+        }
+        if(projection == null){
+            projection = new String[]{"_ID",
+                    SearchManager.SUGGEST_COLUMN_TEXT_1,
+                    SearchManager.SUGGEST_COLUMN_ICON_1,
+                    SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID};
+        }
+        if(sortOrder == null){
+            sortOrder = SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ";
+        }
+
+        Tools tools = new Tools();
+        if(selectionArgs!=null){
+            for(int i=0; i<selectionArgs.length; i++){
+                selectionArgs[i] = "%"+tools.getNormalizedString(selectionArgs[i]) + "%";
+            }
+        }
+
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setProjectionMap(mAliasMap);
+
+        queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
+
+        return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
+
+
+    /** Returns Recipes  */
+    public Cursor getRecipesByName(String[] selectionArgs){
+
+    	String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+        Tools tools = new Tools();
+    	if(selectionArgs!=null){
+    		selectionArgs[0] = "%"+tools.getNormalizedString(selectionArgs[0]) + "%";
+    	}
+
+    	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+    	queryBuilder.setProjectionMap(mAliasMap);
+
+    	queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
+
+		return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
+                new String[]{SearchManager.SUGGEST_COLUMN_TEXT_1},
+                selection,
+                selectionArgs,
+                null,
+                null,
+				SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ", "50"
+        );
+
+    }
+
     /** Return Recipe corresponding to the id */
     public Cursor getRecipe(String id){
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();

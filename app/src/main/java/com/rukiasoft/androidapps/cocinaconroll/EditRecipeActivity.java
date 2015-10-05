@@ -29,10 +29,12 @@ public class EditRecipeActivity extends AppCompatActivity {
     private EditRecipePhotoFragment editRecipePhotoFragment;
     //private EditRecipeIngredientsFragment editRecipeIngredientsFragment;
     //private EditRecipeStepsFragment editRecipeStepsFragment;
-    RecipeItem recipe;
+    private RecipeItem recipe;
     private final static String TAG = LogHelper.makeLogTag(EditRecipeActivity.class);
     private final static String KEY_FRAGMENT = Constants.PACKAGE_NAME + ".fragment";
+    private final static String KEY_TITLE = Constants.PACKAGE_NAME + ".title";
     boolean tablet;
+    String title;
     Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
     /*@Override
@@ -49,21 +51,25 @@ public class EditRecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Log.d(TAG, "onCreate");
-        if(savedInstanceState != null && savedInstanceState.containsKey(RecipeListActivity.KEY_RECIPE))
-                recipe = savedInstanceState.getParcelable(RecipeListActivity.KEY_RECIPE);
-        else if(getIntent() != null && getIntent().hasExtra(RecipeListActivity.KEY_RECIPE))
-            recipe = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
-        String title;
         mTools = new Tools();
-        if(recipe == null) {
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(RecipeListActivity.KEY_RECIPE)) {
+                recipe = savedInstanceState.getParcelable(RecipeListActivity.KEY_RECIPE);
+            }
+            if(savedInstanceState.containsKey(KEY_TITLE)) {
+                title = savedInstanceState.getString(KEY_TITLE);
+            }
+        }else if(getIntent() != null && getIntent().hasExtra(RecipeListActivity.KEY_RECIPE)) {
+            recipe = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
+            title = getResources().getString(R.string.edit_recipe);
+            recipe.setState(Constants.FLAG_EDITED);
+
+        }else{
             title = getResources().getString(R.string.create_recipe);
             recipe = new RecipeItem();
             recipe.setState(Constants.FLAG_OWN);
             //recipe.setAuthor(CocinaConRollTools.getOwnerName(this));
             recipe.setFileName(mTools.getCurrentDate(this) + ".xml");
-        }else {
-            title = getResources().getString(R.string.edit_recipe);
-            recipe.setState(Constants.FLAG_EDITED);
         }
 
         super.onCreate(savedInstanceState);
@@ -126,7 +132,6 @@ public class EditRecipeActivity extends AppCompatActivity {
                 if(editRecipePhotoFragment == null)
                     editRecipePhotoFragment = new EditRecipePhotoFragment();
                 //editRecipePhotoFragment.setRetainInstance(true);
-                editRecipePhotoFragment.setRecipe(recipe);
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.edit_recipe_container, editRecipePhotoFragment, EditRecipePhotoFragment.class.getSimpleName())
                         .commit();
@@ -156,14 +161,11 @@ public class EditRecipeActivity extends AppCompatActivity {
             outState.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
             outState.putString(KEY_FRAGMENT, shownFragment);
         }
+        outState.putString(KEY_TITLE, title);
         super.onSaveInstanceState(outState);
     }
 
-    /*@Override
-    protected void onDestroy(){
-        //Log.d(TAG, "onDestroy");
-        super.onDestroy();
-    }*/
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

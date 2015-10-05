@@ -32,18 +32,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/photo_background_protection"/>
-            <include layout="@layout/stardard_toolbar"
-                     android:layout_width="match_parent"
-                     android:layout_height="?attr/actionBarSize"
-                     android:layout_alignParentTop="true"/>
-            <!--<android.support.v7.widget.Toolbar
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_recipe_details"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 app:contentScrim="@android:color/transparent"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:layout_alignParentTop="true"/>-->
+                android:layout_alignParentTop="true"/>
             <TextView
                 android:id="@+id/recipe_name_recipe_details"
                 android:textAppearance="@style/Theme.ExpandedText"

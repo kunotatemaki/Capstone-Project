@@ -8,15 +8,14 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.bumptech.glide.Glide;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
 import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
@@ -62,6 +60,7 @@ public class EditRecipePhotoFragment extends Fragment {
     public static final int PICK_FROM_FILE = 3;
     public static final int CROP_FROM_FILE = 4;
 
+    @Nullable
     @Bind(R.id.create_recipe_author_edittext) EditText authorRecipe;
     @Bind(R.id.edit_recipe_photo) ImageView mImageView;
     @Bind(R.id.edit_recipe_minutes) EditText minutes;
@@ -69,8 +68,13 @@ public class EditRecipePhotoFragment extends Fragment {
     TextInputLayout minutesLayout;
     @Bind(R.id.edit_recipe_portions_layout) TextInputLayout portionsLayout;
     @Bind(R.id.edit_recipe_portions) EditText portions;
-    @Bind(R.id.create_recipe_name_layout) TextInputLayout recipeNameLayout;
-    @Bind(R.id.create_recipe_name_edittext) EditText recipeName;
+    @Nullable
+    @Bind(R.id.create_recipe_name_layout) TextInputLayout createRecipeNameLayout;
+    @Nullable
+    @Bind(R.id.create_recipe_name_edittext) EditText createRecipeName;
+    @Nullable
+    @Bind(R.id.edit_recipe_name)
+    TextView editRecipeName;
 
     public EditRecipePhotoFragment() {
         // Required empty public constructor
@@ -82,8 +86,6 @@ public class EditRecipePhotoFragment extends Fragment {
         //Log.d(TAG, "onCreateView");
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
-        if(savedInstanceState != null && savedInstanceState.containsKey(RecipeListActivity.KEY_RECIPE))
-            recipeItem = savedInstanceState.getParcelable(RecipeListActivity.KEY_RECIPE);
         mTools = new Tools();
         rwTools = new ReadWriteTools(getContext());
     }
@@ -96,6 +98,9 @@ public class EditRecipePhotoFragment extends Fragment {
         //Log.d(TAG, "onCreateView");
         // Inflate the layout for this fragment
         View view;
+        if(recipeItem == null){
+            setRecipe();
+        }
         if(((recipeItem.getState() & Constants.FLAG_OWN) != 0) &&
                 ((recipeItem.getState() & Constants.FLAG_EDITED) == 0)) {
             view = inflater.inflate(R.layout.fragment_edit_recipe_foto_create, container, false);
@@ -105,11 +110,11 @@ public class EditRecipePhotoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_edit_recipe_foto_modify, container, false);
         }
         ButterKnife.bind(this, view);
-        if(recipeName != null){
-            recipeName.setText(recipeItem.getName());
+        if(editRecipeName != null){
+            editRecipeName.setText(recipeItem.getName());
         }
 
-        mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish);
+        mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
      /*Glide.with(this)
                 .load(Uri.parse(recipeItem.getPath()))
                 .centerCrop()
@@ -176,8 +181,6 @@ public class EditRecipePhotoFragment extends Fragment {
             type = getResources().getString(R.string.desserts);
         spinner1.setSelection(dataAdapter.getPosition(type));
 
-
-
         return view;
     }
 
@@ -206,20 +209,7 @@ public class EditRecipePhotoFragment extends Fragment {
         }
 
     }
-    //// TODO: 5/10/15 mirar esto para eliminar la función sin perder el meter la recipe 
-    /*@Override
-    public void onAttach(Activity activity) {
-        //Log.d(TAG, "onAttach");
-        super.onAttach(activity);
-        if(activity instanceof EditRecipeActivity)
-            setRecipe(((EditRecipeActivity) activity).getRecipe());
-    }*/
 
-    /*@Override
-    public void onDetach() {
-        //Log.d(TAG, "onDetach");
-        super.onDetach();
-    }*/
 
     private void selectPhoto(){
         final String [] items = new String [] {getResources().getString(R.string.pick_from_camera),
@@ -274,7 +264,7 @@ public class EditRecipePhotoFragment extends Fragment {
             //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
             recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-            mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish);
+            mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
 
             return;
         }
@@ -340,7 +330,7 @@ public class EditRecipePhotoFragment extends Fragment {
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish);
+                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
                 }
                 File f = new File(mImageCaptureUri.getPath());
                 if (f.exists())
@@ -355,7 +345,7 @@ public class EditRecipePhotoFragment extends Fragment {
                             photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
-                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish);
+                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
                 }
                 break;
         }
@@ -369,8 +359,10 @@ public class EditRecipePhotoFragment extends Fragment {
         return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     }
 
-    public  void setRecipe(RecipeItem recipeItem){
-        this.recipeItem = recipeItem;
+    private void setRecipe(){
+        if(getActivity() instanceof EditRecipeActivity){
+            recipeItem = ((EditRecipeActivity) getActivity()).getRecipe();
+        }
     }
 
     public int getPortions(){
@@ -392,25 +384,24 @@ public class EditRecipePhotoFragment extends Fragment {
     public Boolean checkInfoOk(){
         //Todo - comprobar más parámetros
         mTools.hideSoftKeyboard(getActivity());
-        String sName;
-        if(recipeName == null) {
+        if(createRecipeName == null) {
+            //modify case
             return true;
         }
-        sName = recipeName.getText().toString();
-        sName = mTools.getNormalizedString(sName);
-        final String[] recipeColumns = {SuggestionsTable.FIELD_NAME_NORMALIZED};
+        //create case
+        String sName = createRecipeName.getText().toString();
+        if(sName.compareTo("") == 0){
+            createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
+            return false;
+        }
+
+        String[] args = {sName};
         Cursor cursor = getActivity().getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
-                recipeColumns,
-                SuggestionsTable.FIELD_NAME_NORMALIZED + "=" + sName, null, null);
-        boolean ret;
+                null, null, args, null);
+        boolean ret = true;
         if (cursor.moveToFirst()) {
-            recipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
+            createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;
-        }else if(sName.compareTo("") == 0){
-            recipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
-            ret = false;
-        }else{
-            ret = true;
         }
         cursor.close();
         return ret;
@@ -441,8 +432,8 @@ public class EditRecipePhotoFragment extends Fragment {
 
     @Override
     public void onPause(){
-        if(recipeName != null) {
-            String name = recipeName.getText().toString();
+        if(createRecipeName != null) {
+            String name = createRecipeName.getText().toString();
             recipeItem.setName(name);
         }
         super.onPause();
