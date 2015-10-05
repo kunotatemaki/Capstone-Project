@@ -7,16 +7,16 @@ import android.widget.ImageView;
 /**
  * Created by iRuler on 6/9/15.
  */
-public class ThreeTwoPortraitImageView extends ImageView {
-    public ThreeTwoPortraitImageView(Context context) {
+public class ThreeTwoImageView extends ImageView {
+    public ThreeTwoImageView(Context context) {
         super(context);
     }
 
-    public ThreeTwoPortraitImageView(Context context, AttributeSet attrs) {
+    public ThreeTwoImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ThreeTwoPortraitImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ThreeTwoImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

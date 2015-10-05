@@ -123,12 +123,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             Intent animationIntent = new Intent(this, AnimationActivity.class);
             startActivity(animationIntent);
         }
-
-
     }
-
-
-
 
     @Override
     public void onSaveInstanceState(Bundle bundle){

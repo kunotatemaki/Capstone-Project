@@ -48,13 +48,14 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_scrollFlags="scroll|enterAlways" >
-
-        <android.support.v7.widget.Toolbar
+        <include layout="@layout/stardard_toolbar"
+                 app:layout_scrollFlags="scroll|enterAlways"/>
+        <!--<android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_recipe_list_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_scrollFlags="scroll|enterAlways" />
+                app:layout_scrollFlags="scroll|enterAlways" />-->
         <RelativeLayout
             android:id="@+id/numberandtype_recipes_bar"
             android:layout_width="match_parent"

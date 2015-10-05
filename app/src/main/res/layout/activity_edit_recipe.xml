@@ -1,0 +1,21 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_edit_recipe_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <RelativeLayout
+        android:id="@+id/toolbar_layout_in_edit_recipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/stardard_toolbar" />
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/edit_recipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout_in_edit_recipe"
+        />
+</RelativeLayout>
+

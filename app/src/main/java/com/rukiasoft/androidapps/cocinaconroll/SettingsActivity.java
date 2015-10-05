@@ -5,20 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Ruler in 2014.
  */
 public class SettingsActivity extends AppCompatActivity {
 
+    @Bind(R.id.standard_toolbar) Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_settings);
-
-
-        Toolbar mToolbar = (Toolbar) this.findViewById(R.id.toolbar_settings);
+        ButterKnife.bind(this);
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);

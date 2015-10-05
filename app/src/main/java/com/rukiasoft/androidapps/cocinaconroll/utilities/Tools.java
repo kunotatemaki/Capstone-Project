@@ -8,21 +8,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
@@ -108,6 +116,7 @@ public class Tools {
             normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
             input = normalized.replaceAll("[^\\p{ASCII}]", "");
         }
+        input = input.trim();
         return input.toLowerCase();
 
     }
@@ -238,4 +247,56 @@ public class Tools {
 
     }
 
+    public String getCurrentDate(Context context) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(Constants.FORMAT_DATE_TIME,
+                context.getResources().getConfiguration().locale);
+        return df.format(c.getTime());
+    }
+
+    public void hideSoftKeyboard(Activity activity) {
+        try {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public String saveBitmap(Context context, Bitmap bitmap, String name){
+
+
+        FileOutputStream out = null;
+        String filename = "";
+        ReadWriteTools tools = new ReadWriteTools(context);
+        File file = new File(tools.getEditedStorageDir());
+        if (!file.exists()) {
+            Boolean ret = file.mkdirs();
+            if(!ret)
+                return "";
+        }
+        try {
+            filename = tools.getEditedStorageDir() + name;
+            out = new FileOutputStream(filename);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return  filename;
+    }
+
+    public void loadImageFromPath(Context context, ImageView imageView, String path, int defaultImage) {
+        Glide.with(context)
+                .load(Uri.parse(path))
+                .centerCrop()
+                .error(defaultImage)
+                .into(imageView);
+    }
 }

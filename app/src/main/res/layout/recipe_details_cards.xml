@@ -184,4 +184,64 @@
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_tip"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_cardview"
+            android:layout_marginRight="@dimen/margin_cardview"
+            android:layout_marginTop="@dimen/margin_cardview"
+            android:layout_marginBottom="@dimen/margin_cardview"
+            android:clickable="false"
+            android:focusable="false"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tip_title_cardview"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:textStyle="bold"
+                android:textColor="@color/ColorDescriptions"
+                android:text="@string/tip"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/margin_text_cardview"
+                android:layout_marginRight="@dimen/margin_text_cardview"
+                android:layout_marginTop="@dimen/margin_text_cardview"
+                android:layout_marginBottom="@dimen/margin_text_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="@dimen/margin_cardview"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end|right"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/margin_text_cardview"
+                android:layout_marginRight="@dimen/margin_text_cardview"
+                android:layout_marginTop="@dimen/margin_text_cardview"
+                android:layout_marginBottom="@dimen/margin_text_cardview"
+                android:src="@drawable/ic_tip_36dp"
+                android:tint="@color/ColorDescriptions"
+                android:contentDescription="@string/steps"/>
+            <TextView
+                android:id="@+id/tip_body_cardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_text_cardview"
+                android:layout_marginRight="@dimen/margin_text_cardview"
+                android:singleLine="false"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_below="@id/tip_title_cardview"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

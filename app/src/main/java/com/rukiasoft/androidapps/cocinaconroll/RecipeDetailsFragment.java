@@ -26,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -70,11 +71,14 @@ public class RecipeDetailsFragment extends Fragment implements
     @Bind(R.id.recipe_details_icon_portions) ImageView iconPortions;
     @Bind(R.id.recipe_details_text_minutes) TextView textMinutes;
     @Bind(R.id.recipe_details_text_portions) TextView textPortions;
+    @Bind(R.id.tip_body_cardview) TextView tip;
+    @Bind(R.id.card_tip)
+    CardView cardTip;
     @Bind(R.id.recipe_pic) ImageView mPhotoView;
     @Nullable@Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
     @Nullable@Bind(R.id.photo_container_recipe_details)
     RelativeLayout photoContainer;
-    @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
+    @Bind(R.id.standard_toolbar)Toolbar toolbarRecipeDetails;
     @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
     @Bind(R.id.recipe_description_fab)
     FloatingActionButton recipeDescriptionFAB;
@@ -432,6 +436,14 @@ public class RecipeDetailsFragment extends Fragment implements
             ImageView icon = (ImageView) stepItem.findViewById(R.id.recipe_description_item_icon);
             icon.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_dog_foot));
             stepsList.addView(stepItem);
+        }
+
+        //set tip
+        if (recipe.getTip() != null && recipe.getTip().compareTo("") != 0) {
+            cardTip.setVisibility(View.VISIBLE);
+            tip.setText(recipe.getTip());
+        }else{
+            cardTip.setVisibility(View.GONE);
         }
 
         recipeLoaded = true;

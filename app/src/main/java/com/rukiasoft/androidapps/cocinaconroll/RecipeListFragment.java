@@ -57,7 +57,7 @@ public class RecipeListFragment extends Fragment implements
 
 
     @Nullable
-    @Bind(R.id.toolbar_recipe_list_fragment) Toolbar mToolbarRecipeListFragment;
+    @Bind(R.id.standard_toolbar) Toolbar mToolbarRecipeListFragment;
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout refreshLayout;
@@ -469,6 +469,17 @@ public class RecipeListFragment extends Fragment implements
     public void deleteRecipe(int index) {
         mRecipes.remove(index);
         filterRecipes(lastFilter);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        view.findViewById(R.id.recycler_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ThanksActivity.class));
+            }
+        });
     }
 }
 

@@ -25,7 +25,7 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 	
 	ListView mLVRecipes;
 	SimpleCursorAdapter mCursorAdapter;
-	@Bind(R.id.toolbar_search_activity)
+	@Bind(R.id.standard_toolbar)
 	Toolbar mToolbarSearchActivity;
 	
 	@Override

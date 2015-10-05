@@ -65,5 +65,23 @@
     <string name="banner_ad_unit_id_intersticial" translatable="false">ca-app-pub-8409265947000941/9384157718</string>
     <string name="minutes">minutes</string>
     <string name="portions">portions</string>
+    <string name="tip">Tip</string>
+    <string name="next">Next</string>
+    <string name="create_recipe">Create recipe</string>
+    <string name="menu_save_text">Save</string>
+    <string name="exit_edit_title">Discard</string>
+    <string name="exit_edit">Discard changes and go back to the previous screen?</string>
+    <string name="hint_create_recipe_name">Recipe name</string>
+    <string name="hint_create_recipe_author">Author</string>
+    <string name="edit_recipe_picture_text">Tap to edit</string>
+    <string name="time">Time</string>
+    <string name="type_dish">Dish type</string>
+    <string name="pick_from_camera">Use camera</string>
+    <string name="pick_from_gallery">Choose from gallery</string>
+    <string name="pick_photo">Choose a pic</string>
+    <string name="no_camera">Can\\\'t open the camera</string>
+    <string name="no_crop_app">No crop application found</string>
+    <string name="duplicated_recipe">This name already exists</string>
+    <string name="no_recipe_name">Add a recipe name</string>
 
 </resources>

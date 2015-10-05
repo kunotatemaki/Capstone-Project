@@ -284,6 +284,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
         return recipes;
     }
 
+    //todo - comprobar que las descargadas y las originales también entran aquí
     private void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
         Tools tools = new Tools();
