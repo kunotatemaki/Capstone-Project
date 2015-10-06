@@ -3,11 +3,13 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -19,10 +21,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.StringSignature;
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipeInfoDataBase;
+import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
 import java.io.File;
@@ -32,6 +38,7 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -312,5 +319,79 @@ public class Tools {
                     .error(defaultImage)
                     .into(imageView);
         }
+    }
+    public void loadImageFromPath(Context context, BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage) {
+        Glide.with(context)
+                .load(Uri.parse(path))
+                .asBitmap()
+                .centerCrop()
+                .error(defaultImage)
+                .into(bitmapImageViewTarget);
+    }
+
+    public List<RecipeInfoDataBase> getRecipeInfoInDatabase(Context context, String name, boolean match){
+        final String[] projection = {SuggestionsTable.FIELD_NAME, SuggestionsTable.FIELD_NAME_FAVORITE};
+        List<RecipeInfoDataBase> list = new ArrayList<>();
+        String selection;
+        name = getNormalizedString(name);
+        if(match){
+            selection = SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+        }else{
+            selection = SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+            name = "%" + name + "%";
+        }
+        final String[] selectionArgs = {name};
+        Cursor cursor = context.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
+                projection,
+                selection ,
+                selectionArgs, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                RecipeInfoDataBase recipeInfoDataBase = new RecipeInfoDataBase();
+                recipeInfoDataBase.setName(cursor.getString(0).toString());
+                int fav = cursor.getInt(1);
+                if(fav > 0){
+                    recipeInfoDataBase.setFavorite(true);
+                }else{
+                    recipeInfoDataBase.setFavorite(false);
+                }
+                list.add(recipeInfoDataBase);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public boolean isFavorite(Context context, String recipeName){
+        List<RecipeInfoDataBase> list = getRecipeInfoInDatabase(context, recipeName, true);
+        if(list.size() == 1) {
+            return list.get(0).isFavorite();
+        }else{
+            return false;
+        }
+    }
+
+    public void insertRecipeIntoSuggestions(Context context, RecipeItem recipeItem) {
+        ContentValues values = new ContentValues();
+        values.put(SuggestionsTable.FIELD_NAME, recipeItem.getName());
+        values.put(SuggestionsTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
+        int icon;
+        if(recipeItem.getType().equals(Constants.TYPE_DESSERTS))    icon = R.drawable.ic_dessert_24;
+        else if(recipeItem.getType().equals(Constants.TYPE_STARTERS))    icon = R.drawable.ic_starters_24;
+        else if(recipeItem.getType().equals(Constants.TYPE_MAIN))    icon = R.drawable.ic_main_24;
+        else icon = R.drawable.ic_all_24;
+        values.put(SuggestionsTable.FIELD_ICON, icon);
+        context.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values);
+    }
+
+    public void updateFavorite(Context context, String name, boolean favorite) {
+        ContentValues values = new ContentValues();
+        values.put(SuggestionsTable.FIELD_NAME, name);
+        int iFavorite = favorite? 1 : 0;
+        values.put(SuggestionsTable.FIELD_NAME_FAVORITE, iFavorite);
+        String clause = SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+        String[] args = {getNormalizedString(values.get(SuggestionsTable.FIELD_NAME).toString())};
+        context.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values, clause, args);
     }
 }

@@ -20,22 +20,18 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragment_edit_recipe_items_type"
+        android:id="@+id/edit_recipe_ingredients_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:gravity="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/ColorPrimary"
+        android:textStyle="bold"
         android:text="@string/ingredients"/>
 
-    <RelativeLayout
-        android:id="@+id/toolbar_layout_in_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/fragment_edit_recipe_items" />
-    </RelativeLayout>
+    <include layout="@layout/fragment_edit_recipe_items" />
+
 
 </LinearLayout>

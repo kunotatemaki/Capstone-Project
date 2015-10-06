@@ -13,46 +13,63 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout_edit_recipe_items"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/edit_recipe_add_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-
-        >
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp">
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_recipe_add_listview_item"
-            android:layout_weight="4"
+            android:id="@+id/edit_recipe_add_item"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:inputType="textCapSentences|textAutoCorrect"/>
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:minLines="3"/>
+    </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/edit_recipe_add_listview_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_add_circle_outline_black_36dp"
-             />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_recipe_add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white_24dp"
+        app:fabSize="mini"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/action_share"
+        app:rippleColor="@android:color/white"
+        app:borderWidth="0dp"
+        style="@style/FabStyle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
 
-    </LinearLayout>
-
-    <com.nhaarman.listviewanimations.itemmanipulation.DynamicListView
-        android:id="@+id/dynamiclistview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/edit_recipe_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbarStyle="insideInset"
+        android:layout_below="@+id/edit_recipe_add_item_layout"
+        android:layout_marginTop="@dimen/list_top_margin"
+        android:paddingTop="@dimen/list_top_margin"
+        android:paddingLeft="@dimen/list_side_margin"
+        android:paddingRight="@dimen/list_side_margin"
+        android:paddingBottom="@dimen/list_bottom_margin"
+        />
 
-</LinearLayout>
+</RelativeLayout>

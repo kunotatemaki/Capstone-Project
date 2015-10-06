@@ -11,6 +11,7 @@ import android.net.Uri;
 
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class SuggestionsDB {
@@ -43,7 +44,7 @@ public class SuggestionsDB {
 
 	/** Returns Recipes  */
     public Cursor getRecipes(String[] selectionArgs){
-    	
+        //call from search widget
     	String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
         Tools tools = new Tools();
     	if(selectionArgs!=null){
@@ -72,10 +73,21 @@ public class SuggestionsDB {
     public Cursor getRecipes(String[] projection, String selection,
                              String[] selectionArgs, String sortOrder){
 
+        Tools tools = new Tools();
+
         if(selection == null){
+        //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
             selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+            if(selectionArgs!=null){
+                for(int i=0; i<selectionArgs.length; i++){
+                    selectionArgs[i] = "%"+tools.getNormalizedString(selectionArgs[i]) + "%";
+                }
+            }
         }
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         if(projection == null){
+            //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
+            queryBuilder.setProjectionMap(mAliasMap);
             projection = new String[]{"_ID",
                     SearchManager.SUGGEST_COLUMN_TEXT_1,
                     SearchManager.SUGGEST_COLUMN_ICON_1,
@@ -84,16 +96,6 @@ public class SuggestionsDB {
         if(sortOrder == null){
             sortOrder = SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ";
         }
-
-        Tools tools = new Tools();
-        if(selectionArgs!=null){
-            for(int i=0; i<selectionArgs.length; i++){
-                selectionArgs[i] = "%"+tools.getNormalizedString(selectionArgs[i]) + "%";
-            }
-        }
-
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setProjectionMap(mAliasMap);
 
         queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
 
@@ -108,31 +110,6 @@ public class SuggestionsDB {
     }
 
 
-    /** Returns Recipes  */
-    public Cursor getRecipesByName(String[] selectionArgs){
-
-    	String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
-        Tools tools = new Tools();
-    	if(selectionArgs!=null){
-    		selectionArgs[0] = "%"+tools.getNormalizedString(selectionArgs[0]) + "%";
-    	}
-
-    	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-    	queryBuilder.setProjectionMap(mAliasMap);
-
-    	queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
-
-		return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
-                new String[]{SearchManager.SUGGEST_COLUMN_TEXT_1},
-                selection,
-                selectionArgs,
-                null,
-                null,
-				SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ", "50"
-        );
-
-    }
-
     /** Return Recipe corresponding to the id */
     public Cursor getRecipe(String id){
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
@@ -144,7 +121,7 @@ public class SuggestionsDB {
     }
 
 	public Uri insert(ContentValues values){
-        //check if exist first
+        //first, check if exist
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
         Cursor c = queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
@@ -159,4 +136,9 @@ public class SuggestionsDB {
         return ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, regId);
 	}
 
+    public int updateFavorite(ContentValues values, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
+        int index =  db.update(SuggestionsTable.TABLE_NAME, values, selection, selectionArgs);
+        return index;
+    }
 }

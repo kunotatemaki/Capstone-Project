@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,11 +45,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -60,7 +57,7 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailsFragment extends Fragment implements
         AppBarLayout.OnOffsetChangedListener{
-    private static final String TAG = LogHelper.makeLogTag(RecipeDetailsFragment.class);
+    //private static final String TAG = LogHelper.makeLogTag(RecipeDetailsFragment.class);
     private static final float PERCENTAGE_TO_ELLIPSIZE_TITLE  = 0.1f;
 
     private static final String KEY_SAVE_RECIPE = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName() + ".saverecipe";
@@ -96,6 +93,7 @@ public class RecipeDetailsFragment extends Fragment implements
     private boolean land;
     private boolean animated;
     View viewToReveal;
+    Tools mTools;
 
     public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
@@ -128,7 +126,7 @@ public class RecipeDetailsFragment extends Fragment implements
         setRetainInstance(false);
         getActivity().supportPostponeEnterTransition();
         setHasOptionsMenu(true);
-
+        mTools = new Tools();
 
     }
 
@@ -161,7 +159,6 @@ public class RecipeDetailsFragment extends Fragment implements
         builder.setMessage(getResources().getString(R.string.delete_recipe_confirmation))
                 .setPositiveButton((getResources().getString(R.string.Yes)), dialogClickListener)
                 .setNegativeButton((getResources().getString(R.string.No)), dialogClickListener);
-        Boolean compatRequired = android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
                 Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
@@ -174,8 +171,7 @@ public class RecipeDetailsFragment extends Fragment implements
                 builder.show();
                 return true;
             case R.id.menu_item_share_recipe:
-                Tools tools = new Tools();
-                tools.share(getActivity(), recipe);
+                mTools.share(getActivity(), recipe);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -236,14 +232,14 @@ public class RecipeDetailsFragment extends Fragment implements
                 public void onClick(View v) {
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
-                            ReadWriteTools tools = new ReadWriteTools(getActivity());
-                            if (recipe.getFavourite()) {
+                            boolean favorite = mTools.isFavorite(getActivity(), recipe.getName());
+                            if (favorite) {
                                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
                             } else {
                                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
                             }
-                            recipe.setFavourite(!recipe.getFavourite());
-                            tools.saveRecipeOnEditedPath(recipe);
+                            //lo almaceno en la base de datos
+                            mTools.updateFavorite(getActivity(), recipe.getName(), !favorite);
                             Intent returnIntent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
@@ -318,11 +314,7 @@ public class RecipeDetailsFragment extends Fragment implements
         }
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(offset) / (float) maxScroll;
-        if(percentage == 1){
-            collapsed = true;
-        }else{
-            collapsed = false;
-        }
+        collapsed = percentage == 1;
         handleTitleBehavior(percentage);
         //handleToolbarTitleVisibility(percentage);
 
@@ -371,8 +363,8 @@ public class RecipeDetailsFragment extends Fragment implements
         if(recipeDescriptionFAB != null){
             if(own){
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_share_white_24dp));
-            }else {
-                if (recipe.getFavourite()) {
+            } else {
+                if (mTools.isFavorite(getActivity(), recipe.getName())) {
                     recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
                 } else {
                     recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
@@ -380,25 +372,22 @@ public class RecipeDetailsFragment extends Fragment implements
             }
         }
         if(mPhotoView != null){
-            Glide.with(this)
-                    .load(Uri.parse(recipe.getPath()))
-                    .asBitmap()
-                    .error(R.drawable.default_dish)
-                    .into(new BitmapImageViewTarget(mPhotoView) {
-                        @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
-                            super.onResourceReady(bitmap, anim);
-                            applyPalette(bitmap);
-                        }
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable){
-                            super.onLoadFailed(e, errorDrawable);
-                            Bitmap bitmap = ((BitmapDrawable)errorDrawable).getBitmap();
-                            //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_dish);
-                            applyPalette(bitmap);
-                        }
-                    });
+            BitmapImageViewTarget bitmapImageViewTarget = new BitmapImageViewTarget(mPhotoView) {
+                @Override
+                public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                    super.onResourceReady(bitmap, anim);
+                    applyPalette(bitmap);
+                }
 
+                @Override
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                    super.onLoadFailed(e, errorDrawable);
+                    Bitmap bitmap = ((BitmapDrawable) errorDrawable).getBitmap();
+                    //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_dish);
+                    applyPalette(bitmap);
+                }
+            };
+            mTools.loadImageFromPath(getActivity(), bitmapImageViewTarget, recipe.getPath(), R.drawable.default_dish);
         }
 
         //Set the author

@@ -233,11 +233,10 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
         List<String> listAssets = readWriteTools.loadRecipesFromAssets();
 
         for(int i=0; i<listEdited.size(); i++) {
-
             RecipeItem recipeItem= readWriteTools.readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                recipes.add(recipeItem);
+                addRecipeToArrayAndSuggestions(recipes, recipeItem);
             }
         }
 
@@ -247,18 +246,15 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             RecipeItem recipeItem= readWriteTools.readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                recipes.add(recipeItem);
-                //CocinaConRollTools.deleteRecipe(getApplicationContext(), recipeItem, CocinaConRollConstants.FLAG_ORIGINAL);
+                addRecipeToArrayAndSuggestions(recipes, recipeItem);
             }
         }
 
         for(int i=0; i<listAssets.size(); i++) {
-
             RecipeItem recipeItem;
-            if(listOriginal.contains(listAssets.get(i))){
+            /*if(listOriginal.contains(listAssets.get(i))){
                 recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                         Constants.PATH_TYPE_ORIGINAL);
-
                 if(tools.isInTimeframe(recipeItem))
                     continue;
                 else {
@@ -270,14 +266,13 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
                         }
                     }
                 }
-            }
+            }*/
             if(listEdited.contains(listAssets.get(i)))
                 continue;
             recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if(recipeItem != null) {
                 addRecipeToArrayAndSuggestions(recipes, recipeItem);
-                //recipes.add(recipeItem);
             }
         }
         //Log.d(TAG, "leido assets");
@@ -288,16 +283,8 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
     private void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
         Tools tools = new Tools();
-        ContentValues values = new ContentValues();
-        values.put(SuggestionsTable.FIELD_NAME, recipeItem.getName());
-        values.put(SuggestionsTable.FIELD_NAME_NORMALIZED, tools.getNormalizedString(recipeItem.getName()));
-        int icon;
-        if(recipeItem.getType().equals(Constants.TYPE_DESSERTS))    icon = R.drawable.ic_dessert_24;
-        else if(recipeItem.getType().equals(Constants.TYPE_STARTERS))    icon = R.drawable.ic_starters_24;
-        else if(recipeItem.getType().equals(Constants.TYPE_MAIN))    icon = R.drawable.ic_main_24;
-        else icon = R.drawable.ic_all_24;
-        values.put(SuggestionsTable.FIELD_ICON, icon);
-        getContext().getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values);
+        tools.insertRecipeIntoSuggestions(getContext(), recipeItem);
+
     }
 
     private class MyFileFilter implements FilenameFilter {

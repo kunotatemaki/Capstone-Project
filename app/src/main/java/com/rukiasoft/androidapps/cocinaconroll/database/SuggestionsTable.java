@@ -14,6 +14,7 @@ public class SuggestionsTable {
     public static final String FIELD_NAME = "name";
     public static final String FIELD_ICON = "icon";
     public static final String FIELD_NAME_NORMALIZED = "normalized";
+    public static final String FIELD_NAME_FAVORITE = "favorite";
 
     public static final String TABLE_NAME = "suggestions";
 
@@ -23,12 +24,12 @@ public class SuggestionsTable {
             FIELD_ID + " integer primary key autoincrement, " +
             FIELD_NAME + " varchar(500), " +
             FIELD_NAME_NORMALIZED + " varchar(500), " +
-            FIELD_ICON + "  int " +
+            FIELD_ICON + "  int, " +
+            FIELD_NAME_FAVORITE + "  int " +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
-
     }
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,

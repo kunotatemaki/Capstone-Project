@@ -178,23 +178,6 @@ public class RecipeListFragment extends Fragment implements
                 public void onClick(View v) {
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
-                            final String[] selectionArgs = {"hummus"};
-                            final String[] projection = {SearchManager.SUGGEST_COLUMN_TEXT_1};
-                            String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
-                            Cursor cursor = getActivity().getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
-                                    projection,
-                                    selection ,
-                                    selectionArgs, null);
-                            boolean ret;
-                            if (cursor.moveToFirst()) {
-                                int i = 0;
-                                i = i++;
-                                String s = cursor.getString(0).toString();
-                                String s1 = cursor.getString(1).toString();
-                                String s2 = cursor.getString(2).toString();
-                                String s3 = cursor.getString(3).toString();
-                                s = s.concat(s);
-                            }
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
                             getActivity().startActivityForResult(intent, RecipeListActivity.RESULT_UPDATE_RECIPE);
                         }
@@ -371,7 +354,7 @@ public class RecipeListFragment extends Fragment implements
 
     public void filterRecipes(String filter) {
         lastFilter = filter;
-        Tools tools = new Tools();
+        Tools mTools = new Tools();
         List<RecipeItem> filteredModelList = new ArrayList<>();
         String type = "";
         int iconResource = 0;
@@ -414,7 +397,7 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
             for (RecipeItem item : mRecipes) {
-                if (item.getFavourite()) {
+                if (mTools.isFavorite(getActivity(), item.getName())) {
                     filteredModelList.add(item);
                 }
             }
@@ -430,7 +413,7 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
             for(RecipeItem item : mRecipes) {
-                if (tools.isInTimeframe(item)) {
+                if (mTools.isInTimeframe(item)) {
                     filteredModelList.add(item);
                 }
             }

@@ -83,5 +83,6 @@
     <string name="no_crop_app">No crop application found</string>
     <string name="duplicated_recipe">This name already exists</string>
     <string name="no_recipe_name">Add a recipe name</string>
+    <string name="negative_value">Value must be upper than 0</string>
 
 </resources>

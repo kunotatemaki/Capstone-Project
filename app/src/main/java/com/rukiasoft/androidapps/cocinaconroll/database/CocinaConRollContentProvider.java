@@ -89,6 +89,14 @@ public class CocinaConRollContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
         String[] selectionArgs) {
-        throw new UnsupportedOperationException();
+        int index;
+        switch (mUriMatcher.match(uri)){
+            case SEARCH_RECIPE:
+                index = mSuggestionsDB.updateFavorite(values, selection, selectionArgs);
+                break;
+            default: throw new SQLException("Failed to insert row into " + uri);
+        }
+        return index;
+
     }
 }

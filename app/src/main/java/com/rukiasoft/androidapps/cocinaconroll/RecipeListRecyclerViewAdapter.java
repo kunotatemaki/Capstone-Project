@@ -103,7 +103,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public void bindRecipe(Context context, RecipeItem item) {
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
-            if(item.getFavourite()){
+            if(mTools.isFavorite(context, item.getName())){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
             }else{
@@ -132,12 +132,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             }
             //TODO - ver cómo lee las recetas de los otros sitios
             mTools.loadImageFromPath(context, recipeThumbnail, item.getPath(), R.drawable.default_dish, false);
-            /*Glide.with(context)
-                    //.load(Uri.parse(item.getPath()))
-                    .load(path)
-                    .centerCrop()
-                    .error(R.drawable.default_dish)
-                    .into(recipeThumbnail);*/
+
         }
     }
 

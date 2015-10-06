@@ -28,9 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
-import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipeInfoDataBase;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -87,7 +85,7 @@ public class EditRecipePhotoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
         mTools = new Tools();
-        rwTools = new ReadWriteTools(getContext());
+        rwTools = new ReadWriteTools(getActivity());
     }
 
 
@@ -115,11 +113,7 @@ public class EditRecipePhotoFragment extends Fragment {
         }
 
         mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
-     /*Glide.with(this)
-                .load(Uri.parse(recipeItem.getPath()))
-                .centerCrop()
-                .error(R.drawable.default_dish)
-                .into(mImageView);*/
+
         
         if(recipeItem.getMinutes()>0)
             minutes.setText(recipeItem.getMinutes().toString());
@@ -181,6 +175,7 @@ public class EditRecipePhotoFragment extends Fragment {
             type = getResources().getString(R.string.desserts);
         spinner1.setSelection(dataAdapter.getPosition(type));
 
+        mTools.hideRefreshLayout(getActivity());
         return view;
     }
 
@@ -382,8 +377,10 @@ public class EditRecipePhotoFragment extends Fragment {
     }
 
     public Boolean checkInfoOk(){
-        //Todo - comprobar más parámetros
         mTools.hideSoftKeyboard(getActivity());
+        createRecipeNameLayout.setError(null);
+        portionsLayout.setError(null);
+        minutesLayout.setError(null);
         if(createRecipeName == null) {
             //modify case
             return true;
@@ -394,16 +391,30 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             return false;
         }
-
-        String[] args = {sName};
-        Cursor cursor = getActivity().getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
-                null, null, args, null);
+        List<RecipeInfoDataBase> coincidences = mTools.getRecipeInfoInDatabase(getActivity(), sName, true);
         boolean ret = true;
-        if (cursor.moveToFirst()) {
+        if (coincidences.size() > 0) {
             createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;
         }
-        cursor.close();
+        try {
+            int min = Integer.valueOf(minutes.getText().toString());
+            if(min < 0){
+                minutesLayout.setError(getResources().getString(R.string.negative_value));
+            }
+        }catch (NumberFormatException e){
+            minutes.setText("0");
+        }
+
+        try {
+            int port = Integer.valueOf(portions.getText().toString());
+            if(port < 0) {
+                portionsLayout.setError(getResources().getString(R.string.negative_value));
+            }
+        }catch (NumberFormatException e){
+            portions.setText("0");
+        }
+
         return ret;
 
     }
@@ -415,20 +426,6 @@ public class EditRecipePhotoFragment extends Fragment {
         }
     }*/
 
-    /*public void setRedName(Boolean state){
-        EditText editText = (EditText) getView().findViewById(R.id.editText_name_recipe);
-        if(editText != null) {
-            if(state)
-                editText.setTextColor(Color.RED);
-            else {
-                TypedValue typedValue = new  TypedValue();
-                getActivity().getTheme().resolveAttribute(R.attr.editTextColor, typedValue, true);
-                final  int color = typedValue.data;
-                editText.setTextColor(color);
-
-            }
-        }
-    }*/
 
     @Override
     public void onPause(){
