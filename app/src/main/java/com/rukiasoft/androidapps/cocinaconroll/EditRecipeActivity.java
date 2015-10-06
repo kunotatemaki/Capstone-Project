@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 public class EditRecipeActivity extends AppCompatActivity {
 
     private EditRecipePhotoFragment editRecipePhotoFragment;
-    //private EditRecipeIngredientsFragment editRecipeIngredientsFragment;
-    //private EditRecipeStepsFragment editRecipeStepsFragment;
+    private EditRecipeIngredientsFragment editRecipeIngredientsFragment;
+    private EditRecipeStepsFragment editRecipeStepsFragment;
     private RecipeItem recipe;
     private final static String TAG = LogHelper.makeLogTag(EditRecipeActivity.class);
     private final static String KEY_FRAGMENT = Constants.PACKAGE_NAME + ".fragment";
@@ -37,15 +37,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     String title;
     Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }*/
 
 
     @Override
@@ -78,11 +70,11 @@ public class EditRecipeActivity extends AppCompatActivity {
             String shownRecipes = "";
             if(savedInstanceState.containsKey(KEY_FRAGMENT))
                 shownRecipes = savedInstanceState.getString(KEY_FRAGMENT);
-            /*if(shownRecipes.equals(EditRecipeIngredientsFragment.class.getSimpleName()))
+            if(shownRecipes.equals(EditRecipeIngredientsFragment.class.getSimpleName()))
                 editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
             else if(shownRecipes.equals(EditRecipeStepsFragment.class.getSimpleName()))
                 editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
-            else */if(shownRecipes.equals(EditRecipePhotoFragment.class.getSimpleName()))
+            else if(shownRecipes.equals(EditRecipePhotoFragment.class.getSimpleName()))
                 editRecipePhotoFragment = (EditRecipePhotoFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
         }
 
@@ -144,18 +136,14 @@ public class EditRecipeActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         String shownFragment = "";
         if(recipe != null) {
-            /*if(editRecipeIngredientsFragment != null) {
-                recipe.setIngredients(editRecipeIngredientsFragment.getUpdatedIngredients());
+            if(editRecipeIngredientsFragment != null) {
                 shownFragment = EditRecipeIngredientsFragment.class.getSimpleName();
 
-            }if(editRecipeStepsFragment != null){
-                recipe.setSteps(editRecipeStepsFragment.getUpdatedSteps());
-                recipe.setTip(editRecipeStepsFragment.getTip());
+            }
+            if(editRecipeStepsFragment != null){
                 shownFragment = EditRecipeStepsFragment.class.getSimpleName();
-            }*/
+            }
             if(editRecipePhotoFragment != null) {
-                recipe.setPortions(editRecipePhotoFragment.getPortions());
-                recipe.setMinutes(editRecipePhotoFragment.getMinutes());
                 shownFragment = EditRecipePhotoFragment.class.getSimpleName();
             }
             outState.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
@@ -182,10 +170,6 @@ public class EditRecipeActivity extends AppCompatActivity {
                         if (!(((EditRecipePhotoFragment) f).checkInfoOk())) {
                             return super.onOptionsItemSelected(item);
                         }
-                        recipe.setPortions(editRecipePhotoFragment.getPortions());
-                        recipe.setMinutes(editRecipePhotoFragment.getMinutes());
-                        /*((EditRecipePhotoFragment) f).setAuthor();
-                        editRecipeIngredientsFragment.setRecipe(recipe);
                         editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeIngredientsFragment.class.getSimpleName());
                         if(editRecipeIngredientsFragment == null)
                             editRecipeIngredientsFragment = new EditRecipeIngredientsFragment();
@@ -194,24 +178,22 @@ public class EditRecipeActivity extends AppCompatActivity {
                                 .replace(R.id.edit_recipe_container, editRecipeIngredientsFragment, EditRecipeIngredientsFragment.class.getSimpleName())
                                 .addToBackStack(null)
                                 .commit();
-                        getSupportFragmentManager().executePendingTransactions();*/
-                    } /*else if (f instanceof EditRecipeIngredientsFragment) {
-                        editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeStepsFragment.class.getSimpleName());
-                        recipe.setIngredients(editRecipeIngredientsFragment.getUpdatedIngredients());
+                        getSupportFragmentManager().executePendingTransactions();
+                    } else if (f instanceof EditRecipeIngredientsFragment) {
+                        //editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeStepsFragment.class.getSimpleName());
+                        editRecipeIngredientsFragment.saveData();
                         editRecipeIngredientsFragment = null;
                         if(editRecipeStepsFragment == null)
                             editRecipeStepsFragment = new EditRecipeStepsFragment();
-                        editRecipeStepsFragment.setRecipe(recipe);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.edit_recipe_container, editRecipeStepsFragment, EditRecipeStepsFragment.class.getSimpleName())
                                 .addToBackStack(null)
                                 .commit();
                         getSupportFragmentManager().executePendingTransactions();
-                    } else if (f instanceof EditRecipeIngredientsFragment) {
-                        recipe.setSteps(editRecipeStepsFragment.getUpdatedSteps());
-                        recipe.setTip(editRecipeStepsFragment.getTip());
+                    } else if (f instanceof EditRecipeStepsFragment) {
+                        editRecipeStepsFragment.saveData();
                         setResultData();
-                    }*/
+                    }
                     Boolean compatRequired = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
                     if(!compatRequired)
                         invalidateOptionsMenu();// creates call to onPrepareOptionsMenu()
@@ -247,11 +229,11 @@ public class EditRecipeActivity extends AppCompatActivity {
         else {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
             //Log.d(TAG, f.getClass().toString());
-            /*if(f instanceof EditRecipeStepsFragment) {
+            if(f instanceof EditRecipeStepsFragment) {
                 icon.setTitle(getResources().getString(R.string.menu_save_text));
             }else {
                 icon.setTitle(getResources().getString(R.string.next));
-            }*/
+            }
             super.onPrepareOptionsMenu(menu);
         }
         return true;
@@ -287,7 +269,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     private void setResultData(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipe);
-        setResult(RESULT_OK, resultIntent);
+        setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, resultIntent);
         finish();
     }
 
@@ -320,16 +302,16 @@ public class EditRecipeActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             else
                 supportInvalidateOptionsMenu();
-            /*if(f instanceof EditRecipeIngredientsFragment)
+            if(f instanceof EditRecipeIngredientsFragment)
                 editRecipeIngredientsFragment = null;
             else if(f instanceof EditRecipeStepsFragment)
-                editRecipeStepsFragment = null;*/
+                editRecipeStepsFragment = null;
             super.onBackPressed();
             f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
-            /*if(f instanceof EditRecipeIngredientsFragment)
+            if(f instanceof EditRecipeIngredientsFragment)
                 editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) f;
             else if(f instanceof EditRecipeStepsFragment)
-                editRecipePhotoFragment = (EditRecipePhotoFragment) f;*/
+                editRecipePhotoFragment = (EditRecipePhotoFragment) f;
         }
     }
 }

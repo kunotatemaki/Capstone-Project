@@ -33,6 +33,7 @@ import com.rukiasoft.androidapps.cocinaconroll.gcm.GcmRegistrationAsyncTask;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import butterknife.Bind;
@@ -47,6 +48,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public static final int REQUEST_DETAILS = 189;
     public static final int RESULT_UPDATE_RECIPE = 222;
     public static final int RESULT_DELETE_RECIPE = 223;
+    public static final int REQUEST_CREATE_RECIPE = 224;
     //public static final int RESULT_EDIT_RECIPE = ;
 
 
@@ -152,6 +154,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
         if(requestCode == REQUEST_DETAILS){
             if(resultCode == RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
+                //TODO recuperar receta original??
+                //TODO no borra la creada???
                 int index = intentData.getIntExtra(KEY_RECIPE, -1);
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null && index != -1) {
@@ -163,6 +167,16 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 if(mRecipeListFragment != null){
                     mRecipeListFragment.updateRecipe(recipe);
                 }
+            }
+        }else if(requestCode == REQUEST_CREATE_RECIPE){
+            if(resultCode == RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(KEY_RECIPE);
+                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                if(mRecipeListFragment != null){
+                    mRecipeListFragment.updateRecipe(recipe);
+                }
+                ReadWriteTools readWriteTools = new ReadWriteTools(this);
+                readWriteTools.saveRecipeOnEditedPath(recipe);
             }
         }
     }

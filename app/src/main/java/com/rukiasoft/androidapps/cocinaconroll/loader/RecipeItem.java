@@ -27,7 +27,7 @@ public class RecipeItem implements Parcelable {
     private List<String> ingredients = new ArrayList<>();
     @ElementList
     private List<String> steps = new ArrayList<>();
-    @Element
+    @Element (required=false)
     private String author = "";
     @Element
     private Boolean vegetarian = false;
@@ -46,7 +46,7 @@ public class RecipeItem implements Parcelable {
     private Long date;
     @Element
     private String language = "Spanish";
-    private int position;
+    private int position = -1;
 
     public RecipeItem(Parcel in){
         this.name= in.readString();

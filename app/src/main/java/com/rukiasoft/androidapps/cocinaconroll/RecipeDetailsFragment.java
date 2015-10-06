@@ -156,7 +156,15 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getResources().getString(R.string.delete_recipe_confirmation))
+        String message = "";
+        if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
+            message = getResources().getString(R.string.restore_recipe_confirmation);
+        }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
+            message = getResources().getString(R.string.delete_recipe_confirmation);
+        }else{
+            return false;
+        }
+        builder.setMessage(message)
                 .setPositiveButton((getResources().getString(R.string.Yes)), dialogClickListener)
                 .setNegativeButton((getResources().getString(R.string.No)), dialogClickListener);
         switch (item.getItemId()) {
@@ -165,7 +173,7 @@ public class RecipeDetailsFragment extends Fragment implements
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
                 intent.putExtras(bundle);
-                getActivity().startActivityForResult(intent, RecipeListActivity.RESULT_UPDATE_RECIPE);
+                getActivity().startActivityForResult(intent, ((RecipeDetailActivity)getActivity()).REQUEST_EDIT);
                 return true;
             case R.id.menu_item_remove:
                 builder.show();
@@ -361,14 +369,10 @@ public class RecipeDetailsFragment extends Fragment implements
             actionBar.setTitle(recipe.getName());
         }
         if(recipeDescriptionFAB != null){
-            if(own){
-                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_share_white_24dp));
+            if (mTools.isFavorite(getActivity(), recipe.getName())) {
+                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
             } else {
-                if (mTools.isFavorite(getActivity(), recipe.getName())) {
-                    recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
-                } else {
-                    recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
-                }
+                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
             }
         }
         if(mPhotoView != null){
@@ -427,7 +431,7 @@ public class RecipeDetailsFragment extends Fragment implements
         }
 
         //set tip
-        if (recipe.getTip() != null && recipe.getTip().compareTo("") != 0) {
+        if (recipe.getTip() != null && !recipe.getTip().isEmpty()) {
             cardTip.setVisibility(View.VISIBLE);
             tip.setText(recipe.getTip());
         }else{
@@ -462,7 +466,8 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
 
-
-
-
+    public void updateRecipe(RecipeItem recipe) {
+        this.recipe = recipe;
+        loadRecipe();
+    }
 }

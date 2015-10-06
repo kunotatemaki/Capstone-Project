@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import butterknife.Bind;
@@ -15,8 +16,12 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
+    public static final int KEY_RESULT_UPDATE_RECIPE = 999;
+    public static final int REQUEST_EDIT = 998;
+
     @Bind(R.id.adview_details)
     AdView mAdViewDetails;
+    RecipeDetailsFragment recipeDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,30 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
+        if(requestCode == REQUEST_EDIT){
+            if(resultCode == RecipeListActivity.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(RecipeListActivity.KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(RecipeListActivity.KEY_RECIPE);
+                recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
+
+                if(recipeDetailsFragment != null)
+                    recipeDetailsFragment.updateRecipe(recipe);
+                //grabo la receta
+                if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
+                    recipe.setPath(Constants.DEFAULT_PICTURE_NAME);
+                ReadWriteTools readWriteTools = new ReadWriteTools(this);
+                readWriteTools.saveRecipeOnEditedPath(recipe);
+                Intent returnIntent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+                returnIntent.putExtras(bundle);
+
+                setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, returnIntent);
+            }
         }
     }
 }

@@ -179,7 +179,7 @@ public class RecipeListFragment extends Fragment implements
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
-                            getActivity().startActivityForResult(intent, RecipeListActivity.RESULT_UPDATE_RECIPE);
+                            getActivity().startActivityForResult(intent, RecipeListActivity.REQUEST_CREATE_RECIPE);
                         }
                     }, 150);
                 }
@@ -344,8 +344,7 @@ public class RecipeListFragment extends Fragment implements
         //TODO probar transiciones sencillas para pre-lollipop
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
         // Now we can start the Activity, providing the activity options as a bundle
-        int REQUEST_DETAILS = ((RecipeListActivity)getActivity()).REQUEST_DETAILS;
-        ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_DETAILS, activityOptions.toBundle());
+        ActivityCompat.startActivityForResult(getActivity(), intent, ((RecipeListActivity)getActivity()).REQUEST_DETAILS, activityOptions.toBundle());
 
         recipeToShow = null;
 
@@ -474,8 +473,13 @@ public class RecipeListFragment extends Fragment implements
         if(mRecipes == null || index >= mRecipes.size()){
             return;
         }
-        mRecipes.remove(index);
-        mRecipes.add(index, recipe);
+        if(index < 0){
+            mRecipes.add(recipe);
+            orderRecipesByName();
+        }else {
+            mRecipes.remove(index);
+            mRecipes.add(index, recipe);
+        }
         filterRecipes(lastFilter);
     }
 

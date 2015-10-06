@@ -328,8 +328,9 @@ public class EditRecipePhotoFragment extends Fragment {
                     mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
                 }
                 File f = new File(mImageCaptureUri.getPath());
-                if (f.exists())
+                if (f.exists()) {
                     f.delete();
+                }
                 break;
             case CROP_FROM_FILE:
                 Bundle extras2 = data.getExtras();
@@ -378,41 +379,50 @@ public class EditRecipePhotoFragment extends Fragment {
 
     public Boolean checkInfoOk(){
         mTools.hideSoftKeyboard(getActivity());
-        createRecipeNameLayout.setError(null);
-        portionsLayout.setError(null);
-        minutesLayout.setError(null);
-        if(createRecipeName == null) {
-            //modify case
-            return true;
-        }
-        //create case
-        String sName = createRecipeName.getText().toString();
-        if(sName.compareTo("") == 0){
-            createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
-            return false;
-        }
-        List<RecipeInfoDataBase> coincidences = mTools.getRecipeInfoInDatabase(getActivity(), sName, true);
         boolean ret = true;
-        if (coincidences.size() > 0) {
-            createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
-            ret = false;
-        }
+
         try {
             int min = Integer.valueOf(minutes.getText().toString());
-            if(min < 0){
-                minutesLayout.setError(getResources().getString(R.string.negative_value));
-            }
+            recipeItem.setMinutes(min);
         }catch (NumberFormatException e){
             minutes.setText("0");
+            recipeItem.setMinutes(0);
+            ret = false;
         }
 
         try {
             int port = Integer.valueOf(portions.getText().toString());
-            if(port < 0) {
-                portionsLayout.setError(getResources().getString(R.string.negative_value));
-            }
+            recipeItem.setPortions(port);
         }catch (NumberFormatException e){
             portions.setText("0");
+            recipeItem.setPortions(0);
+            ret = false;
+        }
+
+        if(createRecipeName == null) {
+            //modify case
+            return ret;
+        }
+
+        //create case
+        createRecipeNameLayout.setError(null);
+        portionsLayout.setError(null);
+        minutesLayout.setError(null);
+        String sName = createRecipeName.getText().toString();
+        if(sName.isEmpty()){
+            createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
+            ret = false;
+        }
+        List<RecipeInfoDataBase> coincidences = mTools.getRecipeInfoInDatabase(getActivity(), sName, true);
+        if (coincidences.size() > 0) {
+            createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
+            ret = false;
+        }
+
+
+
+        if(authorRecipe != null) {
+            recipeItem.setAuthor(authorRecipe.getText().toString());
         }
 
         return ret;

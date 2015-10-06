@@ -2,6 +2,7 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,30 +15,36 @@ import android.widget.TextView;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperAdapter;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperViewHolder;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.OnStartDragListener;
+import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-/**
- * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
- * dismiss events from a {@link android.support.v7.widget.helper.ItemTouchHelper}.
- *
- * @author Paul Burke (ipaulpro)
- */
+
+
 public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditRecipeRecyclerViewAdapter.ItemViewHolder>
-        implements ItemTouchHelperAdapter {
+        implements ItemTouchHelperAdapter{
 
-    private final List<String> mItems = new ArrayList<>();
-
+    //TODO - allow undo swipe with snackbar
+    private final List<String> mItems;
+    Context context;
     private final OnStartDragListener mDragStartListener;
+    String undo;
+    int positionUndo;
 
-    public EditRecipeRecyclerViewAdapter(Context context, OnStartDragListener dragStartListener) {
+
+    public EditRecipeRecyclerViewAdapter(Context context, List<String> data, OnStartDragListener dragStartListener) {
         mDragStartListener = dragStartListener;
-        mItems.addAll(Arrays.asList(context.getResources().getStringArray(R.array.dummy_items)));
+        mItems = new ArrayList<>(data);
+        this.context = context;
     }
+
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,20 +88,29 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
         return mItems.size();
     }
 
+
+    public void addItem(String item){
+        mItems.add(item);
+        notifyItemChanged(mItems.size()-1);
+    }
+
+    public List<String> getItems() {
+        return mItems;
+    }
+
     /**
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
      * "handle" view that initiates a drag event when touched.
      */
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
-            ItemTouchHelperViewHolder {
+            ItemTouchHelperViewHolder{
 
-        public final TextView textView;
-        public final ImageView handleView;
+        @Bind(R.id.edit_recipe_item_text) TextView textView;
+        @Bind(R.id.edit_recipe_item_handle) ImageView handleView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text);
-            handleView = (ImageView) itemView.findViewById(R.id.edit_recipe_item_handle);
+            ButterKnife.bind(this, itemView);
         }
 
         @Override
@@ -106,5 +122,6 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
         public void onItemClear() {
             itemView.setBackgroundColor(0);
         }
+
     }
 }
