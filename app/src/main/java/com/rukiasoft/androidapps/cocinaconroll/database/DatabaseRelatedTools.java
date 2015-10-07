@@ -21,7 +21,6 @@ public class DatabaseRelatedTools {
         mContext = context;
     }
 
-    //todo - comprobar que las descargadas y las originales también entran aquí
     public void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
         insertRecipeIntoSuggestions(recipeItem);

@@ -47,7 +47,7 @@ public class ReadWriteTools {
     public List<String> loadFiles(FilenameFilter filter, Boolean external_storage){
         List<String> list = new ArrayList<>();
         Boolean ret;
-        //TODO - era writable. Cambiado a readable. Comprobar
+
         ret = isExternalStorageWritable();
         if(!ret){
             return list;

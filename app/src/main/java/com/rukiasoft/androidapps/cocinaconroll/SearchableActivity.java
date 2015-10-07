@@ -106,7 +106,6 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
-		// TODO Auto-generated method stub		
 	}
 
 

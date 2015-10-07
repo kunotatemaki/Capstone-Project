@@ -58,7 +58,6 @@ public class RegistrationIntentService extends IntentService {
             // Initially this call goes out to the network to retrieve the token, subsequent calls
             // are local.
             // [START get_token]
-            //TODO - ver si es gcm_default.. es el bueno o tengo que meter el id "a pelo"
             InstanceID instanceID = InstanceID.getInstance(this);
             String token = instanceID.getToken("962580870211",
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
@@ -66,7 +65,6 @@ public class RegistrationIntentService extends IntentService {
             Log.i(TAG, "GCM Registration Token: " + token);
 
 
-            // TODO: Implement this method to send any registration to your app's servers.
             sendRegistrationToServer(token);
 
             // Subscribe to topic channels
