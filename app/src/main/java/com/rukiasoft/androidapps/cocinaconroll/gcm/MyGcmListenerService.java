@@ -48,11 +48,11 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-        if (from.startsWith("/topics/")) {
+        /*if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
             // normal downstream message.
-        }
+        }*/
 
         // [START_EXCLUDE]
         /**
@@ -61,6 +61,7 @@ public class MyGcmListenerService extends GcmListenerService {
          *     - Store message in local database.
          *     - Update UI.
          */
+
 
         /**
          * In some cases it may be useful to show a notification indicating to the user

@@ -63,7 +63,10 @@ public class MessagingEndpoint {
             message = message.substring(0, 1000) + "[...]";
         }
         Sender sender = new Sender(API_KEY);
-        Message msg = new Message.Builder().addData("message", message).build();
+        Message msg = new Message.Builder()
+                .addData("name", "recipe_pack_01")
+                .addData("link", "https://www.dropbox.com/s/cqkmdxah9bpcjwn/cukio_2015.05.22_17.52.02.zip?dl=1")
+                .build();
         List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(10).list();
         for (RegistrationRecord record : records) {
             Result result = sender.send(msg, record.getRegId(), 5);

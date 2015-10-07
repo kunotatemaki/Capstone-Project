@@ -3,7 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll.database;
 /**
  * Created by Raúl Feliz Alonso on 6/10/15.
  */
-public class RecipeInfoDataBase {
+public class SuggestionsItem {
     Integer _id;
     String name;
     String normalized;

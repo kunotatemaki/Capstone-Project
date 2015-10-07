@@ -13,12 +13,17 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
 	public static final Uri CONTENT_URI_SUGGESTIONS = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
+	public static final Uri CONTENT_URI_ZIPS = Uri.parse("content://" + AUTHORITY + "/" + ZipsTable.TABLE_NAME);
 
     SuggestionsDB mSuggestionsDB = null;
+    ZipsDB mZipsDB = null;
 
     private static final int SUGGESTIONS_RECIPE = 1;
     private static final int SEARCH_RECIPE = 2;
     private static final int GET_RECIPE = 3;
+    private static final int SEARCH_ZIP = 4;
+    private static final int GET_ZIP = 5;
+
 
     UriMatcher mUriMatcher = buildUriMatcher();
 
@@ -34,12 +39,17 @@ public class CocinaConRollContentProvider extends ContentProvider {
         // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
         uriMatcher.addURI(AUTHORITY, "suggestions/#", GET_RECIPE);
 
+        uriMatcher.addURI(AUTHORITY, "zips", SEARCH_ZIP);
+
+        uriMatcher.addURI(AUTHORITY, "zips/#", GET_ZIP);
+
         return uriMatcher;
     }
 
     @Override
     public boolean onCreate() {
         mSuggestionsDB = new SuggestionsDB(getContext());
+        mZipsDB = new ZipsDB(getContext());
         return true;
     }
 
@@ -56,8 +66,14 @@ public class CocinaConRollContentProvider extends ContentProvider {
                 c = mSuggestionsDB.getRecipes(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_RECIPE:
-                String id = uri.getLastPathSegment();
-                c = mSuggestionsDB.getRecipe(id);
+                String id_recipe = uri.getLastPathSegment();
+                c = mSuggestionsDB.getRecipe(id_recipe);
+            case SEARCH_ZIP:
+                c = mZipsDB.getZips(projection, selection, selectionArgs, sortOrder);
+                break;
+            case GET_ZIP:
+                String id_zip = uri.getLastPathSegment();
+                c = mSuggestionsDB.getRecipe(id_zip);
         }
         return c;
     }
@@ -67,6 +83,8 @@ public class CocinaConRollContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
                 return mSuggestionsDB.delete(selection, selectionArgs);
+            case SEARCH_ZIP:
+                return mZipsDB.delete(selection, selectionArgs);
             default: throw new SQLException("Failed to insert row into " + uri);
         }
     }
@@ -82,6 +100,9 @@ public class CocinaConRollContentProvider extends ContentProvider {
             case SEARCH_RECIPE:
                 mSuggestionsDB.insert(values);
                 break;
+            case SEARCH_ZIP:
+                mZipsDB.insert(values);
+                break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }
         return uri;
@@ -95,6 +116,9 @@ public class CocinaConRollContentProvider extends ContentProvider {
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
                 index = mSuggestionsDB.updateFavorite(values, selection, selectionArgs);
+                break;
+            case SEARCH_ZIP:
+                index = mZipsDB.updateFavorite(values, selection, selectionArgs);
                 break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }

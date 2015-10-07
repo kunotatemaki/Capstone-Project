@@ -29,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.database.RecipeInfoDataBase;
+import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -416,7 +416,7 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             ret = false;
         }
-        List<RecipeInfoDataBase> coincidences = dbTools.getRecipeInfoInDatabase(sName, true);
+        List<SuggestionsItem> coincidences = dbTools.getRecipeInfoInDatabase(sName, true);
         if (coincidences.size() > 0) {
             createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;

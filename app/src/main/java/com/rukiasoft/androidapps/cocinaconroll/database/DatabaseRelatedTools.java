@@ -74,13 +74,13 @@ public class DatabaseRelatedTools {
     }
 
     public boolean isFavorite(String recipeName) {
-        List<RecipeInfoDataBase> list = getRecipeInfoInDatabase(recipeName, true);
+        List<SuggestionsItem> list = getRecipeInfoInDatabase(recipeName, true);
         return list.size() == 1 && list.get(0).isFavorite();
     }
 
-    public List<RecipeInfoDataBase> getRecipeInfoInDatabase(String name, boolean match){
+    public List<SuggestionsItem> getRecipeInfoInDatabase(String name, boolean match){
         final String[] projection = {SuggestionsTable.FIELD_NAME, SuggestionsTable.FIELD_NAME_FAVORITE};
-        List<RecipeInfoDataBase> list = new ArrayList<>();
+        List<SuggestionsItem> list = new ArrayList<>();
         String selection;
         name = getNormalizedString(name);
         if(match){
@@ -97,7 +97,7 @@ public class DatabaseRelatedTools {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                RecipeInfoDataBase recipeInfoDataBase = new RecipeInfoDataBase();
+                SuggestionsItem recipeInfoDataBase = new SuggestionsItem();
                 recipeInfoDataBase.setName(cursor.getString(0));
                 int fav = cursor.getInt(1);
                 if(fav > 0){
