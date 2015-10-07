@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.content.Context;
 import android.os.Handler;
@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;

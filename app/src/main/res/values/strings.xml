@@ -87,5 +87,7 @@
     <string name="indredients_intructions">Type a new ingredient and press the button to add it to the recipe</string>
     <string name="delete_recipe_confirmation">Delete recipe? This operations can\'t be undone!</string>
     <string name="share_confirmation">Wanna share the recipe?</string>
+    <string name="ticker">New recipes from your Cookeo</string>
+    <string name="new_recipes">New recipes</string>
 
 </resources>

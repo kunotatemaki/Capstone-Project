@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
 
 import butterknife.Bind;

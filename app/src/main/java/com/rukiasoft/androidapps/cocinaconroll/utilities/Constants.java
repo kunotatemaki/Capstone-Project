@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 
 public class Constants {
@@ -22,6 +22,7 @@ public class Constants {
     public static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + ".started";
     public static final String KEY_RELOAD = Constants.PACKAGE_NAME + "." + ".reload";
     public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME + "." + ".deleteoldpicture";
+    public static final String KEY_TYPE = Constants.PACKAGE_NAME + "." + ".type";
     public static final int REQUEST_DETAILS = 200;
     public static final int REQUEST_CREATE_RECIPE = 201;
     public static final int REQUEST_EDIT_RECIPE = 202;
@@ -49,8 +50,6 @@ public class Constants {
     public static final String SET_PROGRESS_BAR_ACTION_INTENT = "com.rukiasoft.androidapps.comunioelpuntal.action.SET_PROGRESS_BAR_ACTION_INTENT";
     //public static final String FORBIDDEN_APP_INTENT = "com.rukiasoft.androidapps.comunioelpuntal.action.FORBIDDEN_APP_INTENT";
 
-    public static final String DATABASE_NAME = "cukio";
-    public static final String TABLE_LINKS = "links";
     public static final Integer STATE_NOT_DOWNLOADED = 0;
     public static final Integer STATE_DOWNLOADED_NOT_UNZIPED = 1;
     public static final Integer STATE_DOWNLOADED_UNZIPED_NOT_ERASED = 2;

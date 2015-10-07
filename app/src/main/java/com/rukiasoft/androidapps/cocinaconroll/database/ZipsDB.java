@@ -7,11 +7,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 public class ZipsDB {
 
     private CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
-
+    long regId;
 	public ZipsDB(Context context){
         mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
 	}
@@ -59,13 +60,14 @@ public class ZipsDB {
         );
         if(c.getCount()>0)
             return null;
-		long regId;
+
 		SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
 		regId = db.insert(ZipsTable.TABLE_NAME, null, values);
+        Log.d("ZIP_DATABASE", "regId: " + ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_ZIPS, regId).toString());
         return ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_ZIPS, regId);
 	}
 
-    public int updateFavorite(ContentValues values, String selection, String[] selectionArgs) {
+    public int updateState(ContentValues values, String selection, String[] selectionArgs) {
         SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
         return db.update(ZipsTable.TABLE_NAME, values, selection, selectionArgs);
     }

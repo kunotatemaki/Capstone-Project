@@ -3,9 +3,11 @@ package com.rukiasoft.androidapps.cocinaconroll.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
@@ -92,7 +94,7 @@ public class DatabaseRelatedTools {
         final String[] selectionArgs = {name};
         Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
                 projection,
-                selection ,
+                selection,
                 selectionArgs, null);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -124,5 +126,49 @@ public class DatabaseRelatedTools {
     }
 
 
+    public Uri insertNewZip(String name, String link) {
+        ContentValues values = new ContentValues();
+        values.put(ZipsTable.FIELD_NAME, name);
+        values.put(ZipsTable.FIELD_LINK, link);
+        values.put(ZipsTable.FIELD_STATE, Constants.STATE_NOT_DOWNLOADED);
+        return mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values);
+    }
 
+    public List<ZipToDownload> getZipsByState(Integer state) {
+        final String[] projection = {ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK};
+        List<ZipToDownload> list = new ArrayList<>();
+        String selection;
+        selection = ZipsTable.FIELD_STATE + " = ? ";
+        String sState;
+        try {
+            sState = String.valueOf(state);
+        }catch (NumberFormatException e){
+            return list;
+        }
+        final String[] selectionArgs = {sState};
+        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_ZIPS,
+                projection,
+                selection,
+                selectionArgs, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ZipToDownload zipToDownload = new ZipToDownload();
+                zipToDownload.setName(cursor.getString(0));
+                zipToDownload.setLink(cursor.getString(1));
+                list.add(zipToDownload);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+
+        return list;
+    }
+
+    public void updateZipState(String name, Integer state) {
+        ContentValues values = new ContentValues();
+        values.put(ZipsTable.FIELD_STATE, state);
+        String clause = ZipsTable.FIELD_NAME + " = ? ";
+        String[] args = {name};
+        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values, clause, args);
+    }
 }

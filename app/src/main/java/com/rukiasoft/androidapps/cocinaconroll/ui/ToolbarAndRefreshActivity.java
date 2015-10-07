@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 
 import java.lang.reflect.Field;

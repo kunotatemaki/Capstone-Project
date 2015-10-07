@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,6 +29,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
@@ -119,6 +122,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             Intent animationIntent = new Intent(this, AnimationActivity.class);
             startActivity(animationIntent);
         }
+
+
     }
 
     @Override

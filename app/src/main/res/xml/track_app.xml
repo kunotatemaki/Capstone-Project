@@ -4,11 +4,11 @@
     <string name="ga_autoActivityTracking">true</string>
     <string name="ga_logLevel">verbose</string>
     <bool name="ga_reportUncaughtExceptions">true</bool>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.RecipeListActivity">RecipeList</screenName>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.RecipeDetailActivity">RecipeDetail</screenName>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.SettingsActivity">Settings</screenName>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ThanksActivity">Thanks</screenName>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.SearchableActivity">Searchable</screenName>
-    <screenName name="com.rukiasoft.androidapps.cocinaconroll.AnimationActivity">Animation</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity">RecipeList</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.RecipeDetailActivity">RecipeDetail</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.SettingsActivity">Settings</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.ThanksActivity">Thanks</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.SearchableActivity">Searchable</screenName>
+    <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.AnimationActivity">Animation</screenName>
 
 </resources>

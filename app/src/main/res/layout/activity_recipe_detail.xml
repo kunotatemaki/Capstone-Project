@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/details_recipes_fragment"
-        android:name="com.rukiasoft.androidapps.cocinaconroll.RecipeDetailsFragment"
+        android:name="com.rukiasoft.androidapps.cocinaconroll.ui.RecipeDetailsFragment"
         tools:layout="@layout/fragment_recipe_list" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/smart_add"/>

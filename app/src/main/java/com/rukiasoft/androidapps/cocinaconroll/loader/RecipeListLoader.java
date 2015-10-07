@@ -4,11 +4,9 @@ package com.rukiasoft.androidapps.cocinaconroll.loader;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.UriMatcher;
-import android.net.Uri;
 import android.util.Log;
 
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;

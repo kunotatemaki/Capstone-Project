@@ -14,11 +14,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.signature.StringSignature;
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.loader.PreinstalledRecipeNamesList;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -32,7 +31,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
@@ -161,9 +159,6 @@ public class ReadWriteTools {
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
             recipeItem.setPath(Constants.ASSETS_PATH + recipeItem.getPicture());
 
-        File f = new File(recipeItem.getPath());
-        if(!f.exists() && (recipeItem.getState() & Constants.FLAG_ASSETS) == 0)
-            recipeItem.setPath(Constants.DEFAULT_PICTURE_NAME);
 
         return recipeItem;
     }
@@ -421,5 +416,23 @@ public class ReadWriteTools {
             builder.show();
         }else
             activity.startActivity(emailIntent);
+    }
+
+    public String getZipsStorageDir(){
+        return mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
+                + Constants.ZIPS_DIR + String.valueOf(File.separatorChar);
+    }
+
+    public Boolean unzipRecipes(String name){
+        UnzipUtility unzipper = new UnzipUtility();
+        try {
+            unzipper.unzip(getZipsStorageDir() + name,
+                    getOriginalStorageDir());
+        } catch (Exception ex) {
+            // some errors occurred
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

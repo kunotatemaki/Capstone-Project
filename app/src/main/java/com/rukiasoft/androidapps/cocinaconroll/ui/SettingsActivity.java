@@ -1,9 +1,11 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.rukiasoft.androidapps.cocinaconroll.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

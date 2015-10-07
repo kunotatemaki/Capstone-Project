@@ -18,12 +18,12 @@ public class ZipsTable {
     public static final String TABLE_NAME = "zips";
 
     // Database creation SQL statement
-    private static final String DATABASE_CREATE = " create table if not exists"
+    private static final String DATABASE_CREATE = " create table if not exists "
             + TABLE_NAME + " ( " +
             FIELD_ID + " integer primary key autoincrement, " +
             FIELD_NAME + " TEXT NOT NULL, " +
             FIELD_LINK + " TEXT NOT NULL, " +
-            FIELD_STATE + "  INTEGER, " +
+            FIELD_STATE + "  INTEGER" +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {

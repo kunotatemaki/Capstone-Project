@@ -118,7 +118,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
                 index = mSuggestionsDB.updateFavorite(values, selection, selectionArgs);
                 break;
             case SEARCH_ZIP:
-                index = mZipsDB.updateFavorite(values, selection, selectionArgs);
+                index = mZipsDB.updateState(values, selection, selectionArgs);
                 break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }

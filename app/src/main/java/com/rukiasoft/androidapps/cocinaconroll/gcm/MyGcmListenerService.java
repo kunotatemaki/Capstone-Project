@@ -18,6 +18,7 @@ package com.rukiasoft.androidapps.cocinaconroll.gcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -27,8 +28,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.RecipeListActivity;
+import com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 public class MyGcmListenerService extends GcmListenerService {
 
@@ -44,57 +49,37 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("message");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message);
+        String name, link;
+        if(data != null && data.containsKey("name") && data.containsKey("link")){
+            name = data.getString("name");
+            link = data.getString("link");
+        }else{
+            return;
+        }
 
-        /*if (from.startsWith("/topics/")) {
-            // message received from some topic.
-        } else {
-            // normal downstream message.
-        }*/
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
+        Uri uri = dbTools.insertNewZip(name, link);
+        if(uri == null){
+            Log.d(TAG, "ERA NULLL");
+            return;
+        }
+        Log.d(TAG, "Uri: " + uri.toString());
+        //long id = ContentUris.parseId(uri);
+        //if (id != -1) {
+            Tools mTools = new Tools();
+            if (true/*mTools.hasPermissionForDownloading(getApplicationContext())*/) {//TODO change this
+                /*Intent second_intent = new Intent(Constants.START_DOWNLOAD_ACTION_INTENT);
+                second_intent.putExtra("type", Constants.FILTER_LATEST_RECIPES);
+                //sendBroadcast(second_intent);*/
+                Intent intent = new Intent(this, DownloadAndUnzipIntentService.class);
+                startService(intent);
+            }
+        //}
 
-        // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
-         */
 
 
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
-         */
-        sendNotification(message);
-        // [END_EXCLUDE]
     }
     // [END receive_message]
 
-    /**
-     * Create and show a simple notification containing the received GCM message.
-     *
-     * @param message GCM message received.
-     */
-    private void sendNotification(String message) {
-        Intent intent = new Intent(this, RecipeListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_notification_olla)
-                .setContentTitle("GCM Message")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-    }
 }

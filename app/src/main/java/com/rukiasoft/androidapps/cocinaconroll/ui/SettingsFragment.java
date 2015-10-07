@@ -1,9 +1,10 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.io.Serializable;

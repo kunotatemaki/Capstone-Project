@@ -1,8 +1,7 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,14 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperAdapter;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperViewHolder;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.OnStartDragListener;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
-import java.net.BindException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

@@ -12,9 +12,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
-import com.rukiasoft.androidapps.cocinaconroll.ToolbarAndRefreshActivity;
+import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -189,5 +189,17 @@ public class Tools {
         }
     }
 
+
+    public boolean hasPermissionForDownloading(Context context) {
+       Boolean downloadWithWifi = getBooleanFromPreferences(context, "option_update_wifi");
+            return !(downloadWithWifi && !WifiHandler.IsWifiConnected(context));
+    }
+
+    public String getStringFromPreferences(Context context, String name) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(name, "");
+
+    }
 
 }

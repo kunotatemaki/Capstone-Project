@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll;
+package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.rukiasoft.androidapps.cocinaconroll.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

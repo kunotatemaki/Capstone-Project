@@ -3,7 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll.loader;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.rukiasoft.androidapps.cocinaconroll.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
