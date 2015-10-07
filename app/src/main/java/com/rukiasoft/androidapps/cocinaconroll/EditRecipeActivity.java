@@ -326,4 +326,6 @@ public class EditRecipeActivity extends AppCompatActivity {
         }
     }
 }
-//https://www.bignerdranch.com/blog/becoming-material-with-android-design-support-library/
+
+
+// TODO: 7/10/15 transición de entrada reutilizando la de detailactivity
