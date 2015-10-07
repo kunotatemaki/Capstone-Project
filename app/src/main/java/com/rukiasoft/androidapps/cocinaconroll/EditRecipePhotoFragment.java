@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.database.RecipeInfoDataBase;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
@@ -51,6 +52,7 @@ public class EditRecipePhotoFragment extends Fragment {
     private Bitmap photo;
     RecipeItem recipeItem;
     Tools mTools;
+    DatabaseRelatedTools dbTools;
     ReadWriteTools rwTools;
 
     public static final int PICK_FROM_CAMERA = 1;
@@ -86,6 +88,7 @@ public class EditRecipePhotoFragment extends Fragment {
         //setRetainInstance(true);
         mTools = new Tools();
         rwTools = new ReadWriteTools(getActivity());
+        dbTools = new DatabaseRelatedTools(getActivity());
     }
 
 
@@ -112,7 +115,7 @@ public class EditRecipePhotoFragment extends Fragment {
             editRecipeName.setText(recipeItem.getName());
         }
 
-        mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
+        rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
 
         
         if(recipeItem.getMinutes()>0)
@@ -254,12 +257,11 @@ public class EditRecipePhotoFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            recipeItem.setPath(mTools.saveBitmap(getActivity().getApplicationContext(),
-                    photo, recipeItem.getPicture()));
+            recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
             //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
             recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-            mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
+            rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
 
             return;
         }
@@ -304,10 +306,11 @@ public class EditRecipePhotoFragment extends Fragment {
                 Cursor cursor = getActivity().getContentResolver().query(uri, imageColumns,
                         MediaStore.Images.Media._ID + "=" + id, null, null);
 
-                if (cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
                     selectedImagePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                    cursor.close();
                 }
-                cursor.close();
+
                 File file = new File(selectedImagePath);
                 if (file.exists()) {
                     mImageCaptureUri = Uri.fromFile(new File(selectedImagePath));
@@ -320,12 +323,11 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras != null) {
                     photo = extras.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName(recipeItem.getFileName()));
-                    recipeItem.setPath(mTools.saveBitmap(getActivity().getApplicationContext(),
-                            photo, recipeItem.getPicture()));
+                    recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
                 }
                 File f = new File(mImageCaptureUri.getPath());
                 if (f.exists()) {
@@ -337,11 +339,10 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras2 != null) {
                     photo = extras2.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName(recipeItem.getFileName()));
-                    recipeItem.setPath(mTools.saveBitmap(getActivity().getApplicationContext(),
-                            photo, recipeItem.getPicture()));
+                    recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
-                    mTools.loadImageFromPath(getActivity(), mImageView, recipeItem.getPath(), R.drawable.default_dish, true);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
                 }
                 break;
         }
@@ -405,7 +406,9 @@ public class EditRecipePhotoFragment extends Fragment {
         }
 
         //create case
-        createRecipeNameLayout.setError(null);
+        if(createRecipeNameLayout != null) {
+            createRecipeNameLayout.setError(null);
+        }
         portionsLayout.setError(null);
         minutesLayout.setError(null);
         String sName = createRecipeName.getText().toString();
@@ -413,7 +416,7 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             ret = false;
         }
-        List<RecipeInfoDataBase> coincidences = mTools.getRecipeInfoInDatabase(getActivity(), sName, true);
+        List<RecipeInfoDataBase> coincidences = dbTools.getRecipeInfoInDatabase(sName, true);
         if (coincidences.size() > 0) {
             createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;
@@ -447,6 +450,7 @@ public class EditRecipePhotoFragment extends Fragment {
     }
 
     private String getPictureNameFromFileName(String filename){
-        return filename.replace(".xml", ".jpg");
+        //return filename.replace(".xml", ".jpg");
+        return mTools.getCurrentDate(getActivity()).concat(".jpg");
     }
 }

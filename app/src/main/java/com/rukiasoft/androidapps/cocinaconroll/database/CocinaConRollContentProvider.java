@@ -13,7 +13,6 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
 	public static final Uri CONTENT_URI_SUGGESTIONS = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
-    public static final Uri CONTENT_URI_RECIPES = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
 
     SuggestionsDB mSuggestionsDB = null;
 
@@ -65,7 +64,11 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        throw new UnsupportedOperationException();
+        switch (mUriMatcher.match(uri)){
+            case SEARCH_RECIPE:
+                return mSuggestionsDB.delete(selection, selectionArgs);
+            default: throw new SQLException("Failed to insert row into " + uri);
+        }
     }
 
     @Override
@@ -75,14 +78,13 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        Uri _uri = null;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
                 mSuggestionsDB.insert(values);
                 break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }
-        return _uri;
+        return uri;
     }
 
 

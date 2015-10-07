@@ -9,20 +9,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-
-import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class SuggestionsDB {
 
-
+    private DatabaseRelatedTools dbTools;
 	private CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
 
 	private HashMap<String, String> mAliasMap;
 
 
 	public SuggestionsDB(Context context){
+        dbTools = new DatabaseRelatedTools(context);
 		mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
 		
 		// This HashMap is used to map table fields to Custom Suggestion fields
@@ -46,9 +44,8 @@ public class SuggestionsDB {
     public Cursor getRecipes(String[] selectionArgs){
         //call from search widget
     	String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
-        Tools tools = new Tools();
-    	if(selectionArgs!=null){
-    		selectionArgs[0] = "%"+tools.getNormalizedString(selectionArgs[0]) + "%";
+        if(selectionArgs!=null){
+    		selectionArgs[0] = "%"+dbTools.getNormalizedString(selectionArgs[0]) + "%";
     	}    	    	
     	
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
@@ -73,14 +70,13 @@ public class SuggestionsDB {
     public Cursor getRecipes(String[] projection, String selection,
                              String[] selectionArgs, String sortOrder){
 
-        Tools tools = new Tools();
 
         if(selection == null){
         //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
             selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
             if(selectionArgs!=null){
                 for(int i=0; i<selectionArgs.length; i++){
-                    selectionArgs[i] = "%"+tools.getNormalizedString(selectionArgs[i]) + "%";
+                    selectionArgs[i] = "%"+dbTools.getNormalizedString(selectionArgs[i]) + "%";
                 }
             }
         }
@@ -138,7 +134,11 @@ public class SuggestionsDB {
 
     public int updateFavorite(ContentValues values, String selection, String[] selectionArgs) {
         SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
-        int index =  db.update(SuggestionsTable.TABLE_NAME, values, selection, selectionArgs);
-        return index;
+        return db.update(SuggestionsTable.TABLE_NAME, values, selection, selectionArgs);
+    }
+
+    public int delete(String selection, String[] selectionArgs){
+        SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
+        return db.delete(SuggestionsTable.TABLE_NAME, selection, selectionArgs);
     }
 }

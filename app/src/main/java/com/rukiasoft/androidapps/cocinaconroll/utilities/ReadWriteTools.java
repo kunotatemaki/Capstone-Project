@@ -1,10 +1,20 @@
 package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.signature.StringSignature;
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.loader.PreinstalledRecipeNamesList;
@@ -22,6 +32,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
@@ -115,7 +126,12 @@ public class ReadWriteTools {
                 return null;
             }
             source = createFileFromInputStream(inputStream);
+            if(source == null)
+                return null;
             recipeItem = parseFileIntoRecipe(source);
+            if(recipeItem == null){
+                return null;
+            }
             recipeItem.setState(Constants.FLAG_ASSETS);
             recipeItem.setFileName(name);
             source.delete();
@@ -256,9 +272,16 @@ public class ReadWriteTools {
         File file = new File(pathFile);
         if(file.exists())
             file.delete();
-        file = new File(pathPicture);
-        if(file.exists())
+        file = new File(String.valueOf(Uri.parse(pathPicture)));
+        if(file.exists()) {
             file.delete();
+        }else{
+            Uri uri = Uri.fromFile(file);
+            String deletePath = getEditedStorageDir() + uri.getLastPathSegment();
+            file = new File(deletePath);
+            if(file.exists())
+                file.delete();
+        }
 
     }
 
@@ -283,7 +306,7 @@ public class ReadWriteTools {
     private List<String> parseFileIntoRecipeList(File source){
 
         Serializer serializer = new Persister();
-        PreinstalledRecipeNamesList preinstalledRecipeNames = new PreinstalledRecipeNamesList();
+        PreinstalledRecipeNamesList preinstalledRecipeNames;
         try {
             preinstalledRecipeNames = serializer.read(PreinstalledRecipeNamesList.class, source);
         } catch (IOException e) {
@@ -294,5 +317,109 @@ public class ReadWriteTools {
             return null;
         }
         return preinstalledRecipeNames.getPreinstalledRecipeNameListAsListOfStrings();
+    }
+
+    public void deleteImageFromEditedPath(String name) {
+        String path = getEditedStorageDir() + name;
+        File file = new File(path);
+        if(file.exists())
+            file.delete();
+    }
+
+    public String saveBitmap(Bitmap bitmap, String name){
+
+
+        FileOutputStream out = null;
+        String filename = "";
+        File file = new File(getEditedStorageDir());
+        if (!file.exists()) {
+            Boolean ret = file.mkdirs();
+            if(!ret)
+                return "";
+        }
+        try {
+            filename = getEditedStorageDir() + name;
+            out = new FileOutputStream(filename);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String ret = Constants.FILE_PATH.concat(filename);
+        return  ret;
+    }
+
+    public void loadImageFromPath(ImageView imageView, String path, int defaultImage) {
+       Glide.with(mContext)
+               .load(Uri.parse(path))
+               .centerCrop()
+               .error(defaultImage)
+               .into(imageView);
+    }
+    public void loadImageFromPath(BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage) {
+        Glide.with(mContext)
+                .load(Uri.parse(path))
+                .asBitmap()
+                .centerCrop()
+                .error(defaultImage)
+                .into(bitmapImageViewTarget);
+    }
+
+    public void share(final Activity activity, RecipeItem recipe)
+    {
+        //TODO try with revealAction
+        //need to "send multiple" to get more than one attachment
+        Tools tools = new Tools();
+        Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
+        final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        emailIntent.setType("message/rfc822");
+        if(installed)
+            emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                new String[]{Constants.EMAIL});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, recipe.getName());
+        String sender = String.format(activity.getResources().getString(R.string.sender), recipe.getAuthor());
+        emailIntent.putExtra(Intent.EXTRA_TEXT, sender);
+        //has to be an ArrayList
+        ArrayList<Uri> uris = new ArrayList<>();
+        //convert from paths to Android friendly Parcelable Uri's
+        File fileXml = new File(getEditedStorageDir() + recipe.getFileName());
+        Uri u = Uri.fromFile(fileXml);
+        uris.add(u);
+        if(recipe.getPath().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
+            File fileJpg = new File(getEditedStorageDir() + recipe.getPicture());
+            u = Uri.fromFile(fileJpg);
+            uris.add(u);
+        }
+
+        emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(!installed){
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            // Get the layout inflater
+
+            // Inflate and set the layout for the dialog
+            // Pass null as the parent view because its going in the dialog layout
+            builder.setTitle(activity.getResources().getString(R.string.email_alert_title))
+                    .setMessage(activity.getResources().getString(R.string.email_alert_body))
+                    .setPositiveButton(activity.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            activity.startActivity(emailIntent);
+                        }
+                    });
+
+            builder.show();
+        }else
+            activity.startActivity(emailIntent);
     }
 }

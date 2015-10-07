@@ -17,7 +17,6 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -27,9 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,18 +91,21 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
         public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
         public @Bind(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
-        Tools mTools;
+        ReadWriteTools rwTools;
+        DatabaseRelatedTools dbTools;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            mTools = new Tools();
+
         }
 
         public void bindRecipe(Context context, RecipeItem item) {
+            if(dbTools == null) dbTools = new DatabaseRelatedTools(context);
+            if(rwTools == null) rwTools = new ReadWriteTools(context);
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
-            if(mTools.isFavorite(context, item.getName())){
+            if(dbTools.isFavorite(item.getName())){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
             }else{
@@ -123,15 +125,19 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             }
             backgroundProtection.setVisibility(visibilityProtection);
 
-            if(item.getType().equals(Constants.TYPE_DESSERTS)){
-                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_dessert_18)));
-            }else if(item.getType().equals(Constants.TYPE_MAIN)){
-                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_main_18)));
-            }else if(item.getType().equals(Constants.TYPE_STARTERS)){
-                typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
+            switch (item.getType()) {
+                case Constants.TYPE_DESSERTS:
+                    typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_dessert_18)));
+                    break;
+                case Constants.TYPE_MAIN:
+                    typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_main_18)));
+                    break;
+                case Constants.TYPE_STARTERS:
+                    typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
+                    break;
             }
             //TODO - ver cómo lee las recetas de los otros sitios
-            mTools.loadImageFromPath(context, recipeThumbnail, item.getPath(), R.drawable.default_dish, false);
+            rwTools.loadImageFromPath(recipeThumbnail, item.getPath(), R.drawable.default_dish);
 
         }
     }

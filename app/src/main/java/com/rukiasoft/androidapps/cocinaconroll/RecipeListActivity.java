@@ -29,6 +29,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.classes.DataBaseItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.GcmRegistrationAsyncTask;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
@@ -43,12 +45,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
-    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + "." + RecipeListActivity.class.getSimpleName() + ".recipe";
-    private static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + RecipeListActivity.class.getSimpleName() + ".started";
-    public static final int REQUEST_DETAILS = 189;
-    public static final int RESULT_UPDATE_RECIPE = 222;
-    public static final int RESULT_DELETE_RECIPE = 223;
-    public static final int REQUEST_CREATE_RECIPE = 224;
+
     //public static final int RESULT_EDIT_RECIPE = ;
 
 
@@ -118,8 +115,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
         mAdViewList.loadAd(adRequest);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_STARTED)){
-            started = savedInstanceState.getBoolean(KEY_STARTED);
+        if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
+            started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
         }
         if(!started){
             Intent animationIntent = new Intent(this, AnimationActivity.class);
@@ -129,7 +126,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     @Override
     public void onSaveInstanceState(Bundle bundle){
-        bundle.putBoolean(KEY_STARTED, true);
+        bundle.putBoolean(Constants.KEY_STARTED, true);
         super.onSaveInstanceState(bundle);
     }
     @Override
@@ -143,8 +140,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         super.onNewIntent(intent);
         mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
         if(mRecipeListFragment != null){
-            if(intent != null && intent.hasExtra(KEY_RECIPE)) {
-                String name = intent.getStringExtra(KEY_RECIPE);
+            if(intent != null && intent.hasExtra(Constants.KEY_RECIPE)) {
+                String name = intent.getStringExtra(Constants.KEY_RECIPE);
                 mRecipeListFragment.searchAndShow(name);
             }
         }
@@ -152,28 +149,39 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
-        if(requestCode == REQUEST_DETAILS){
-            if(resultCode == RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
-                //TODO recuperar receta original??
-                //TODO no borra la creada???
-                int index = intentData.getIntExtra(KEY_RECIPE, -1);
+        if(requestCode == Constants.REQUEST_DETAILS){
+            //return from RecipeDetailsActivity
+            if(resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
+                int index = intentData.getIntExtra(Constants.KEY_RECIPE, -1);
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null && index != -1) {
                     mRecipeListFragment.deleteRecipe(index);
                 }
-            }else if(resultCode == RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(KEY_RECIPE);
+                if(intentData.hasExtra(Constants.KEY_RELOAD)){
+                    mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    if(mRecipeListFragment != null){
+                        getLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
+                    }
+                }
+
+            }else if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null){
                     mRecipeListFragment.updateRecipe(recipe);
                 }
+                if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
+                    String oldPicture = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
+                    ReadWriteTools rwTools = new ReadWriteTools(this);
+                    rwTools.deleteImageFromEditedPath(oldPicture);
+                }
             }
-        }else if(requestCode == REQUEST_CREATE_RECIPE){
-            if(resultCode == RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(KEY_RECIPE);
+        }else if(requestCode == Constants.REQUEST_CREATE_RECIPE){
+            if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                 mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null){
-                    mRecipeListFragment.updateRecipe(recipe);
+                    mRecipeListFragment.createRecipe(recipe);
                 }
                 ReadWriteTools readWriteTools = new ReadWriteTools(this);
                 readWriteTools.saveRecipeOnEditedPath(recipe);

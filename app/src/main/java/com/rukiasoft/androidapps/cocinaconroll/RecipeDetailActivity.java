@@ -16,8 +16,7 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    public static final int KEY_RESULT_UPDATE_RECIPE = 999;
-    public static final int REQUEST_EDIT = 998;
+
 
     @Bind(R.id.adview_details)
     AdView mAdViewDetails;
@@ -30,8 +29,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         RecipeItem recipeItem = new RecipeItem();
         Intent intent = getIntent();
-        if(intent != null && intent.hasExtra(RecipeListActivity.KEY_RECIPE))
-            recipeItem = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
+        if(intent != null && intent.hasExtra(Constants.KEY_RECIPE))
+            recipeItem = getIntent().getExtras().getParcelable(Constants.KEY_RECIPE);
         else{
             finish();
         }
@@ -88,24 +87,27 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
-        if(requestCode == REQUEST_EDIT){
-            if(resultCode == RecipeListActivity.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(RecipeListActivity.KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(RecipeListActivity.KEY_RECIPE);
+        if(requestCode == Constants.REQUEST_EDIT_RECIPE){
+            if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
+                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                 recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
 
                 if(recipeDetailsFragment != null)
                     recipeDetailsFragment.updateRecipe(recipe);
-                //grabo la receta
+                //save recipe
                 if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
                     recipe.setPath(Constants.DEFAULT_PICTURE_NAME);
                 ReadWriteTools readWriteTools = new ReadWriteTools(this);
                 readWriteTools.saveRecipeOnEditedPath(recipe);
+                //set results
                 Intent returnIntent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+                bundle.putParcelable(Constants.KEY_RECIPE, recipe);
+                if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
+                    bundle.putString(Constants.KEY_DELETE_OLD_PICTURE, intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE));
+                }
                 returnIntent.putExtras(bundle);
-
-                setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, returnIntent);
+                setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
             }
         }
     }

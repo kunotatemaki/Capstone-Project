@@ -47,6 +47,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -94,8 +95,10 @@ public class RecipeDetailsFragment extends Fragment implements
     private boolean animated;
     View viewToReveal;
     Tools mTools;
+    DatabaseRelatedTools dbTools;
+    ReadWriteTools rwTools;
 
-    public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    public DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -106,13 +109,26 @@ public class RecipeDetailsFragment extends Fragment implements
                     ReadWriteTools tools = new ReadWriteTools(getActivity().getApplicationContext());
                     tools.deleteRecipe(recipe, flags);
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipe.getPosition());
-                    getActivity().setResult(RecipeListActivity.RESULT_DELETE_RECIPE, resultIntent);
+                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe.getPosition());
+                    if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0)
+                        resultIntent.putExtra(Constants.KEY_RELOAD, true);
+                    getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
                     getActivity().finish();
 
-                    // TODO: 29/9/15 hacer lo de borrar la receta
                     break;
 
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        }
+    };
+    public DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    rwTools.share(getActivity(), recipe);
+                    break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     break;
             }
@@ -127,6 +143,14 @@ public class RecipeDetailsFragment extends Fragment implements
         getActivity().supportPostponeEnterTransition();
         setHasOptionsMenu(true);
         mTools = new Tools();
+        dbTools = new DatabaseRelatedTools(getActivity());
+        rwTools = new ReadWriteTools(getActivity());
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanteState){
+        super.onActivityCreated(savedInstanteState);
 
     }
 
@@ -155,40 +179,40 @@ public class RecipeDetailsFragment extends Fragment implements
     @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String message = "";
-        if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
-            message = getResources().getString(R.string.restore_recipe_confirmation);
-        }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
-            message = getResources().getString(R.string.delete_recipe_confirmation);
-        }else{
-            return false;
-        }
-        builder.setMessage(message)
-                .setPositiveButton((getResources().getString(R.string.Yes)), dialogClickListener)
-                .setNegativeButton((getResources().getString(R.string.No)), dialogClickListener);
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
                 Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+                bundle.putParcelable(Constants.KEY_RECIPE, recipe);
                 intent.putExtras(bundle);
-                getActivity().startActivityForResult(intent, ((RecipeDetailActivity)getActivity()).REQUEST_EDIT);
+                getActivity().startActivityForResult(intent, Constants.REQUEST_EDIT_RECIPE);
                 return true;
             case R.id.menu_item_remove:
-                builder.show();
+                AlertDialog.Builder removeBuilder = new AlertDialog.Builder(getActivity());
+                String message = "";
+                if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
+                    message = getResources().getString(R.string.restore_recipe_confirmation);
+                }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
+                    message = getResources().getString(R.string.delete_recipe_confirmation);
+                }else{
+                    return false;
+                }
+                removeBuilder.setMessage(message)
+                        .setPositiveButton((getResources().getString(R.string.Yes)), removeDialogClickListener)
+                        .setNegativeButton((getResources().getString(R.string.No)), removeDialogClickListener);
+                removeBuilder.show();
                 return true;
             case R.id.menu_item_share_recipe:
-                mTools.share(getActivity(), recipe);
+                AlertDialog.Builder shareBuilder = new AlertDialog.Builder(getActivity());
+                message = getResources().getString(R.string.share_confirmation);;
+                shareBuilder.setMessage(message)
+                        .setPositiveButton((getResources().getString(R.string.Yes)), editDialogClickListener)
+                        .setNegativeButton((getResources().getString(R.string.No)), editDialogClickListener);
+                shareBuilder.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
 
@@ -240,19 +264,19 @@ public class RecipeDetailsFragment extends Fragment implements
                 public void onClick(View v) {
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
-                            boolean favorite = mTools.isFavorite(getActivity(), recipe.getName());
+                            boolean favorite = dbTools.isFavorite(recipe.getName());
                             if (favorite) {
                                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
                             } else {
                                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
                             }
                             //lo almaceno en la base de datos
-                            mTools.updateFavorite(getActivity(), recipe.getName(), !favorite);
+                            dbTools.updateFavorite(recipe.getName(), !favorite);
                             Intent returnIntent = new Intent();
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+                            bundle.putParcelable(Constants.KEY_RECIPE, recipe);
                             returnIntent.putExtras(bundle);
-                            getActivity().setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, returnIntent);
+                            getActivity().setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 scaleIn.run();
                             }
@@ -369,7 +393,7 @@ public class RecipeDetailsFragment extends Fragment implements
             actionBar.setTitle(recipe.getName());
         }
         if(recipeDescriptionFAB != null){
-            if (mTools.isFavorite(getActivity(), recipe.getName())) {
+            if (dbTools.isFavorite(recipe.getName())) {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
             } else {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
@@ -391,7 +415,7 @@ public class RecipeDetailsFragment extends Fragment implements
                     applyPalette(bitmap);
                 }
             };
-            mTools.loadImageFromPath(getActivity(), bitmapImageViewTarget, recipe.getPath(), R.drawable.default_dish);
+            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPath(), R.drawable.default_dish);
         }
 
         //Set the author
@@ -469,5 +493,10 @@ public class RecipeDetailsFragment extends Fragment implements
     public void updateRecipe(RecipeItem recipe) {
         this.recipe = recipe;
         loadRecipe();
+        Boolean compatRequired = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
+        if(!compatRequired)
+            getActivity().invalidateOptionsMenu();// creates call to onPrepareOptionsMenu()
+        else
+            getActivity().supportInvalidateOptionsMenu();
     }
 }

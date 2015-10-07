@@ -86,5 +86,6 @@
     <string name="no_value">Enter a valid value</string>
     <string name="indredients_intructions">Type a new ingredient and press the button to add it to the recipe</string>
     <string name="delete_recipe_confirmation">Delete recipe? This operations can\'t be undone!</string>
+    <string name="share_confirmation">Wanna share the recipe?</string>
 
 </resources>

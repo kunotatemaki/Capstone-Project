@@ -75,7 +75,7 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 
     private void sendRecipeName(String recipeName){
         Intent detailIntent = new Intent(this, RecipeListActivity.class);
-        detailIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipeName);
+        detailIntent.putExtra(Constants.KEY_RECIPE, recipeName);
 		detailIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(detailIntent);
         finish();

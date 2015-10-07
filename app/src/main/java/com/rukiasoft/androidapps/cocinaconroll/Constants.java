@@ -1,8 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll;
 
-/**
- * Created by iRuler on 18/9/15.
- */
+
 public class Constants {
     public static String SENDER_ID = "962580870211";
     public static final String PACKAGE_NAME = "com.rukiasoft.androidapps.cocinaconroll";
@@ -20,15 +18,15 @@ public class Constants {
     public static final String TYPE_MAIN = "main";
     public static final String TYPE_DESSERTS = "dessert";
 
-    public static final Integer FRAGMENT_RECIPE_LIST = 0;
-    public static final Integer FRAGMENT_DESCRIPTION_TABS = 1;
-    public static final Integer FRAGMENT_DESCRIPTION_INGREDIENTS = 2;
-    public static final Integer FRAGMENT_DESCRIPTION_STEPS = 3;
-    public static final Integer FRAGMENT_EDIT_PHOTO = 4;
-    public static final Integer FRAGMENT_EDIT_INGREDIENTS = 5;
-    public static final Integer FRAGMENT_EDIT_STEPS = 6;
-    public static final Integer FRAGMENT_EMPTY_LIST = 7;
-    public static final Integer FRAGMENT_DESCRIPTION_NO_TABS = 8;
+    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + "." + ".recipe";
+    public static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + ".started";
+    public static final String KEY_RELOAD = Constants.PACKAGE_NAME + "." + ".reload";
+    public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME + "." + ".deleteoldpicture";
+    public static final int REQUEST_DETAILS = 200;
+    public static final int REQUEST_CREATE_RECIPE = 201;
+    public static final int REQUEST_EDIT_RECIPE = 202;
+    public static final int RESULT_UPDATE_RECIPE = 300;
+    public static final int RESULT_DELETE_RECIPE = 301;
 
     public static final String PROPERTY_FORBIDDEN_APP = "forbidden_app";
     public static final String PROPERTY_REG_ID = "registration_id";

@@ -37,6 +37,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     String title;
     Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
+    String oldPicture;
 
 
 
@@ -45,14 +46,20 @@ public class EditRecipeActivity extends AppCompatActivity {
         //Log.d(TAG, "onCreate");
         mTools = new Tools();
         if(savedInstanceState != null){
-            if(savedInstanceState.containsKey(RecipeListActivity.KEY_RECIPE)) {
-                recipe = savedInstanceState.getParcelable(RecipeListActivity.KEY_RECIPE);
+            if(savedInstanceState.containsKey(Constants.KEY_RECIPE)) {
+                recipe = savedInstanceState.getParcelable(Constants.KEY_RECIPE);
             }
             if(savedInstanceState.containsKey(KEY_TITLE)) {
                 title = savedInstanceState.getString(KEY_TITLE);
             }
-        }else if(getIntent() != null && getIntent().hasExtra(RecipeListActivity.KEY_RECIPE)) {
-            recipe = getIntent().getExtras().getParcelable(RecipeListActivity.KEY_RECIPE);
+            oldPicture = savedInstanceState.getString(Constants.KEY_DELETE_OLD_PICTURE);
+        }else if(getIntent() != null && getIntent().hasExtra(Constants.KEY_RECIPE)) {
+            recipe = getIntent().getExtras().getParcelable(Constants.KEY_RECIPE);
+            //check if the picture is previosly edited, to delete the old picture
+            if(recipe == null) return;
+            if((recipe.getState()&Constants.FLAG_EDITED_PICTURE)!=0){
+                oldPicture = recipe.getPicture();
+            }
             title = getResources().getString(R.string.edit_recipe);
             recipe.setState(Constants.FLAG_EDITED);
 
@@ -146,10 +153,11 @@ public class EditRecipeActivity extends AppCompatActivity {
             if(editRecipePhotoFragment != null) {
                 shownFragment = EditRecipePhotoFragment.class.getSimpleName();
             }
-            outState.putParcelable(RecipeListActivity.KEY_RECIPE, recipe);
+            outState.putParcelable(Constants.KEY_RECIPE, recipe);
             outState.putString(KEY_FRAGMENT, shownFragment);
         }
         outState.putString(KEY_TITLE, title);
+        outState.putString(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
         super.onSaveInstanceState(outState);
     }
 
@@ -268,8 +276,11 @@ public class EditRecipeActivity extends AppCompatActivity {
     }
     private void setResultData(){
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(RecipeListActivity.KEY_RECIPE, recipe);
-        setResult(RecipeListActivity.RESULT_UPDATE_RECIPE, resultIntent);
+        resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
+        if(oldPicture != null && !oldPicture.isEmpty()){
+            resultIntent.putExtra(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
+        }
+        setResult(Constants.RESULT_UPDATE_RECIPE, resultIntent);
         finish();
     }
 

@@ -3,12 +3,9 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -33,14 +30,11 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.analytics.HitBuilders;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
-import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
-import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.ArrayList;
@@ -179,7 +173,7 @@ public class RecipeListFragment extends Fragment implements
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
-                            getActivity().startActivityForResult(intent, RecipeListActivity.REQUEST_CREATE_RECIPE);
+                            getActivity().startActivityForResult(intent, Constants.REQUEST_CREATE_RECIPE);
                         }
                     }, 150);
                 }
@@ -339,12 +333,12 @@ public class RecipeListFragment extends Fragment implements
         //int i = 1/0;
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RecipeListActivity.KEY_RECIPE, recipeToShow);
+        bundle.putParcelable(Constants.KEY_RECIPE, recipeToShow);
         intent.putExtras(bundle);
         //TODO probar transiciones sencillas para pre-lollipop
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
         // Now we can start the Activity, providing the activity options as a bundle
-        ActivityCompat.startActivityForResult(getActivity(), intent, ((RecipeListActivity)getActivity()).REQUEST_DETAILS, activityOptions.toBundle());
+        ActivityCompat.startActivityForResult(getActivity(), intent, Constants.REQUEST_DETAILS, activityOptions.toBundle());
 
         recipeToShow = null;
 
@@ -354,6 +348,7 @@ public class RecipeListFragment extends Fragment implements
     public void filterRecipes(String filter) {
         lastFilter = filter;
         Tools mTools = new Tools();
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
         List<RecipeItem> filteredModelList = new ArrayList<>();
         String type = "";
         int iconResource = 0;
@@ -396,7 +391,7 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
             for (RecipeItem item : mRecipes) {
-                if (mTools.isFavorite(getActivity(), item.getName())) {
+                if (dbTools.isFavorite(item.getName())) {
                     filteredModelList.add(item);
                 }
             }
@@ -473,13 +468,16 @@ public class RecipeListFragment extends Fragment implements
         if(mRecipes == null || index >= mRecipes.size()){
             return;
         }
-        if(index < 0){
-            mRecipes.add(recipe);
-            orderRecipesByName();
-        }else {
-            mRecipes.remove(index);
-            mRecipes.add(index, recipe);
-        }
+        mRecipes.remove(index);
+        mRecipes.add(index, recipe);
+
+        filterRecipes(lastFilter);
+    }
+
+    public void createRecipe(RecipeItem recipe) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        dbTools.addRecipeToArrayAndSuggestions(mRecipes, recipe);
+        orderRecipesByName();
         filterRecipes(lastFilter);
     }
 
@@ -493,7 +491,9 @@ public class RecipeListFragment extends Fragment implements
     }
 
     public void deleteRecipe(int index) {
-        mRecipes.remove(index);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        dbTools.removeRecipeFromArrayAndSuggestions(mRecipes, index);
+        orderRecipesByName();
         filterRecipes(lastFilter);
     }
 

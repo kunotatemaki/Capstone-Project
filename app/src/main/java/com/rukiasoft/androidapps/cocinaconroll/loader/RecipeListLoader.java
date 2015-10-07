@@ -1,22 +1,17 @@
 package com.rukiasoft.androidapps.cocinaconroll.loader;
 
-/**
- * Created by Raúl Feliz Alonso on 21/09/15.
- */
 
 
 import android.content.AsyncTaskLoader;
-import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
+import android.net.Uri;
 import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.Constants;
-import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
-import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsTable;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -33,9 +28,6 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
     // We hold a reference to the Loader's data here.
     private List<RecipeItem> mRecipes;
 
-    public void setRecipes(List<RecipeItem> recipes) {
-        mRecipes = new ArrayList<>(recipes);
-    }
 
     public RecipeListLoader(Context ctx) {
         // Loaders may be used across multiple Activitys (assuming they aren't
@@ -224,10 +216,10 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
 
 
     private List<RecipeItem> loadRecipes() {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getContext());
         List<RecipeItem> recipes = new ArrayList<>();
         MyFileFilter filter = new MyFileFilter();
         ReadWriteTools readWriteTools = new ReadWriteTools(getContext());
-        Tools tools = new Tools();
         List<String> listEdited = readWriteTools.loadFiles(filter, true);
         List<String> listOriginal = readWriteTools.loadFiles(filter, false);
         List<String> listAssets = readWriteTools.loadRecipesFromAssets();
@@ -236,7 +228,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             RecipeItem recipeItem= readWriteTools.readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
             }
         }
 
@@ -246,7 +238,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             RecipeItem recipeItem= readWriteTools.readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
             }
         }
 
@@ -271,21 +263,15 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
                 continue;
             recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
-            if(recipeItem != null) {
-                addRecipeToArrayAndSuggestions(recipes, recipeItem);
+            if (recipeItem != null) {
+                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
             }
         }
         //Log.d(TAG, "leido assets");
         return recipes;
     }
 
-    //todo - comprobar que las descargadas y las originales también entran aquí
-    private void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
-        recipeItemList.add(recipeItem);
-        Tools tools = new Tools();
-        tools.insertRecipeIntoSuggestions(getContext(), recipeItem);
 
-    }
 
     private class MyFileFilter implements FilenameFilter {
 
