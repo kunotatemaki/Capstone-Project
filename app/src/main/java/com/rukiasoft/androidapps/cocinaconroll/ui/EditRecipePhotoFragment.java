@@ -252,8 +252,7 @@ public class EditRecipePhotoFragment extends Fragment {
                 cropIntent, 0);
 
         if (list.size() == 0) {
-            Toast.makeText(getActivity(),
-                    getResources().getString(R.string.no_crop_app), Toast.LENGTH_LONG);
+
             try {
                 photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mImageCaptureUri);
             } catch (IOException e) {
@@ -324,7 +323,7 @@ public class EditRecipePhotoFragment extends Fragment {
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     photo = extras.getParcelable("data");
-                    recipeItem.setPicture(getPictureNameFromFileName(recipeItem.getFileName()));
+                    recipeItem.setPicture(getPictureNameFromFileName());
                     recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
@@ -340,7 +339,7 @@ public class EditRecipePhotoFragment extends Fragment {
                 Bundle extras2 = data.getExtras();
                 if (extras2 != null) {
                     photo = extras2.getParcelable("data");
-                    recipeItem.setPicture(getPictureNameFromFileName(recipeItem.getFileName()));
+                    recipeItem.setPicture(getPictureNameFromFileName());
                     recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
@@ -451,8 +450,7 @@ public class EditRecipePhotoFragment extends Fragment {
         super.onPause();
     }
 
-    private String getPictureNameFromFileName(String filename){
-        //return filename.replace(".xml", ".jpg");
+    private String getPictureNameFromFileName(){
         return mTools.getCurrentDate(getActivity()).concat(".jpg");
     }
 }

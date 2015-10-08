@@ -177,7 +177,7 @@ public class FastScroller extends LinearLayout {
         @Override
         public void onScrolled(RecyclerView rv, int dx, int dy) {
             View firstVisibleView = recyclerView.getChildAt(0);
-            int firstVisiblePosition = recyclerView.getChildPosition(firstVisibleView);
+            int firstVisiblePosition = recyclerView.getChildAdapterPosition(firstVisibleView);
             int visibleRange = recyclerView.getChildCount();
             int lastVisiblePosition = firstVisiblePosition + visibleRange;
             int itemCount = recyclerView.getAdapter().getItemCount();

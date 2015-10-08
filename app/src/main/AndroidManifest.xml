@@ -123,7 +123,7 @@
         <provider
             android:name=".database.CocinaConRollContentProvider"
             android:authorities="com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider"
-            android:exported="true" />
+            android:exported="false" />
 
         <!-- Add the following meta-data for devices running Google Play service. -->
         <meta-data

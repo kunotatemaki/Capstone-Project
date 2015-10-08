@@ -63,7 +63,6 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:inputType="number"
-                android:text="time"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:textColorHint="@color/color_refresh_1"
                 android:hint="@string/time"
@@ -87,7 +86,6 @@
                 android:paddingBottom="10dp"
                 android:inputType="number"
                 style="@style/TextAppearance.AppCompat.Subhead"
-                android:text="portions"
                 android:hint="@string/portions"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

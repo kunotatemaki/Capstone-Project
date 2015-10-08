@@ -347,8 +347,7 @@ public class ReadWriteTools {
                 e.printStackTrace();
             }
         }
-        String ret = Constants.FILE_PATH.concat(filename);
-        return  ret;
+        return Constants.FILE_PATH.concat(filename);
     }
 
     public void loadImageFromPath(ImageView imageView, String path, int defaultImage) {

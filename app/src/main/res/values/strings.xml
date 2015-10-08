@@ -45,18 +45,18 @@
     <string name="description_not_vibrate">Vibrate disabled on notifiactions</string>
     <string name="description_vibrate">Vibrate enabled on notifications</string>
     <string name="exit_application_title">Exit</string>
-    <string name="exit_application">Wanna leave %1$s?</string>
+    <string name="exit_application">Want to leave %1$s?</string>
     <string name="sender">Sended by %1$s</string>
     <string name="email_alert_title">Send recipe</string>
     <string name="email_alert_body">Choose your favourite email client</string>
     <string name="aceptar">Accept</string>
     <string name="thanks">Thanks</string>
-    <string name="thanks_intro">This app is possible due to theese bloggers, who lend their content freely. Check them out!!</string>
+    <string name="thanks_intro">This app is possible due to these bloggers, who lend their content freely. Check them out!!</string>
     <string name="colaborator1" translatable="false">http://recetascookeo.blogspot.com.es/</string>
     <string name="colaborator2" translatable="false">http://www.descubriendonuevossabores.com/</string>
     <string name="colaborator3" translatable="false">http://www.losblogsdemaria.com/</string>
     <string name="colaborator4" translatable="false">http://cocinayrecetas.hola.com/lacocinaperfecta/</string>
-    <string name="support_recipes">If you\'ve got your own Cuisine blog and wanna see your recipes in %1$s, email us to %2$s!</string>
+    <string name="support_recipes">If you\'ve got your own Cuisine blog and want to see your recipes in %1$s, email us to %2$s!</string>
     <string name="support_girl">To my girlfriend: she gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spend all those hours in front of my laptop. Love you much!!</string>
     <string name="restore_recipe_confirmation">Restore to original recipe? This operations can\'t be undone!</string>
 
@@ -86,10 +86,14 @@
     <string name="no_value">Enter a valid value</string>
     <string name="indredients_intructions">Type a new ingredient and press the button to add it to the recipe</string>
     <string name="delete_recipe_confirmation">Delete recipe? This operations can\'t be undone!</string>
-    <string name="share_confirmation">Wanna share the recipe?</string>
+    <string name="share_confirmation">Want to share the recipe?</string>
     <string name="ticker">New recipes from your Cookeo</string>
     <string name="new_recipes">New recipes</string>
     <string name="recipe_image_transition">recipe_image_transition</string>
     <string name="my_widget">Cooking with Cookeo</string>
+    <string name="imagine">IMAGINE</string>
+    <string name="soft">SOFT</string>
+    <string name="rukia">RUKIA</string>
+    <string name="create">CREATE</string>
 
 </resources>

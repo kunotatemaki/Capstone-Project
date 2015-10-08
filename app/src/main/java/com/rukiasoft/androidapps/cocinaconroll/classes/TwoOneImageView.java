@@ -22,7 +22,7 @@ public class TwoOneImageView extends ImageView {
 
     @Override
     public void onMeasure(int widthSpec, int HeightSpec){
-        int twoOneHeight = MeasureSpec.getSize(widthSpec) *1/2;
+        int twoOneHeight = MeasureSpec.getSize(widthSpec) /2;
         int twoOneHeightSpec = MeasureSpec.makeMeasureSpec(twoOneHeight, MeasureSpec.EXACTLY);
         super.onMeasure(widthSpec, twoOneHeightSpec);
     }

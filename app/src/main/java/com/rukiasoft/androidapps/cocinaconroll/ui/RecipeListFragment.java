@@ -39,7 +39,6 @@ import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -124,19 +123,6 @@ public class RecipeListFragment extends Fragment implements
         mInterstitialAd.loadAd(adRequest);
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-    }
-
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-    }
-     @Override
-     public void onDetach(){
-         super.onDetach();
-     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -255,12 +241,17 @@ public class RecipeListFragment extends Fragment implements
         int starters=0;
         int mains=0;
         for(RecipeItem items : mRecipes){
-            if(items.getType().equals(Constants.TYPE_DESSERTS))
-                desserts++;
-            else if(items.getType().equals(Constants.TYPE_MAIN))
-                mains++;
-            else if(items.getType().equals(Constants.TYPE_STARTERS))
-                starters++;
+            switch (items.getType()) {
+                case Constants.TYPE_DESSERTS:
+                    desserts++;
+                    break;
+                case Constants.TYPE_MAIN:
+                    mains++;
+                    break;
+                case Constants.TYPE_STARTERS:
+                    starters++;
+                    break;
+            }
         }
         Tools mTools = new Tools();
         mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_DESSERTS, desserts);

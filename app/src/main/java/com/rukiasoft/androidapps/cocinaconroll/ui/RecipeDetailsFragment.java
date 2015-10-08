@@ -150,11 +150,7 @@ public class RecipeDetailsFragment extends Fragment implements
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanteState){
-        super.onActivityCreated(savedInstanteState);
 
-    }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

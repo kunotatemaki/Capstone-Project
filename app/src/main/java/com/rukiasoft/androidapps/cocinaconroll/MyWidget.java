@@ -18,11 +18,8 @@ public class MyWidget extends AppWidgetProvider {
     public void onUpdate(Context context,
                          AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        for (int i = 0; i < appWidgetIds.length; i++)
-        {
+        for (int widgetId : appWidgetIds) {
             //ID del widget actual
-            int widgetId = appWidgetIds[i];
-
             //Actualizamos el widget actual
             updateWidget(context, appWidgetManager, widgetId);
         }

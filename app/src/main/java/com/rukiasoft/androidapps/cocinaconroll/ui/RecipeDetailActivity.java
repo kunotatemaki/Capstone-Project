@@ -68,10 +68,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Tools tools = new Tools();
         tools.setScreenOnIfSettingsAllowed(this, false);
     }
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

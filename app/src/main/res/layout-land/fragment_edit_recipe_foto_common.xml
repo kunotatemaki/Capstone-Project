@@ -10,8 +10,6 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/layout_photo">
 
         <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeTwoImageView
@@ -71,7 +69,6 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:inputType="number"
-                    android:text="time"
                     style="@style/TextAppearance.AppCompat.Subhead"
                     android:textColorHint="@color/color_refresh_1"
                     android:hint="@string/time"
@@ -95,7 +92,6 @@
                     android:paddingBottom="10dp"
                     android:inputType="number"
                     style="@style/TextAppearance.AppCompat.Subhead"
-                    android:text="portions"
                     android:hint="@string/portions"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
