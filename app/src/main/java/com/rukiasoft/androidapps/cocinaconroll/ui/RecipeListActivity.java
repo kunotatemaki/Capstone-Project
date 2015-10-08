@@ -29,6 +29,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
@@ -46,9 +47,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
 
-    //public static final int RESULT_EDIT_RECIPE = ;
-
-
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.navview)
@@ -64,6 +62,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     boolean started = false;
     ToolbarAndRefreshActivity mActivity;
     private boolean animate;
+    private String lastFilter;
 
 
     public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -86,19 +85,22 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
         mActivity = this;
-
-
+        Tools mTools = new Tools();
+        lastFilter = Constants.FILTER_ALL_RECIPES;
+        if(getIntent() != null && getIntent().hasExtra(Constants.KEY_TYPE)){
+            lastFilter = getIntent().getStringExtra(Constants.KEY_TYPE);
+        }
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
             //TODO - comprobar el service con el servidor raspberry
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-            //new GcmRegistrationAsyncTask(this).execute();
+            if(!mTools.getBooleanFromPreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER)) {
+                Intent intent = new Intent(this, RegistrationIntentService.class);
+                startService(intent);
+            }
         }
 
         //Set default values for preferences
-        Tools tools = new Tools();
-        if (tools.hasVibrator(getApplicationContext())) {
+        if (mTools.hasVibrator(getApplicationContext())) {
             setDefaultValuesForOptions(R.xml.options);
         }else{
             setDefaultValuesForOptions(R.xml.options_not_vibrate);
@@ -117,6 +119,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
         if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
             started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
+            lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
         }
         if(!started){
             Intent animationIntent = new Intent(this, AnimationActivity.class);
@@ -129,6 +132,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     @Override
     public void onSaveInstanceState(Bundle bundle){
         bundle.putBoolean(Constants.KEY_STARTED, true);
+        bundle.putString(Constants.KEY_TYPE, lastFilter);
         super.onSaveInstanceState(bundle);
     }
     @Override
@@ -145,6 +149,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             if(intent != null && intent.hasExtra(Constants.KEY_RECIPE)) {
                 String name = intent.getStringExtra(Constants.KEY_RECIPE);
                 mRecipeListFragment.searchAndShow(name);
+            }
+            if(intent != null && intent.hasExtra(Constants.KEY_TYPE)){
+                lastFilter = intent.getStringExtra(Constants.KEY_TYPE);
+                getLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
             }
         }
     }
@@ -353,27 +361,35 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.menu_all_recipes:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
+                                lastFilter = Constants.FILTER_ALL_RECIPES;
                                 break;
                             case R.id.menu_starters:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_STARTER_RECIPES);
+                                lastFilter = Constants.FILTER_STARTER_RECIPES;
                                 break;
                             case R.id.menu_main_courses:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_MAIN_COURSES_RECIPES);
+                                lastFilter = Constants.FILTER_MAIN_COURSES_RECIPES;
                                 break;
                             case R.id.menu_desserts:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_DESSERT_RECIPES);
+                                lastFilter = Constants.FILTER_DESSERT_RECIPES;
                                 break;
                             case R.id.menu_vegetarians:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_VEGETARIAN_RECIPES);
+                                lastFilter = Constants.FILTER_VEGETARIAN_RECIPES;
                                 break;
                             case R.id.menu_favorites:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_FAVOURITE_RECIPES);
+                                lastFilter = Constants.FILTER_FAVOURITE_RECIPES;
                                 break;
                             case R.id.menu_own_recipes:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_OWN_RECIPES);
+                                lastFilter = Constants.FILTER_OWN_RECIPES;
                                 break;
                             case R.id.menu_last_downloaded:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+                                lastFilter = Constants.FILTER_LATEST_RECIPES;
                                 break;
                         }
 
@@ -452,6 +468,13 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         animate = false;
         if(searchMenuItem != null){
             searchMenuItem.collapseActionView();
+        }
+    }
+
+    public void performClickInDrawerIfNecessary() {
+        if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
+            navigationView.setCheckedItem(R.id.menu_last_downloaded);
+            mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
         }
     }
 }

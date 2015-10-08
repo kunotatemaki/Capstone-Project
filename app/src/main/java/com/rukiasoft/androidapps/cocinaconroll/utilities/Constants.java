@@ -29,12 +29,9 @@ public class Constants {
     public static final int RESULT_UPDATE_RECIPE = 300;
     public static final int RESULT_DELETE_RECIPE = 301;
 
-    public static final String PROPERTY_FORBIDDEN_APP = "forbidden_app";
-    public static final String PROPERTY_REG_ID = "registration_id";
-    public static final String PROPERTY_APP_VERSION = "appVersion";
-    public static final String PROPERTY_EXPIRATION_TIME = "onServerExpirationTimeMs";
-    public static final String PROPERTY_UNIQUE_ID = "unique_id";
-    public static final String PROPERTY_LAST_UPDATED = "option_last_updated";
+    public static final String PROPERTY_NUMBER_STARTERS = "numberstarters";
+    public static final String PROPERTY_NUMBER_MAIN = "numbermains";
+    public static final String PROPERTY_NUMBER_DESSERTS = "numberdesserts";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";
@@ -43,12 +40,7 @@ public class Constants {
 
 
     public static final String TEMP_CAMERA_NAME = "tmp_avatar_";
-    public static final String TEMP_INTRO_NAME = "tmp_rukiasoft.mp4";
     public static final String START_DOWNLOAD_ACTION_INTENT = "com.rukiasoft.androidapps.cocinaconroll.action.START_DOWNLOAD";
-    public static final String LOAD_RECIPES_ACTION_INTENT = "com.rukiasoft.androidapps.cocinaconroll.action.LOAD_RECIPES";
-    public static final String SHOW_RECIPES_ACTION_INTENT = "com.rukiasoft.androidapps.cocinaconroll.action.SHOW_RECIPES_ACTION_INTENT";
-    public static final String SET_PROGRESS_BAR_ACTION_INTENT = "com.rukiasoft.androidapps.comunioelpuntal.action.SET_PROGRESS_BAR_ACTION_INTENT";
-    //public static final String FORBIDDEN_APP_INTENT = "com.rukiasoft.androidapps.comunioelpuntal.action.FORBIDDEN_APP_INTENT";
 
     public static final Integer STATE_NOT_DOWNLOADED = 0;
     public static final Integer STATE_DOWNLOADED_NOT_UNZIPED = 1;
@@ -61,7 +53,6 @@ public class Constants {
 
     public static final Integer TIMEFRAME_NEW_RECIPE_SECONDS_DAY = 1000 * 3600 * 24;
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;
-    public static final Integer NO_ERROR = 0;
 
     public static final String FILTER_ALL_RECIPES = PACKAGE_NAME + ".allrecipes";
     public static final String FILTER_STARTER_RECIPES = PACKAGE_NAME + ".starters";

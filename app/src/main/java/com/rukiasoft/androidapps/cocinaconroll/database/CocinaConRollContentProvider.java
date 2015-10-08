@@ -96,16 +96,17 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        Uri returnUri;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
-                mSuggestionsDB.insert(values);
+                returnUri = mSuggestionsDB.insert(values);
                 break;
             case SEARCH_ZIP:
-                mZipsDB.insert(values);
+                returnUri = mZipsDB.insert(values);
                 break;
             default: throw new SQLException("Failed to insert row into " + uri);
         }
-        return uri;
+        return returnUri;
     }
 
 

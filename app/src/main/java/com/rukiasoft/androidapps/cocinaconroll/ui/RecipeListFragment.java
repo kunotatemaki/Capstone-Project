@@ -39,6 +39,7 @@ import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.net.CookieStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -248,6 +249,23 @@ public class RecipeListFragment extends Fragment implements
         Log.i("", "+++ onLoadFinished() called! +++");
         mRecipes = data;
         setData();
+        ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
+        //TODO eliminate in production version
+        int desserts=0;
+        int starters=0;
+        int mains=0;
+        for(RecipeItem items : mRecipes){
+            if(items.getType().equals(Constants.TYPE_DESSERTS))
+                desserts++;
+            else if(items.getType().equals(Constants.TYPE_MAIN))
+                mains++;
+            else if(items.getType().equals(Constants.TYPE_STARTERS))
+                starters++;
+        }
+        Tools mTools = new Tools();
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_DESSERTS, desserts);
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_MAIN, mains);
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);
     }
 
     private void orderRecipesByName(){

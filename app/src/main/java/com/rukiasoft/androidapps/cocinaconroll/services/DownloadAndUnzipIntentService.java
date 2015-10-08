@@ -99,12 +99,12 @@ public class DownloadAndUnzipIntentService extends IntentService {
         }
 
         String type = Constants.FILTER_ALL_RECIPES;
-        if(intent.hasExtra(Constants.KEY_TYPE)) //TODO revisar este type
-            type = intent.getExtras().getString("type");
-        if(newRecipes > 0)
-            mostrarNotification(type);
-
-        //}
+        if(intent.hasExtra(Constants.KEY_TYPE)) {
+            type = intent.getExtras().getString(Constants.KEY_TYPE);
+        }
+        if(newRecipes > 0){
+            showNotifications(type);
+        }
     }
 
     private boolean downloadZip(String name, String url){
@@ -144,7 +144,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
     }
 
 
-    private void mostrarNotification(String type) {
+    private void showNotifications(String type) {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -167,17 +167,12 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 new NotificationCompat.Builder(getApplicationContext())
                         .setTicker(getResources().getString(R.string.ticker))//getApplicationContext().getString(R.string.gcm_notification_ticker))
                                 .setSmallIcon(R.drawable.ic_notification_olla)
-                                        //.setLargeIcon(Bitmap.createScaledBitmap(bm, 128, 128, false))
                                 .setLargeIcon(bm)
                                 .setAutoCancel(true)
                                 .setContentTitle(title)
-                                        //.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                                 .setSound(uri)
                                 .setContentText(getResources().getString(R.string.new_recipes)).setNumber(++mNotificationCount);
 
-        //vibrador
-        //if (CocinaConRollTools.hasVibrator(this))
-         //   Log.d(TAG, "Vibrator: " + CocinaConRollTools.getBooleanFromPreferences(getApplicationContext(), "option_vibrate").toString());
         if (mTools.getBooleanFromPreferences(getApplicationContext(), "option_vibrate")) {
             mBuilder.setVibrate(mVibratePattern);
         }

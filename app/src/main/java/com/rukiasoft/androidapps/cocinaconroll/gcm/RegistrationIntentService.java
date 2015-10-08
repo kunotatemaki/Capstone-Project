@@ -36,7 +36,7 @@ import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Regist
 import java.io.IOException;
 
 public class RegistrationIntentService extends IntentService {
-
+//TODO mirar para no mandar siempre el token
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
     public static String ASYNCTASK_NOT_OK = "com.udacity.gradle.builditbigger.endpointasynctask.not_ok";
@@ -96,7 +96,8 @@ public class RegistrationIntentService extends IntentService {
      */
     private void sendRegistrationToServer(String token) {
         if (regService == null) {
-            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
+            //TODO local registration for emulators
+            /*Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
                     // otherwise they can be skipped
@@ -107,8 +108,10 @@ public class RegistrationIntentService extends IntentService {
                                 throws IOException {
                             abstractGoogleClientRequest.setDisableGZipContent(true);
                         }
-                    });
+                    });*/
             // end of optional local run code
+            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+                    .setRootUrl("https://hardy-binder-89508.appspot.com/_ah/api/");
 
             regService = builder.build();
         }

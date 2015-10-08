@@ -16,28 +16,25 @@
 
 package com.rukiasoft.androidapps.cocinaconroll.gcm;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.gcm.GcmListenerService;
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
-import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity;
-import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 public class MyGcmListenerService extends GcmListenerService {
 
-    private static final String TAG = "MyGcmListenerService";
+    private static final String TAG = LogHelper.makeLogTag(MyGcmListenerService.class);
 
     /**
      * Called when message is received.
@@ -60,22 +57,29 @@ public class MyGcmListenerService extends GcmListenerService {
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
         Uri uri = dbTools.insertNewZip(name, link);
         if(uri == null){
-            Log.d(TAG, "ERA NULLL");
+            Log.d(TAG, "Null uri");
             return;
         }
         Log.d(TAG, "Uri: " + uri.toString());
-        //long id = ContentUris.parseId(uri);
-        //if (id != -1) {
-            Tools mTools = new Tools();
-            if (true/*mTools.hasPermissionForDownloading(getApplicationContext())*/) {//TODO change this
-                /*Intent second_intent = new Intent(Constants.START_DOWNLOAD_ACTION_INTENT);
-                second_intent.putExtra("type", Constants.FILTER_LATEST_RECIPES);
-                //sendBroadcast(second_intent);*/
-                Intent intent = new Intent(this, DownloadAndUnzipIntentService.class);
-                startService(intent);
+        try {
+            long id = ContentUris.parseId(uri);
+            if (id != -1) {
+                Tools mTools = new Tools();
+                if (mTools.hasPermissionForDownloading(getApplicationContext())) {
+                    Intent intent = new Intent(this, DownloadAndUnzipIntentService.class);
+                    intent.putExtra(Constants.KEY_TYPE, Constants.FILTER_LATEST_RECIPES);
+                    startService(intent);
+                }
             }
-        //}
-
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            Tracker t = ((CocinaConRollApplication) getApplication()).getTracker();
+            // Build and send exception.
+            t.send(new HitBuilders.ExceptionBuilder()
+                    .setDescription(MyGcmListenerService.class.getSimpleName() + ":" + "error parsing Uri")
+                    .setFatal(true)
+                    .build());
+        }
 
 
     }

@@ -89,5 +89,7 @@
     <string name="share_confirmation">Wanna share the recipe?</string>
     <string name="ticker">New recipes from your Cookeo</string>
     <string name="new_recipes">New recipes</string>
+    <string name="recipe_image_transition">recipe_image_transition</string>
+    <string name="my_widget">Cooking with Cookeo</string>
 
 </resources>
