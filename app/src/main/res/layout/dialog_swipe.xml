@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/dialog_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorAccent"
+            android:text="@string/tutorial"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
+            />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/alert_create_imageview1"
+                android:adjustViewBounds="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dip"
+                android:layout_marginLeft="5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_swipe_horizontal"
+                android:tint="@color/ColorDescriptions"
+                android:contentDescription="@string/swipe_horizontal" />
+
+            <TextView
+                android:id="@+id/alert_create_textview1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginRight="5dip"
+                android:layout_marginLeft="5dip"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:singleLine="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="@string/swipe_horizontal"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:id="@+id/alert_create_imageview2"
+                android:adjustViewBounds="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dip"
+                android:layout_marginLeft="5dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_swipe_vertical"
+                android:tint="@color/ColorDescriptions"
+                android:contentDescription="@string/swipe_vertical" />
+
+            <TextView
+                android:id="@+id/alert_create_textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_marginRight="5dip"
+                android:layout_marginLeft="5dip"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:singleLine="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="@string/swipe_vertical"/>
+        </LinearLayout>
+
+
+        <CheckBox android:id="@+id/checkbox_swipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hide"
+            android:checked="true"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+</ScrollView>

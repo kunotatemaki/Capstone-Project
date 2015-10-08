@@ -78,5 +78,6 @@
     <string name="time">Tiempo</string>
     <string name="tip">Consejo</string>
     <string name="type_dish">Tipo de plato</string>
+    <string name="tutorial">Tutorial</string>
 
 </resources>

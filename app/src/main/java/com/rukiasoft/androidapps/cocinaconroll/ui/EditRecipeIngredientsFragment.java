@@ -1,24 +1,26 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
-
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.OnStartDragListener;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.SimpleItemTouchHelperCallback;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import butterknife.Bind;
@@ -50,7 +52,7 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
         super.onCreate(savedInstanceState);
         mTools = new Tools();
         //setRetainInstance(true);
-        //showSwipe = CocinaConRollTools.showSwipeDialog(getActivity().getApplicationContext());
+        showSwipe = showSwipeDialog();
     }
 
     @Override
@@ -111,17 +113,13 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
     @Override
     public void onResume(){
         super.onResume();
-        /*if(showSwipe) {
-            AlertDialogPro.Builder builder = new AlertDialogPro.Builder(getActivity());
+        if(showSwipe) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // Get the layout inflater
             LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            int resource;
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
-                resource = R.layout.dialog_swipe_support;
-            else
-                resource = R.layout.dialog_swipe;
-            final View viewSwipe = inflater.inflate(resource, null);
+
+            final View viewSwipe = inflater.inflate(R.layout.dialog_swipe, null);
 
             // Inflate and set the layout for the dialog
             // Pass null as the parent view because its going in the dialog layout
@@ -132,15 +130,22 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                             CheckBox swipe = (CheckBox) viewSwipe.findViewById(R.id.checkbox_swipe);
-                            CocinaConRollTools.hideSwipeDialog(getActivity().getApplicationContext(), swipe.isChecked());
+                            hideSwipeDialog(swipe.isChecked());
                             showSwipe = false;
                         }
                     });
 
             builder.show();
-        }*/
+        }
+    }
+    private Boolean showSwipeDialog(){
+        Tools mTools = new Tools();
+        return !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_HIDE_SWIPE_DIALOG);
+    }
+
+    private void hideSwipeDialog(Boolean state){
+        Tools mTools = new Tools();
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_HIDE_SWIPE_DIALOG, state);
     }
 }
 
-///https://github.com/iPaulPro/Android-ItemTouchHelper-Demo/blob/master/app/src/main/java/co/paulburke/android/itemtouchhelperdemo/RecyclerListFragment.java
-//https://github.com/iPaulPro/Android-ItemTouchHelper-Demo

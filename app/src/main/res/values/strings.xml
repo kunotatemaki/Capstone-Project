@@ -95,5 +95,9 @@
     <string name="soft" translatable="false">SOFT</string>
     <string name="rukia" translatable="false">RUKIA</string>
     <string name="create" translatable="false">CREATE</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="swipe_horizontal">Swipe to delete a row</string>
+    <string name="swipe_vertical">Drag and drop to reorder the items</string>
+    <string name="hide">Don\'t show again</string>
 
 </resources>
