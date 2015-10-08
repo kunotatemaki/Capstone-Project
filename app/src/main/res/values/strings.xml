@@ -87,13 +87,13 @@
     <string name="indredients_intructions">Type a new ingredient and press the button to add it to the recipe</string>
     <string name="delete_recipe_confirmation">Delete recipe? This operations can\'t be undone!</string>
     <string name="share_confirmation">Want to share the recipe?</string>
-    <string name="ticker">New recipes from your Cookeo</string>
+    <string name="ticker">New recipes for your Cookeo</string>
     <string name="new_recipes">New recipes</string>
-    <string name="recipe_image_transition">recipe_image_transition</string>
+    <string name="recipe_image_transition" translatable="false">recipe_image_transition</string>
     <string name="my_widget">Cooking with Cookeo</string>
-    <string name="imagine">IMAGINE</string>
-    <string name="soft">SOFT</string>
-    <string name="rukia">RUKIA</string>
-    <string name="create">CREATE</string>
+    <string name="imagine" translatable="false">IMAGINE</string>
+    <string name="soft" translatable="false">SOFT</string>
+    <string name="rukia" translatable="false">RUKIA</string>
+    <string name="create" translatable="false">CREATE</string>
 
 </resources>

@@ -53,5 +53,30 @@
     <string name="portions">raciones</string>
     <string name="minutes">minutos</string>
     <string name="support_girl">A mi novia: ella me dio la idea, me ayudó eligiendo dando formato a las recetas y, principalmente,por ser tan paciente cuando pasaba tantas horas delante del ordenador desarrollando la aplicación. ¡Te quiero!</string>
+    <string name="create_recipe">Crear receta</string>
+    <string name="delete_recipe_confirmation">¿Borrar la receta? Esta operación no puede deshacerse</string>
+    <string name="duplicated_recipe">Existe una receta con ese nombre</string>
+    <string name="edit_recipe_picture_text">Pulsa para editar</string>
+    <string name="exit_edit">¡Descartar los cambios y volver a la pantalla anterior?</string>
+    <string name="exit_edit_title">Descartar</string>
+    <string name="hint_create_recipe_author">Autor</string>
+    <string name="hint_create_recipe_name">Nombre de la receta</string>
+    <string name="indredients_intructions">Escribe un nuevo ingrediente y pulsa el botón para añadirlo a la receta</string>
+    <string name="menu_save_text">Salvar</string>
+    <string name="my_widget">Cocinando con mi Cookeo</string>
+    <string name="new_recipes">Recetas nuevas</string>
+    <string name="next">Siguiente</string>
+    <string name="no_camera">No se puede abrir la cámara</string>
+    <string name="no_crop_app">No hay aplicación para recortar la foto</string>
+    <string name="no_recipe_name">Añade un nombre a la receta</string>
+    <string name="no_value">Introduce un valor válido</string>
+    <string name="pick_from_camera">Usar la cámara</string>
+    <string name="pick_from_gallery">Elegir de la galería</string>
+    <string name="pick_photo">Selecciona una foto</string>
+    <string name="share_confirmation">¿Quieres compartir la receta?</string>
+    <string name="ticker">Nuevas recetas para tu Cookeo</string>
+    <string name="time">Tiempo</string>
+    <string name="tip">Consejo</string>
+    <string name="type_dish">Tipo de plato</string>
 
 </resources>
