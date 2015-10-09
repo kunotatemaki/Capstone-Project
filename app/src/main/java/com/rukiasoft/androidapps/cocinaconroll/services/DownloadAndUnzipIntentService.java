@@ -11,12 +11,14 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.okhttp.OkHttpClient;
@@ -33,7 +35,7 @@ import java.util.List;
 public class DownloadAndUnzipIntentService extends IntentService {
 
 
-    private static final String TAG = "DownloadAndUnzipIntentService";
+    private static final String TAG = LogHelper.makeLogTag(DownloadAndUnzipIntentService.class);
     //DataBase
     private final long[] mVibratePattern = {0, 200, 200, 300};
     // Notification Count
@@ -66,6 +68,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
             Boolean check = downloadZip(list.get(i).getName(), list.get(i).getLink());
 
             if (!check) {
+                Log.e(TAG, "Error downloading data from server");
                 continue;
             }
             try {
@@ -75,8 +78,10 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 continue;
             }
             check = rwTools.unzipRecipes(list.get(i).getName());
-            if (!check)
+            if (!check) {
+                Log.e(TAG, "Data downladed is corrupt");
                 return;
+            }
             try {
                 dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
             } catch (Exception e) {
