@@ -286,7 +286,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         finish();
     }
 
-    public DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    public final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){

@@ -13,10 +13,10 @@ import java.util.HashMap;
 
 public class SuggestionsDB {
 
-    private DatabaseRelatedTools dbTools;
-	private CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
+    private final DatabaseRelatedTools dbTools;
+	private final CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
 
-	private HashMap<String, String> mAliasMap;
+	private final HashMap<String, String> mAliasMap;
 
 
 	public SuggestionsDB(Context context){

@@ -36,7 +36,7 @@ import java.util.List;
  * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
  */
 public class ReadWriteTools {
-    Context mContext;
+    final Context mContext;
     
     public ReadWriteTools(Context mContext){
         this.mContext = mContext;
@@ -141,7 +141,7 @@ public class ReadWriteTools {
             source = new File(path);
             recipeItem = parseFileIntoRecipe(source);
             if(recipeItem == null)
-                return recipeItem;
+                return null;
             recipeItem.setFileName(name);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
@@ -196,7 +196,7 @@ public class ReadWriteTools {
     }
 
     private RecipeItem parseFileIntoRecipe(File source){
-        RecipeItem recipeItem = new RecipeItem();
+        RecipeItem recipeItem;
         Serializer serializer = new Persister();
         try {
             recipeItem = serializer.read(RecipeItem.class, source, false);
@@ -210,14 +210,14 @@ public class ReadWriteTools {
         return recipeItem;
     }
 
-    public Boolean saveRecipeOnOrigialPath(RecipeItem recipe){
+    public void saveRecipeOnOrigialPath(RecipeItem recipe){
         String path = getOriginalStorageDir();
-        return saveRecipe(recipe, path);
+        saveRecipe(recipe, path);
     }
 
-    public Boolean saveRecipeOnEditedPath(RecipeItem recipe){
+    public void saveRecipeOnEditedPath(RecipeItem recipe){
         String path = getEditedStorageDir();
-        return saveRecipe(recipe, path);
+        saveRecipe(recipe, path);
     }
 
     public Boolean saveRecipe(RecipeItem recipe, String path){
@@ -282,7 +282,7 @@ public class ReadWriteTools {
 
     public List<String> loadRecipesFromAssets() {
 
-        List<String> list = new ArrayList<>();
+        List<String> list;
         File source;
         InputStream inputStream;
         try {

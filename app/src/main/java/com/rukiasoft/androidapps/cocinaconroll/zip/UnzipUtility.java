@@ -23,8 +23,6 @@ public class UnzipUtility {
 	/**
 	 * Extracts a zip file specified by the zipFilePath to a directory specified by
 	 * destDirectory (will be created if does not exists)
-	 * @param zipFilePath
-	 * @param destDirectory
 	 * @throws IOException
 	 */
 	public void unzip(String zipFilePath, String destDirectory) throws IOException {
@@ -56,8 +54,6 @@ public class UnzipUtility {
 
 	/**
 	 * Extracts a zip entry (file entry)
-	 * @param zipIn
-	 * @param filePath
 	 * @throws IOException
 	 */
 	private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {

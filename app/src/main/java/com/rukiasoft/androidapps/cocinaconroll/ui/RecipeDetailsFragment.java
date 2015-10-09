@@ -100,7 +100,7 @@ public class RecipeDetailsFragment extends Fragment implements
     DatabaseRelatedTools dbTools;
     ReadWriteTools rwTools;
 
-    public DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
+    public final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -124,7 +124,7 @@ public class RecipeDetailsFragment extends Fragment implements
             }
         }
     };
-    public DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
+    public final DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -187,7 +187,7 @@ public class RecipeDetailsFragment extends Fragment implements
                 return true;
             case R.id.menu_item_remove:
                 AlertDialog.Builder removeBuilder = new AlertDialog.Builder(getActivity());
-                String message = "";
+                String message;
                 if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
                     message = getResources().getString(R.string.restore_recipe_confirmation);
                 }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
@@ -214,7 +214,7 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
 
-    Runnable scaleIn = new Runnable() {
+    final Runnable scaleIn = new Runnable() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void run() {
@@ -226,7 +226,7 @@ public class RecipeDetailsFragment extends Fragment implements
         }
     };
 
-    Runnable scaleOut = new Runnable() {
+    final Runnable scaleOut = new Runnable() {
         @Override
         public void run() {
             recipeDescriptionFAB.animate().setDuration(250)

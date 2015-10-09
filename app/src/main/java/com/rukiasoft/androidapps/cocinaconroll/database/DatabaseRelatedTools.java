@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DatabaseRelatedTools {
 
-    Context mContext;
+    final Context mContext;
     public DatabaseRelatedTools(Context context){
         mContext = context;
     }

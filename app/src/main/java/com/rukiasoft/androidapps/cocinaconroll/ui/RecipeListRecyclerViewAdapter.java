@@ -41,9 +41,9 @@ import butterknife.ButterKnife;
 public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>
         implements View.OnClickListener {
 
-    private List<RecipeItem> mItems;
+    private final List<RecipeItem> mItems;
     private OnItemClickListener onItemClickListener;
-    private Context mContext;
+    private final Context mContext;
 
 
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {

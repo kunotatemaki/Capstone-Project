@@ -30,7 +30,7 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
 
     //TODO - allow undo swipe with snackbar
     private final List<String> mItems;
-    Context context;
+    final Context context;
     private final OnStartDragListener mDragStartListener;
     String undo;
     int positionUndo;

@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class ZipsDB {
 
-    private CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
+    private final CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
     long regId;
 	public ZipsDB(Context context){
         mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
