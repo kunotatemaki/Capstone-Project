@@ -3,7 +3,6 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -82,7 +81,7 @@ public class RecipeListFragment extends Fragment implements
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
     List<RecipeItem> mRecipes;
-    int scrollPosition = 0;
+    int savedScrollPosition = 0;
     private int columnCount = 10;
     private String lastFilter;
     private InterstitialAd mInterstitialAd;
@@ -139,9 +138,9 @@ public class RecipeListFragment extends Fragment implements
         Tools tools = new Tools();
         tools.setRefreshLayout(getActivity(), refreshLayout);
 
-        scrollPosition = 0;
+        savedScrollPosition = 0;
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SCROLL_POSITION)){
-            scrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
+            savedScrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
         }
         if(savedInstanceState != null && savedInstanceState.containsKey(KEY_RECIPE_LIST)){
             mRecipes = savedInstanceState.getParcelableArrayList(KEY_RECIPE_LIST);
@@ -290,7 +289,7 @@ public class RecipeListFragment extends Fragment implements
 
 
         mRecyclerView.setLayoutManager(sglm);
-        mRecyclerView.scrollToPosition(scrollPosition);
+        mRecyclerView.scrollToPosition(savedScrollPosition);
         //Set the fast Scroller
         fastScroller.setRecyclerView(mRecyclerView);
 
@@ -447,6 +446,7 @@ public class RecipeListFragment extends Fragment implements
         slideAdapter = newSlideAdapter;
         mRecyclerView.setLayoutManager(sglm);
         mRecyclerView.scrollToPosition(0);
+
         //Set the fast Scroller
         fastScroller.setRecyclerView(mRecyclerView);
     }
@@ -481,7 +481,6 @@ public class RecipeListFragment extends Fragment implements
         }
         mRecipes.remove(index);
         mRecipes.add(index, recipe);
-
         filterRecipes(lastFilter);
     }
 

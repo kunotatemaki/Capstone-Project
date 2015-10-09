@@ -52,7 +52,7 @@
     <string name="thanks_intro">Esta aplicación es posible gracias a los creadores de los siguientes blogs de cocina, que ceden el contenido del mismo desinteresadamente. ¡No dudes en visitarlos!</string>
     <string name="portions">raciones</string>
     <string name="minutes">minutos</string>
-    <string name="support_girl">A mi novia: ella me dio la idea, me ayudó eligiendo dando formato a las recetas y, principalmente,por ser tan paciente cuando pasaba tantas horas delante del ordenador desarrollando la aplicación. ¡Te quiero!</string>
+    <string name="support_girl">A mi novia: me dio la idea, me ayudó eligiendo y dando formato a las recetas y, sobre todo, ha sido increiblemente paciente cuando pasaba tantas horas delante del ordenador desarrollando la aplicación. ¡Te quiero!</string>
     <string name="create_recipe">Crear receta</string>
     <string name="delete_recipe_confirmation">¿Borrar la receta? Esta operación no puede deshacerse</string>
     <string name="duplicated_recipe">Existe una receta con ese nombre</string>
