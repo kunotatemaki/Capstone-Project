@@ -1,7 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,13 +52,11 @@ public class AnimationActivity extends AppCompatActivity {
     private Animation createAnim;
     private Animation rukiaAnim;
     private Animation softAnim;
-    private Activity activity;
 
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = this;
         setContentView(R.layout.activity_animation);
         ButterKnife.bind(this);
 

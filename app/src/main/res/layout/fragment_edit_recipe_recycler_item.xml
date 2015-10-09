@@ -28,7 +28,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"
         android:scaleType="center"
-        android:src="@drawable/ic_reorder_24dp" />
+        android:src="@drawable/ic_reorder_24dp"
+        android:contentDescription="@string/drag_drop_content_description"/>
     <TextView
         android:id="@+id/edit_recipe_item_text"
         android:layout_width="wrap_content"

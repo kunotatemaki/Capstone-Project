@@ -23,6 +23,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle1"
+            android:contentDescription="@string/null_content_description"
         />
         <ImageView
             android:id="@+id/circle2"
@@ -32,6 +33,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle2"
+            android:contentDescription="@string/null_content_description"
         />
         <ImageView
             android:id="@+id/circle3"
@@ -41,6 +43,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle3"
+            android:contentDescription="@string/null_content_description"
         />
         <ImageView
             android:id="@+id/circle4"
@@ -50,6 +53,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle4"
+            android:contentDescription="@string/null_content_description"
         />
         <ImageView
             android:id="@+id/circle5"
@@ -59,6 +63,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle5"
+            android:contentDescription="@string/null_content_description"
         />
         <ImageView
             android:id="@+id/circle6"
@@ -68,6 +73,7 @@
             android:layout_marginLeft="@dimen/circle_space"
             android:layout_marginRight="@dimen/circle_space"
             android:background="@drawable/circle6"
+            android:contentDescription="@string/null_content_description"
         />
 
     </LinearLayout>

@@ -35,10 +35,10 @@
                 android:id="@+id/recipe_item_favorite_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite_white_18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:src="@drawable/ic_favorite_white_18dp"
                 android:paddingStart="@dimen/margin_recipe_icon_type"
                 android:paddingLeft="@dimen/margin_recipe_icon_type"
                 android:paddingEnd="@dimen/margin_recipe_icon_type"
@@ -46,6 +46,7 @@
                 android:paddingBottom="@dimen/margin_recipe_icon_type"
                 android:paddingRight="@dimen/margin_recipe_icon_type"
                 android:visibility="gone"
+                android:contentDescription="@string/favourite"
                 />
             <ImageView
                 android:id="@+id/recipe_item_vegetarian_recipe_icon"
@@ -63,8 +64,9 @@
                 android:paddingTop="@dimen/margin_recipe_icon_type"
                 android:paddingBottom="@dimen/margin_recipe_icon_type"
                 android:tint="@android:color/white"
-                android:visibility="gone"/>
-<ImageView
+                android:visibility="gone"
+                android:contentDescription="@string/vegetarians"/>
+            <ImageView
                 android:id="@+id/recipe_item_own_recipe_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +82,8 @@
                 android:paddingTop="@dimen/margin_recipe_icon_type"
                 android:paddingBottom="@dimen/margin_recipe_icon_type"
                 android:tint="@android:color/white"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:contentDescription="@string/own_recipes"/>
 
         </RelativeLayout>
         <LinearLayout
@@ -91,13 +94,13 @@
                 android:id="@+id/recipe_item_type_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_all_18"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="@dimen/margin_recipe_icon_type"
                 android:paddingLeft="@dimen/margin_recipe_icon_type"
                 android:paddingEnd="@dimen/margin_recipe_icon_type"
                 android:paddingRight="@dimen/margin_recipe_icon_type"
-                android:tint="@color/ColorPrimary"/>
+                android:tint="@color/ColorPrimary"
+                android:contentDescription="@string/type_dish"/>
             <TextView
                 android:id="@+id/recipe_title_cardview"
                 style="@style/TextAppearance.AppCompat.Subhead"

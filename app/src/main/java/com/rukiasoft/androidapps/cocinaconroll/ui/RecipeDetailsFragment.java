@@ -202,7 +202,7 @@ public class RecipeDetailsFragment extends Fragment implements
                 return true;
             case R.id.menu_item_share_recipe:
                 AlertDialog.Builder shareBuilder = new AlertDialog.Builder(getActivity());
-                message = getResources().getString(R.string.share_confirmation);;
+                message = getResources().getString(R.string.share_confirmation);
                 shareBuilder.setMessage(message)
                         .setPositiveButton((getResources().getString(R.string.Yes)), editDialogClickListener)
                         .setNegativeButton((getResources().getString(R.string.No)), editDialogClickListener);

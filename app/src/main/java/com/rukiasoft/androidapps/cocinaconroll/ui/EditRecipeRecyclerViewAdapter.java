@@ -46,8 +46,7 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_edit_recipe_recycler_item, parent, false);
-        ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-        return itemViewHolder;
+        return new ItemViewHolder(view);
     }
 
 

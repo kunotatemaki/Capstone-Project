@@ -25,7 +25,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
     private static final int GET_ZIP = 5;
 
 
-    UriMatcher mUriMatcher = buildUriMatcher();
+    final UriMatcher mUriMatcher = buildUriMatcher();
 
     private UriMatcher buildUriMatcher(){
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
