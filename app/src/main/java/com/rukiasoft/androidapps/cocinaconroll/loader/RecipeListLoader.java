@@ -240,7 +240,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             }
         }
 
-        for(int i=0; i<listAssets.size(); i++) {
+        for(int i=0; i<6/*listAssets.size()*/; i++) {
             RecipeItem recipeItem;
             /*if(listOriginal.contains(listAssets.get(i))){
                 recipeItem = readWriteTools.readRecipe(listAssets.get(i),

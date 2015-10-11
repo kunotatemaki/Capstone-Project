@@ -467,6 +467,7 @@ public class RecipeDetailsFragment extends Fragment implements
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
+                //TODO aquí dio un fallo de null pointer, en getcolor
                 int mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
                 int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
                 int mMutedColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorAccent));
@@ -498,3 +499,4 @@ public class RecipeDetailsFragment extends Fragment implements
             getActivity().supportInvalidateOptionsMenu();
     }
 }
+//TODO esconder botón favorito hasta uqe lo pinte en versiones anteriores a lollipop

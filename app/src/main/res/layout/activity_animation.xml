@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rukia"
-            android:textSize="@dimen/text_anim_sp"
+            android:textSize="@dimen/rukiasoft_sp"
             android:textStyle="bold"
             android:textColor="#f17f2b"
             />
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:text="@string/soft"
             android:textStyle="bold"
-            android:textSize="@dimen/text_anim_sp"
+            android:textSize="@dimen/rukiasoft_sp"
             android:textColor="#66f419"
             />
     </LinearLayout>
