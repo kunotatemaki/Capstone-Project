@@ -18,7 +18,6 @@ import java.io.OutputStream;
  */
 public class CocinaConRollDatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_PATH = "/data/data/" + Constants.PACKAGE_NAME + "/databases/";
 
     private static String DB_NAME = "cocinaconroll.db";
 
