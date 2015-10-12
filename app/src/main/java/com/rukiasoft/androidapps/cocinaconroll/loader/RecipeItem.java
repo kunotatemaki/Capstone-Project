@@ -31,8 +31,6 @@ public class RecipeItem implements Parcelable {
     private String author = "";
     @Element
     private Boolean vegetarian = false;
-    //@Element  (required=false)
-    //private Boolean favourite = false;
     @Element  (required=false)
     private Integer state = 0;
     @Element
@@ -41,12 +39,14 @@ public class RecipeItem implements Parcelable {
     private Integer minutes = 0;
     @Element  (required=false)
     private String tip = "";
-    private String path = "";
+    private String filePath = "";
+    private String picturePath = "";
     @Element  (required=false)
     private Long date;
     @Element
     private String language = "Spanish";
     private int position = -1;
+
 
     public RecipeItem(Parcel in){
         this.name= in.readString();
@@ -59,12 +59,12 @@ public class RecipeItem implements Parcelable {
         in.readStringList(steps);
         this.author = in.readString();
         this.vegetarian = in.readByte() != 0;
-        //this.favourite = in.readByte() != 0;
         this.state = in.readInt();
         this.portions = in.readInt();
         this.minutes = in.readInt();
         this.tip = in.readString();
-        this.path = in.readString();
+        this.filePath = in.readString();
+        this.picturePath = in.readString();
         this.language = in.readString();
         this.position = in.readInt();
         this.date = in.readLong();
@@ -141,14 +141,6 @@ public class RecipeItem implements Parcelable {
         this.vegetarian = vegetarian;
     }
 
-    /*public Boolean getFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(Boolean favourite) {
-        this.favourite = favourite;
-    }*/
-
     public Integer getState() {
         return state;
     }
@@ -197,12 +189,20 @@ public class RecipeItem implements Parcelable {
         this.minutes = minutes;
     }
 
-    public String getPath() {
-        return path;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     public int getPosition() {
@@ -228,12 +228,12 @@ public class RecipeItem implements Parcelable {
         dest.writeStringList(getSteps());
         dest.writeString(getAuthor());
         dest.writeByte((byte) (getVegetarian() ? 1 : 0));
-        //dest.writeByte((byte) (getFavourite() ? 1 : 0));
         dest.writeInt(getState());
         dest.writeInt(getPortions());
         dest.writeInt(getMinutes());
         dest.writeString(getTip());
-        dest.writeString(getPath());
+        dest.writeString(getFilePath());
+        dest.writeString(getPicturePath());
         dest.writeString(getLanguage());
         dest.writeInt(getPosition());
         if(getDate() != null)

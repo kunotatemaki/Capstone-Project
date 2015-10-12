@@ -1,10 +1,12 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
-import android.app.Fragment;
-import android.app.LoaderManager;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,7 +14,11 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -29,13 +35,16 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipeDatabaseItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeListLoader;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.ArrayList;
@@ -51,7 +60,7 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  * A placeholder fragment containing a simple view.
  */
 public class RecipeListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<List<RecipeItem>>, RecipeListRecyclerViewAdapter.OnItemClickListener,
+        LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnItemClickListener,
         AppBarLayout.OnOffsetChangedListener{
 
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".scrollposition";
@@ -81,11 +90,41 @@ public class RecipeListFragment extends Fragment implements
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
     List<RecipeItem> mRecipes;
+    List<RecipeDatabaseItem> mRecipes1;
     int savedScrollPosition = 0;
     private int columnCount = 10;
     private String lastFilter;
     private InterstitialAd mInterstitialAd;
     private RecipeItem recipeToShow;
+
+
+
+    private class InitDatabase extends AsyncTask<Void, Integer, Void> {
+        Activity mActivity;
+
+        public InitDatabase(Activity activity){
+            this.mActivity = activity;
+        }
+
+        protected Void doInBackground(Void... data) {
+            ReadWriteTools rwTools = new ReadWriteTools(mActivity);
+            rwTools.initDatabase();
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+        }
+
+        protected void onPostExecute(Void result) {
+            Tools mTools = new Tools();
+            mTools.savePreferences(mActivity, Constants.PROPERTY_INIT_DATABASE, true);
+            ((RecipeListActivity) mActivity).restartLoader();
+            return;
+        }
+    }
+
+
 
     public RecipeListFragment() {
     }
@@ -217,7 +256,7 @@ public class RecipeListFragment extends Fragment implements
 
 
     @Override
-    public Loader<List<RecipeItem>> onCreateLoader(int id, Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if(getActivity() instanceof ToolbarAndRefreshActivity){
             if(isResumed()){
                 Tools tools = new Tools();
@@ -226,13 +265,27 @@ public class RecipeListFragment extends Fragment implements
                 ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = true;
             }
         }
-        return new RecipeListLoader(getActivity().getApplicationContext());
+        //return new RecipeListLoader(getActivity().getApplicationContext());
+        Uri CONTENT_URI = CocinaConRollContentProvider.CONTENT_URI_RECIPES;
+        String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
+        return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, sortOrder);
     }
 
+
+
     @Override
-    public void onLoadFinished(Loader<List<RecipeItem>> loader, List<RecipeItem> data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.i("", "+++ onLoadFinished() called! +++");
-        mRecipes = data;
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        mRecipes1 = dbTools.getRecipesFromCursor(data);
+        Tools mTools = new Tools();
+        if(mRecipes1.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE)){
+            //TODO init database in asynctask
+            InitDatabase initDatabase = new InitDatabase(getActivity());
+            initDatabase.execute();
+
+        }
+        /*mRecipes = data;
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
         //TODO eliminate in production version
@@ -255,7 +308,14 @@ public class RecipeListFragment extends Fragment implements
         Tools mTools = new Tools();
         mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_DESSERTS, desserts);
         mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_MAIN, mains);
-        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);*/
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mRecyclerView.setAdapter(null);
+        Tools tools = new Tools();
+        tools.hideRefreshLayout(getActivity());
     }
 
     private void orderRecipesByName(){
@@ -305,12 +365,7 @@ public class RecipeListFragment extends Fragment implements
         return slideAdapter;
     }
 
-    @Override
-    public void onLoaderReset(Loader<List<RecipeItem>> loader) {
-        mRecyclerView.setAdapter(null);
-        Tools tools = new Tools();
-        tools.hideRefreshLayout(getActivity());
-    }
+
 
     @Override
     public void onItemClick(View view, RecipeItem recipeItem) {
@@ -359,6 +414,7 @@ public class RecipeListFragment extends Fragment implements
         lastFilter = filter;
         Tools mTools = new Tools();
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        long init1 = System.nanoTime();
         List<RecipeItem> filteredModelList = new ArrayList<>();
         String type = "";
         int iconResource = 0;
@@ -424,6 +480,11 @@ public class RecipeListFragment extends Fragment implements
             type = getResources().getString(R.string.last_downloaded);
             iconResource = R.drawable.ic_latest_24;
         }
+        long final1 = System.nanoTime();
+        long init2 = System.nanoTime();
+        List<RecipeDatabaseItem> list = dbTools.searchRecipesInDatabaseByType(Constants.TYPE_MAIN);
+        long final2 = System.nanoTime();
+        long result = (final1 - init1) - (final2 - init2);
         typeRecipesInRecipeList.setText(type);
         String nrecipes = String.format(getResources().getString(R.string.recipes), filteredModelList.size());
         nRecipesInRecipeList.setText(nrecipes);

@@ -95,7 +95,7 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 	/** This method is invoked by initLoader() */
 	@Override
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle data) {
-		Uri uri = CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS;
+		Uri uri = CocinaConRollContentProvider.CONTENT_URI_RECIPES;
 		return new CursorLoader(getBaseContext(), uri, null, null , new String[]{data.getString("query")}, null);
 	}
 

@@ -31,7 +31,7 @@ import android.widget.Toast;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.database.SuggestionsItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipeDatabaseItem;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -117,7 +117,7 @@ public class EditRecipePhotoFragment extends Fragment {
             editRecipeName.setText(recipeItem.getName());
         }
 
-        rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
+        rwTools.loadImageFromPath(mImageView, recipeItem.getPicturePath(), R.drawable.default_dish);
 
         
         if(recipeItem.getMinutes()>0)
@@ -258,11 +258,11 @@ public class EditRecipePhotoFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
+            recipeItem.setPicturePath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
             //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
             recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-            rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
+            rwTools.loadImageFromPath(mImageView, recipeItem.getPicturePath(), R.drawable.default_dish);
 
             return;
         }
@@ -324,11 +324,11 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras != null) {
                     photo = extras.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName());
-                    recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
+                    recipeItem.setPicturePath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPicturePath(), R.drawable.default_dish);
                 }
                 File f = new File(mImageCaptureUri.getPath());
                 if (f.exists()) {
@@ -340,10 +340,10 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras2 != null) {
                     photo = extras2.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName());
-                    recipeItem.setPath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
+                    recipeItem.setPicturePath(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPath(), R.drawable.default_dish);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPicturePath(), R.drawable.default_dish);
                 }
                 break;
         }
@@ -417,7 +417,7 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             ret = false;
         }
-        List<SuggestionsItem> coincidences = dbTools.getRecipeInfoInDatabase(sName, true);
+        List<RecipeDatabaseItem> coincidences = dbTools.searchRecipesInDatabaseByName(sName, true);
         if (coincidences.size() > 0) {
             createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;

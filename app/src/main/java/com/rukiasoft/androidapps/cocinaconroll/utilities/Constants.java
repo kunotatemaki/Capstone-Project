@@ -8,6 +8,7 @@ public class Constants {
 
     public static final String PREFERENCE_INTERSTITIAL = PACKAGE_NAME + ".intertitial";
     public static final String RECIPES_DIR = "recipes";
+    public static final String BASE_DIR = "CookingWihCookeo";
     public static final String ZIPS_DIR = "zips";
     public static final Integer FLAG_ORIGINAL = 2;
     public static final Integer FLAG_ASSETS = 1;
@@ -33,6 +34,7 @@ public class Constants {
     public static final String PROPERTY_NUMBER_STARTERS = "numberstarters";
     public static final String PROPERTY_NUMBER_MAIN = "numbermains";
     public static final String PROPERTY_NUMBER_DESSERTS = "numberdesserts";
+    public static final String PROPERTY_INIT_DATABASE = "initdatabase";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";

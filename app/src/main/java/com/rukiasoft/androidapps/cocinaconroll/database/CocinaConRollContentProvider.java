@@ -12,10 +12,10 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 
 	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
-	public static final Uri CONTENT_URI_SUGGESTIONS = Uri.parse("content://" + AUTHORITY + "/" + SuggestionsTable.TABLE_NAME);
+	public static final Uri CONTENT_URI_RECIPES = Uri.parse("content://" + AUTHORITY + "/" + RecipesTable.TABLE_NAME);
 	public static final Uri CONTENT_URI_ZIPS = Uri.parse("content://" + AUTHORITY + "/" + ZipsTable.TABLE_NAME);
 
-    SuggestionsDB mSuggestionsDB = null;
+    RecipesDB mRecipesDB = null;
     ZipsDB mZipsDB = null;
 
     private static final int SUGGESTIONS_RECIPE = 1;
@@ -39,6 +39,10 @@ public class CocinaConRollContentProvider extends ContentProvider {
         // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
         uriMatcher.addURI(AUTHORITY, "suggestions/#", GET_RECIPE);
 
+        uriMatcher.addURI(AUTHORITY, RecipesTable.TABLE_NAME, SEARCH_RECIPE);
+        // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
+        uriMatcher.addURI(AUTHORITY, RecipesTable.TABLE_NAME + "/#", GET_RECIPE);
+
         uriMatcher.addURI(AUTHORITY, "zips", SEARCH_ZIP);
 
         uriMatcher.addURI(AUTHORITY, "zips/#", GET_ZIP);
@@ -48,7 +52,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mSuggestionsDB = new SuggestionsDB(getContext());
+        mRecipesDB = new RecipesDB(getContext());
         mZipsDB = new ZipsDB(getContext());
         return true;
     }
@@ -60,20 +64,20 @@ public class CocinaConRollContentProvider extends ContentProvider {
         Cursor c = null;
         switch(mUriMatcher.match(uri)){
             case SUGGESTIONS_RECIPE:
-                c = mSuggestionsDB.getRecipes(selectionArgs);
+                c = mRecipesDB.getSuggestions(selectionArgs);
                 break;
             case SEARCH_RECIPE:
-                c = mSuggestionsDB.getRecipes(projection, selection, selectionArgs, sortOrder);
+                c = mRecipesDB.getRecipes(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_RECIPE:
                 String id_recipe = uri.getLastPathSegment();
-                c = mSuggestionsDB.getRecipe(id_recipe);
+                c = mRecipesDB.getRecipe(id_recipe);
             case SEARCH_ZIP:
                 c = mZipsDB.getZips(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_ZIP:
                 String id_zip = uri.getLastPathSegment();
-                c = mSuggestionsDB.getRecipe(id_zip);
+                c = mRecipesDB.getRecipe(id_zip);
         }
         return c;
     }
@@ -82,7 +86,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
-                return mSuggestionsDB.delete(selection, selectionArgs);
+                return mRecipesDB.delete(selection, selectionArgs);
             case SEARCH_ZIP:
                 return mZipsDB.delete(selection, selectionArgs);
             default: throw new SQLException("Failed to insert row into " + uri);
@@ -91,7 +95,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-    throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -99,7 +103,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
         Uri returnUri;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
-                returnUri = mSuggestionsDB.insert(values);
+                returnUri = mRecipesDB.insert(values);
                 break;
             case SEARCH_ZIP:
                 returnUri = mZipsDB.insert(values);
@@ -116,7 +120,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
         int index;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
-                index = mSuggestionsDB.updateFavorite(values, selection, selectionArgs);
+                index = mRecipesDB.updateFavorite(values, selection, selectionArgs);
                 break;
             case SEARCH_ZIP:
                 index = mZipsDB.updateState(values, selection, selectionArgs);

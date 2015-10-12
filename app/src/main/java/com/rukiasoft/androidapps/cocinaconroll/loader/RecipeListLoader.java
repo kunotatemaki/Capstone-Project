@@ -240,23 +240,8 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             }
         }
 
-        for(int i=0; i<6/*listAssets.size()*/; i++) {
+        for(int i=0; i<listAssets.size(); i++) {
             RecipeItem recipeItem;
-            /*if(listOriginal.contains(listAssets.get(i))){
-                recipeItem = readWriteTools.readRecipe(listAssets.get(i),
-                        Constants.PATH_TYPE_ORIGINAL);
-                if(tools.isInTimeframe(recipeItem))
-                    continue;
-                else {
-                    readWriteTools.deleteRecipe(recipeItem, Constants.FLAG_ORIGINAL);
-                    for (int j = 0; j < recipes.size(); j++) {
-                        if (recipes.get(j).getFileName().compareTo(listAssets.get(i)) == 0) {
-                            recipes.remove(j);
-                            break;
-                        }
-                    }
-                }
-            }*/
             if(listEdited.contains(listAssets.get(i)))
                 continue;
             recipeItem = readWriteTools.readRecipe(listAssets.get(i),
@@ -279,3 +264,5 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
         }
     }
 }
+
+//TODO mantener comprobación de lectura en /CocinandoconmiCookeo para la gente que tuviera la app y hubiera creado/editado recetas

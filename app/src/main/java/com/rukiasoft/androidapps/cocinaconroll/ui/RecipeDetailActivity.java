@@ -94,7 +94,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     recipeDetailsFragment.updateRecipe(recipe);
                 //save recipe
                 if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
-                    recipe.setPath(Constants.DEFAULT_PICTURE_NAME);
+                    recipe.setPicturePath(Constants.DEFAULT_PICTURE_NAME);
                 ReadWriteTools readWriteTools = new ReadWriteTools(this);
                 readWriteTools.saveRecipeOnEditedPath(recipe);
                 //set results

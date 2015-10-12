@@ -11,7 +11,7 @@ import android.net.Uri;
 
 import java.util.HashMap;
 
-public class SuggestionsDB {
+public class RecipesDB {
 
     private final DatabaseRelatedTools dbTools;
 	private final CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
@@ -19,7 +19,7 @@ public class SuggestionsDB {
 	private final HashMap<String, String> mAliasMap;
 
 
-	public SuggestionsDB(Context context){
+	public RecipesDB(Context context){
         dbTools = new DatabaseRelatedTools(context);
 		mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
 		
@@ -27,23 +27,23 @@ public class SuggestionsDB {
     	mAliasMap = new HashMap<>();
     	
     	// Unique id for the each Suggestions ( Mandatory ) 
-    	mAliasMap.put("_ID", SuggestionsTable.FIELD_ID + " as " + "_id" );
+    	mAliasMap.put("_ID", RecipesTable.FIELD_ID + " as " + "_id" );
     	
     	// Text for Suggestions ( Mandatory )
-    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_TEXT_1,  SuggestionsTable.FIELD_NAME + " as " + SearchManager.SUGGEST_COLUMN_TEXT_1);
+    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_TEXT_1,  RecipesTable.FIELD_NAME + " as " + SearchManager.SUGGEST_COLUMN_TEXT_1);
     	
     	// Icon for Suggestions ( Optional ) 
-    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_ICON_1, SuggestionsTable.FIELD_ICON + " as " + SearchManager.SUGGEST_COLUMN_ICON_1);
+    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_ICON_1, RecipesTable.FIELD_ICON + " as " + SearchManager.SUGGEST_COLUMN_ICON_1);
     	
     	// This value will be appended to the Intent data on selecting an item from Search result or Suggestions ( Optional )
-    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, SuggestionsTable.FIELD_NAME_NORMALIZED + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+    	mAliasMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, RecipesTable.FIELD_NAME_NORMALIZED + " as " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
 	}
 		
 
 	/** Returns Recipes  */
-    public Cursor getRecipes(String[] selectionArgs){
+    public Cursor getSuggestions(String[] selectionArgs){
         //call from search widget
-    	String selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+    	String selection =  RecipesTable.FIELD_NAME_NORMALIZED + " like ? ";
         if(selectionArgs!=null){
     		selectionArgs[0] = "%"+dbTools.getNormalizedString(selectionArgs[0]) + "%";
     	}    	    	
@@ -51,7 +51,7 @@ public class SuggestionsDB {
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
     	queryBuilder.setProjectionMap(mAliasMap);
     	
-    	queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
+    	queryBuilder.setTables(RecipesTable.TABLE_NAME);
 
 		return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
                 new String[]{"_ID",
@@ -62,7 +62,7 @@ public class SuggestionsDB {
                 selectionArgs,
                 null,
                 null,
-				SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ", "50"
+				RecipesTable.FIELD_NAME_NORMALIZED + " asc ", "50"
         );
     }
 
@@ -70,17 +70,19 @@ public class SuggestionsDB {
     public Cursor getRecipes(String[] projection, String selection,
                              String[] selectionArgs, String sortOrder){
 
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(RecipesTable.TABLE_NAME);
 
+        /*
         if(selection == null){
         //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
-            selection =  SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+            selection =  RecipesTable.FIELD_NAME_NORMALIZED + " like ? ";
             if(selectionArgs!=null){
                 for(int i=0; i<selectionArgs.length; i++){
                     selectionArgs[i] = "%"+dbTools.getNormalizedString(selectionArgs[i]) + "%";
                 }
             }
         }
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         if(projection == null){
             //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
             queryBuilder.setProjectionMap(mAliasMap);
@@ -90,10 +92,9 @@ public class SuggestionsDB {
                     SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID};
         }
         if(sortOrder == null){
-            sortOrder = SuggestionsTable.FIELD_NAME_NORMALIZED + " asc ";
-        }
+            sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
+        }*/
 
-        queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
 
         return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
                 projection,
@@ -109,36 +110,36 @@ public class SuggestionsDB {
     /** Return Recipe corresponding to the id */
     public Cursor getRecipe(String id){
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-    	queryBuilder.setTables( SuggestionsTable.TABLE_NAME);
+    	queryBuilder.setTables( RecipesTable.TABLE_NAME);
 		return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
-                new String[]{SuggestionsTable.FIELD_ID, SuggestionsTable.FIELD_NAME, SuggestionsTable.FIELD_NAME_NORMALIZED, SuggestionsTable.FIELD_ICON},
-                SuggestionsTable.FIELD_ID + " = ?", new String[]{id}, null, null, null, "1"
+                new String[]{RecipesTable.FIELD_ID, RecipesTable.FIELD_NAME, RecipesTable.FIELD_NAME_NORMALIZED, RecipesTable.FIELD_ICON},
+                RecipesTable.FIELD_ID + " = ?", new String[]{id}, null, null, null, "1"
         );
     }
 
 	public Uri insert(ContentValues values){
         //first, check if exist
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(SuggestionsTable.TABLE_NAME);
+        queryBuilder.setTables(RecipesTable.TABLE_NAME);
         Cursor c = queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
-                new String[]{SuggestionsTable.FIELD_ID, SuggestionsTable.FIELD_NAME, SuggestionsTable.FIELD_NAME_NORMALIZED, SuggestionsTable.FIELD_ICON},
-                SuggestionsTable.FIELD_NAME_NORMALIZED+ " = ?", new String[]{values.get(SuggestionsTable.FIELD_NAME_NORMALIZED).toString()}, null, null, null, null
+                RecipesTable.ALL_COLUMNS,
+                RecipesTable.FIELD_NAME_NORMALIZED+ " = ?", new String[]{values.get(RecipesTable.FIELD_NAME_NORMALIZED).toString()}, null, null, null, null
         );
         if(c.getCount()>0)
             return null;
 		long regId;
 		SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
-		regId = db.insert(SuggestionsTable.TABLE_NAME, null, values);
-        return ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, regId);
+		regId = db.insert(RecipesTable.TABLE_NAME, null, values);
+        return ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_RECIPES, regId);
 	}
 
     public int updateFavorite(ContentValues values, String selection, String[] selectionArgs) {
         SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
-        return db.update(SuggestionsTable.TABLE_NAME, values, selection, selectionArgs);
+        return db.update(RecipesTable.TABLE_NAME, values, selection, selectionArgs);
     }
 
     public int delete(String selection, String[] selectionArgs){
         SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
-        return db.delete(SuggestionsTable.TABLE_NAME, selection, selectionArgs);
+        return db.delete(RecipesTable.TABLE_NAME, selection, selectionArgs);
     }
 }

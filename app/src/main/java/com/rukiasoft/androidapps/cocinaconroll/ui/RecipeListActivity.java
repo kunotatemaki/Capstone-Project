@@ -143,7 +143,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
         if(mRecipeListFragment != null){
             if(intent != null && intent.hasExtra(Constants.KEY_RECIPE)) {
                 String name = intent.getStringExtra(Constants.KEY_RECIPE);
@@ -151,7 +151,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             }
             if(intent != null && intent.hasExtra(Constants.KEY_TYPE)){
                 lastFilter = intent.getStringExtra(Constants.KEY_TYPE);
-                getLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
+                restartLoader();
             }
         }
     }
@@ -162,20 +162,20 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             //return from RecipeDetailsActivity
             if(resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 int index = intentData.getIntExtra(Constants.KEY_RECIPE, -1);
-                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null && index != -1) {
                     mRecipeListFragment.deleteRecipe(index);
                 }
                 if(intentData.hasExtra(Constants.KEY_RELOAD)){
-                    mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                     if(mRecipeListFragment != null){
-                        getLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
+                        restartLoader();
                     }
                 }
 
             }else if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null){
                     mRecipeListFragment.updateRecipe(recipe);
                 }
@@ -188,7 +188,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }else if(requestCode == Constants.REQUEST_CREATE_RECIPE){
             if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 if(mRecipeListFragment != null){
                     mRecipeListFragment.createRecipe(recipe);
                 }
@@ -208,7 +208,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
                 if (toolbar == null)
                     return true;
@@ -256,7 +256,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
                 if (toolbar == null)
                     return true;
@@ -356,7 +356,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        mRecipeListFragment = (RecipeListFragment) getFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                         switch (menuItem.getItemId()) {
                             case R.id.menu_all_recipes:
                                 mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
@@ -474,6 +474,13 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
             navigationView.setCheckedItem(R.id.menu_last_downloaded);
             mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+        }
+    }
+
+    public void restartLoader(){
+        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        if(mRecipeListFragment != null) {
+            getSupportLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
         }
     }
 }

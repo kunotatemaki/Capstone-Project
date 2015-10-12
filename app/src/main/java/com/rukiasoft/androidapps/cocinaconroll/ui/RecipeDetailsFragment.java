@@ -413,7 +413,7 @@ public class RecipeDetailsFragment extends Fragment implements
                     applyPalette(bitmap);
                 }
             };
-            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPath(), R.drawable.default_dish);
+            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPicturePath(), R.drawable.default_dish);
         }
 
         //Set the author

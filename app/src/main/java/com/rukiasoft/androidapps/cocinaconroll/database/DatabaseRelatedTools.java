@@ -11,6 +11,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 
+
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +37,20 @@ public class DatabaseRelatedTools {
 
     public void updateFavorite(String name, boolean favorite) {
         ContentValues values = new ContentValues();
-        values.put(SuggestionsTable.FIELD_NAME, name);
+        values.put(RecipesTable.FIELD_NAME, name);
         int iFavorite = favorite? 1 : 0;
-        values.put(SuggestionsTable.FIELD_NAME_FAVORITE, iFavorite);
-        String clause = SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+        values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
+        String clause = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
 
-        String[] args = {getNormalizedString(values.get(SuggestionsTable.FIELD_NAME).toString())};
-        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values, clause, args);
+        String[] args = {getNormalizedString(values.get(RecipesTable.FIELD_NAME).toString())};
+        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    private void insertRecipeIntoSuggestions(RecipeItem recipeItem) {
+    public void insertRecipeIntoSuggestions(RecipeItem recipeItem) {
         ContentValues values = new ContentValues();
-        values.put(SuggestionsTable.FIELD_NAME, recipeItem.getName());
-        values.put(SuggestionsTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
+        values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
+        values.put(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
+        values.put(RecipesTable.FIELD_TYPE, recipeItem.getType());
         int icon;
         switch (recipeItem.getType()) {
             case Constants.TYPE_DESSERTS:
@@ -64,49 +66,56 @@ public class DatabaseRelatedTools {
                 icon = R.drawable.ic_all_24;
                 break;
         }
-        values.put(SuggestionsTable.FIELD_ICON, icon);
-        mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, values);
+        values.put(RecipesTable.FIELD_ICON, icon);
+        int vegetarian = 0;
+        if(recipeItem.getVegetarian()){
+            vegetarian = 1;
+        }
+        values.put(RecipesTable.FIELD_VEGETARIAN, vegetarian);
+        values.put(RecipesTable.FIELD_STATE, recipeItem.getState());
+        values.put(RecipesTable.FIELD_FAVORITE, 0);
+        values.put(RecipesTable.FIELD_PATH_RECIPE, recipeItem.getFilePath());
+        values.put(RecipesTable.FIELD_PATH_PICTURE, recipeItem.getPicturePath());
+        mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values);
+
     }
 
     private void removeRecipefromSuggestions(String name) {
         String nName = getNormalizedString(name);
-        String selection = SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+        String selection = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
         final String[] selectionArgs = {nName};
-        mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS, selection, selectionArgs);
+        mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_RECIPES, selection, selectionArgs);
     }
 
     public boolean isFavorite(String recipeName) {
-        List<SuggestionsItem> list = getRecipeInfoInDatabase(recipeName, true);
-        return list.size() == 1 && list.get(0).isFavorite();
+        List<RecipeDatabaseItem> list = searchRecipesInDatabaseByName(recipeName, true);
+        return list.size() == 1 && list.get(0).getFavorite() == 1;
     }
 
-    public List<SuggestionsItem> getRecipeInfoInDatabase(String name, boolean match){
-        final String[] projection = {SuggestionsTable.FIELD_NAME, SuggestionsTable.FIELD_NAME_FAVORITE};
-        List<SuggestionsItem> list = new ArrayList<>();
+    public List<RecipeDatabaseItem> searchRecipesInDatabaseByName(String name, boolean match){
+        final String[] projection = {RecipesTable.FIELD_NAME, RecipesTable.FIELD_FAVORITE};
+        List<RecipeDatabaseItem> list = new ArrayList<>();
         String selection;
         name = getNormalizedString(name);
         if(match){
-            selection = SuggestionsTable.FIELD_NAME_NORMALIZED + " = ? ";
+            selection = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
         }else{
-            selection = SuggestionsTable.FIELD_NAME_NORMALIZED + " like ? ";
+            selection = RecipesTable.FIELD_NAME_NORMALIZED + " like ? ";
             name = "%" + name + "%";
         }
         final String[] selectionArgs = {name};
-        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_SUGGESTIONS,
+        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
                 projection,
                 selection,
                 selectionArgs, null);
 
+        //TODO arreglar
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                SuggestionsItem recipeInfoDataBase = new SuggestionsItem();
+                RecipeDatabaseItem recipeInfoDataBase = new RecipeDatabaseItem();
                 recipeInfoDataBase.setName(cursor.getString(0));
-                int fav = cursor.getInt(1);
-                if(fav > 0){
-                    recipeInfoDataBase.setFavorite(true);
-                }else{
-                    recipeInfoDataBase.setFavorite(false);
-                }
+                recipeInfoDataBase.setFavorite(cursor.getInt(1));
+
                 list.add(recipeInfoDataBase);
             }while(cursor.moveToNext());
             cursor.close();
@@ -114,6 +123,33 @@ public class DatabaseRelatedTools {
 
         return list;
     }
+
+    public List<RecipeDatabaseItem> searchRecipesInDatabaseByType(String type){
+        List<RecipeDatabaseItem> list = new ArrayList<>();
+        String selection;
+        selection = RecipesTable.FIELD_TYPE + " = ? ";
+        final String[] selectionArgs = {type};
+        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
+                RecipesTable.ALL_COLUMNS,
+                selection,
+                selectionArgs, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                RecipeDatabaseItem item =  new RecipeDatabaseItem();
+                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
+                item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
+                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
+                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
+                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
+                list.add(item);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+
+        return list;
+    }
+
     public String getNormalizedString(String input){
         String normalized;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
@@ -124,7 +160,6 @@ public class DatabaseRelatedTools {
         return input.toLowerCase();
 
     }
-
 
     public Uri insertNewZip(String name, String link) {
         ContentValues values = new ContentValues();
@@ -170,5 +205,29 @@ public class DatabaseRelatedTools {
         String clause = ZipsTable.FIELD_NAME + " = ? ";
         String[] args = {name};
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values, clause, args);
+    }
+
+    public List<RecipeDatabaseItem> getRecipesFromCursor(Cursor cursor) {
+        List<RecipeDatabaseItem> list = new ArrayList<>();
+        if(cursor != null && cursor.moveToFirst()){
+            do {
+                RecipeDatabaseItem item =  new RecipeDatabaseItem();
+                item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
+                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
+                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
+                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
+                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
+                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
+                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
+                item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
+                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
+                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
+                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
+                list.add(item);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+
+        return list;
     }
 }

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.loader.PreinstalledRecipeNamesList;
 import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
@@ -95,11 +96,8 @@ public class ReadWriteTools {
 
     public String getEditedStorageDir(){
         File rootPath = Environment.getExternalStoragePublicDirectory("");
-        int stringId = mContext.getApplicationInfo().labelRes;
-        String dir = mContext.getString(stringId);
-        dir = dir.replaceAll("\\s","");
         String path = rootPath.getAbsolutePath() + String.valueOf(File.separatorChar) +
-                dir + String.valueOf(File.separatorChar) +
+                Constants.BASE_DIR + String.valueOf(File.separatorChar) +
                 Constants.RECIPES_DIR + String.valueOf(File.separatorChar);
         File file = new File(path);
         if (!file.exists()) {
@@ -132,6 +130,7 @@ public class ReadWriteTools {
             }
             recipeItem.setState(Constants.FLAG_ASSETS);
             recipeItem.setFileName(name);
+            recipeItem.setFilePath(Constants.ASSETS_PATH);
             source.delete();
         }else {
             if (type.equals(Constants.PATH_TYPE_ORIGINAL))
@@ -142,6 +141,7 @@ public class ReadWriteTools {
             recipeItem = parseFileIntoRecipe(source);
             if(recipeItem == null)
                 return null;
+            recipeItem.setFilePath(path);
             recipeItem.setFileName(name);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
@@ -153,11 +153,11 @@ public class ReadWriteTools {
         }
 
         if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
-            recipeItem.setPath(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
+            recipeItem.setPicturePath(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ORIGINAL) != 0)
-            recipeItem.setPath(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
+            recipeItem.setPicturePath(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
-            recipeItem.setPath(Constants.ASSETS_PATH + recipeItem.getPicture());
+            recipeItem.setPicturePath(Constants.ASSETS_PATH + recipeItem.getPicture());
 
 
         return recipeItem;
@@ -258,7 +258,7 @@ public class ReadWriteTools {
             pathFile = getEditedStorageDir() + recipeItem.getFileName();
         }
         if((flags & Constants.FLAG_EDITED_PICTURE) != 0) {
-            pathPicture = recipeItem.getPath();
+            pathPicture = recipeItem.getPicturePath();
         }
         if((flags & Constants.FLAG_ORIGINAL) != 0) {
             pathFile = getOriginalStorageDir() + recipeItem.getFileName();
@@ -388,7 +388,7 @@ public class ReadWriteTools {
         File fileXml = new File(getEditedStorageDir() + recipe.getFileName());
         Uri u = Uri.fromFile(fileXml);
         uris.add(u);
-        if(recipe.getPath().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
+        if(recipe.getPicturePath().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
             File fileJpg = new File(getEditedStorageDir() + recipe.getPicture());
             u = Uri.fromFile(fileJpg);
             uris.add(u);
@@ -434,4 +434,54 @@ public class ReadWriteTools {
         }
         return true;
     }
+
+
+    public void initDatabase() {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+        MyFileFilter filter = new MyFileFilter();
+        List<String> listEdited = loadFiles(filter, true);
+        List<String> listOriginal = loadFiles(filter, false);
+        List<String> listAssets = loadRecipesFromAssets();
+
+        for(int i=0; i<listEdited.size(); i++) {
+            RecipeItem recipeItem= readRecipe(listEdited.get(i),
+                    Constants.PATH_TYPE_EDITED);
+            if(recipeItem != null) {
+                dbTools.insertRecipeIntoSuggestions(recipeItem);
+            }
+        }
+
+        for(int i=0; i<listOriginal.size(); i++) {
+            if(listEdited.contains(listOriginal.get(i)))
+                continue;
+            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
+                    Constants.PATH_TYPE_ORIGINAL);
+            if(recipeItem != null) {
+                dbTools.insertRecipeIntoSuggestions(recipeItem);
+            }
+        }
+
+        for(int i=0; i<listAssets.size(); i++) {
+            RecipeItem recipeItem;
+            if(listEdited.contains(listAssets.get(i)))
+                continue;
+            recipeItem = readRecipe(listAssets.get(i),
+                    Constants.PATH_TYPE_ASSETS);
+            if (recipeItem != null) {
+                dbTools.insertRecipeIntoSuggestions(recipeItem);
+            }
+        }
+        return;
+    }
+
+
+
+    private class MyFileFilter implements FilenameFilter {
+
+        @Override
+        public boolean accept(File directory, String fileName) {
+            return fileName.endsWith(".xml");
+        }
+    }
+
 }
