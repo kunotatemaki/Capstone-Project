@@ -18,8 +18,10 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
 import butterknife.Bind;
@@ -70,7 +72,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             recipe = new RecipeItem();
             recipe.setState(Constants.FLAG_OWN);
             //recipe.setAuthor(CocinaConRollTools.getOwnerName(this));
-            recipe.setFileName(mTools.getCurrentDate(this) + ".xml");
+            //recipe.setFileName(mTools.getCurrentDate(this) + ".xml");
         }
 
         super.onCreate(savedInstanceState);
@@ -183,7 +185,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                         editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeIngredientsFragment.class.getSimpleName());
                         if(editRecipeIngredientsFragment == null)
                             editRecipeIngredientsFragment = new EditRecipeIngredientsFragment();
-                        editRecipePhotoFragment = null;
+                        //editRecipePhotoFragment = null;
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.edit_recipe_container, editRecipeIngredientsFragment, EditRecipeIngredientsFragment.class.getSimpleName())
                                 .addToBackStack(null)
@@ -264,6 +266,10 @@ public class EditRecipeActivity extends AppCompatActivity {
     }
 
     private void finishWithoutSave(){
+        if(!editRecipePhotoFragment.getNameOfNewImage().isEmpty()){
+            ReadWriteTools rwTools = new ReadWriteTools(this);
+            rwTools.deleteImageFromEditedPath(editRecipePhotoFragment.getNameOfNewImage());
+        }
         Intent resultIntent = new Intent();
         setResult(RESULT_CANCELED, resultIntent);
         finish();
@@ -305,9 +311,9 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     private void performPressBack(){
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
-        if(tablet)
+        if(tablet) {
             finishWithoutSave();
-        else if(f instanceof EditRecipePhotoFragment){
+        }else if(f instanceof EditRecipePhotoFragment){
             finishWithoutSave();
         }else{
             Boolean compatRequired = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;

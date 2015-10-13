@@ -1,10 +1,7 @@
 package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -129,7 +126,7 @@ public class ReadWriteTools {
                 return null;
             }
             recipeItem.setState(Constants.FLAG_ASSETS);
-            recipeItem.setFileName(name);
+            //recipeItem.setFileName(name);
             recipeItem.setPathRecipe(Constants.ASSETS_PATH + name);
             source.delete();
         }else {
@@ -142,12 +139,13 @@ public class ReadWriteTools {
             if(recipeItem == null)
                 return null;
             recipeItem.setPathRecipe(path);
-            recipeItem.setFileName(name);
+            //recipeItem.setFileName(name);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
                 if(recipeItem.getDate() == null){
                     recipeItem.setDate(System.currentTimeMillis());
-                    saveRecipeOnOrigialPath(recipeItem);
+                    //TODO mirar lo de la fecha;
+                    //saveRecipeOnOrigialPath(recipeItem);
                 }
             }
         }
@@ -210,49 +208,50 @@ public class ReadWriteTools {
         return recipeItem;
     }
 
-    public void saveRecipeOnOrigialPath(RecipeItem recipe){
+    /*public void saveRecipeOnOrigialPath(RecipeItem recipe){
         String path = getOriginalStorageDir();
         saveRecipe(recipe, path);
+    }*/
+
+    public String saveRecipeOnEditedPath(RecipeItem recipe){
+        String dir = getEditedStorageDir();
+        Tools mTools = new Tools();
+        String name = mTools.getCurrentDate(mContext) + ".xml";
+        return saveRecipe(recipe, dir, name);
     }
 
-    public void saveRecipeOnEditedPath(RecipeItem recipe){
-        String path = getEditedStorageDir();
-        saveRecipe(recipe, path);
-    }
-
-    public Boolean saveRecipe(RecipeItem recipe, String path){
-        Boolean ret;
-        ret = isExternalStorageWritable();
-        if(!ret){
+    public String saveRecipe(RecipeItem recipe, String dir, String name){
+        if(!isExternalStorageWritable()){
             if(mContext instanceof AppCompatActivity) {
                 Toast.makeText(mContext, mContext.getResources().getString(R.string.no_storage_available), Toast.LENGTH_LONG)
                 .show();
             }
-            return ret;
+            return "";
         }
 
-        File file = new File(path);
+        File file = new File(dir);
         if (!file.exists()) {
-            ret = file.mkdirs();
-            if(!ret)
-                return ret;
+            if(!file.mkdirs())
+                return "";
         }
 
         Serializer serializer = new Persister();
-        File result = new File(path + recipe.getFileName());
+        String path = dir.concat(name);
+        File result = new File(path);
 
         try {
             serializer.write(recipe, result);
-            return true;
+            return path;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "";
         }
 
     }
 
     public void deleteRecipe(RecipeItem recipeItem, Integer flags){
-        String pathFile = "";
+        // TODO: 13/10/15 comprobar
+        /*String pathFile = "";
         String pathPicture = "";
         if((flags & Constants.FLAG_EDITED) != 0) {
             pathFile = getEditedStorageDir() + recipeItem.getFileName();
@@ -277,7 +276,7 @@ public class ReadWriteTools {
             if(file.exists())
                 file.delete();
         }
-
+*/
     }
 
     public List<String> loadRecipesFromAssets() {
@@ -369,8 +368,10 @@ public class ReadWriteTools {
     public void share(final Activity activity, RecipeItem recipe)
     {
         //TODO try with revealAction
+        // TODO: 13/10/15 comprobar
+
         //need to "send multiple" to get more than one attachment
-        Tools tools = new Tools();
+        /*Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
         final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         emailIntent.setType("message/rfc822");
@@ -414,7 +415,7 @@ public class ReadWriteTools {
 
             builder.show();
         }else
-            activity.startActivity(emailIntent);
+            activity.startActivity(emailIntent);*/
     }
 
     public String getZipsStorageDir(){
@@ -447,7 +448,7 @@ public class ReadWriteTools {
             RecipeItem recipeItem= readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoSuggestions(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem);
             }
         }
 
@@ -457,7 +458,7 @@ public class ReadWriteTools {
             RecipeItem recipeItem= readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoSuggestions(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem);
             }
         }
 
@@ -468,7 +469,7 @@ public class ReadWriteTools {
             recipeItem = readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if (recipeItem != null) {
-                dbTools.insertRecipeIntoSuggestions(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem);
             }
         }
         return;
@@ -495,7 +496,7 @@ public class ReadWriteTools {
                 return null;
             }
             recipeItem.setState(Constants.FLAG_ASSETS);
-            recipeItem.setFileName(name);
+            //recipeItem.setFileName(name);
             recipeItem.setPathRecipe(Constants.ASSETS_PATH + "/" + name);
             source.delete();
         }else {

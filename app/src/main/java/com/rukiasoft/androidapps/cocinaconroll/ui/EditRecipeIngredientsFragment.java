@@ -42,7 +42,6 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
     private ItemTouchHelper mItemTouchHelper;
     Tools mTools;
 
-
     public EditRecipeIngredientsFragment() {
         // Required empty public constructor
     }

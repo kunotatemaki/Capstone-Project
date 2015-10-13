@@ -14,7 +14,7 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
 
             />
         <LinearLayout
@@ -51,7 +51,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:singleLine="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/swipe_horizontal"/>
         </LinearLayout>
         <LinearLayout
@@ -87,7 +87,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:singleLine="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:text="@string/swipe_vertical"/>
         </LinearLayout>
 

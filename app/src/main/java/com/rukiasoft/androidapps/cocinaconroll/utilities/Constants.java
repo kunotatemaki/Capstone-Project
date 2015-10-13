@@ -22,7 +22,7 @@ public class Constants {
 
     public static final String KEY_RECIPE = Constants.PACKAGE_NAME + "." + ".recipe";
     public static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + ".started";
-    public static final String KEY_RELOAD = Constants.PACKAGE_NAME + "." + ".reload";
+    //public static final String KEY_RELOAD = Constants.PACKAGE_NAME + "." + ".reload";
     public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME + "." + ".deleteoldpicture";
     public static final String KEY_TYPE = Constants.PACKAGE_NAME + "." + ".type";
     public static final int REQUEST_DETAILS = 200;

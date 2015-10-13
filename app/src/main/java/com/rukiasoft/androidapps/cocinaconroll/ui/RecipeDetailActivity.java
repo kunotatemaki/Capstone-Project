@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
@@ -101,7 +102,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
                     recipe.setPathPicture(Constants.DEFAULT_PICTURE_NAME);
                 ReadWriteTools readWriteTools = new ReadWriteTools(this);
-                readWriteTools.saveRecipeOnEditedPath(recipe);
+                String path = readWriteTools.saveRecipeOnEditedPath(recipe);
+                recipe.setPathRecipe(path);
+                //update database
+                DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
+                dbTools.updatePaths(recipe);
                 //set results
                 Intent returnIntent = new Intent();
                 Bundle bundle = new Bundle();

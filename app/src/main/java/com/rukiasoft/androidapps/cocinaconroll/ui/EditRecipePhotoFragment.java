@@ -52,9 +52,10 @@ public class EditRecipePhotoFragment extends Fragment {
 
     private Bitmap photo;
     RecipeItem recipeItem;
-    Tools mTools;
-    DatabaseRelatedTools dbTools;
-    ReadWriteTools rwTools;
+    private Tools mTools;
+    private DatabaseRelatedTools dbTools;
+    private ReadWriteTools rwTools;
+    private String nameOfNewImage = "";
 
     public static final int PICK_FROM_CAMERA = 1;
     public static final int CROP_FROM_CAMERA = 2;
@@ -81,6 +82,9 @@ public class EditRecipePhotoFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public String getNameOfNewImage() {
+        return nameOfNewImage;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -323,6 +327,7 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras != null) {
                     photo = extras.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName());
+                    updateNameOfNewImage(recipeItem.getPicture());
                     recipeItem.setPathPicture(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
@@ -339,6 +344,7 @@ public class EditRecipePhotoFragment extends Fragment {
                 if (extras2 != null) {
                     photo = extras2.getParcelable("data");
                     recipeItem.setPicture(getPictureNameFromFileName());
+                    updateNameOfNewImage(recipeItem.getPicture());
                     recipeItem.setPathPicture(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
@@ -346,6 +352,13 @@ public class EditRecipePhotoFragment extends Fragment {
                 }
                 break;
         }
+    }
+
+    private void updateNameOfNewImage(String name){
+        if(!nameOfNewImage.isEmpty()){
+            rwTools.deleteImageFromEditedPath(nameOfNewImage);
+        }
+        nameOfNewImage = name;
     }
 
     private Uri getUri() {
@@ -416,11 +429,12 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             ret = false;
         }
-        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabaseByName(sName, true);
+        //TODO cambiar esto
+        /*List<RecipeItem> coincidences = dbTools.searchRecipesInDatabaseByName(sName, true);
         if (coincidences.size() > 0) {
             createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
             ret = false;
-        }
+        }*/
 
 
 

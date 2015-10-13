@@ -227,7 +227,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             RecipeItem recipeItem= readWriteTools.readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                dbTools.addRecipeToArrayAndDatabase(recipes, recipeItem);
             }
         }
 
@@ -237,7 +237,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             RecipeItem recipeItem= readWriteTools.readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                dbTools.addRecipeToArrayAndDatabase(recipes, recipeItem);
             }
         }
 
@@ -248,7 +248,7 @@ public class RecipeListLoader extends AsyncTaskLoader<List<RecipeItem>> {
             recipeItem = readWriteTools.readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if (recipeItem != null) {
-                dbTools.addRecipeToArrayAndSuggestions(recipes, recipeItem);
+                dbTools.addRecipeToArrayAndDatabase(recipes, recipeItem);
             }
         }
         //Log.d(TAG, "leido assets");

@@ -111,9 +111,9 @@ public class RecipeDetailsFragment extends Fragment implements
                     ReadWriteTools tools = new ReadWriteTools(getActivity().getApplicationContext());
                     tools.deleteRecipe(recipe, flags);
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe.getPosition());
-                    if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0)
-                        resultIntent.putExtra(Constants.KEY_RELOAD, true);
+                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe.get_id());
+                    /*if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0)
+                        resultIntent.putExtra(Constants.KEY_RELOAD, true);*/
                     getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
                     getActivity().finish();
 
@@ -149,8 +149,6 @@ public class RecipeDetailsFragment extends Fragment implements
         rwTools = new ReadWriteTools(getActivity());
 
     }
-
-
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {

@@ -29,6 +29,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
@@ -161,17 +162,20 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(requestCode == Constants.REQUEST_DETAILS){
             //return from RecipeDetailsActivity
             if(resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
-                int index = intentData.getIntExtra(Constants.KEY_RECIPE, -1);
-                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                if(mRecipeListFragment != null && index != -1) {
-                    mRecipeListFragment.deleteRecipe(index);
+                int id = intentData.getIntExtra(Constants.KEY_RECIPE, -1);
+                /*mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                if(mRecipeListFragment != null) {
+                    mRecipeListFragment.deleteRecipe(id);
                 }
                 if(intentData.hasExtra(Constants.KEY_RELOAD)){
                     mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                     if(mRecipeListFragment != null){
                         restartLoader();
                     }
-                }
+                }*/
+                DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
+                dbTools.removeRecipefromDatabase(id);
+                restartLoader();
 
             }else if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
@@ -197,7 +201,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             }
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

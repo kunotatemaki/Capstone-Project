@@ -82,8 +82,8 @@
     <string name="drag_drop_content_description">icono para arrastrar la fila</string>
     <string name="hide">Ocultar</string>
     <string name="image_of_the_recipe">Foto de la receta</string>
-    <string name="swipe_horizontal">Desliza hacia un lado</string>
-    <string name="swipe_vertical">Arrastra vericalmente</string>
+    <string name="swipe_horizontal">Desliza hacia un lado para eliminar un elemento</string>
+    <string name="swipe_vertical">Arrastra vericalmente para reordenar un elemento</string>
     <string name="init_database_firstboot">Espere mientras se configura la lista de recetas en el primer arranque</string>
 
 </resources>

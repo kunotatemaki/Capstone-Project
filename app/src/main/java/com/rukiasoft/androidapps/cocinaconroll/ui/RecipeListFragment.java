@@ -34,20 +34,17 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
-import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
-import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
+import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -118,7 +115,6 @@ public class RecipeListFragment extends Fragment implements
             Tools mTools = new Tools();
             mTools.savePreferences(mActivity, Constants.PROPERTY_INIT_DATABASE, true);
             ((RecipeListActivity) mActivity).restartLoader();
-            return;
         }
     }
 
@@ -314,17 +310,17 @@ public class RecipeListFragment extends Fragment implements
         tools.hideRefreshLayout(getActivity());
     }
 
-    private void orderRecipesByName(){
+    /*private void orderRecipesByName(){
         Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
         Collections.sort(mRecipes, comparatorName);
         for(int i=0; i<mRecipes.size(); i++){
             mRecipes.get(i).setPosition(i);
         }
-    }
+    }*/
 
     private void setData(){
         initDatabaseText.setVisibility(View.GONE);
-        orderRecipesByName();
+        //orderRecipesByName();
         ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
         if(isResumed()) {
             Tools tools = new Tools();
@@ -379,6 +375,9 @@ public class RecipeListFragment extends Fragment implements
         }
         if(recipeItem.getIngredients() == null || recipeItem.getIngredients().size() == 0){
             RecipeItem item = rwTools.readRecipeInfo(recipeItem.getPathRecipe());
+            recipeItem.setMinutes(item.getMinutes());
+            recipeItem.setPortions(item.getPortions());
+            recipeItem.setAuthor(item.getAuthor());
             recipeItem.setIngredients(item.getIngredients());
             recipeItem.setSteps(item.getSteps());
             recipeItem.setTip(item.getTip());
@@ -416,78 +415,60 @@ public class RecipeListFragment extends Fragment implements
 
     public void filterRecipes(String filter) {
         lastFilter = filter;
-        Tools mTools = new Tools();
-        List<RecipeItem> filteredModelList = new ArrayList<>();
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
         String type = "";
         int iconResource = 0;
-
+        String selectionArgs[] = new String[1];
         if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
-            filteredModelList = new ArrayList<>(mRecipes);
             type = getResources().getString(R.string.all_recipes);
+            mRecipes = dbTools.searchRecipesInDatabase(null, null);
             iconResource = R.drawable.ic_all_24;
         }else if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0){
-            for (RecipeItem item : mRecipes) {
-                if (item.getType().equals(Constants.TYPE_MAIN)) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.main_courses);
+            selectionArgs[0] = Constants.TYPE_MAIN;
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
             iconResource = R.drawable.ic_main_24;
         }else if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0){
-            for (RecipeItem item : mRecipes) {
-                if (item.getType().equals(Constants.TYPE_STARTERS)) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.starters);
+            selectionArgs[0] = Constants.TYPE_STARTERS;
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
             iconResource = R.drawable.ic_starters_24;
         }else if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0){
-            for (RecipeItem item : mRecipes) {
-                if (item.getType().equals(Constants.TYPE_DESSERTS)) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.desserts);
+            selectionArgs[0] = Constants.TYPE_DESSERTS;
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
             iconResource = R.drawable.ic_dessert_24;
         }else if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0){
-            for (RecipeItem item : mRecipes) {
-                if (item.getVegetarian()) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.vegetarians);
+            selectionArgs[0] = String.valueOf(1);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_VEGETARIAN, selectionArgs);
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
-            for (RecipeItem item : mRecipes) {
-                if (item.getFavorite()) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.favourites);
+            selectionArgs[0] = String.valueOf(1);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_FAVORITE, selectionArgs);
             iconResource = R.drawable.ic_favorite_black_24dp;
         }else if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0){
-            for(RecipeItem item : mRecipes) {
-                if ((item.getState() & (Constants.FLAG_OWN | Constants.FLAG_EDITED)) != 0) {
-                    filteredModelList.add(item);
-                }
-            }
             type = getResources().getString(R.string.own_recipes);
+            selectionArgs[0] = String.valueOf(Constants.FLAG_EDITED);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_STATE, selectionArgs);
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
-            for(RecipeItem item : mRecipes) {
+            //TOdo hacer esto
+            /*for(RecipeItem item : mRecipes) {
                 if (mTools.isInTimeframe(item)) {
                     filteredModelList.add(item);
                 }
-            }
+            }*/
             type = getResources().getString(R.string.last_downloaded);
             iconResource = R.drawable.ic_latest_24;
         }
         typeRecipesInRecipeList.setText(type);
-        String nrecipes = String.format(getResources().getString(R.string.recipes), filteredModelList.size());
+        String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
         nRecipesInRecipeList.setText(nrecipes);
         typeIconInRecipeList.setImageDrawable(ContextCompat.getDrawable(getActivity(), iconResource));
         //Change the adapter
-        RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), filteredModelList);
+        RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         newAdapter.setHasStableIds(true);
         newAdapter.setOnItemClickListener(this);
         mRecyclerView.setHasFixedSize(true);
@@ -533,19 +514,22 @@ public class RecipeListFragment extends Fragment implements
     }
 
     public void updateRecipe(RecipeItem recipe) {
-        int index = recipe.getPosition();
-        if(mRecipes == null || index >= mRecipes.size()){
+        if(mRecipes == null){
             return;
         }
-        mRecipes.remove(index);
-        mRecipes.add(index, recipe);
-        filterRecipes(lastFilter);
+        for(int i=0; i<mRecipes.size(); i++){
+            if(mRecipes.get(i).get_id().intValue() == recipe.get_id().intValue()){
+                mRecipes.remove(i);
+                mRecipes.add(i, recipe);
+                filterRecipes(lastFilter);
+            }
+        }
     }
 
     public void createRecipe(RecipeItem recipe) {
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        dbTools.addRecipeToArrayAndSuggestions(mRecipes, recipe);
-        orderRecipesByName();
+        dbTools.addRecipeToArrayAndDatabase(mRecipes, recipe);
+        //orderRecipesByName();
         filterRecipes(lastFilter);
     }
 
@@ -560,12 +544,22 @@ public class RecipeListFragment extends Fragment implements
         }
     }
 
-    public void deleteRecipe(int index) {
+    /*public void deleteRecipe(int id) {
+        if(mRecipes == null){
+            return;
+        }
+        for(int i=0; i<mRecipes.size(); i++){
+            if(mRecipes.get(i).get_id().intValue() == id){
+                mRecipes.remove(i);
+                mRecipes.add(i, recipe);
+                filterRecipes(lastFilter);
+            }
+        }
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        dbTools.removeRecipeFromArrayAndSuggestions(mRecipes, index);
-        orderRecipesByName();
+        dbTools.re(mRecipes,index);
+        //orderRecipesByName();
         filterRecipes(lastFilter);
-    }
+    }*/
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

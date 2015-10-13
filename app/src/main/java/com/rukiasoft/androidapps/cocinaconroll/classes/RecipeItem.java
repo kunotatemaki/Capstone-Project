@@ -19,7 +19,7 @@ public class RecipeItem implements Parcelable {
     private Integer _id;
     @Element
     private String name = "";
-    private String fileName = "";
+    //private String fileName = "";
     @Element
     private String type = "";
     private Integer icon;
@@ -49,13 +49,12 @@ public class RecipeItem implements Parcelable {
     private Long date;
     @Element
     private String language = "Spanish";
-    private int position = -1;
 
 
     public RecipeItem(Parcel in){
         this._id = in.readInt();
         this.name = in.readString();
-        this.fileName = in.readString();
+        //this.fileName = in.readString();
         this.type = in.readString();
         this.icon = in.readInt();
         this.picture = in.readString();
@@ -73,7 +72,6 @@ public class RecipeItem implements Parcelable {
         this.pathRecipe = in.readString();
         this.pathPicture = in.readString();
         this.language = in.readString();
-        this.position = in.readInt();
         this.date = in.readLong();
 
 
@@ -116,13 +114,13 @@ public class RecipeItem implements Parcelable {
         this.language = language;
     }
 
-    public String getFileName() {
+    /*public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
+    }*/
 
     public String getType() {
         return type;
@@ -212,14 +210,6 @@ public class RecipeItem implements Parcelable {
         this.pathPicture = pathPicture;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public Integer get_id() {
         return _id;
     }
@@ -253,7 +243,7 @@ public class RecipeItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(get_id());
         dest.writeString(getName());
-        dest.writeString(getFileName());
+        //dest.writeString(getFileName());
         dest.writeString(getType());
         dest.writeInt(getIcon());
         dest.writeString(getPicture());
@@ -269,7 +259,6 @@ public class RecipeItem implements Parcelable {
         dest.writeString(getPathRecipe());
         dest.writeString(getPathPicture());
         dest.writeString(getLanguage());
-        dest.writeInt(getPosition());
         if(getDate() != null)
             dest.writeLong(getDate());
         else

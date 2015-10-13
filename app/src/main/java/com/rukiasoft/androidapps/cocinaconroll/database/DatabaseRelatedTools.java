@@ -1,5 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll.database;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,15 +25,9 @@ public class DatabaseRelatedTools {
         mContext = context;
     }
 
-    public void addRecipeToArrayAndSuggestions(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
+    public void addRecipeToArrayAndDatabase(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
-        insertRecipeIntoSuggestions(recipeItem);
-    }
-
-    public void removeRecipeFromArrayAndSuggestions(List<RecipeItem> recipeItemList, int index){
-        String name = recipeItemList.get(index).getName();
-        recipeItemList.remove(index);
-        removeRecipefromSuggestions(name);
+        insertRecipeIntoDatabase(recipeItem);
     }
 
     public void updateFavorite(int id, boolean favorite) {
@@ -45,12 +40,25 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void insertRecipeIntoSuggestions(RecipeItem recipeItem) {
+    public void updatePaths(RecipeItem recipe) {
+        ContentValues values = new ContentValues();
+
+        values.put(RecipesTable.FIELD_PATH_RECIPE_EDITED, recipe.getPathRecipe());
+        if((recipe.getState()&Constants.FLAG_EDITED_PICTURE) != 0){
+            values.put(RecipesTable.FIELD_PATH_PICTURE_EDITED, recipe.getPathPicture());
+        }
+        values.put(RecipesTable.FIELD_STATE, recipe.getState());
+        String clause = RecipesTable.FIELD_ID + " = ? ";
+
+        String[] args = {String.valueOf(recipe.get_id())};
+        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
+    }
+
+    public void insertRecipeIntoDatabase(RecipeItem recipeItem) {
         ContentValues values = new ContentValues();
         values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
         values.put(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
         values.put(RecipesTable.FIELD_TYPE, recipeItem.getType());
-        values.put(RecipesTable.FIELD_AUTHOR, recipeItem.getAuthor());
         int icon;
         switch (recipeItem.getType()) {
             case Constants.TYPE_DESSERTS:
@@ -80,15 +88,29 @@ public class DatabaseRelatedTools {
 
     }
 
-    private void removeRecipefromSuggestions(String name) {
-        String nName = getNormalizedString(name);
+    public void removeRecipefromDatabase(int id) {
+        //// TODO: 13/10/15 no eliminar si no es creada. dejar en estado original
+        Uri.Builder uribuilder = ContentUris.appendId(CocinaConRollContentProvider.CONTENT_URI_RECIPES.buildUpon(), id);
+        Cursor cursor = mContext.getContentResolver().query(uribuilder.build(),
+                null,
+                null,
+                null, null);
+        List<RecipeItem> list = getRecipesFromCursor(cursor);
+        if(list.size() > 0){
+            RecipeItem item = list.get(0);
+            int state = item.getState();
+            state = (state&(~Constants.FLAG_EDITED_PICTURE));
+            state = (state&(~Constants.FLAG_EDITED));
+            state = (state&(~Constants.FLAG_OWN));
+        }
+        /*String nName = getNormalizedString(name);
         String selection = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
         final String[] selectionArgs = {nName};
-        mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_RECIPES, selection, selectionArgs);
+        mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_RECIPES, selection, selectionArgs);*/
     }
 
 
-    public List<RecipeItem> searchRecipesInDatabaseByName(String name, boolean match){
+    /*public List<RecipeItem> searchRecipesInDatabaseByName(String name, boolean match){
         final String[] projection = {RecipesTable.FIELD_NAME, RecipesTable.FIELD_FAVORITE};
         String selection;
         name = getNormalizedString(name);
@@ -104,17 +126,25 @@ public class DatabaseRelatedTools {
                 selection,
                 selectionArgs, null);
 
-        //TODO comprobar
-        /*if (cursor != null && cursor.moveToFirst()) {
-            do {
-                RecipeItem recipeItem = new RecipeItem();
-                recipeItem.setName(cursor.getString(0));
-                //recipeInfoDataBase.setFavorite(cursor.getInt(1));
 
-                list.add(recipeItem);
-            }while(cursor.moveToNext());
-            cursor.close();
-        }*/
+        return getRecipesFromCursor(cursor);
+    }*/
+
+    public List<RecipeItem> searchRecipesInDatabase(String field, String[] selectionArgs){
+        final String[] projection = RecipesTable.ALL_COLUMNS;
+        String selection = null;
+        String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
+        if(field != null) {
+            if (field.equals(RecipesTable.FIELD_STATE)) {
+                selection = field + " > ? ";
+            } else {
+                selection = field + " = ? ";
+            }
+        }
+        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
+                projection,
+                selection,
+                selectionArgs, sortOrder);
 
         return getRecipesFromCursor(cursor);
     }
@@ -183,7 +213,6 @@ public class DatabaseRelatedTools {
                 RecipeItem item =  new RecipeItem();
                 item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
                 item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
-                item.setAuthor(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_AUTHOR)));
                 item.setIcon(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ICON)));
                 int favorite = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE));
                 item.setFavorite(favorite != 0);
@@ -211,4 +240,6 @@ public class DatabaseRelatedTools {
 
         return list;
     }
+
+
 }
