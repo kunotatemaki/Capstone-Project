@@ -50,7 +50,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -245,6 +245,7 @@ public class RecipeDetailsFragment extends Fragment implements
         land = getResources().getBoolean(R.bool.land);
 
 
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbarRecipeDetails);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if(actionBar != null) {
@@ -257,29 +258,20 @@ public class RecipeDetailsFragment extends Fragment implements
         }
 
         if(recipeDescriptionFAB != null) {
+
             recipeDescriptionFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override public void run() {
-                            boolean favorite = dbTools.isFavorite(recipe.getName());
-                            if (favorite) {
-                                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
-                            } else {
-                                recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                clickOnHeartButton();
                             }
-                            //lo almaceno en la base de datos
-                            dbTools.updateFavorite(recipe.getName(), !favorite);
-                            Intent returnIntent = new Intent();
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable(Constants.KEY_RECIPE, recipe);
-                            returnIntent.putExtras(bundle);
-                            getActivity().setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                scaleIn.run();
-                            }
-                        }
-                    }, 150);
+                        }, 150);
+                    }else{
+                        clickOnHeartButton();
+                    }
                 }
             });
         }
@@ -332,6 +324,25 @@ public class RecipeDetailsFragment extends Fragment implements
 
         }
         return mRootView;
+    }
+
+    private void clickOnHeartButton(){
+        if (recipe.getFavorite()) {
+            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
+        } else {
+            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
+        }
+        //lo almaceno en la base de datos
+        recipe.setFavorite(!recipe.getFavorite());
+        dbTools.updateFavorite(recipe.get_id(), recipe.getFavorite());
+        Intent returnIntent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_RECIPE, recipe);
+        returnIntent.putExtras(bundle);
+        getActivity().setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scaleIn.run();
+        }
     }
 
 
@@ -391,7 +402,7 @@ public class RecipeDetailsFragment extends Fragment implements
             actionBar.setTitle(recipe.getName());
         }
         if(recipeDescriptionFAB != null){
-            if (dbTools.isFavorite(recipe.getName())) {
+            if (recipe.getFavorite()) {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
             } else {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
@@ -413,7 +424,7 @@ public class RecipeDetailsFragment extends Fragment implements
                     applyPalette(bitmap);
                 }
             };
-            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPicturePath(), R.drawable.default_dish);
+            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPathPicture(), R.drawable.default_dish);
         }
 
         //Set the author
@@ -468,6 +479,8 @@ public class RecipeDetailsFragment extends Fragment implements
             @Override
             public void onGenerated(Palette palette) {
                 //TODO aquí dio un fallo de null pointer, en getcolor
+                if(palette == null)
+                    return;
                 int mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
                 int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
                 int mMutedColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorAccent));
@@ -480,7 +493,9 @@ public class RecipeDetailsFragment extends Fragment implements
                 if(collapsingToolbarLayout != null) {
                     collapsingToolbarLayout.setContentScrim(new ColorDrawable(mMutedColor));
                 }
-                recipeDescriptionFAB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{0}}, new int[]{mVibrantColor}));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    recipeDescriptionFAB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{0}}, new int[]{mVibrantColor}));
+                }
                 getActivity().supportStartPostponedEnterTransition();
 
             }

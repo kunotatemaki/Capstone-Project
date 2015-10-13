@@ -29,7 +29,7 @@ import android.widget.TextView;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             if(rwTools == null) rwTools = new ReadWriteTools(context);
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
-            if(dbTools.isFavorite(item.getName())){
+            if(item.getFavorite()){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
             }else{
@@ -138,7 +138,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                     typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
                     break;
             }
-            rwTools.loadImageFromPath(recipeThumbnail, item.getPicturePath(), R.drawable.default_dish_thumb);
+            rwTools.loadImageFromPath(recipeThumbnail, item.getPathPicture(), R.drawable.default_dish_thumb);
 
         }
     }

@@ -66,14 +66,14 @@ public class RecipesDB {
         );
     }
 
-    /** Returns Recipes  */
-    public Cursor getRecipes(String[] projection, String selection,
+    /** Returns Suggestions  */
+    public Cursor getSuggestions(String[] projection, String selection,
                              String[] selectionArgs, String sortOrder){
 
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(RecipesTable.TABLE_NAME);
 
-        /*
+
         if(selection == null){
         //call from search widget when pressed, when user presses "Go" in the Keyboard of Search Dialog
             selection =  RecipesTable.FIELD_NAME_NORMALIZED + " like ? ";
@@ -93,8 +93,35 @@ public class RecipesDB {
         }
         if(sortOrder == null){
             sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
-        }*/
+        }
 
+
+        return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
+
+    /** Return Suggestion corresponding to the id */
+    public Cursor getSuggestion(String id){
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables( RecipesTable.TABLE_NAME);
+        return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
+                new String[]{RecipesTable.FIELD_ID, RecipesTable.FIELD_NAME, RecipesTable.FIELD_NAME_NORMALIZED, RecipesTable.FIELD_ICON},
+                RecipesTable.FIELD_ID + " = ?", new String[]{id}, null, null, null, "1"
+        );
+    }
+
+    /** Returns Recipes  */
+    public Cursor getRecipes(String[] projection, String selection,
+                             String[] selectionArgs, String sortOrder){
+
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(RecipesTable.TABLE_NAME);
 
         return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
                 projection,

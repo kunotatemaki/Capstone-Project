@@ -12,6 +12,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 
 	public static final String AUTHORITY = "com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider";
+	public static final Uri CONTENT_URI_SUGGESTIONS_WHEN_KEYBOARD_GO = Uri.parse("content://" + AUTHORITY + "/suggestions");
 	public static final Uri CONTENT_URI_RECIPES = Uri.parse("content://" + AUTHORITY + "/" + RecipesTable.TABLE_NAME);
 	public static final Uri CONTENT_URI_ZIPS = Uri.parse("content://" + AUTHORITY + "/" + ZipsTable.TABLE_NAME);
 
@@ -19,10 +20,12 @@ public class CocinaConRollContentProvider extends ContentProvider {
     ZipsDB mZipsDB = null;
 
     private static final int SUGGESTIONS_RECIPE = 1;
-    private static final int SEARCH_RECIPE = 2;
-    private static final int GET_RECIPE = 3;
-    private static final int SEARCH_ZIP = 4;
-    private static final int GET_ZIP = 5;
+    private static final int SEARCH_SUGGESTION = 2;
+    private static final int GET_SUGGESTION = 3;
+    private static final int SEARCH_RECIPE = 4;
+    private static final int GET_RECIPE = 5;
+    private static final int SEARCH_ZIP = 6;
+    private static final int GET_ZIP = 7;
 
 
     final UriMatcher mUriMatcher = buildUriMatcher();
@@ -35,9 +38,9 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
         // This URI is invoked, when user presses "Go" in the Keyboard of Search Dialog
         // Listview items of SearchableActivity is provided by this uri
-        uriMatcher.addURI(AUTHORITY, "suggestions", SEARCH_RECIPE);
+        uriMatcher.addURI(AUTHORITY, "suggestions", SEARCH_SUGGESTION);
         // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
-        uriMatcher.addURI(AUTHORITY, "suggestions/#", GET_RECIPE);
+        uriMatcher.addURI(AUTHORITY, "suggestions/#", GET_SUGGESTION);
 
         uriMatcher.addURI(AUTHORITY, RecipesTable.TABLE_NAME, SEARCH_RECIPE);
         // This URI is invoked, when user selects a suggestion from search dialog or an item from the listview
@@ -62,15 +65,22 @@ public class CocinaConRollContentProvider extends ContentProvider {
     String[] selectionArgs, String sortOrder) {
 
         Cursor c = null;
+        String id_recipe;
         switch(mUriMatcher.match(uri)){
             case SUGGESTIONS_RECIPE:
                 c = mRecipesDB.getSuggestions(selectionArgs);
                 break;
+            case SEARCH_SUGGESTION:
+                c = mRecipesDB.getSuggestions(projection, selection, selectionArgs, sortOrder);
+                break;
+            case GET_SUGGESTION:
+                id_recipe = uri.getLastPathSegment();
+                c = mRecipesDB.getSuggestion(id_recipe);
             case SEARCH_RECIPE:
                 c = mRecipesDB.getRecipes(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_RECIPE:
-                String id_recipe = uri.getLastPathSegment();
+                id_recipe = uri.getLastPathSegment();
                 c = mRecipesDB.getRecipe(id_recipe);
             case SEARCH_ZIP:
                 c = mZipsDB.getZips(projection, selection, selectionArgs, sortOrder);

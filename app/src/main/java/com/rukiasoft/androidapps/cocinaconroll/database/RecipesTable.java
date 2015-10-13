@@ -14,6 +14,7 @@ public class RecipesTable {
     public static final String FIELD_NAME = "name";
     public static final String FIELD_ICON = "icon";
     public static final String FIELD_NAME_NORMALIZED = "normalized";
+    public static final String FIELD_AUTHOR = "author";
     public static final String FIELD_TYPE = "type";
     public static final String FIELD_FAVORITE = "favorite";
     public static final String FIELD_STATE = "state";
@@ -25,7 +26,7 @@ public class RecipesTable {
 
     public static final String TABLE_NAME = "recipes";
 
-    final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_NAME_NORMALIZED, FIELD_TYPE, FIELD_ICON, FIELD_FAVORITE,
+    final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_NAME_NORMALIZED, FIELD_AUTHOR, FIELD_TYPE, FIELD_ICON, FIELD_FAVORITE,
             FIELD_STATE, FIELD_VEGETARIAN, FIELD_PATH_RECIPE, FIELD_PATH_PICTURE, FIELD_PATH_RECIPE_EDITED, FIELD_PATH_PICTURE_EDITED};
 
     // Database creation SQL statement
@@ -34,6 +35,7 @@ public class RecipesTable {
             FIELD_ID + " integer primary key autoincrement, " +
             FIELD_NAME + " TEXT NOT NULL, " +
             FIELD_NAME_NORMALIZED + " TEXT NOT NULL, " +
+            FIELD_AUTHOR + " TEXT, " +
             FIELD_TYPE + " TEXT NOT NULL, " +
             FIELD_ICON + "  int, " +
             FIELD_FAVORITE + "  int, " +

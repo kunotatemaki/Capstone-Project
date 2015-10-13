@@ -241,6 +241,7 @@
                 android:singleLine="false"
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_below="@id/tip_title_cardview"
+                android:paddingBottom="@dimen/margin_cardview"
                 />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

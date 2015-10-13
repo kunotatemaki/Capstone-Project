@@ -9,7 +9,7 @@ import android.os.Build;
 import com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 
 
 import java.text.Normalizer;
@@ -35,14 +35,13 @@ public class DatabaseRelatedTools {
         removeRecipefromSuggestions(name);
     }
 
-    public void updateFavorite(String name, boolean favorite) {
+    public void updateFavorite(int id, boolean favorite) {
         ContentValues values = new ContentValues();
-        values.put(RecipesTable.FIELD_NAME, name);
         int iFavorite = favorite? 1 : 0;
         values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
-        String clause = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
+        String clause = RecipesTable.FIELD_ID + " = ? ";
 
-        String[] args = {getNormalizedString(values.get(RecipesTable.FIELD_NAME).toString())};
+        String[] args = {String.valueOf(id)};
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
@@ -51,6 +50,7 @@ public class DatabaseRelatedTools {
         values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
         values.put(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
         values.put(RecipesTable.FIELD_TYPE, recipeItem.getType());
+        values.put(RecipesTable.FIELD_AUTHOR, recipeItem.getAuthor());
         int icon;
         switch (recipeItem.getType()) {
             case Constants.TYPE_DESSERTS:
@@ -74,8 +74,8 @@ public class DatabaseRelatedTools {
         values.put(RecipesTable.FIELD_VEGETARIAN, vegetarian);
         values.put(RecipesTable.FIELD_STATE, recipeItem.getState());
         values.put(RecipesTable.FIELD_FAVORITE, 0);
-        values.put(RecipesTable.FIELD_PATH_RECIPE, recipeItem.getFilePath());
-        values.put(RecipesTable.FIELD_PATH_PICTURE, recipeItem.getPicturePath());
+        values.put(RecipesTable.FIELD_PATH_RECIPE, recipeItem.getPathRecipe());
+        values.put(RecipesTable.FIELD_PATH_PICTURE, recipeItem.getPathPicture());
         mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values);
 
     }
@@ -87,14 +87,9 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_RECIPES, selection, selectionArgs);
     }
 
-    public boolean isFavorite(String recipeName) {
-        List<RecipeDatabaseItem> list = searchRecipesInDatabaseByName(recipeName, true);
-        return list.size() == 1 && list.get(0).getFavorite() == 1;
-    }
 
-    public List<RecipeDatabaseItem> searchRecipesInDatabaseByName(String name, boolean match){
+    public List<RecipeItem> searchRecipesInDatabaseByName(String name, boolean match){
         final String[] projection = {RecipesTable.FIELD_NAME, RecipesTable.FIELD_FAVORITE};
-        List<RecipeDatabaseItem> list = new ArrayList<>();
         String selection;
         name = getNormalizedString(name);
         if(match){
@@ -109,45 +104,19 @@ public class DatabaseRelatedTools {
                 selection,
                 selectionArgs, null);
 
-        //TODO arreglar
-        if (cursor != null && cursor.moveToFirst()) {
+        //TODO comprobar
+        /*if (cursor != null && cursor.moveToFirst()) {
             do {
-                RecipeDatabaseItem recipeInfoDataBase = new RecipeDatabaseItem();
-                recipeInfoDataBase.setName(cursor.getString(0));
-                recipeInfoDataBase.setFavorite(cursor.getInt(1));
+                RecipeItem recipeItem = new RecipeItem();
+                recipeItem.setName(cursor.getString(0));
+                //recipeInfoDataBase.setFavorite(cursor.getInt(1));
 
-                list.add(recipeInfoDataBase);
+                list.add(recipeItem);
             }while(cursor.moveToNext());
             cursor.close();
-        }
+        }*/
 
-        return list;
-    }
-
-    public List<RecipeDatabaseItem> searchRecipesInDatabaseByType(String type){
-        List<RecipeDatabaseItem> list = new ArrayList<>();
-        String selection;
-        selection = RecipesTable.FIELD_TYPE + " = ? ";
-        final String[] selectionArgs = {type};
-        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
-                RecipesTable.ALL_COLUMNS,
-                selection,
-                selectionArgs, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                RecipeDatabaseItem item =  new RecipeDatabaseItem();
-                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
-                item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
-                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
-                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
-                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
-                list.add(item);
-            }while(cursor.moveToNext());
-            cursor.close();
-        }
-
-        return list;
+        return getRecipesFromCursor(cursor);
     }
 
     public String getNormalizedString(String input){
@@ -207,22 +176,34 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values, clause, args);
     }
 
-    public List<RecipeDatabaseItem> getRecipesFromCursor(Cursor cursor) {
-        List<RecipeDatabaseItem> list = new ArrayList<>();
+    public List<RecipeItem> getRecipesFromCursor(Cursor cursor) {
+        List<RecipeItem> list = new ArrayList<>();
         if(cursor != null && cursor.moveToFirst()){
             do {
-                RecipeDatabaseItem item =  new RecipeDatabaseItem();
+                RecipeItem item =  new RecipeItem();
                 item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
                 item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
-                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
-                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
-                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
-                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
-                item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
-                item.set_id(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ID)));
-                item.setFavorite(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE)));
-                item.setOwn(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
-                item.setVegetarian(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN)));
+                item.setAuthor(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_AUTHOR)));
+                item.setIcon(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ICON)));
+                int favorite = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE));
+                item.setFavorite(favorite != 0);
+                item.setState(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
+                item.setType(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_TYPE)));
+                int vegetarian = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN));
+                item.setVegetarian(vegetarian != 0);
+                if((item.getState()&Constants.FLAG_EDITED_PICTURE) != 0){
+                    //picture edited
+                    item.setPathPicture(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_PICTURE_EDITED)));
+                }else{
+                    item.setPathPicture(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_PICTURE)));
+                }
+                if((item.getState()&(Constants.FLAG_EDITED|Constants.FLAG_OWN)) != 0){
+                    //recipe edited
+                    item.setPathRecipe(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_RECIPE_EDITED)));
+                }else{
+                    item.setPathRecipe(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_RECIPE)));
+                }
+
                 list.add(item);
             }while(cursor.moveToNext());
             cursor.close();

@@ -1,8 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll.classes;
 
 
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
-
 import java.io.Serializable;
 
 public class RecipesListDateComparator implements java.util.Comparator<RecipeItem>, Serializable {

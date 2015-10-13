@@ -9,7 +9,7 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,6 +36,17 @@
                  android:layout_alignBottom="@id/recycler_view"
                  android:layout_alignParentRight="true"
                  android:layout_alignParentEnd="true" />
+            <TextView
+                android:id="@+id/init_database_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:text="@string/init_database_firstboot"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                />
         </RelativeLayout>
 
 
@@ -92,7 +103,9 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:layout_toLeftOf="@id/recipe_list_number_recipes"
+                android:layout_toStartOf="@id/recipe_list_number_recipes"
                 android:layout_toRightOf="@id/recipe_list_type_icon"
+                android:layout_toEndOf="@id/recipe_list_type_icon"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
         </RelativeLayout>

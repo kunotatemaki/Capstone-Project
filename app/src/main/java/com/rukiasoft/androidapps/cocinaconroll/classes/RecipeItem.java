@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll.loader;
+package com.rukiasoft.androidapps.cocinaconroll.classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,11 +16,13 @@ import java.util.List;
 @Root
 public class RecipeItem implements Parcelable {
 
+    private Integer _id;
     @Element
     private String name = "";
     private String fileName = "";
     @Element
     private String type = "";
+    private Integer icon;
     @Element
     private String picture = Constants.DEFAULT_PICTURE_NAME;
     @ElementList
@@ -32,6 +34,8 @@ public class RecipeItem implements Parcelable {
     @Element
     private Boolean vegetarian = false;
     @Element  (required=false)
+    private Boolean favorite = false;
+    @Element  (required=false)
     private Integer state = 0;
     @Element
     private Integer portions = 0;
@@ -39,8 +43,8 @@ public class RecipeItem implements Parcelable {
     private Integer minutes = 0;
     @Element  (required=false)
     private String tip = "";
-    private String filePath = "";
-    private String picturePath = "";
+    private String pathRecipe = "";
+    private String pathPicture = "";
     @Element  (required=false)
     private Long date;
     @Element
@@ -49,9 +53,11 @@ public class RecipeItem implements Parcelable {
 
 
     public RecipeItem(Parcel in){
-        this.name= in.readString();
-        this.fileName= in.readString();
+        this._id = in.readInt();
+        this.name = in.readString();
+        this.fileName = in.readString();
         this.type = in.readString();
+        this.icon = in.readInt();
         this.picture = in.readString();
         this.ingredients = new ArrayList<>();
         in.readStringList(ingredients);
@@ -59,12 +65,13 @@ public class RecipeItem implements Parcelable {
         in.readStringList(steps);
         this.author = in.readString();
         this.vegetarian = in.readByte() != 0;
+        this.favorite = in.readByte() != 0;
         this.state = in.readInt();
         this.portions = in.readInt();
         this.minutes = in.readInt();
         this.tip = in.readString();
-        this.filePath = in.readString();
-        this.picturePath = in.readString();
+        this.pathRecipe = in.readString();
+        this.pathPicture = in.readString();
         this.language = in.readString();
         this.position = in.readInt();
         this.date = in.readLong();
@@ -189,20 +196,20 @@ public class RecipeItem implements Parcelable {
         this.minutes = minutes;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getPathRecipe() {
+        return pathRecipe;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setPathRecipe(String pathRecipe) {
+        this.pathRecipe = pathRecipe;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getPathPicture() {
+        return pathPicture;
     }
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public void setPathPicture(String pathPicture) {
+        this.pathPicture = pathPicture;
     }
 
     public int getPosition() {
@@ -213,6 +220,30 @@ public class RecipeItem implements Parcelable {
         this.position = position;
     }
 
+    public Integer get_id() {
+        return _id;
+    }
+
+    public void set_id(Integer _id) {
+        this._id = _id;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public Integer getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Integer icon) {
+        this.icon = icon;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -220,27 +251,29 @@ public class RecipeItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(get_id());
         dest.writeString(getName());
         dest.writeString(getFileName());
         dest.writeString(getType());
+        dest.writeInt(getIcon());
         dest.writeString(getPicture());
         dest.writeStringList(getIngredients());
         dest.writeStringList(getSteps());
         dest.writeString(getAuthor());
         dest.writeByte((byte) (getVegetarian() ? 1 : 0));
+        dest.writeByte((byte) (getFavorite() ? 1 : 0));
         dest.writeInt(getState());
         dest.writeInt(getPortions());
         dest.writeInt(getMinutes());
         dest.writeString(getTip());
-        dest.writeString(getFilePath());
-        dest.writeString(getPicturePath());
+        dest.writeString(getPathRecipe());
+        dest.writeString(getPathPicture());
         dest.writeString(getLanguage());
         dest.writeInt(getPosition());
         if(getDate() != null)
             dest.writeLong(getDate());
         else
             dest.writeLong(-1);
-
     }
 
     public static final Parcelable.Creator<RecipeItem> CREATOR = new Parcelable.Creator<RecipeItem>() {

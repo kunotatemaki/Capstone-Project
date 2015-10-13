@@ -9,7 +9,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -84,6 +84,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
         if(requestCode == Constants.REQUEST_EDIT_RECIPE){
             if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
@@ -94,7 +99,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     recipeDetailsFragment.updateRecipe(recipe);
                 //save recipe
                 if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
-                    recipe.setPicturePath(Constants.DEFAULT_PICTURE_NAME);
+                    recipe.setPathPicture(Constants.DEFAULT_PICTURE_NAME);
                 ReadWriteTools readWriteTools = new ReadWriteTools(this);
                 readWriteTools.saveRecipeOnEditedPath(recipe);
                 //set results

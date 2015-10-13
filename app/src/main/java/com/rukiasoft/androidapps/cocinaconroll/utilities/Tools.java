@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
 import java.text.SimpleDateFormat;

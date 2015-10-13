@@ -24,3 +24,5 @@ public class ZipToDownload implements Serializable {
 	}
 	
 }
+
+//TODO eliminar y utilizar zipdatabaseitem

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Ruler on 2014.
  */
 
-public class DataBaseItem implements Serializable {
+public class ZipDataBaseItem implements Serializable {
 
 
     private Integer Id;

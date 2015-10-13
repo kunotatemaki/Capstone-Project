@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
-import com.rukiasoft.androidapps.cocinaconroll.loader.PreinstalledRecipeNamesList;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.PreinstalledRecipeNamesList;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
 import org.simpleframework.xml.Serializer;
@@ -130,7 +130,7 @@ public class ReadWriteTools {
             }
             recipeItem.setState(Constants.FLAG_ASSETS);
             recipeItem.setFileName(name);
-            recipeItem.setFilePath(Constants.ASSETS_PATH);
+            recipeItem.setPathRecipe(Constants.ASSETS_PATH + name);
             source.delete();
         }else {
             if (type.equals(Constants.PATH_TYPE_ORIGINAL))
@@ -141,7 +141,7 @@ public class ReadWriteTools {
             recipeItem = parseFileIntoRecipe(source);
             if(recipeItem == null)
                 return null;
-            recipeItem.setFilePath(path);
+            recipeItem.setPathRecipe(path);
             recipeItem.setFileName(name);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
@@ -153,11 +153,11 @@ public class ReadWriteTools {
         }
 
         if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
-            recipeItem.setPicturePath(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
+            recipeItem.setPathPicture(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ORIGINAL) != 0)
-            recipeItem.setPicturePath(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
+            recipeItem.setPathPicture(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
-            recipeItem.setPicturePath(Constants.ASSETS_PATH + recipeItem.getPicture());
+            recipeItem.setPathPicture(Constants.ASSETS_PATH + recipeItem.getPicture());
 
 
         return recipeItem;
@@ -258,7 +258,7 @@ public class ReadWriteTools {
             pathFile = getEditedStorageDir() + recipeItem.getFileName();
         }
         if((flags & Constants.FLAG_EDITED_PICTURE) != 0) {
-            pathPicture = recipeItem.getPicturePath();
+            pathPicture = recipeItem.getPathPicture();
         }
         if((flags & Constants.FLAG_ORIGINAL) != 0) {
             pathFile = getOriginalStorageDir() + recipeItem.getFileName();
@@ -388,7 +388,7 @@ public class ReadWriteTools {
         File fileXml = new File(getEditedStorageDir() + recipe.getFileName());
         Uri u = Uri.fromFile(fileXml);
         uris.add(u);
-        if(recipe.getPicturePath().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
+        if(recipe.getPathPicture().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
             File fileJpg = new File(getEditedStorageDir() + recipe.getPicture());
             u = Uri.fromFile(fileJpg);
             uris.add(u);
@@ -474,6 +474,42 @@ public class ReadWriteTools {
         return;
     }
 
+    public RecipeItem readRecipeInfo(String pathRecipe) {
+        RecipeItem recipeItem;
+        File source;
+        if(pathRecipe.contains(Constants.ASSETS_PATH)) {
+            Uri uri = Uri.parse(pathRecipe);
+            String name =  uri.getLastPathSegment();
+            InputStream inputStream;
+            try {
+                inputStream = mContext.getAssets().open(name);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+            source = createFileFromInputStream(inputStream);
+            if(source == null)
+                return null;
+            recipeItem = parseFileIntoRecipe(source);
+            if(recipeItem == null){
+                return null;
+            }
+            recipeItem.setState(Constants.FLAG_ASSETS);
+            recipeItem.setFileName(name);
+            recipeItem.setPathRecipe(Constants.ASSETS_PATH + "/" + name);
+            source.delete();
+        }else {
+            source = new File(pathRecipe);
+            recipeItem = parseFileIntoRecipe(source);
+            if(recipeItem == null)
+                return null;
+            recipeItem.setPathRecipe(pathRecipe);
+
+        }
+
+        return recipeItem;
+
+    }
 
 
     private class MyFileFilter implements FilenameFilter {

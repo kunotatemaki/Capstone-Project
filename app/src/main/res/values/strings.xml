@@ -101,5 +101,6 @@
     <string name="hide">Don\'t show again</string>
     <string name="drag_drop_content_description">icon for drag and drop the row</string>
     <string name="image_of_the_recipe">image of the recipe</string>
+    <string name="init_database_firstboot">Wait while configuring all recipes on first boot</string>
 
 </resources>

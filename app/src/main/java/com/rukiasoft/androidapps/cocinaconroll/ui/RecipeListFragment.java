@@ -2,7 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -36,14 +35,13 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
-import com.rukiasoft.androidapps.cocinaconroll.database.RecipeDatabaseItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipesListNameComparator;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
-import com.rukiasoft.androidapps.cocinaconroll.loader.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -86,11 +84,11 @@ public class RecipeListFragment extends Fragment implements
     RelativeLayout numberAndTypeBar;
     @Bind(R.id.add_recipe_fab)
     FloatingActionButton addRecipeButtonFAB;
+    @Bind(R.id.init_database_text) TextView initDatabaseText;
 
     private SlideInBottomAnimationAdapter slideAdapter;
     private RecipeListRecyclerViewAdapter adapter;
     List<RecipeItem> mRecipes;
-    List<RecipeDatabaseItem> mRecipes1;
     int savedScrollPosition = 0;
     private int columnCount = 10;
     private String lastFilter;
@@ -277,15 +275,14 @@ public class RecipeListFragment extends Fragment implements
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.i("", "+++ onLoadFinished() called! +++");
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        mRecipes1 = dbTools.getRecipesFromCursor(data);
+        mRecipes = dbTools.getRecipesFromCursor(data);
         Tools mTools = new Tools();
-        if(mRecipes1.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE)){
-            //TODO init database in asynctask
+        if(mRecipes.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE)){
+            initDatabaseText.setVisibility(View.VISIBLE);
             InitDatabase initDatabase = new InitDatabase(getActivity());
             initDatabase.execute();
-
+            return;
         }
-        /*mRecipes = data;
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
         //TODO eliminate in production version
@@ -305,10 +302,9 @@ public class RecipeListFragment extends Fragment implements
                     break;
             }
         }
-        Tools mTools = new Tools();
         mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_DESSERTS, desserts);
         mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_MAIN, mains);
-        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);*/
+        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);
     }
 
     @Override
@@ -327,6 +323,7 @@ public class RecipeListFragment extends Fragment implements
     }
 
     private void setData(){
+        initDatabaseText.setVisibility(View.GONE);
         orderRecipesByName();
         ((ToolbarAndRefreshActivity) getActivity()).needToShowRefresh = false;
         if(isResumed()) {
@@ -375,9 +372,16 @@ public class RecipeListFragment extends Fragment implements
     public void showRecipeDetails(RecipeItem recipeItem){
         //interstitial
         Tools tools = new Tools();
+        ReadWriteTools rwTools = new ReadWriteTools(getActivity());
         int number = tools.getIntegerFromPreferences(getActivity().getApplicationContext(), Constants.PREFERENCE_INTERSTITIAL);
         if(number<0 || number>Constants.N_RECIPES_TO_INTERSTICIAL){
             number = 0;
+        }
+        if(recipeItem.getIngredients() == null || recipeItem.getIngredients().size() == 0){
+            RecipeItem item = rwTools.readRecipeInfo(recipeItem.getPathRecipe());
+            recipeItem.setIngredients(item.getIngredients());
+            recipeItem.setSteps(item.getSteps());
+            recipeItem.setTip(item.getTip());
         }
         recipeToShow = recipeItem;
         if(number != Constants.N_RECIPES_TO_INTERSTICIAL) {
@@ -413,8 +417,6 @@ public class RecipeListFragment extends Fragment implements
     public void filterRecipes(String filter) {
         lastFilter = filter;
         Tools mTools = new Tools();
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        long init1 = System.nanoTime();
         List<RecipeItem> filteredModelList = new ArrayList<>();
         String type = "";
         int iconResource = 0;
@@ -457,7 +459,7 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
             for (RecipeItem item : mRecipes) {
-                if (dbTools.isFavorite(item.getName())) {
+                if (item.getFavorite()) {
                     filteredModelList.add(item);
                 }
             }
@@ -480,11 +482,6 @@ public class RecipeListFragment extends Fragment implements
             type = getResources().getString(R.string.last_downloaded);
             iconResource = R.drawable.ic_latest_24;
         }
-        long final1 = System.nanoTime();
-        long init2 = System.nanoTime();
-        List<RecipeDatabaseItem> list = dbTools.searchRecipesInDatabaseByType(Constants.TYPE_MAIN);
-        long final2 = System.nanoTime();
-        long result = (final1 - init1) - (final2 - init2);
         typeRecipesInRecipeList.setText(type);
         String nrecipes = String.format(getResources().getString(R.string.recipes), filteredModelList.size());
         nRecipesInRecipeList.setText(nrecipes);
@@ -553,8 +550,10 @@ public class RecipeListFragment extends Fragment implements
     }
 
     public void searchAndShow(String name) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        name = dbTools.getNormalizedString(name);
         for(RecipeItem recipe : mRecipes){
-            if(recipe.getName().equals(name)) {
+            if(dbTools.getNormalizedString(recipe.getName()).equals(name)) {
                 showRecipeDetails(recipe);
                 break;
             }

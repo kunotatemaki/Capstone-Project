@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll.loader;
+package com.rukiasoft.androidapps.cocinaconroll.classes;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
