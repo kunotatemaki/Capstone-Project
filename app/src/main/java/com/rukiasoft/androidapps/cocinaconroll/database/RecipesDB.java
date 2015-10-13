@@ -139,7 +139,7 @@ public class RecipesDB {
     	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
     	queryBuilder.setTables( RecipesTable.TABLE_NAME);
 		return queryBuilder.query(mCocinaConRollDatabaseHelper.getReadableDatabase(),
-                new String[]{RecipesTable.FIELD_ID, RecipesTable.FIELD_NAME, RecipesTable.FIELD_NAME_NORMALIZED, RecipesTable.FIELD_ICON},
+                RecipesTable.ALL_COLUMNS,
                 RecipesTable.FIELD_ID + " = ?", new String[]{id}, null, null, null, "1"
         );
     }

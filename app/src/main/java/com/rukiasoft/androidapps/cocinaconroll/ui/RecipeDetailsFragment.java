@@ -47,10 +47,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -105,13 +105,13 @@ public class RecipeDetailsFragment extends Fragment implements
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
-                    Integer flags = Constants.FLAG_EDITED;
+                    /*Integer flags = Constants.FLAG_EDITED;
                     if((recipe.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
                         flags = flags|Constants.FLAG_EDITED_PICTURE;
                     ReadWriteTools tools = new ReadWriteTools(getActivity().getApplicationContext());
-                    tools.deleteRecipe(recipe, flags);
+                    tools.deleteRecipe(recipe, flags);*/
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe.get_id());
+                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
                     /*if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0)
                         resultIntent.putExtra(Constants.KEY_RELOAD, true);*/
                     getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
@@ -512,4 +512,3 @@ public class RecipeDetailsFragment extends Fragment implements
             getActivity().supportInvalidateOptionsMenu();
     }
 }
-//TODO esconder botón favorito hasta uqe lo pinte en versiones anteriores a lollipop

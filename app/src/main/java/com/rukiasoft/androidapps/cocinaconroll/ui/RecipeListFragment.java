@@ -281,7 +281,6 @@ public class RecipeListFragment extends Fragment implements
         }
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
-        //TODO eliminate in production version
         int desserts=0;
         int starters=0;
         int mains=0;
@@ -375,6 +374,8 @@ public class RecipeListFragment extends Fragment implements
         }
         if(recipeItem.getIngredients() == null || recipeItem.getIngredients().size() == 0){
             RecipeItem item = rwTools.readRecipeInfo(recipeItem.getPathRecipe());
+            if(item == null)
+                return;
             recipeItem.setMinutes(item.getMinutes());
             recipeItem.setPortions(item.getPortions());
             recipeItem.setAuthor(item.getAuthor());
@@ -418,40 +419,33 @@ public class RecipeListFragment extends Fragment implements
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
         String type = "";
         int iconResource = 0;
-        String selectionArgs[] = new String[1];
         if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
             type = getResources().getString(R.string.all_recipes);
-            mRecipes = dbTools.searchRecipesInDatabase(null, null);
+            mRecipes = dbTools.searchRecipesInDatabase();
             iconResource = R.drawable.ic_all_24;
         }else if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0){
             type = getResources().getString(R.string.main_courses);
-            selectionArgs[0] = Constants.TYPE_MAIN;
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_MAIN);
             iconResource = R.drawable.ic_main_24;
         }else if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0){
             type = getResources().getString(R.string.starters);
-            selectionArgs[0] = Constants.TYPE_STARTERS;
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_STARTERS);
             iconResource = R.drawable.ic_starters_24;
         }else if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0){
             type = getResources().getString(R.string.desserts);
-            selectionArgs[0] = Constants.TYPE_DESSERTS;
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_DESSERTS);
             iconResource = R.drawable.ic_dessert_24;
         }else if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0){
             type = getResources().getString(R.string.vegetarians);
-            selectionArgs[0] = String.valueOf(1);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_VEGETARIAN, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_VEGETARIAN, 1);
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
             type = getResources().getString(R.string.favourites);
-            selectionArgs[0] = String.valueOf(1);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_FAVORITE, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_FAVORITE, 1);
             iconResource = R.drawable.ic_favorite_black_24dp;
         }else if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0){
             type = getResources().getString(R.string.own_recipes);
-            selectionArgs[0] = String.valueOf(Constants.FLAG_EDITED);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_STATE, selectionArgs);
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_STATE, Constants.FLAG_EDITED);
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
             //TOdo hacer esto
@@ -529,7 +523,6 @@ public class RecipeListFragment extends Fragment implements
     public void createRecipe(RecipeItem recipe) {
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
         dbTools.addRecipeToArrayAndDatabase(mRecipes, recipe);
-        //orderRecipesByName();
         filterRecipes(lastFilter);
     }
 

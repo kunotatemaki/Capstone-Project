@@ -76,18 +76,21 @@ public class CocinaConRollContentProvider extends ContentProvider {
             case GET_SUGGESTION:
                 id_recipe = uri.getLastPathSegment();
                 c = mRecipesDB.getSuggestion(id_recipe);
+                break;
             case SEARCH_RECIPE:
                 c = mRecipesDB.getRecipes(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_RECIPE:
                 id_recipe = uri.getLastPathSegment();
                 c = mRecipesDB.getRecipe(id_recipe);
+                break;
             case SEARCH_ZIP:
                 c = mZipsDB.getZips(projection, selection, selectionArgs, sortOrder);
                 break;
             case GET_ZIP:
                 String id_zip = uri.getLastPathSegment();
                 c = mRecipesDB.getRecipe(id_zip);
+                break;
         }
         return c;
     }

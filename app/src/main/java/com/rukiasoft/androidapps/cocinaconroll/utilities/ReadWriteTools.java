@@ -2,19 +2,25 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.classes.PreinstalledRecipeNamesList;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
 import org.simpleframework.xml.Serializer;
@@ -126,7 +132,6 @@ public class ReadWriteTools {
                 return null;
             }
             recipeItem.setState(Constants.FLAG_ASSETS);
-            //recipeItem.setFileName(name);
             recipeItem.setPathRecipe(Constants.ASSETS_PATH + name);
             source.delete();
         }else {
@@ -139,7 +144,6 @@ public class ReadWriteTools {
             if(recipeItem == null)
                 return null;
             recipeItem.setPathRecipe(path);
-            //recipeItem.setFileName(name);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
                 if(recipeItem.getDate() == null){
@@ -249,34 +253,52 @@ public class ReadWriteTools {
 
     }
 
-    public void deleteRecipe(RecipeItem recipeItem, Integer flags){
-        // TODO: 13/10/15 comprobar
-        /*String pathFile = "";
-        String pathPicture = "";
-        if((flags & Constants.FLAG_EDITED) != 0) {
-            pathFile = getEditedStorageDir() + recipeItem.getFileName();
-        }
-        if((flags & Constants.FLAG_EDITED_PICTURE) != 0) {
-            pathPicture = recipeItem.getPathPicture();
-        }
-        if((flags & Constants.FLAG_ORIGINAL) != 0) {
-            pathFile = getOriginalStorageDir() + recipeItem.getFileName();
-            pathPicture = getOriginalStorageDir() + recipeItem.getPicture();
-        }
-        File file = new File(pathFile);
-        if(file.exists())
-            file.delete();
-        file = new File(String.valueOf(Uri.parse(pathPicture)));
-        if(file.exists()) {
-            file.delete();
-        }else{
-            Uri uri = Uri.fromFile(file);
-            String deletePath = getEditedStorageDir() + uri.getLastPathSegment();
-            file = new File(deletePath);
-            if(file.exists())
+    public void deleteRecipe(RecipeItem recipeItem){
+
+        try {
+            File file = new File(recipeItem.getPathRecipe());
+            if (file.exists())
                 file.delete();
+            if ((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0) {
+                file = new File(String.valueOf(Uri.parse(recipeItem.getPathPicture())));
+                if (file.exists()) {
+                    file.delete();
+                } else {
+                    Uri uri = Uri.fromFile(file);
+                    String deletePath = getEditedStorageDir() + uri.getLastPathSegment();
+                    file = new File(deletePath);
+                    if (file.exists())
+                        file.delete();
+                }
+            }
+        }catch(Exception e){
+            if(mContext instanceof Activity) {
+                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
+                // Build and send exception.
+                t.send(new HitBuilders.ExceptionBuilder()
+                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "error deleting recipe")
+                        .setFatal(true)
+                        .build());
+            }
         }
-*/
+    }
+
+    public void deleteRecipe(String path){
+
+        try {
+            File file = new File(path);
+            if (file.exists())
+                file.delete();
+        }catch(Exception e){
+            if(mContext instanceof Activity) {
+                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
+                // Build and send exception.
+                t.send(new HitBuilders.ExceptionBuilder()
+                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "error deleting recipe (byString)")
+                        .setFatal(true)
+                        .build());
+            }
+        }
     }
 
     public List<String> loadRecipesFromAssets() {
@@ -314,6 +336,8 @@ public class ReadWriteTools {
     }
 
     public void deleteImageFromEditedPath(String name) {
+        Uri uri = Uri.parse(name);
+        name =  uri.getLastPathSegment();
         String path = getEditedStorageDir() + name;
         File file = new File(path);
         if(file.exists())
@@ -369,9 +393,8 @@ public class ReadWriteTools {
     {
         //TODO try with revealAction
         // TODO: 13/10/15 comprobar
-
         //need to "send multiple" to get more than one attachment
-        /*Tools tools = new Tools();
+        Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
         final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         emailIntent.setType("message/rfc822");
@@ -386,11 +409,13 @@ public class ReadWriteTools {
         //has to be an ArrayList
         ArrayList<Uri> uris = new ArrayList<>();
         //convert from paths to Android friendly Parcelable Uri's
-        File fileXml = new File(getEditedStorageDir() + recipe.getFileName());
+        File fileXml = new File(recipe.getPathRecipe());
         Uri u = Uri.fromFile(fileXml);
         uris.add(u);
-        if(recipe.getPathPicture().compareTo(Constants.DEFAULT_PICTURE_NAME) != 0) {
-            File fileJpg = new File(getEditedStorageDir() + recipe.getPicture());
+        if((recipe.getState()&Constants.FLAG_EDITED_PICTURE) != 0) {
+            Uri uri = Uri.parse(recipe.getPathPicture());
+            String name = uri.getLastPathSegment();
+            File fileJpg = new File(getEditedStorageDir() + name);
             u = Uri.fromFile(fileJpg);
             uris.add(u);
         }
@@ -415,7 +440,7 @@ public class ReadWriteTools {
 
             builder.show();
         }else
-            activity.startActivity(emailIntent);*/
+            activity.startActivity(emailIntent);
     }
 
     public String getZipsStorageDir(){
@@ -438,11 +463,29 @@ public class ReadWriteTools {
 
 
     public void initDatabase() {
+        //TODO check recipes from previous versions
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
         MyFileFilter filter = new MyFileFilter();
         List<String> listEdited = loadFiles(filter, true);
         List<String> listOriginal = loadFiles(filter, false);
         List<String> listAssets = loadRecipesFromAssets();
+
+        for(int i=0; i<listAssets.size(); i++) {
+            RecipeItem recipeItem;
+            recipeItem = readRecipe(listAssets.get(i),
+                    Constants.PATH_TYPE_ASSETS);
+            if (recipeItem != null) {
+                dbTools.insertRecipeIntoDatabase(recipeItem);
+            }
+        }
+
+        for(int i=0; i<listOriginal.size(); i++) {
+            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
+                    Constants.PATH_TYPE_ORIGINAL);
+            if(recipeItem != null) {
+                dbTools.insertRecipeIntoDatabase(recipeItem);
+            }
+        }
 
         for(int i=0; i<listEdited.size(); i++) {
             RecipeItem recipeItem= readRecipe(listEdited.get(i),
@@ -451,33 +494,23 @@ public class ReadWriteTools {
                 dbTools.insertRecipeIntoDatabase(recipeItem);
             }
         }
-
-        for(int i=0; i<listOriginal.size(); i++) {
-            if(listEdited.contains(listOriginal.get(i)))
-                continue;
-            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
-                    Constants.PATH_TYPE_ORIGINAL);
-            if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem);
-            }
-        }
-
-        for(int i=0; i<listAssets.size(); i++) {
-            RecipeItem recipeItem;
-            if(listEdited.contains(listAssets.get(i)))
-                continue;
-            recipeItem = readRecipe(listAssets.get(i),
-                    Constants.PATH_TYPE_ASSETS);
-            if (recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem);
-            }
-        }
-        return;
     }
 
     public RecipeItem readRecipeInfo(String pathRecipe) {
         RecipeItem recipeItem;
         File source;
+        if(pathRecipe == null){
+            if(mContext instanceof Activity) {
+                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
+                // Build and send exception.
+                t.send(new HitBuilders.ExceptionBuilder()
+                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "try to load a recipe without recipePath")
+                        .setFatal(true)
+                        .build());
+            }
+            return null;
+        }
+
         if(pathRecipe.contains(Constants.ASSETS_PATH)) {
             Uri uri = Uri.parse(pathRecipe);
             String name =  uri.getLastPathSegment();
@@ -521,4 +554,12 @@ public class ReadWriteTools {
         }
     }
 
+    public void deleteImageAndFile(String image, String file){
+        if(image != null){
+            deleteImageFromEditedPath(image);
+        }
+        if(file != null){
+            deleteRecipe(file);
+        }
+    }
 }

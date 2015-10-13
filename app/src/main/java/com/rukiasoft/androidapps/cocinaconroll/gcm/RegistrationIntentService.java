@@ -28,13 +28,13 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
 import java.io.IOException;
 
 public class RegistrationIntentService extends IntentService {
-//TODO mirar para no mandar siempre el token
+
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
     public static String ASYNCTASK_NOT_OK = "com.udacity.gradle.builditbigger.endpointasynctask.not_ok";

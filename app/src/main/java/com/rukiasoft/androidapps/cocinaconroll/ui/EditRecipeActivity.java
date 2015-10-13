@@ -14,14 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import java.io.File;
 import java.lang.reflect.Field;
 
 import butterknife.Bind;
@@ -42,6 +41,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
     String oldPicture;
+    String oldRecipe;
 
 
 
@@ -57,12 +57,16 @@ public class EditRecipeActivity extends AppCompatActivity {
                 title = savedInstanceState.getString(KEY_TITLE);
             }
             oldPicture = savedInstanceState.getString(Constants.KEY_DELETE_OLD_PICTURE);
+            oldRecipe = savedInstanceState.getString(Constants.KEY_DELETE_OLD_RECIPE);
         }else if(getIntent() != null && getIntent().hasExtra(Constants.KEY_RECIPE)) {
             recipe = getIntent().getExtras().getParcelable(Constants.KEY_RECIPE);
             //check if the picture is previosly edited, to delete the old picture
             if(recipe == null) return;
             if((recipe.getState()&Constants.FLAG_EDITED_PICTURE)!=0){
-                oldPicture = recipe.getPicture();
+                oldPicture = recipe.getPathPicture();
+            }
+            if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_OWN)) !=0 ) {
+                oldRecipe = recipe.getPathRecipe();
             }
             title = getResources().getString(R.string.edit_recipe);
             recipe.setState(Constants.FLAG_EDITED);
@@ -162,6 +166,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         }
         outState.putString(KEY_TITLE, title);
         outState.putString(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
+        outState.putString(Constants.KEY_DELETE_OLD_RECIPE, oldRecipe);
         super.onSaveInstanceState(outState);
     }
 
@@ -287,6 +292,9 @@ public class EditRecipeActivity extends AppCompatActivity {
         resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
         if(oldPicture != null && !oldPicture.isEmpty()){
             resultIntent.putExtra(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
+        }
+        if(oldRecipe != null && !oldRecipe.isEmpty()){
+            resultIntent.putExtra(Constants.KEY_DELETE_OLD_RECIPE, oldRecipe);
         }
         setResult(Constants.RESULT_UPDATE_RECIPE, resultIntent);
         finish();

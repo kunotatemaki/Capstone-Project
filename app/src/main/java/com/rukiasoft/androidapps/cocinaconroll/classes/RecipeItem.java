@@ -16,13 +16,12 @@ import java.util.List;
 @Root
 public class RecipeItem implements Parcelable {
 
-    private Integer _id;
+    private Integer _id = -1;
     @Element
     private String name = "";
-    //private String fileName = "";
     @Element
     private String type = "";
-    private Integer icon;
+    private Integer icon = -1;
     @Element
     private String picture = Constants.DEFAULT_PICTURE_NAME;
     @ElementList
@@ -44,9 +43,9 @@ public class RecipeItem implements Parcelable {
     @Element  (required=false)
     private String tip = "";
     private String pathRecipe = "";
-    private String pathPicture = "";
+    private String pathPicture = Constants.ASSETS_PATH + Constants.DEFAULT_PICTURE_NAME;
     @Element  (required=false)
-    private Long date;
+    private Long date = -1l;
     @Element
     private String language = "Spanish";
 
@@ -54,7 +53,6 @@ public class RecipeItem implements Parcelable {
     public RecipeItem(Parcel in){
         this._id = in.readInt();
         this.name = in.readString();
-        //this.fileName = in.readString();
         this.type = in.readString();
         this.icon = in.readInt();
         this.picture = in.readString();
@@ -113,14 +111,6 @@ public class RecipeItem implements Parcelable {
     public void setLanguage(String language) {
         this.language = language;
     }
-
-    /*public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }*/
 
     public String getType() {
         return type;
@@ -243,7 +233,6 @@ public class RecipeItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(get_id());
         dest.writeString(getName());
-        //dest.writeString(getFileName());
         dest.writeString(getType());
         dest.writeInt(getIcon());
         dest.writeString(getPicture());
