@@ -36,6 +36,7 @@
 
     <dimen name="detail_card_max_width">10000dp</dimen> <!-- force match_parent -->
     <dimen name="margin_cardview">8dp</dimen>
+    <dimen name="margin_below_cardview">16dp</dimen>
     <dimen name="margin_text_cardview">8dp</dimen>
     <dimen name="circle_space">5dp</dimen>
     <dimen name="margin_rukia">10dp</dimen>

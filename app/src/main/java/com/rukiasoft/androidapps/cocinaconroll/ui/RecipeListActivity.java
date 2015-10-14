@@ -84,6 +84,16 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
+            started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
+            lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
+        }
+        if(!started){
+            Intent animationIntent = new Intent(this, AnimationActivity.class);
+            startActivity(animationIntent);
+        }
+        
         mActivity = this;
         Tools mTools = new Tools();
         lastFilter = Constants.FILTER_ALL_RECIPES;
@@ -117,14 +127,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
         mAdViewList.loadAd(adRequest);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
-            started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
-            lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
-        }
-        if(!started){
-            Intent animationIntent = new Intent(this, AnimationActivity.class);
-            startActivity(animationIntent);
-        }
+
 
 
     }

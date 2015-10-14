@@ -89,7 +89,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
                 break;
             case GET_ZIP:
                 String id_zip = uri.getLastPathSegment();
-                c = mRecipesDB.getRecipe(id_zip);
+                c = mZipsDB.getZip(id_zip);
                 break;
         }
         return c;

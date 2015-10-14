@@ -148,8 +148,6 @@ public class ReadWriteTools {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
                 if(recipeItem.getDate() == -1l){
                     recipeItem.setDate(System.currentTimeMillis());
-                    //TODO mirar lo de la fecha;
-                    //saveRecipeOnOrigialPath(recipeItem);
                 }
             }
         }
@@ -392,7 +390,6 @@ public class ReadWriteTools {
     public void share(final Activity activity, RecipeItem recipe)
     {
         //TODO try with revealAction
-        // TODO: 13/10/15 comprobar
         //need to "send multiple" to get more than one attachment
         Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);

@@ -28,6 +28,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
@@ -94,8 +96,8 @@ public class RegistrationIntentService extends IntentService {
      */
     private void sendRegistrationToServer(String token) {
         if (regService == null) {
-            //TODO local registration for emulators
-            /*Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
+            //TODO comment for testing local registration for emulators
+            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
                     // otherwise they can be skipped
@@ -106,11 +108,13 @@ public class RegistrationIntentService extends IntentService {
                                 throws IOException {
                             abstractGoogleClientRequest.setDisableGZipContent(true);
                         }
-                    });*/
+                    });
             // end of optional local run code
-            Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                    .setRootUrl("https://hardy-binder-89508.appspot.com/_ah/api/");
 
+            //TODO uncomment for testing appEngine with real device. URL: http://hardy-binder-89508.appspot.com/
+            /*Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+                    .setRootUrl("https://hardy-binder-89508.appspot.com/_ah/api/");
+            */
             regService = builder.build();
         }
 

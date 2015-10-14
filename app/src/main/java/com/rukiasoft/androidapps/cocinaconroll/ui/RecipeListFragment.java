@@ -403,7 +403,6 @@ public class RecipeListFragment extends Fragment implements
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_RECIPE, recipeToShow);
         intent.putExtras(bundle);
-        //TODO probar transiciones sencillas para pre-lollipop
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity());
         // Now we can start the Activity, providing the activity options as a bundle
         ActivityCompat.startActivityForResult(getActivity(), intent, Constants.REQUEST_DETAILS, activityOptions.toBundle());
@@ -447,7 +446,6 @@ public class RecipeListFragment extends Fragment implements
             mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_STATE, Constants.FLAG_EDITED);
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
-            //TOdo hacer esto
             type = getResources().getString(R.string.last_downloaded);
             Tools mTools = new Tools();
             mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_DATE, mTools.getTimeframe());
@@ -525,11 +523,9 @@ public class RecipeListFragment extends Fragment implements
     public void searchAndShow(String name) {
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
         name = dbTools.getNormalizedString(name);
-        for(RecipeItem recipe : mRecipes){
-            if(dbTools.getNormalizedString(recipe.getName()).equals(name)) {
-                showRecipeDetails(recipe);
-                break;
-            }
+        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(name));
+        if (coincidences.size() > 0) {
+            showRecipeDetails(coincidences.get(0));
         }
     }
 

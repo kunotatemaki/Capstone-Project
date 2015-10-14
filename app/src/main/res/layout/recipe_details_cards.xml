@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/margin_cardview"
         android:layout_marginRight="@dimen/margin_cardview"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="@dimen/margin_cardview"
+        android:layout_marginBottom="@dimen/margin_below_cardview"
         android:clickable="false"
         android:focusable="false"
         >
@@ -82,8 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_cardview"
         android:layout_marginRight="@dimen/margin_cardview"
-        android:layout_marginTop="@dimen/margin_cardview"
-        android:layout_marginBottom="@dimen/margin_cardview"
+        android:layout_marginBottom="@dimen/margin_below_cardview"
         android:clickable="false"
         android:focusable="false"
         >
@@ -135,8 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_cardview"
         android:layout_marginRight="@dimen/margin_cardview"
-        android:layout_marginTop="@dimen/margin_cardview"
-        android:layout_marginBottom="@dimen/margin_cardview"
+        android:layout_marginBottom="@dimen/margin_below_cardview"
         android:clickable="false"
         android:focusable="false"
         >
@@ -191,8 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_cardview"
             android:layout_marginRight="@dimen/margin_cardview"
-            android:layout_marginTop="@dimen/margin_cardview"
-            android:layout_marginBottom="@dimen/margin_cardview"
+            android:layout_marginBottom="@dimen/margin_below_cardview"
             android:clickable="false"
             android:focusable="false"
         >

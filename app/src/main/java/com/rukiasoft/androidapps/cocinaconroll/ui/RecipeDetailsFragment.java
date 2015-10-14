@@ -142,7 +142,9 @@ public class RecipeDetailsFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(false);
-        getActivity().supportPostponeEnterTransition();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().supportPostponeEnterTransition();
+        }
         setHasOptionsMenu(true);
         mTools = new Tools();
         dbTools = new DatabaseRelatedTools(getActivity());
@@ -476,25 +478,30 @@ public class RecipeDetailsFragment extends Fragment implements
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                //TODO aquí dio un fallo de null pointer, en getcolor
                 if(palette == null)
                     return;
-                int mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
-                int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
-                int mMutedColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorAccent));
-                int mMutedDarkColor = palette.getDarkMutedColor(mMutedColor);
+                try {
+                    int mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
+                    int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
+                    int mMutedColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorAccent));
+                    int mMutedDarkColor = palette.getDarkMutedColor(mMutedColor);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Window window = getActivity().getWindow();
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        window.setStatusBarColor(mMutedDarkColor);
+                    }
+                    if (collapsingToolbarLayout != null) {
+                        collapsingToolbarLayout.setContentScrim(new ColorDrawable(mMutedColor));
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        recipeDescriptionFAB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{0}}, new int[]{mVibrantColor}));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Window window = getActivity().getWindow();
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(mMutedDarkColor);
+                    getActivity().supportStartPostponedEnterTransition();
                 }
-                if(collapsingToolbarLayout != null) {
-                    collapsingToolbarLayout.setContentScrim(new ColorDrawable(mMutedColor));
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    recipeDescriptionFAB.setBackgroundTintList(new ColorStateList(new int[][]{new int[]{0}}, new int[]{mVibrantColor}));
-                }
-                getActivity().supportStartPostponedEnterTransition();
 
             }
         });

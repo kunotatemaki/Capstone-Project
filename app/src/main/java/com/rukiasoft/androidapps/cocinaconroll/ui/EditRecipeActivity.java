@@ -2,7 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,7 +35,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     private final static String TAG = LogHelper.makeLogTag(EditRecipeActivity.class);
     private final static String KEY_FRAGMENT = Constants.PACKAGE_NAME + ".fragment";
     private final static String KEY_TITLE = Constants.PACKAGE_NAME + ".title";
-    boolean tablet;
+    //boolean tablet;
     String title;
     Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
@@ -82,25 +81,25 @@ public class EditRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null/* && !CocinaConRollTools.isForTablet(this)*/) {
-            String shownRecipes = "";
-            if(savedInstanceState.containsKey(KEY_FRAGMENT))
-                shownRecipes = savedInstanceState.getString(KEY_FRAGMENT);
-            if(shownRecipes.equals(EditRecipeIngredientsFragment.class.getSimpleName()))
-                editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
-            else if(shownRecipes.equals(EditRecipeStepsFragment.class.getSimpleName()))
-                editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
-            else if(shownRecipes.equals(EditRecipePhotoFragment.class.getSimpleName()))
-                editRecipePhotoFragment = (EditRecipePhotoFragment) getSupportFragmentManager().findFragmentByTag(shownRecipes);
+            //String shownRecipes = "";
+            //if(savedInstanceState.containsKey(KEY_FRAGMENT))
+            //    shownRecipes = savedInstanceState.getString(KEY_FRAGMENT);
+            //if(shownRecipes.equals(EditRecipeIngredientsFragment.class.getSimpleName()))
+                editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeIngredientsFragment.class.getSimpleName());
+            //else if(shownRecipes.equals(EditRecipeStepsFragment.class.getSimpleName()))
+                editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentByTag(EditRecipeStepsFragment.class.getSimpleName());
+            //else if(shownRecipes.equals(EditRecipePhotoFragment.class.getSimpleName()))
+                editRecipePhotoFragment = (EditRecipePhotoFragment) getSupportFragmentManager().findFragmentByTag(EditRecipePhotoFragment.class.getSimpleName());
         }
 
         setContentView(R.layout.activity_edit_recipe);
         ButterKnife.bind(this);
 
-        tablet = getResources().getBoolean(R.bool.tablet);
+        //tablet = getResources().getBoolean(R.bool.tablet);
 
-        if (tablet) {    //force landscape for tablets
+        /*if (tablet) {    //force landscape for tablets
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        }*/
 
 
         if (mToolbar != null) {
@@ -149,20 +148,19 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        String shownFragment = "";
+        //String shownFragment = "";
         if(recipe != null) {
-            if(editRecipeIngredientsFragment != null) {
+            /*if(editRecipeIngredientsFragment != null) {
                 shownFragment = EditRecipeIngredientsFragment.class.getSimpleName();
-
             }
             if(editRecipeStepsFragment != null){
                 shownFragment = EditRecipeStepsFragment.class.getSimpleName();
             }
             if(editRecipePhotoFragment != null) {
                 shownFragment = EditRecipePhotoFragment.class.getSimpleName();
-            }
+            }*/
             outState.putParcelable(Constants.KEY_RECIPE, recipe);
-            outState.putString(KEY_FRAGMENT, shownFragment);
+            //outState.putString(KEY_FRAGMENT, shownFragment);
         }
         outState.putString(KEY_TITLE, title);
         outState.putString(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
@@ -181,7 +179,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 this.onBackPressed();
                 return true;
             case R.id.menu_edit_recipe:
-                if(!tablet) {
+                //if(!tablet) {
                     Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
                     if (f instanceof EditRecipePhotoFragment) {
                         if (!(((EditRecipePhotoFragment) f).checkInfoOk())) {
@@ -216,7 +214,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                         invalidateOptionsMenu();// creates call to onPrepareOptionsMenu()
                     else
                         supportInvalidateOptionsMenu();
-                }/*else {
+               /* }/*else {
                     editRecipePhotoFragment = (EditRecipePhotoFragment) getSupportFragmentManager().findFragmentById(R.id.edit_photo_fragment_container_tablet);
                     editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) getSupportFragmentManager().findFragmentById(R.id.edit_ingredients_fragment_container_tablet);
                     editRecipeStepsFragment = (EditRecipeStepsFragment) getSupportFragmentManager().findFragmentById(R.id.edit_steps_fragment_container_tablet);
@@ -241,9 +239,9 @@ public class EditRecipeActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem icon = menu.findItem(R.id.menu_edit_recipe);
-        if(tablet)
-            icon.setTitle(getResources().getString(R.string.menu_save_text));
-        else {
+        //if(tablet)
+        //    icon.setTitle(getResources().getString(R.string.menu_save_text));
+        //else {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
             //Log.d(TAG, f.getClass().toString());
             if(f instanceof EditRecipeStepsFragment) {
@@ -252,7 +250,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 icon.setTitle(getResources().getString(R.string.next));
             }
             super.onPrepareOptionsMenu(menu);
-        }
+        //}
         return true;
     }
 
@@ -319,9 +317,9 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     private void performPressBack(){
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
-        if(tablet) {
+        /*if(tablet) {
             finishWithoutSave();
-        }else if(f instanceof EditRecipePhotoFragment){
+        }else */if(f instanceof EditRecipePhotoFragment){
             finishWithoutSave();
         }else{
             Boolean compatRequired = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
