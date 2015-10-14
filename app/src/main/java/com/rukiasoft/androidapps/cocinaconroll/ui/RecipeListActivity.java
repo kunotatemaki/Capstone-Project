@@ -433,10 +433,10 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                     int[] location = new int[2];
                     menuButton.getLocationInWindow(location);
                     //Log.d(TAG, "x=" + location[0] + " y=" + location[1]);
-                    magnifyingX = location[0] + menuButton.getWidth()/2;
+                    magnifyingX = location[0] + menuButton.getWidth() / 2;
                     magnifyingY = location[1];
                     // Now you can get rid of this listener
-                    if(magnifyingX != 0 && magnifyingY != 0 && viewTreeObserver.isAlive()) {
+                    if (magnifyingX != 0 && magnifyingY != 0 && viewTreeObserver.isAlive()) {
                         if (Build.VERSION.SDK_INT < 16) {
                             viewTreeObserver.removeGlobalOnLayoutListener(this);
                         } else {
@@ -467,6 +467,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
             navigationView.setCheckedItem(R.id.menu_last_downloaded);
             mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+        }else{
+            navigationView.setCheckedItem(R.id.menu_all_recipes);
         }
     }
 

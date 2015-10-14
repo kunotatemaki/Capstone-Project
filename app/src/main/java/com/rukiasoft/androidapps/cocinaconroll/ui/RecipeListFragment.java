@@ -286,6 +286,7 @@ public class RecipeListFragment extends Fragment implements
             ((RecipeListActivity)getActivity()).restartLoader();
             return;
         }
+
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
         //TODO delete from production version
