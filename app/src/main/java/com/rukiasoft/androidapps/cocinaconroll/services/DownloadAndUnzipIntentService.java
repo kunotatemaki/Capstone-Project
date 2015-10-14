@@ -14,7 +14,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload;
+import com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
@@ -60,7 +60,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
         mTools = new Tools();
         client = new OkHttpClient();
 
-        List<ZipToDownload> list = dbTools.getZipsByState(Constants.STATE_NOT_DOWNLOADED);
+        List<ZipItem> list = dbTools.getZipsByState(Constants.STATE_NOT_DOWNLOADED);
         Integer newRecipes = 0;
 
 

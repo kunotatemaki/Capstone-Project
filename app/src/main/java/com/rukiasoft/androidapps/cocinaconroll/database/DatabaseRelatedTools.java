@@ -9,7 +9,7 @@ import android.os.Build;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
-import com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload;
+import com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
 import java.text.Normalizer;
@@ -198,9 +198,9 @@ public class DatabaseRelatedTools {
         return mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values);
     }
 
-    public List<ZipToDownload> getZipsByState(Integer state) {
+    public List<ZipItem> getZipsByState(Integer state) {
         final String[] projection = {ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK};
-        List<ZipToDownload> list = new ArrayList<>();
+        List<ZipItem> list = new ArrayList<>();
         String selection;
         selection = ZipsTable.FIELD_STATE + " = ? ";
         String sState;
@@ -217,7 +217,7 @@ public class DatabaseRelatedTools {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                ZipToDownload zipToDownload = new ZipToDownload();
+                ZipItem zipToDownload = new ZipItem();
                 zipToDownload.setName(cursor.getString(0));
                 zipToDownload.setLink(cursor.getString(1));
                 list.add(zipToDownload);
