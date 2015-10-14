@@ -26,7 +26,7 @@ public class DatabaseRelatedTools {
 
     public void addRecipeToArrayAndDatabase(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
-        insertRecipeIntoDatabase(recipeItem);
+        insertRecipeIntoDatabase(recipeItem, true);
     }
 
     public void updateFavorite(int id, boolean favorite) {
@@ -53,7 +53,7 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void insertRecipeIntoDatabase(RecipeItem recipeItem) {
+    public void insertRecipeIntoDatabase(RecipeItem recipeItem, boolean update) {
         //set values
         ContentValues values = new ContentValues();
         values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
@@ -82,6 +82,7 @@ public class DatabaseRelatedTools {
         values.put(RecipesTable.FIELD_VEGETARIAN, vegetarian);
         values.put(RecipesTable.FIELD_STATE, recipeItem.getState());
         values.put(RecipesTable.FIELD_FAVORITE, 0);
+        values.put(RecipesTable.FIELD_DATE, recipeItem.getDate());
         if((recipeItem.getState()&(Constants.FLAG_EDITED|Constants.FLAG_OWN))!=0) {
             values.put(RecipesTable.FIELD_PATH_RECIPE_EDITED, recipeItem.getPathRecipe());
         }else {
@@ -96,7 +97,7 @@ public class DatabaseRelatedTools {
         List<RecipeItem> coincidences = searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
         if(coincidences.size() == 0) {
             mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values);
-        }else{
+        }else if(update){
             String selection = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
             String[] selectionArgs = {getNormalizedString(recipeItem.getName())};
             mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, selection, selectionArgs);
@@ -144,6 +145,12 @@ public class DatabaseRelatedTools {
         return searchRecipesInDatabase(field, sSelectionArgs);
     }
 
+    public List<RecipeItem> searchRecipesInDatabase(String field, long selectionArgs) {
+        String[] sSelectionArgs = new String[1];
+        sSelectionArgs[0] = String.valueOf(selectionArgs);
+        return searchRecipesInDatabase(field, sSelectionArgs);
+    }
+
     public List<RecipeItem> searchRecipesInDatabase(String field, String selectionArgs){
         String[] sSelectionArgs = new String[1];
         sSelectionArgs[0] = selectionArgs;
@@ -158,7 +165,7 @@ public class DatabaseRelatedTools {
         String selection = null;
         String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
         if(field != null) {
-            if (field.equals(RecipesTable.FIELD_STATE)) {
+            if (field.equals(RecipesTable.FIELD_STATE) || field.equals(RecipesTable.FIELD_DATE)) {
                 selection = field + " > ? ";
             } else {
                 selection = field + " = ? ";
@@ -243,6 +250,7 @@ public class DatabaseRelatedTools {
                 item.setType(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_TYPE)));
                 int vegetarian = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN));
                 item.setVegetarian(vegetarian != 0);
+                item.setDate(cursor.getLong(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_DATE)));
                 if((item.getState()&Constants.FLAG_EDITED_PICTURE) != 0){
                     //picture edited
                     item.setPathPicture(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_PICTURE_EDITED)));

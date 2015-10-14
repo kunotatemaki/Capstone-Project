@@ -27,14 +27,13 @@ public class Tools {
     public Tools(){
     }
 
-    public Boolean isInTimeframe(RecipeItem recipeItem){
+    public Long getTimeframe(){
         try {
-            Integer seconds = Constants.TIMEFRAME_NEW_RECIPE_SECONDS_DAY * Constants.TIMEFRAME_NEW_RECIPE_DAYS;
-            Long timeframe = System.currentTimeMillis() - seconds;
-            return recipeItem.getDate() != null && recipeItem.getDate() != -1 && recipeItem.getDate() > timeframe;
+            Integer miliseconds = Constants.TIMEFRAME_NEW_RECIPE_MILISECONDS_DAY * Constants.TIMEFRAME_NEW_RECIPE_DAYS;
+            return System.currentTimeMillis() - miliseconds;
         }catch(Exception e){
             e.printStackTrace();
-            return false;
+            return Long.MAX_VALUE;
         }
     }
 

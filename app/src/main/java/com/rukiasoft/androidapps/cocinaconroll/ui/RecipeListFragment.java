@@ -279,8 +279,16 @@ public class RecipeListFragment extends Fragment implements
             initDatabase.execute();
             return;
         }
+        if(mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_RELOAD_NEW_ORIGINALS)){
+            ReadWriteTools rwTools = new ReadWriteTools(getActivity());
+            rwTools.loadNewFilesAndInsertInDatabase();
+            mTools.savePreferences(getActivity(), Constants.PROPERTY_RELOAD_NEW_ORIGINALS, false);
+            ((RecipeListActivity)getActivity()).restartLoader();
+            return;
+        }
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
+        //TODO delete from production version
         int desserts=0;
         int starters=0;
         int mains=0;
@@ -308,14 +316,6 @@ public class RecipeListFragment extends Fragment implements
         Tools tools = new Tools();
         tools.hideRefreshLayout(getActivity());
     }
-
-    /*private void orderRecipesByName(){
-        Comparator<RecipeItem> comparatorName = new RecipesListNameComparator();
-        Collections.sort(mRecipes, comparatorName);
-        for(int i=0; i<mRecipes.size(); i++){
-            mRecipes.get(i).setPosition(i);
-        }
-    }*/
 
     private void setData(){
         initDatabaseText.setVisibility(View.GONE);
@@ -356,8 +356,6 @@ public class RecipeListFragment extends Fragment implements
         slideAdapter.setDuration(2000);
         return slideAdapter;
     }
-
-
 
     @Override
     public void onItemClick(View view, RecipeItem recipeItem) {
@@ -449,12 +447,9 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
             //TOdo hacer esto
-            /*for(RecipeItem item : mRecipes) {
-                if (mTools.isInTimeframe(item)) {
-                    filteredModelList.add(item);
-                }
-            }*/
             type = getResources().getString(R.string.last_downloaded);
+            Tools mTools = new Tools();
+            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_DATE, mTools.getTimeframe());
             iconResource = R.drawable.ic_latest_24;
         }
         typeRecipesInRecipeList.setText(type);
@@ -536,23 +531,6 @@ public class RecipeListFragment extends Fragment implements
             }
         }
     }
-
-    /*public void deleteRecipe(int id) {
-        if(mRecipes == null){
-            return;
-        }
-        for(int i=0; i<mRecipes.size(); i++){
-            if(mRecipes.get(i).get_id().intValue() == id){
-                mRecipes.remove(i);
-                mRecipes.add(i, recipe);
-                filterRecipes(lastFilter);
-            }
-        }
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        dbTools.re(mRecipes,index);
-        //orderRecipesByName();
-        filterRecipes(lastFilter);
-    }*/
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

@@ -65,7 +65,7 @@ public class MessagingEndpoint {
         Sender sender = new Sender(API_KEY);
         Message msg = new Message.Builder()
                 .addData("name", "recipe_pack_01")
-                .addData("link", "https://www.dropbox.com/s/cqkmdxah9bpcjwn/cukio_2015.05.22_17.52.02.zip?dl=1")
+                .addData("link", "https://www.dropbox.com/s/xqv3sm8frj6xc1q/capstone_test.zip?dl=1")
                 .build();
         List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(10).list();
         for (RegistrationRecord record : records) {

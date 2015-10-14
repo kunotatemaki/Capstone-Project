@@ -36,6 +36,7 @@ public class Constants {
     public static final String PROPERTY_NUMBER_MAIN = "numbermains";
     public static final String PROPERTY_NUMBER_DESSERTS = "numberdesserts";
     public static final String PROPERTY_INIT_DATABASE = "initdatabase";
+    public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";
@@ -55,7 +56,7 @@ public class Constants {
     public static final Integer PATH_TYPE_ORIGINAL = 1;
     public static final Integer PATH_TYPE_EDITED = 2;
 
-    public static final Integer TIMEFRAME_NEW_RECIPE_SECONDS_DAY = 1000 * 3600 * 24;
+    public static final Integer TIMEFRAME_NEW_RECIPE_MILISECONDS_DAY = 1000 * 3600 * 24;
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;
 
     public static final String FILTER_ALL_RECIPES = PACKAGE_NAME + ".allrecipes";

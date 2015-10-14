@@ -88,6 +88,8 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 e.printStackTrace();
                 continue;
             }
+            //update variable to load new files
+            mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, true);
             //ya se han descomprimido, aumento contador
             newRecipes++;
             File file = new File(rwTools.getZipsStorageDir() + list.get(i).getName());
@@ -103,6 +105,8 @@ public class DownloadAndUnzipIntentService extends IntentService {
             }
         }
 
+        rwTools.loadNewFilesAndInsertInDatabase();
+        mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, false);
         String type = Constants.FILTER_ALL_RECIPES;
         if(intent.hasExtra(Constants.KEY_TYPE)) {
             type = intent.getExtras().getString(Constants.KEY_TYPE);

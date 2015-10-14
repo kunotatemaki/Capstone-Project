@@ -146,7 +146,7 @@ public class ReadWriteTools {
             recipeItem.setPathRecipe(path);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
-                if(recipeItem.getDate() == null){
+                if(recipeItem.getDate() == -1l){
                     recipeItem.setDate(System.currentTimeMillis());
                     //TODO mirar lo de la fecha;
                     //saveRecipeOnOrigialPath(recipeItem);
@@ -475,7 +475,7 @@ public class ReadWriteTools {
             recipeItem = readRecipe(listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if (recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem, true);
             }
         }
 
@@ -483,7 +483,7 @@ public class ReadWriteTools {
             RecipeItem recipeItem= readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem, true);
             }
         }
 
@@ -491,7 +491,7 @@ public class ReadWriteTools {
             RecipeItem recipeItem= readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem);
+                dbTools.insertRecipeIntoDatabase(recipeItem, true);
             }
         }
     }
@@ -543,6 +543,19 @@ public class ReadWriteTools {
 
         return recipeItem;
 
+    }
+
+    public void loadNewFilesAndInsertInDatabase() {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+        MyFileFilter filter = new MyFileFilter();
+        List<String> listOriginal = loadFiles(filter, false);
+        for(int i=0; i<listOriginal.size(); i++) {
+            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
+                    Constants.PATH_TYPE_ORIGINAL);
+            if(recipeItem != null) {
+                dbTools.insertRecipeIntoDatabase(recipeItem, false);
+            }
+        }
     }
 
 

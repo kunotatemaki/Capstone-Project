@@ -22,11 +22,13 @@ public class RecipesTable {
     public static final String FIELD_PATH_RECIPE = "path_recipe";
     public static final String FIELD_PATH_PICTURE_EDITED = "path_picture_edited";
     public static final String FIELD_PATH_RECIPE_EDITED = "path_recipe_edited";
+    public static final String FIELD_DATE = "path_date";
 
     public static final String TABLE_NAME = "recipes";
 
-    final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_NAME_NORMALIZED, FIELD_TYPE, FIELD_ICON, FIELD_FAVORITE,
-            FIELD_STATE, FIELD_VEGETARIAN, FIELD_PATH_RECIPE, FIELD_PATH_PICTURE, FIELD_PATH_RECIPE_EDITED, FIELD_PATH_PICTURE_EDITED};
+    final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_NAME_NORMALIZED, FIELD_TYPE,
+            FIELD_ICON, FIELD_FAVORITE, FIELD_STATE, FIELD_VEGETARIAN, FIELD_PATH_RECIPE, FIELD_PATH_PICTURE,
+            FIELD_PATH_RECIPE_EDITED, FIELD_PATH_PICTURE_EDITED, FIELD_DATE};
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = " create table " + TABLE_NAME + "" +
@@ -42,7 +44,8 @@ public class RecipesTable {
             FIELD_PATH_RECIPE + " TEXT, " +
             FIELD_PATH_PICTURE + " TEXT, " +
             FIELD_PATH_RECIPE_EDITED + " TEXT, " +
-            FIELD_PATH_PICTURE_EDITED + " TEXT " +
+            FIELD_PATH_PICTURE_EDITED + " TEXT, " +
+            FIELD_DATE + " int " +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {
