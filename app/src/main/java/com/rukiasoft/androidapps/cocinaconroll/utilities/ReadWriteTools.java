@@ -389,7 +389,7 @@ public class ReadWriteTools {
 
     public void share(final Activity activity, RecipeItem recipe)
     {
-        //TODO try with revealAction
+        //TODO try with resolveactivity
         //need to "send multiple" to get more than one attachment
         Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
