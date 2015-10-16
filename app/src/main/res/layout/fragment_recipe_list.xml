@@ -110,6 +110,7 @@
     <android.support.design.widget.FloatingActionButton
         app:fabSize="normal"
         style="@style/FabStyle"
+        app:backgroundTint="@color/ColorAccent"
         android:src="@drawable/ic_add_white_24dp"
         android:layout_gravity="bottom|right|end"
         android:id="@+id/add_recipe_fab"

@@ -58,6 +58,7 @@
                 android:id="@+id/recipe_description_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:backgroundTint="@color/ColorAccent"
                 app:fabSize="mini"
                 android:elevation="6dp"
                 app:pressedTranslationZ="12dp"
