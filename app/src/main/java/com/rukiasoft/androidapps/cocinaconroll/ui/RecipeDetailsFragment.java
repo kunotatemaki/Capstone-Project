@@ -227,6 +227,7 @@ public class RecipeDetailsFragment extends Fragment implements
     };
 
     final Runnable scaleOut = new Runnable() {
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void run() {
             recipeDescriptionFAB.animate().setDuration(250)
@@ -366,7 +367,9 @@ public class RecipeDetailsFragment extends Fragment implements
             recipeName.setVisibility(View.GONE);
         }else{
             recipeName.setVisibility(View.VISIBLE);
-            recipeName.setAlpha(1-percentage/PERCENTAGE_TO_ELLIPSIZE_TITLE);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                recipeName.setAlpha(1 - percentage / PERCENTAGE_TO_ELLIPSIZE_TITLE);
+            }
         }
     }
 
@@ -509,6 +512,7 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
 
+    @SuppressLint("NewApi")
     public void updateRecipe(RecipeItem recipe) {
         this.recipe = recipe;
         loadRecipe();

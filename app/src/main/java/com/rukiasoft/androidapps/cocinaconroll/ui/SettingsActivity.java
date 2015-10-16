@@ -1,5 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,15 +33,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
 
-        /*if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.settings_fragment_container, new SettingsFragmentSupport())
                     .commit();
-        }else{*/
+        }else{
             getFragmentManager().beginTransaction()
                     .replace(R.id.settings_fragment_container, new SettingsFragment())
                     .commit();
-        //}
+        }
 
     }
 

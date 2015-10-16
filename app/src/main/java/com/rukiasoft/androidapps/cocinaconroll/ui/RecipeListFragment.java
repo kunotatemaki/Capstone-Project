@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -67,7 +68,7 @@ public class RecipeListFragment extends Fragment implements
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout refreshLayout;
-    @Bind((R.id.fastscroller))
+    @Nullable @Bind((R.id.fastscroller))
     FastScroller fastScroller;
     @Bind(R.id.appbar_layout)
     AppBarLayout mAppBarLayout;
@@ -83,8 +84,9 @@ public class RecipeListFragment extends Fragment implements
     FloatingActionButton addRecipeButtonFAB;
     @Bind(R.id.init_database_text) TextView initDatabaseText;
 
-    private SlideInBottomAnimationAdapter slideAdapter;
-    private RecipeListRecyclerViewAdapter adapter;
+
+    //private SlideInBottomAnimationAdapter slideAdapter;
+    //private RecipeListRecyclerViewAdapter adapter;
     List<RecipeItem> mRecipes;
     int savedScrollPosition = 0;
     private int columnCount = 10;
@@ -327,14 +329,17 @@ public class RecipeListFragment extends Fragment implements
             tools.hideRefreshLayout(getActivity());
         }
 
-        adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
+        RecipeListRecyclerViewAdapter adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         adapter.setHasStableIds(true);
         adapter.setOnItemClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
-        slideAdapter = wrapAdapter(adapter);
-
-        mRecyclerView.setAdapter(slideAdapter);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            SlideInBottomAnimationAdapter slideAdapter = wrapAdapter(adapter);
+            mRecyclerView.setAdapter(slideAdapter);
+        }else{
+            mRecyclerView.setAdapter(adapter);
+        }
         //mRecyclerView.setAdapter(adapter);
         columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
@@ -344,7 +349,9 @@ public class RecipeListFragment extends Fragment implements
         mRecyclerView.setLayoutManager(sglm);
         mRecyclerView.scrollToPosition(savedScrollPosition);
         //Set the fast Scroller
-        fastScroller.setRecyclerView(mRecyclerView);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            fastScroller.setRecyclerView(mRecyclerView);
+        }
 
         //set the number of recipes
         String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
@@ -461,21 +468,30 @@ public class RecipeListFragment extends Fragment implements
         newAdapter.setOnItemClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
-        SlideInBottomAnimationAdapter newSlideAdapter = wrapAdapter(newAdapter);
 
-        mRecyclerView.swapAdapter(newSlideAdapter, false);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            SlideInBottomAnimationAdapter newSlideAdapter = wrapAdapter(newAdapter);
+            mRecyclerView.swapAdapter(newSlideAdapter, false);
+        }else{
+            mRecyclerView.swapAdapter(newAdapter, false);
+        }
         //mRecyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
 
-        adapter = newAdapter;
-        slideAdapter = newSlideAdapter;
+        /*adapter = newAdapter;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            slideAdapter = newSlideAdapter;
+        }*/
         mRecyclerView.setLayoutManager(sglm);
         mRecyclerView.scrollToPosition(0);
 
         //Set the fast Scroller
-        fastScroller.setRecyclerView(mRecyclerView);
+        //// TODO: 15/10/15 check this
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            fastScroller.setRecyclerView(mRecyclerView);
+        }
     }
 
 

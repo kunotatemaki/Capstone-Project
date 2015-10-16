@@ -17,12 +17,16 @@
 package com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperAdapter;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperViewHolder;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop and
@@ -89,9 +93,18 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             // Fade out the view as it is swiped out of the parent's bounds
-            final float alpha = ALPHA_FULL - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
-            viewHolder.itemView.setAlpha(alpha);
-            viewHolder.itemView.setTranslationX(dX);
+            float alpha = ALPHA_FULL - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                viewHolder.itemView.setAlpha(alpha);
+                viewHolder.itemView.setTranslationX(dX);
+            }else {
+                if(alpha > 1) alpha = 1;
+                if(alpha < 0) alpha = 0;
+                String color = Integer.toHexString((int) ((1 - alpha) * 255));
+                color = color.length() == 1? "#0" + color : "#" + color;
+                color = color.concat("FF0000");
+                viewHolder.itemView.setBackgroundColor(Color.parseColor(color));
+            }
         } else {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
@@ -115,7 +128,11 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
 
-        viewHolder.itemView.setAlpha(ALPHA_FULL);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            viewHolder.itemView.setAlpha(ALPHA_FULL);
+        }else{
+            viewHolder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
 
         if (viewHolder instanceof ItemTouchHelperViewHolder) {
             // Tell the view holder it's time to restore the idle state

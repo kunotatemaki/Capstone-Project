@@ -28,6 +28,14 @@
                 android:paddingRight="@dimen/list_side_margin"
                 android:paddingBottom="@dimen/list_bottom_margin"
                 />
+            <com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller
+                 android:id="@+id/fastscroller"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_alignTop="@id/recycler_view"
+                 android:layout_alignBottom="@id/recycler_view"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentEnd="true" />
             <TextView
                 android:id="@+id/init_database_text"
                 android:layout_width="match_parent"

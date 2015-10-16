@@ -291,7 +291,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             }
 
         });
-        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        // TODO: 15/10/15 revisar este cambio
+        //SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
@@ -462,7 +464,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     public void closeSearchView(){
         animate = false;
         if(searchMenuItem != null){
-            searchMenuItem.collapseActionView();
+            // TODO: 15/10/15 revisar este cambio
+            //searchMenuItem.collapseActionView();
+            MenuItemCompat.collapseActionView(searchMenuItem);
         }
     }
 

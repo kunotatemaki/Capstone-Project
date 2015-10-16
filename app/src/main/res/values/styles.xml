@@ -1,7 +1,8 @@
 <resources>
 
     <style name="AppTheme" parent="BaseTheme"/>
-
+    
+    
    <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
@@ -11,7 +12,6 @@
         <item name="colorControlHighlight">@color/accent_translucent</item> 
 
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
-        <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
         <item name="android:dropDownItemStyle">@style/myDropDownItemStyle</item>
         <!-- Customize your theme here. -->

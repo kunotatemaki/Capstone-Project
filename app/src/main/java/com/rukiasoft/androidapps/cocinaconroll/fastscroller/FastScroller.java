@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
 
 import static android.support.v7.widget.RecyclerView.OnScrollListener;
 
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class FastScroller extends LinearLayout {
     private static final int HANDLE_HIDE_DELAY = 1000;
     private static final int HANDLE_ANIMATION_DURATION = 100;

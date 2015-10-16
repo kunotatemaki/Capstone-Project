@@ -1,17 +1,16 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 
+import com.github.machinarius.preferencefragment.PreferenceFragment;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+
 
 import java.io.Serializable;
 
 
-@SuppressLint("NewApi")
-public class SettingsFragment extends PreferenceFragment implements Serializable {
+public class SettingsFragmentSupport extends PreferenceFragment implements Serializable {
 
     /**
      *
