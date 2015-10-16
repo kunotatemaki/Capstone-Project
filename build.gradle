@@ -35,28 +35,5 @@ task installRelease{
 
 }
 
-task buildAndDeploy(type: Exec) {
 
-    def rootDir = project.rootDir
-    def localProperties = new File(rootDir, "local.properties")
-    if (localProperties.exists()) {
-        Properties properties = new Properties()
-        localProperties.withInputStream {
-            instr -> properties.load(instr)
-        }
-        def sdkDir = properties.getProperty('sdk.dir')
-        def adb = "$sdkDir/platform-tools/adb"
-        commandLine "$adb", 'install', './app/build/outputs/apk/app-release.apk'
-    }
-
-}
-http://stackoverflow.com/questions/21288448/how-to-retrieve-path-to-adb-in-build-gradle
-
-task startEndpoint{
-    dependsOn "recipesserver:appengineRun"
-}
-
-task stopEndpoint{
-    dependsOn "recipesserver:appengineStop"
-}
 
