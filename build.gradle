@@ -19,8 +19,8 @@ allprojects {
 }
 
 
-task installRelease{
-    dependsOn = ["startEndpoint", "buildAndDeploy"]
+task launchCapstone{
+    dependsOn = ["startRecipesServer", "buildCookingWithCookeo", "deployCookingWithCookeo", "startCookingWithCookeo"]
     evaluationDependsOn ":recipesserver"
 
     project(":recipesserver"){
@@ -35,5 +35,48 @@ task installRelease{
 
 }
 
+task buildCookingWithCookeo{
+    dependsOn "app:assembleRelease"
+    mustRunAfter "startRecipesServer"
+}
 
+task deployCookingWithCookeo(type: Exec) {
+    mustRunAfter "buildCookingWithCookeo"
+
+    def rootDir = project.rootDir
+    def localProperties = new File(rootDir, "local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream {
+            instr -> properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        def adb = "$sdkDir/platform-tools/adb"
+        commandLine "$adb", 'install', './app/build/outputs/apk/app-release.apk'
+    }
+}
+
+task startCookingWithCookeo(type: Exec) {
+    mustRunAfter "deployCookingWithCookeo"
+
+    def rootDir = project.rootDir
+    def localProperties = new File(rootDir, "local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream {
+            instr -> properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        def adb = "$sdkDir/platform-tools/adb"
+        commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.rukiasoft.androidapps.cocinaconroll/.ui.RecipeListActivity'
+    }
+}
+
+task startRecipesServer{
+    dependsOn "recipesserver:appengineRun"
+}
+
+task stopRecipesServer{
+    dependsOn "recipesserver:appengineStop"
+}
 

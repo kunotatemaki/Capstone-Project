@@ -224,13 +224,16 @@ public class EditRecipePhotoFragment extends Fragment {
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) { //pick from camera
                 if (item == 0) {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     mImageCaptureUri = Uri.fromFile(new File(rwTools.getEditedStorageDir(),
                             Constants.TEMP_CAMERA_NAME + String.valueOf(System.currentTimeMillis()) + ".jpg"));
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
                     try {
-                        intent.putExtra("return-data", true);
-                        startActivityForResult(intent, PICK_FROM_CAMERA);
+                        takePictureIntent.putExtra("return-data", true);
+                        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) == null) {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG);
+                        }
+                        startActivityForResult(takePictureIntent, PICK_FROM_CAMERA);
                     } catch (ActivityNotFoundException e) {
                         e.printStackTrace();
                         Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG).show();
