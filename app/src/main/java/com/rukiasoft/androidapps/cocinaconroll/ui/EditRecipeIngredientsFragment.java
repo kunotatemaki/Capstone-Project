@@ -32,7 +32,7 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
     private static final String KEY_ITEM_TO_ADD = Constants.PACKAGE_NAME + ".itemtoadd";
     private RecipeItem recipeItem;
     //private static final String TAG = "EditRecipeIngredientsFragment";
-    Boolean showSwipe = true;
+    private Boolean showSwipe = true;
     @Bind(R.id.edit_recipe_add_item)EditText addItem;
     @Bind(R.id.edit_recipe_add_fab)FloatingActionButton fab;
     @Bind(R.id.edit_recipe_recycler_view) RecyclerView recyclerView;
@@ -40,7 +40,7 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
     private EditRecipeRecyclerViewAdapter mAdapter;
 
     private ItemTouchHelper mItemTouchHelper;
-    Tools mTools;
+    private Tools mTools;
 
     public EditRecipeIngredientsFragment() {
         // Required empty public constructor

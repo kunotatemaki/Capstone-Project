@@ -23,7 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     @Bind(R.id.adview_details)
     AdView mAdViewDetails;
-    RecipeDetailsFragment recipeDetailsFragment;
+    private RecipeDetailsFragment recipeDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -37,7 +37,7 @@ public class EditRecipeStepsFragment extends Fragment implements OnStartDragList
     private EditRecipeRecyclerViewAdapter mAdapter;
 
     private ItemTouchHelper mItemTouchHelper;
-    Tools mTools;
+    private Tools mTools;
 
 
     public EditRecipeStepsFragment() {

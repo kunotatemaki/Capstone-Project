@@ -12,7 +12,7 @@ import android.util.Log;
 public class ZipsDB {
 
     private final CocinaConRollDatabaseHelper mCocinaConRollDatabaseHelper;
-    long regId;
+    private long regId;
 	public ZipsDB(Context context){
         mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
 	}

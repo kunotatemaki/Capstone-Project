@@ -22,11 +22,9 @@ import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperAdapter;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperViewHolder;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop and
@@ -40,7 +38,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
  */
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    public static final float ALPHA_FULL = 1.0f;
+    private static final float ALPHA_FULL = 1.0f;
 
     private final ItemTouchHelperAdapter mAdapter;
 

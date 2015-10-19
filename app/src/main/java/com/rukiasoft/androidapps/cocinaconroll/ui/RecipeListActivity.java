@@ -56,16 +56,19 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
 
 
-    MenuItem searchMenuItem;
+    private MenuItem searchMenuItem;
     private RecipeListFragment mRecipeListFragment;
-    int magnifyingX, magnifyingY, openCircleRevealX, openCircleRevealY;
-    boolean started = false;
-    ToolbarAndRefreshActivity mActivity;
+    private int magnifyingX;
+    private int magnifyingY;
+    private int openCircleRevealX;
+    private int openCircleRevealY;
+    private boolean started = false;
+    private ToolbarAndRefreshActivity mActivity;
     private boolean animate;
     private String lastFilter;
 
 
-    public final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){

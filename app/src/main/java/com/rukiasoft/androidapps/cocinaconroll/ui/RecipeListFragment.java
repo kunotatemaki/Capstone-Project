@@ -60,7 +60,7 @@ public class RecipeListFragment extends Fragment implements
         AppBarLayout.OnOffsetChangedListener{
 
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".scrollposition";
-    public static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".recipelist";
+    private static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".recipelist";
 
 
     @Nullable
@@ -87,8 +87,8 @@ public class RecipeListFragment extends Fragment implements
 
     //private SlideInBottomAnimationAdapter slideAdapter;
     //private RecipeListRecyclerViewAdapter adapter;
-    List<RecipeItem> mRecipes;
-    int savedScrollPosition = 0;
+    private List<RecipeItem> mRecipes;
+    private int savedScrollPosition = 0;
     private int columnCount = 10;
     private String lastFilter;
     private InterstitialAd mInterstitialAd;
@@ -97,7 +97,7 @@ public class RecipeListFragment extends Fragment implements
 
 
     private class InitDatabase extends AsyncTask<Void, Integer, Void> {
-        Activity mActivity;
+        final Activity mActivity;
 
         public InitDatabase(Activity activity){
             this.mActivity = activity;
@@ -370,7 +370,7 @@ public class RecipeListFragment extends Fragment implements
         showRecipeDetails(recipeItem);
     }
 
-    public void showRecipeDetails(RecipeItem recipeItem){
+    private void showRecipeDetails(RecipeItem recipeItem){
         //interstitial
         Tools tools = new Tools();
         ReadWriteTools rwTools = new ReadWriteTools(getActivity());

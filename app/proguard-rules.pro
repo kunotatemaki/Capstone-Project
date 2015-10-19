@@ -22,12 +22,6 @@
     public *;
 }
 
-# OkHttp
--keepattributes Signature
--keepattributes *Annotation*
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
 
 # Butterknife
 -dontwarn butterknife.internal.**
@@ -67,7 +61,7 @@
       public static final android.os.Parcelable$Creator *;
    }
 
--keep public class com.rukiasoft.androidapps.cocinaconroll.classes.ZipToDownload {
+-keep public class com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem {
   public *** get*();
   public void set*(***);
 }
@@ -245,11 +239,6 @@
 -dontwarn org.w3c.dom.**
 
 
--keepattributes *Annotation*
--keepattributes Signature
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
 
 -keep class sun.misc.Unsafe { *; }
 -dontwarn java.nio.file.*
@@ -260,3 +249,21 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
+-dontwarn org.apache.http.**
+-dontwarn android.net.http.AndroidHttpClient
+
+-dontwarn retrofit.client.ApacheClient$GenericEntityHttpRequest
+-dontwarn retrofit.client.ApacheClient$GenericHttpRequest
+-dontwarn retrofit.client.ApacheClient$TypedOutputEntity
+
+
+# OkHttp
+-keepattributes *Annotation*
+-keepattributes Signature
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
+
+
+-keep class com.google.**
+-dontwarn com.google.**

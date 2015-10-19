@@ -89,18 +89,18 @@ public class RecipeDetailsFragment extends Fragment implements
     @Bind(R.id.listview_steps_cardview)
     LinearLayout stepsList;
     private RecipeItem recipe;
-    boolean recipeLoaded = false;
+    private boolean recipeLoaded = false;
     private ActionBar actionBar;
     @Bind(R.id.cardview_link_textview) TextView author;
     private boolean own;
     private boolean land;
     private boolean animated;
-    View viewToReveal;
-    Tools mTools;
-    DatabaseRelatedTools dbTools;
-    ReadWriteTools rwTools;
+    private View viewToReveal;
+    private Tools mTools;
+    private DatabaseRelatedTools dbTools;
+    private ReadWriteTools rwTools;
 
-    public final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -124,7 +124,7 @@ public class RecipeDetailsFragment extends Fragment implements
             }
         }
     };
-    public final DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -214,7 +214,7 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
 
-    final Runnable scaleIn = new Runnable() {
+    private final Runnable scaleIn = new Runnable() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void run() {
@@ -226,7 +226,7 @@ public class RecipeDetailsFragment extends Fragment implements
         }
     };
 
-    final Runnable scaleOut = new Runnable() {
+    private final Runnable scaleOut = new Runnable() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void run() {

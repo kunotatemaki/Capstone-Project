@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class SearchableActivity extends ToolbarAndRefreshActivity implements LoaderCallbacks<Cursor> {
 	
-	ListView mLVRecipes;
-	SimpleCursorAdapter mCursorAdapter;
+	private ListView mLVRecipes;
+	private SimpleCursorAdapter mCursorAdapter;
 	@Bind(R.id.standard_toolbar)
 	Toolbar mToolbarSearchActivity;
 	

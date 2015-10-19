@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
+ * Created by Raúl Feliz Alonso on 21/09/2015 for the Udacity Nanodegree.
  */
 @Root(name="elementList")
 public class PreinstalledRecipeNamesList {

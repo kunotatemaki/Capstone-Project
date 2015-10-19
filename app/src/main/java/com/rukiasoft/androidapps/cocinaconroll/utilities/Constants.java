@@ -6,7 +6,7 @@ public class Constants {
     public static final String SENDER_ID = "962580870211";
     public static final String PACKAGE_NAME = "com.rukiasoft.androidapps.cocinaconroll";
 
-    public static final String PREFERENCE_INTERSTITIAL = PACKAGE_NAME + ".intertitial";
+    public static final String PREFERENCE_INTERSTITIAL = PACKAGE_NAME + ".interstitial";
     public static final String RECIPES_DIR = "recipes";
     public static final String BASE_DIR = "CookingWihCookeo";
     public static final String ZIPS_DIR = "zips";

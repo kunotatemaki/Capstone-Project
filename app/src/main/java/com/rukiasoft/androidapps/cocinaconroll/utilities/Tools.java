@@ -13,14 +13,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
+ * Created by Raúl Feliz Alonso on 21/09/2015 for the Udacity Nanodegree.
  */
 public class Tools {
 

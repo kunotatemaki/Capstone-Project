@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 
 /**
- * Created by Ruler on 24/09/2015 for the Udacity Nanodegree.
+ * Created by Raúl Feliz Alonso on 24/09/2015 for the Udacity Nanodegree.
  */
 public class RecipesTable {
     private static String TAG = LogHelper.makeLogTag(RecipesTable.class);

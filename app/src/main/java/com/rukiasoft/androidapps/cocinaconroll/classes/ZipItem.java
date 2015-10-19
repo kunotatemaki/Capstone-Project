@@ -3,7 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll.classes;
 import java.io.Serializable;
 
 /**
- * Created by Ruler on 2014.
+ * Created by Raúl Feliz Alonso on 2014.
  */
 
 public class ZipItem implements Serializable {

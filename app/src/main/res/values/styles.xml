@@ -25,7 +25,7 @@
 
 
     <style name="myDropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
-        <item name="android:textColor">@color/secondary_text_default_material_light</item>
+        <item name="android:textColor">@color/ColorDarkText</item>
         <item name="android:textSize">14sp</item>
     </style>
 

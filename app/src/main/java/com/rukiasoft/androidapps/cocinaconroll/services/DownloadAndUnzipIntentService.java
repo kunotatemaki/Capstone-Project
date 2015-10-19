@@ -47,10 +47,10 @@ public class DownloadAndUnzipIntentService extends IntentService {
         super("DownloadAndUnzipIntentService");
     }
 
-    OkHttpClient client;
-    DatabaseRelatedTools dbTools;
-    ReadWriteTools rwTools;
-    Tools mTools;
+    private OkHttpClient client;
+    private DatabaseRelatedTools dbTools;
+    private ReadWriteTools rwTools;
+    private Tools mTools;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -143,7 +143,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
         }
     }
 
-    ResponseBody run(String url) throws IOException {
+    private ResponseBody run(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DatabaseRelatedTools {
 
-    final Context mContext;
+    private final Context mContext;
     public DatabaseRelatedTools(Context context){
         mContext = context;
     }
@@ -157,7 +157,7 @@ public class DatabaseRelatedTools {
         return searchRecipesInDatabase(field, sSelectionArgs);
     }
 
-    public List<RecipeItem> searchRecipesInDatabase(String field, String[] selectionArgs){
+    private List<RecipeItem> searchRecipesInDatabase(String field, String[] selectionArgs){
         if(selectionArgs[0] == null || selectionArgs[0].isEmpty()){
             selectionArgs = null;
         }

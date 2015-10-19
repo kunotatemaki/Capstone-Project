@@ -16,8 +16,8 @@ public class CocinaConRollContentProvider extends ContentProvider {
 	public static final Uri CONTENT_URI_RECIPES = Uri.parse("content://" + AUTHORITY + "/" + RecipesTable.TABLE_NAME);
 	public static final Uri CONTENT_URI_ZIPS = Uri.parse("content://" + AUTHORITY + "/" + ZipsTable.TABLE_NAME);
 
-    RecipesDB mRecipesDB = null;
-    ZipsDB mZipsDB = null;
+    private RecipesDB mRecipesDB = null;
+    private ZipsDB mZipsDB = null;
 
     private static final int SUGGESTIONS_RECIPE = 1;
     private static final int SEARCH_SUGGESTION = 2;
@@ -28,7 +28,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
     private static final int GET_ZIP = 7;
 
 
-    final UriMatcher mUriMatcher = buildUriMatcher();
+    private final UriMatcher mUriMatcher = buildUriMatcher();
 
     private UriMatcher buildUriMatcher(){
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

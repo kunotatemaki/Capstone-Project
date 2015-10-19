@@ -36,11 +36,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Ruler on 21/09/2015 for the Udacity Nanodegree.
- */
+
 public class ReadWriteTools {
-    final Context mContext;
+    private final Context mContext;
     
     public ReadWriteTools(Context mContext){
         this.mContext = mContext;
@@ -78,11 +76,11 @@ public class ReadWriteTools {
     /**
      * Checks if external storage is available to at least read
      */
-    public boolean isExternalStorageReadable() {
+    /*public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state) ||
                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
-    }
+    }*/
 
     /**
      * Get
@@ -169,15 +167,20 @@ public class ReadWriteTools {
         try{
             //File f = new File(mContext.getFilesDir() + "temp.txt");
             File f = getTempFile();
-            OutputStream outputStream = new FileOutputStream(f);
-            byte buffer[] = new byte[1024];
-            int length;
-            while((length=inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer,0,length);
+            if(f== null){
+                return null;
+            }else {
+                OutputStream outputStream = new FileOutputStream(f);
+
+                byte buffer[] = new byte[1024];
+                int length;
+                while((length=inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer,0,length);
+                }
+                outputStream.close();
+                inputStream.close();
+                return f;
             }
-            outputStream.close();
-            inputStream.close();
-            return f;
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -312,7 +315,9 @@ public class ReadWriteTools {
         }
         source = createFileFromInputStream(inputStream);
         list = parseFileIntoRecipeList(source);
-        source.delete();
+        if (source != null) {
+            source.delete();
+        }
 
         return list;
     }

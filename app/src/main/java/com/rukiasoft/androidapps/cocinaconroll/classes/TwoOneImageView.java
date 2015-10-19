@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by iRuler on 6/9/15.
+ * Created by Raúl Feliz Alonso on 6/9/15.
  */
 public class TwoOneImageView extends ImageView {
     public TwoOneImageView(Context context) {

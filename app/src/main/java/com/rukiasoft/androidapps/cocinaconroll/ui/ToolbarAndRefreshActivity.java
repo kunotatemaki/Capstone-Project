@@ -35,7 +35,7 @@ public abstract class ToolbarAndRefreshActivity extends AppCompatActivity {
 
     private static final String TAG = LogHelper.makeLogTag(ToolbarAndRefreshActivity.class);
 
-    protected SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
     public Boolean needToShowRefresh = false;
 
     public SwipeRefreshLayout getRefreshLayout() {

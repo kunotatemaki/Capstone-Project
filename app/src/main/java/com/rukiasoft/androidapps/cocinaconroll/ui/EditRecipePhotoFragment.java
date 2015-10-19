@@ -52,16 +52,16 @@ public class EditRecipePhotoFragment extends Fragment {
     
 
     private Bitmap photo;
-    RecipeItem recipeItem;
+    private RecipeItem recipeItem;
     private Tools mTools;
     private DatabaseRelatedTools dbTools;
     private ReadWriteTools rwTools;
     private String nameOfNewImage = "";
 
-    public static final int PICK_FROM_CAMERA = 1;
-    public static final int CROP_FROM_CAMERA = 2;
-    public static final int PICK_FROM_FILE = 3;
-    public static final int CROP_FROM_FILE = 4;
+    private static final int PICK_FROM_CAMERA = 1;
+    private static final int CROP_FROM_CAMERA = 2;
+    private static final int PICK_FROM_FILE = 3;
+    private static final int CROP_FROM_FILE = 4;
 
     @Nullable
     @Bind(R.id.create_recipe_author_edittext) EditText authorRecipe;
@@ -188,7 +188,7 @@ public class EditRecipePhotoFragment extends Fragment {
         return view;
     }
 
-    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+    private class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos,
                                    long id) {
@@ -251,7 +251,7 @@ public class EditRecipePhotoFragment extends Fragment {
         dialog.show();
     }
 
-    public void doCrop(int mode) {
+    private void doCrop(int mode) {
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
         //indicate image type and Uri
         cropIntent.setDataAndType(mImageCaptureUri, "image/*");

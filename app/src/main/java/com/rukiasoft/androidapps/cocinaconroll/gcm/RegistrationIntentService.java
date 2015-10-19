@@ -42,7 +42,7 @@ public class RegistrationIntentService extends IntentService {
     public static String ASYNCTASK_NOT_OK = "com.udacity.gradle.builditbigger.endpointasynctask.not_ok";
     private static Registration regService = null;
     private AppCompatActivity refreshActivity;
-    GoogleCloudMessaging gcm;
+    private GoogleCloudMessaging gcm;
 
 
     public RegistrationIntentService() {

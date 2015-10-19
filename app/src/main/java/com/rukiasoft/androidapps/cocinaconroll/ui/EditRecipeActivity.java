@@ -36,11 +36,11 @@ public class EditRecipeActivity extends AppCompatActivity {
     private final static String KEY_FRAGMENT = Constants.PACKAGE_NAME + ".fragment";
     private final static String KEY_TITLE = Constants.PACKAGE_NAME + ".title";
     //boolean tablet;
-    String title;
-    Tools mTools;
+    private String title;
+    private Tools mTools;
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
-    String oldPicture;
-    String oldRecipe;
+    private String oldPicture;
+    private String oldRecipe;
 
 
 
@@ -298,7 +298,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         finish();
     }
 
-    public final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
