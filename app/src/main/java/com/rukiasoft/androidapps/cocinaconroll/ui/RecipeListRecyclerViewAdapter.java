@@ -107,7 +107,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             if(rwTools == null) rwTools = new ReadWriteTools(context);
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
-            if(item.getFavorite()){
+            if(item.getFavourite()){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
             }else{

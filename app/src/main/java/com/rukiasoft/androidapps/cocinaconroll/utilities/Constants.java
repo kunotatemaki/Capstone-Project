@@ -9,6 +9,7 @@ public class Constants {
     public static final String PREFERENCE_INTERSTITIAL = PACKAGE_NAME + ".interstitial";
     public static final String RECIPES_DIR = "recipes";
     public static final String BASE_DIR = "CookingWihCookeo";
+    public static final String OLD_BASE_DIR = "CocinandoconmiCookeo";
     public static final String ZIPS_DIR = "zips";
     public static final Integer FLAG_ORIGINAL = 2;
     public static final Integer FLAG_ASSETS = 1;
@@ -55,6 +56,7 @@ public class Constants {
     public static final Integer PATH_TYPE_ASSETS = 0;
     public static final Integer PATH_TYPE_ORIGINAL = 1;
     public static final Integer PATH_TYPE_EDITED = 2;
+    public static final Integer PATH_TYPE_OLD_EDITED = 3;
 
     public static final Integer TIMEFRAME_NEW_RECIPE_MILISECONDS_DAY = 1000 * 3600 * 24;
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;

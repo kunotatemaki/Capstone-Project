@@ -11,17 +11,24 @@ public class CocinaConRollDatabaseHelper extends SQLiteOpenHelper {
 
 
     private static final String DB_NAME = "cocinaconroll.db";
+    public static final String OLD_DB_NAME = "cukio";
+
 
     private static final int DATABASE_VERSION = 1;
-
+    private Context myContext;
 
     public CocinaConRollDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
+        this.myContext = context;
     }
 
     // Method is called during creation of the database
     @Override
     public void onCreate(SQLiteDatabase database) {
+        //delete database from previous version
+        myContext.deleteDatabase(OLD_DB_NAME);
+
+        //create tables
         RecipesTable.onCreate(database);
         ZipsTable.onCreate(database);
 

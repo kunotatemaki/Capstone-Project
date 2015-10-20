@@ -33,7 +33,7 @@ public class RecipeItem implements Parcelable {
     @Element
     private Boolean vegetarian = false;
     @Element  (required=false)
-    private Boolean favorite = false;
+    private Boolean favourite = false;
     @Element  (required=false)
     private Integer state = 0;
     @Element
@@ -62,7 +62,7 @@ public class RecipeItem implements Parcelable {
         in.readStringList(steps);
         this.author = in.readString();
         this.vegetarian = in.readByte() != 0;
-        this.favorite = in.readByte() != 0;
+        this.favourite = in.readByte() != 0;
         this.state = in.readInt();
         this.portions = in.readInt();
         this.minutes = in.readInt();
@@ -208,12 +208,12 @@ public class RecipeItem implements Parcelable {
         this._id = _id;
     }
 
-    public Boolean getFavorite() {
-        return favorite;
+    public Boolean getFavourite() {
+        return favourite;
     }
 
-    public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
+    public void setFavourite(Boolean favourite) {
+        this.favourite = favourite;
     }
 
     public Integer getIcon() {
@@ -240,7 +240,7 @@ public class RecipeItem implements Parcelable {
         dest.writeStringList(getSteps());
         dest.writeString(getAuthor());
         dest.writeByte((byte) (getVegetarian() ? 1 : 0));
-        dest.writeByte((byte) (getFavorite() ? 1 : 0));
+        dest.writeByte((byte) (getFavourite() ? 1 : 0));
         dest.writeInt(getState());
         dest.writeInt(getPortions());
         dest.writeInt(getMinutes());

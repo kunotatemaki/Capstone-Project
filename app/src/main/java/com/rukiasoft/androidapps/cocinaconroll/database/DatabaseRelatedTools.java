@@ -39,6 +39,16 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
+    public void updateFavoriteByName(String name, boolean favorite) {
+        ContentValues values = new ContentValues();
+        int iFavorite = favorite? 1 : 0;
+        values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
+        String clause = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
+
+        String[] args = {getNormalizedString(name)};
+        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
+    }
+
     public void updatePaths(RecipeItem recipe) {
         ContentValues values = new ContentValues();
 
@@ -245,7 +255,7 @@ public class DatabaseRelatedTools {
                 item.setName(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_NAME)));
                 item.setIcon(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_ICON)));
                 int favorite = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_FAVORITE));
-                item.setFavorite(favorite != 0);
+                item.setFavourite(favorite != 0);
                 item.setState(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_STATE)));
                 item.setType(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_TYPE)));
                 int vegetarian = cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VEGETARIAN));

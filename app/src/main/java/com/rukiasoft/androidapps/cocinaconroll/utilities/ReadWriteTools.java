@@ -23,6 +23,7 @@ import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
+import org.apache.commons.io.FileUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -66,6 +67,24 @@ public class ReadWriteTools {
         return list;
     }
 
+    public List<String> loadRecipesFromOldDirectory(FilenameFilter filter){
+        List<String> list = new ArrayList<>();
+        Boolean ret;
+
+        ret = isExternalStorageWritable();
+        if(!ret){
+            return list;
+        }
+        // Get the directory for the old app's private recipes directory.
+        String path = getOldEditedStorageDir();
+        File file = new File(path);
+        if (file.exists()) {
+            String[] files = file.list(filter);
+            Collections.addAll(list, files);
+        }
+        return list;
+    }
+
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
@@ -76,11 +95,11 @@ public class ReadWriteTools {
     /**
      * Checks if external storage is available to at least read
      */
-    /*public boolean isExternalStorageReadable() {
+    public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state) ||
                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
-    }*/
+    }
 
     /**
      * Get
@@ -105,6 +124,25 @@ public class ReadWriteTools {
             file.mkdirs();
         }
         return path;
+    }
+
+    public String getOldEditedStorageDir(){
+        File rootPath = Environment.getExternalStoragePublicDirectory("");
+        String path = rootPath.getAbsolutePath() + String.valueOf(File.separatorChar) +
+                Constants.OLD_BASE_DIR + String.valueOf(File.separatorChar) +
+                Constants.RECIPES_DIR + String.valueOf(File.separatorChar);
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return path;
+    }
+
+    public File getOldBaseEditedStorageDirToBeDeleted(){
+        File rootPath = Environment.getExternalStoragePublicDirectory("");
+        String path = rootPath.getAbsolutePath() + String.valueOf(File.separatorChar) +
+                Constants.OLD_BASE_DIR;
+        return new File(path);
     }
 
     /**
@@ -133,10 +171,13 @@ public class ReadWriteTools {
             recipeItem.setPathRecipe(Constants.ASSETS_PATH + name);
             source.delete();
         }else {
-            if (type.equals(Constants.PATH_TYPE_ORIGINAL))
+            if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 path = getOriginalStorageDir() + name;
-            else if (type.equals(Constants.PATH_TYPE_EDITED))
+            }else if (type.equals(Constants.PATH_TYPE_EDITED)) {
                 path = getEditedStorageDir() + name;
+            }else if (type.equals(Constants.PATH_TYPE_OLD_EDITED)) {
+                path = getOldEditedStorageDir() + name;
+            }
             source = new File(path);
             recipeItem = parseFileIntoRecipe(source);
             if(recipeItem == null)
@@ -156,7 +197,6 @@ public class ReadWriteTools {
             recipeItem.setPathPicture(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
             recipeItem.setPathPicture(Constants.ASSETS_PATH + recipeItem.getPicture());
-
 
         return recipeItem;
     }
@@ -465,13 +505,10 @@ public class ReadWriteTools {
 
 
     public void initDatabase() {
-        //TODO check recipes from previous versions
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
         MyFileFilter filter = new MyFileFilter();
-        List<String> listEdited = loadFiles(filter, true);
-        List<String> listOriginal = loadFiles(filter, false);
-        List<String> listAssets = loadRecipesFromAssets();
 
+        List<String> listAssets = loadRecipesFromAssets();
         for(int i=0; i<listAssets.size(); i++) {
             RecipeItem recipeItem;
             recipeItem = readRecipe(listAssets.get(i),
@@ -481,6 +518,7 @@ public class ReadWriteTools {
             }
         }
 
+        List<String> listOriginal = loadFiles(filter, false);
         for(int i=0; i<listOriginal.size(); i++) {
             RecipeItem recipeItem= readRecipe(listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
@@ -489,12 +527,80 @@ public class ReadWriteTools {
             }
         }
 
+        //files created or modified from previous versions
+        List<String> listOldFiles = loadRecipesFromOldDirectory(filter);
+        for(int i=0; i<listOldFiles.size(); i++) {
+            RecipeItem recipeItem= readRecipe(listOldFiles.get(i),
+                    Constants.PATH_TYPE_OLD_EDITED);
+            if(recipeItem != null) {
+                if((recipeItem.getState()&(Constants.FLAG_EDITED | Constants.FLAG_OWN)) == 0){
+                    //not created nor edited. It was an original recipe set as favorite
+                    dbTools.updateFavoriteByName(recipeItem.getName(), recipeItem.getFavourite());
+                    //delete the file
+                    deleteRecipe(recipeItem);
+                }else{
+                    String picture = "";
+                    if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0) {
+                        picture = recipeItem.getPicture();
+                    }
+                    moveFileToEditedStorageAndDeleteOriginal(listOldFiles.get(i), picture);
+                }
+                //dbTools.insertRecipeIntoDatabase(recipeItem, true);
+            }
+        }
+
+        //delete the old directory
+        if(getOldBaseEditedStorageDirToBeDeleted() != null) {
+            try {
+                FileUtils.deleteDirectory(getOldBaseEditedStorageDirToBeDeleted());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        List<String> listEdited = loadFiles(filter, true);
         for(int i=0; i<listEdited.size(); i++) {
             RecipeItem recipeItem= readRecipe(listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
                 dbTools.insertRecipeIntoDatabase(recipeItem, true);
             }
+        }
+
+
+    }
+
+    private void moveFileToEditedStorageAndDeleteOriginal(String name, String picture){
+        String sourcePath = getOldEditedStorageDir() + name;
+        String sourceImagePath;
+        File source = new File(sourcePath);
+        File sourceImage = null;
+
+        String destinationPath = getEditedStorageDir() + name;
+        String destinationImagePath;
+        File destination = new File(destinationPath);
+        File destinationImage = null;
+
+        if(!picture.isEmpty()) {
+            sourceImagePath = getOldEditedStorageDir() + picture;
+            sourceImage = new File(sourceImagePath);
+            destinationImagePath = getEditedStorageDir() + picture;
+            destinationImage = new File(destinationImagePath);
+        }
+
+        try
+        {
+            FileUtils.copyFile(source, destination);
+            FileUtils.forceDelete(source);
+            if(sourceImage != null && destinationImage != null){
+                FileUtils.copyFile(sourceImage, destinationImage);
+                FileUtils.forceDelete(sourceImage);
+            }
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

@@ -105,15 +105,8 @@ public class RecipeDetailsFragment extends Fragment implements
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
-                    /*Integer flags = Constants.FLAG_EDITED;
-                    if((recipe.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
-                        flags = flags|Constants.FLAG_EDITED_PICTURE;
-                    ReadWriteTools tools = new ReadWriteTools(getActivity().getApplicationContext());
-                    tools.deleteRecipe(recipe, flags);*/
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
-                    /*if((recipe.getState()&(Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0)
-                        resultIntent.putExtra(Constants.KEY_RELOAD, true);*/
                     getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
                     getActivity().finish();
 
@@ -328,14 +321,14 @@ public class RecipeDetailsFragment extends Fragment implements
     }
 
     private void clickOnHeartButton(){
-        if (recipe.getFavorite()) {
+        if (recipe.getFavourite()) {
             recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
         } else {
             recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
         }
         //lo almaceno en la base de datos
-        recipe.setFavorite(!recipe.getFavorite());
-        dbTools.updateFavorite(recipe.get_id(), recipe.getFavorite());
+        recipe.setFavourite(!recipe.getFavourite());
+        dbTools.updateFavorite(recipe.get_id(), recipe.getFavourite());
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_RECIPE, recipe);
@@ -405,7 +398,7 @@ public class RecipeDetailsFragment extends Fragment implements
             actionBar.setTitle(recipe.getName());
         }
         if(recipeDescriptionFAB != null){
-            if (recipe.getFavorite()) {
+            if (recipe.getFavourite()) {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
             } else {
                 recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
