@@ -12,6 +12,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
@@ -198,6 +200,14 @@ public class Tools {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(name, "");
 
+    }
+
+    public String getJsonString(Object object) {
+        // Before converting to GSON check value of id
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        return gson.toJson(object);
     }
 
 }
