@@ -32,6 +32,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.gcm.GetZipsAsyncTask;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
@@ -105,7 +106,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         }
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
-            //TODO - comprobar el service con el servidor raspberry
             if(!mTools.getBooleanFromPreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER)) {
                 Intent intent = new Intent(this, RegistrationIntentService.class);
                 startService(intent);
@@ -131,7 +131,8 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         mAdViewList.loadAd(adRequest);
 
 
-
+        GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
+        getZipsAsyncTask.execute();
 
     }
 

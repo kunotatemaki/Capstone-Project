@@ -8,6 +8,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
+//to check if there are new recipes that need to be downloaded
 public class WifiReceiver extends WakefulBroadcastReceiver {
 
     @Override

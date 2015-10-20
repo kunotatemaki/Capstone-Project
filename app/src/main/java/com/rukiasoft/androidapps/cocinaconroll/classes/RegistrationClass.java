@@ -20,7 +20,7 @@ public class RegistrationClass {
     @Expose
     private String unique_id;
     @Expose
-    private String version;
+    private Integer version;
 
     public RegistrationClass(Context context){
         Calendar c = Calendar.getInstance();
@@ -39,11 +39,11 @@ public class RegistrationClass {
         this.gcm_regid = gcm_regid;
     }
 
-    public String getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 }

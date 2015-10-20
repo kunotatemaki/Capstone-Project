@@ -27,10 +27,14 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 //import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
+import com.google.gson.Gson;
+import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
+import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationResponse;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.okhttp.MediaType;
@@ -72,16 +76,17 @@ public class RegistrationIntentService extends IntentService {
             Log.i(TAG, "GCM Registration Token: " + token);
 
 
-            sendRegistrationToServer(token);
+            if(sendRegistrationToServer(token)) {
 
-            // Subscribe to topic channels
-            //subscribeTopics(token);
+                // Subscribe to topic channels
+                //subscribeTopics(token);
 
-            // You should store a boolean that indicates whether the generated token has been
-            // sent to your server. If the boolean is false, send the token to your server,
-            // otherwise your server should have already received the token.
-            sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
-            // [END register_for_gcm]
+                // You should store a boolean that indicates whether the generated token has been
+                // sent to your server. If the boolean is false, send the token to your server,
+                // otherwise your server should have already received the token.
+                sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
+                // [END register_for_gcm]
+            }
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
@@ -101,7 +106,7 @@ public class RegistrationIntentService extends IntentService {
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer(String token) {
+    private boolean sendRegistrationToServer(String token) {
         // this will register device for testing porposes.
         /*if (regService == null) {
             //uncomment for testing local registration for emulators
@@ -126,7 +131,7 @@ public class RegistrationIntentService extends IntentService {
             regService = builder.build();
         }*/
 
-
+        RegistrationResponse error = new RegistrationResponse();
         // TODO: 20/10/15 registro en mi servidor raspberry
         try {
             if (gcm == null) {
@@ -137,29 +142,34 @@ public class RegistrationIntentService extends IntentService {
             RegistrationClass registrationClass = new RegistrationClass(this);
 
             registrationClass.setGcm_regid(regId);
-            registrationClass.setVersion("100");
+            registrationClass.setVersion(100);
             Tools mTools = new Tools();
 
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
             OkHttpClient client = new OkHttpClient();
 
-            String surl = "http://comunioelpuntal.no-ip.biz:8080/cukio-server/rest/cukio_server_non_secure/register_user/";
-
+            String urlBase = getResources().getString(R.string.server_url);
+            String method = getResources().getString(R.string.registration_method);
+            String url = urlBase.concat(method);
 
             RequestBody body = RequestBody.create(JSON, mTools.getJsonString(registrationClass));
             Request request = new Request.Builder()
-                    .url(surl)
+                    .url(url)
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
+            Gson gResponse = new Gson();
+            error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
 
-int i=0;
-            i++;
+
+
             //regService.register(regId).execute();
         } catch (IOException e) {
             e.printStackTrace();
+
         }
+        return error.getError()==0;
     }
 
     /**

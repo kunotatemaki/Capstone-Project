@@ -1,5 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll.classes;
 
+
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +13,9 @@ public class ZipItem implements Serializable {
 
 
     private Integer Id;
+    @Expose
     private String name;
+    @Expose
     private String link;
     private Integer state;
 
