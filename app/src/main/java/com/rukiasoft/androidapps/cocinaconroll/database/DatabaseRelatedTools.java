@@ -209,17 +209,21 @@ public class DatabaseRelatedTools {
     }
 
     public List<ZipItem> getZipsByState(Integer state) {
-        final String[] projection = {ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK};
-        List<ZipItem> list = new ArrayList<>();
-        String selection;
-        selection = ZipsTable.FIELD_STATE + " = ? ";
+        String selection = ZipsTable.FIELD_STATE + " = ? ";
         String sState;
         try {
             sState = String.valueOf(state);
-        }catch (NumberFormatException e){
-            return list;
+        } catch (NumberFormatException e) {
+            return new ArrayList<>();
         }
         final String[] selectionArgs = {sState};
+        return getZips(selection, selectionArgs);
+    }
+
+    public List<ZipItem> getZips(String selection, String[] selectionArgs) {
+        final String[] projection = {ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK};
+        List<ZipItem> list = new ArrayList<>();
+
         Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_ZIPS,
                 projection,
                 selection,
@@ -285,6 +289,7 @@ public class DatabaseRelatedTools {
 
         return list;
     }
+
 
 
 }

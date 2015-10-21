@@ -21,11 +21,10 @@ public class Constants {
     public static final String TYPE_MAIN = "main";
     public static final String TYPE_DESSERTS = "dessert";
 
-    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + "." + ".recipe";
-    public static final String KEY_STARTED = Constants.PACKAGE_NAME + "." + ".started";
-    //public static final String KEY_RELOAD = Constants.PACKAGE_NAME + "." + ".reload";
-    public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME + "." + ".deleteoldpicture";
-    public static final String KEY_DELETE_OLD_RECIPE = Constants.PACKAGE_NAME + "." + ".deleteoldrecipe";
+    public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
+    public static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
+    public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME +  ".deleteoldpicture";
+    public static final String KEY_DELETE_OLD_RECIPE = Constants.PACKAGE_NAME +  ".deleteoldrecipe";
     public static final String KEY_TYPE = Constants.PACKAGE_NAME + "." + ".type";
     public static final int REQUEST_DETAILS = 200;
     public static final int REQUEST_CREATE_RECIPE = 201;
@@ -38,6 +37,9 @@ public class Constants {
     public static final String PROPERTY_NUMBER_DESSERTS = "numberdesserts";
     public static final String PROPERTY_INIT_DATABASE = "initdatabase";
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
+    public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
+    public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
+
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";
@@ -58,7 +60,8 @@ public class Constants {
     public static final Integer PATH_TYPE_EDITED = 2;
     public static final Integer PATH_TYPE_OLD_EDITED = 3;
 
-    public static final Integer TIMEFRAME_NEW_RECIPE_MILISECONDS_DAY = 1000 * 3600 * 24;
+    //public static final Integer TIMEFRAME_MILISECONDS_DAY = 1000 * 3600 * 24;
+    public static final Long TIMEFRAME_MILISECONDS_DAY = Long.valueOf(1000 * 20);
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;
 
     public static final String FILTER_ALL_RECIPES = PACKAGE_NAME + ".allrecipes";

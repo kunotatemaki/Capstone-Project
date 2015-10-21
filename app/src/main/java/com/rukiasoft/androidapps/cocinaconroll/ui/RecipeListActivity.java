@@ -130,9 +130,13 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
         mAdViewList.loadAd(adRequest);
 
-
-        GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
-        getZipsAsyncTask.execute();
+        //check if we need to check for new recipes
+        long expirationTime =
+                mTools.getLongFromPreferences(this, Constants.PROPERTY_EXPIRATION_TIME);
+        if (expirationTime == Long.MIN_VALUE || System.currentTimeMillis() > expirationTime) {
+            GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
+            getZipsAsyncTask.execute();
+        }
 
     }
 

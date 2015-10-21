@@ -30,7 +30,7 @@ public class Tools {
 
     public Long getTimeframe(){
         try {
-            Integer miliseconds = Constants.TIMEFRAME_NEW_RECIPE_MILISECONDS_DAY * Constants.TIMEFRAME_NEW_RECIPE_DAYS;
+            Long miliseconds = Constants.TIMEFRAME_MILISECONDS_DAY * Constants.TIMEFRAME_NEW_RECIPE_DAYS;
             return System.currentTimeMillis() - miliseconds;
         }catch(Exception e){
             e.printStackTrace();
@@ -125,6 +125,13 @@ public class Tools {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt(name, Integer.MIN_VALUE);
+
+    }
+
+    public Long getLongFromPreferences(Context context, String name) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getLong(name, Long.MIN_VALUE);
 
     }
 

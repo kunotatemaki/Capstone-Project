@@ -58,9 +58,9 @@ public class ZipsDB {
                 new String[]{ZipsTable.FIELD_ID, ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK, ZipsTable.FIELD_STATE},
                 ZipsTable.FIELD_NAME+ " = ?", new String[]{values.get(ZipsTable.FIELD_NAME).toString()}, null, null, null, null
         );
-        if(c.getCount()>0)
-            return null;
-
+        if(c.getCount()>0) {
+            return ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_ZIPS, -1);
+        }
 		SQLiteDatabase db = mCocinaConRollDatabaseHelper.getWritableDatabase();
 		regId = db.insert(ZipsTable.TABLE_NAME, null, values);
         Log.d("ZIP_DATABASE", "regId: " + ContentUris.withAppendedId(CocinaConRollContentProvider.CONTENT_URI_ZIPS, regId).toString());
