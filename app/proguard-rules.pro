@@ -278,9 +278,23 @@
 
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
-#-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.stream.** { *; }
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
 
 ##---------------End: proguard configuration for Gson  ----------
+
+-keep public class org.apache.commons.io.**
+-keep public class com.google.gson.**
+-keep public class com.google.gson.** {public private protected *;}
+
+-keep class org.apache.http.** { *; }
+-keep class org.apache.commons.codec.** { *; }
+-keep class org.apache.commons.logging.** { *; }
+-keep class android.net.compatibility.** { *; }
+-keep class android.net.http.** { *; }
+-dontwarn org.apache.http.**
+-dontwarn android.webkit.**
+
+-dontwarn jp.wasabeef.recyclerview.animators.**

@@ -12,19 +12,12 @@ android {
         versionCode 300
         versionName "3.0"
     }
-    signingConfigs {
-        release {
-            storeFile file("CapstoneKeystore.jks")
-            storePassword "udacity"
-            keyAlias "capstoneproject"
-            keyPassword "capstone"
-        }
-    }
+
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
     productFlavors {

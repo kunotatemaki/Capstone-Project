@@ -21,6 +21,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiReceiver;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -29,6 +30,7 @@ import com.squareup.okhttp.ResponseBody;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 
@@ -114,6 +116,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
         if(newRecipes > 0){
             showNotifications(type);
         }
+        WifiReceiver.serviceStarted = false;
     }
 
     private boolean downloadZip(String name, String url){
@@ -130,6 +133,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
 
             File file = new File(dir, name);
 
+
             ResponseBody response = run(url);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(response.bytes());
@@ -140,13 +144,16 @@ public class DownloadAndUnzipIntentService extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
         }
     }
 
-    private ResponseBody run(String url) throws IOException {
+    private ResponseBody run(String url) throws IOException, IllegalArgumentException {
         Request request = new Request.Builder()
-                .url(url)
-                .build();
+                    .url(url)
+                    .build();
 
         Response response = client.newCall(request).execute();
         return response.body();
