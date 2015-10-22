@@ -49,7 +49,7 @@
     <string name="steps">Pasos</string>
     <string name="thanks">Agradecimientos</string>
     <string name="support_recipes">Si tienes un blog de cocina y quieres ver tus recetas en %1$s, manda un email a %2$s!</string>
-    <string name="thanks_intro">Esta aplicación es posible gracias a los creadores de los siguientes blogs de cocina, que ceden el contenido del mismo desinteresadamente. ¡No dudes en visitarlos!</string>
+    <string name="thanks_intro">Esta aplicación es posible gracias a los creadores de los siguientes blogs de cocina, que ceden sus recetas desinteresadamente. ¡No dudes en visitarlos!</string>
     <string name="portions">raciones</string>
     <string name="minutes">minutos</string>
     <string name="support_girl_title">A mi novia:</string>
