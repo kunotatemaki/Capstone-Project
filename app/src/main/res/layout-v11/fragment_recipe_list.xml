@@ -61,12 +61,13 @@
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:theme="@style/CocinaConRollActionBarTheme"
         app:layout_scrollFlags="scroll|enterAlways" >
         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_recipe_list_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:theme="@style/CocinaConRollActionBarTheme"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways" />
         <RelativeLayout

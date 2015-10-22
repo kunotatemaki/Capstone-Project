@@ -4,7 +4,7 @@
     <color name="ColorPrimaryDark">#E64A19</color>
     <color name="ColorAccent">#00e676</color>
     <color name="ColorScrollBar">#00b0ff</color>
-    <color name="ColorPrimarySearch">#FFBB33</color>
+    <color name="ColorPrimarySearch">#FFA000</color>
 
     <color name="color_refresh_1">#33B5E5</color>
     <color name="color_refresh_2">#99CC00</color>

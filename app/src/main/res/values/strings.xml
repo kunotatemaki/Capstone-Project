@@ -51,13 +51,14 @@
     <string name="email_alert_body">Choose your favourite email client</string>
     <string name="aceptar">Accept</string>
     <string name="thanks">Thanks</string>
-    <string name="thanks_intro">This app is possible due to these bloggers, who lend their content freely. Check them out!!</string>
+    <string name="thanks_intro">This app is possible due to these bloggers, who lend their content selfessly. Check them out!!</string>
     <string name="colaborator1" translatable="false">http://recetascookeo.blogspot.com.es/</string>
     <string name="colaborator2" translatable="false">http://www.descubriendonuevossabores.com/</string>
     <string name="colaborator3" translatable="false">http://www.losblogsdemaria.com/</string>
     <string name="colaborator4" translatable="false">http://cocinayrecetas.hola.com/lacocinaperfecta/</string>
     <string name="support_recipes">If you\'ve got your own Cuisine blog and want to see your recipes in %1$s, email us to %2$s!</string>
-    <string name="support_girl">To my girlfriend: she gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spend all those hours in front of my laptop. Love you much!!</string>
+    <string name="support_girl_title">To my girlfriend:</string>
+    <string name="support_girl_body">She gave me the idea, helped me with the recipes selection and parsing, and mainly, for being so patient with me when I spent all those hours in front of my laptop. Love you much!!</string>
     <string name="restore_recipe_confirmation">Restore to original recipe? This operations can\'t be undone!</string>
 
     <string name="banner_ad_unit_id_list" translatable="false">ca-app-pub-8409265947000941/8141554119</string>
@@ -106,5 +107,6 @@
     <string name="server_url" translatable="false">http://comunioelpuntal.no-ip.biz:8080/cukio-server/rest/cukio_server_non_secure/"</string>
     <string name="registration_method" translatable="false">register_device/"</string>
     <string name="get_zips_method" translatable="false">get_zips/"</string>
+    <string name="thanks_blogs_title">Cuissine blogs:</string>
 
 </resources>

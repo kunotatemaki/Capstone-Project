@@ -52,7 +52,8 @@
     <string name="thanks_intro">Esta aplicación es posible gracias a los creadores de los siguientes blogs de cocina, que ceden el contenido del mismo desinteresadamente. ¡No dudes en visitarlos!</string>
     <string name="portions">raciones</string>
     <string name="minutes">minutos</string>
-    <string name="support_girl">A mi novia: me dio la idea, me ayudó eligiendo y dando formato a las recetas y, sobre todo, ha sido increiblemente paciente cuando pasaba tantas horas delante del ordenador desarrollando la aplicación. ¡Te quiero!</string>
+    <string name="support_girl_title">A mi novia:</string>
+    <string name="support_girl_body">Me dio la idea, me ayudó eligiendo y dando formato a las recetas y, sobre todo, ha sido increiblemente paciente cuando pasaba tantas horas delante del ordenador desarrollando la aplicación. ¡Te quiero!</string>
     <string name="create_recipe">Crear receta</string>
     <string name="delete_recipe_confirmation">¿Borrar la receta? Esta operación no puede deshacerse</string>
     <string name="duplicated_recipe">Existe una receta con ese nombre</string>
@@ -85,5 +86,6 @@
     <string name="swipe_horizontal">Desliza hacia un lado para eliminar un elemento</string>
     <string name="swipe_vertical">Arrastra vericalmente para reordenar un elemento</string>
     <string name="init_database_firstboot">Espere mientras se configura la lista de recetas en el primer arranque</string>
+    <string name="thanks_blogs_title">Blogs de cocina:</string>
 
 </resources>
