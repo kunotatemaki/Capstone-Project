@@ -17,11 +17,7 @@
     android:id="@+id/mainLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/fragment_edit_recipe_items_type"
@@ -38,13 +34,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"

@@ -13,7 +13,8 @@
 
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:dropDownListViewStyle">@style/myDropDownListViewStyle</item>
-        <item name="android:dropDownItemStyle">@style/myDropDownItemStyle</item>
+        <!-- <item name="android:dropDownItemStyle">@style/myDropDownItemStyle</item>-->
+        <item name="textAppearanceSearchResultTitle">@style/myDropDownItemStyle</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -26,11 +27,11 @@
 
     <style name="myDropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
         <item name="android:textColor">@color/ColorDarkText</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="myDropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:background">@color/ColorPrimarySearch</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="FabStyle">
