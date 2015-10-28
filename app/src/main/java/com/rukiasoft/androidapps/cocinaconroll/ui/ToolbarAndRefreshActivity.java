@@ -91,10 +91,13 @@ public abstract class ToolbarAndRefreshActivity extends AppCompatActivity {
         if (refreshLayout == null) {
             return;
         }
+        needToShowRefresh = true;
         refreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                refreshLayout.setRefreshing(true);
+                if(needToShowRefresh) {
+                    refreshLayout.setRefreshing(true);
+                }
             }
         });
     }
