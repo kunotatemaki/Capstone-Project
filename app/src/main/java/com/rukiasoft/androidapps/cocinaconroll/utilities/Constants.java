@@ -32,9 +32,6 @@ public class Constants {
     public static final int RESULT_UPDATE_RECIPE = 300;
     public static final int RESULT_DELETE_RECIPE = 301;
 
-    public static final String PROPERTY_NUMBER_STARTERS = "numberstarters";
-    public static final String PROPERTY_NUMBER_MAIN = "numbermains";
-    public static final String PROPERTY_NUMBER_DESSERTS = "numberdesserts";
     public static final String PROPERTY_INIT_DATABASE = "initdatabase";
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";

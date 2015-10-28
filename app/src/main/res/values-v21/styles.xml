@@ -1,15 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-      <style name="AppTheme" parent="BaseTheme">
+    <style name="AppTheme" parent="BaseTheme">
 
-          <item name="android:windowSharedElementsUseOverlay">false</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
 
-          <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-          <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 
-          <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
-      </style>
+        <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+    </style>
 
     <style name="Theme.Recipe.Detail" parent="BaseTheme">
         <item name="android:windowContentTransitions">true</item>

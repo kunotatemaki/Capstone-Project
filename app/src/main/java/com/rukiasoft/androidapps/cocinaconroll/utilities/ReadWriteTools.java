@@ -62,7 +62,9 @@ public class ReadWriteTools {
         File file = new File(path);
         if (file.exists()) {
             String[] files = file.list(filter);
-            Collections.addAll(list, files);
+            if(files != null) {
+                Collections.addAll(list, files);
+            }
         }
         return list;
     }

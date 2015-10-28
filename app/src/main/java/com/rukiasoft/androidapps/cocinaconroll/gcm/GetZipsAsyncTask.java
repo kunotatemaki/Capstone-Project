@@ -99,6 +99,9 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
         }else{
             //no new updates. Double the time to next update.
             days = days * 2;
+            if(days > 30) {
+                days = 1;
+            }
         }
         expirationTimeFromNow = Constants.TIMEFRAME_MILISECONDS_DAY * days;
         mTools.savePreferences(mActivity, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE, days);

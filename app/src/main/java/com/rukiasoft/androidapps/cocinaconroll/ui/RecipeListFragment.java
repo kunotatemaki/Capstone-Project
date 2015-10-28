@@ -291,26 +291,6 @@ public class RecipeListFragment extends Fragment implements
 
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
-        //TODO delete from production version
-        int desserts=0;
-        int starters=0;
-        int mains=0;
-        for(RecipeItem items : mRecipes){
-            switch (items.getType()) {
-                case Constants.TYPE_DESSERTS:
-                    desserts++;
-                    break;
-                case Constants.TYPE_MAIN:
-                    mains++;
-                    break;
-                case Constants.TYPE_STARTERS:
-                    starters++;
-                    break;
-            }
-        }
-        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_DESSERTS, desserts);
-        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_MAIN, mains);
-        mTools.savePreferences(getActivity(), Constants.PROPERTY_NUMBER_STARTERS, starters);
     }
 
     @Override
@@ -547,6 +527,7 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        //TODO revisar
         super.onCreate(savedInstanceState);
         view.findViewById(R.id.recycler_view).setOnClickListener(new View.OnClickListener() {
             @Override
