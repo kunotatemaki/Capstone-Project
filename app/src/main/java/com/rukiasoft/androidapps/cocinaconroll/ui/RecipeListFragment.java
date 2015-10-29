@@ -525,7 +525,7 @@ public class RecipeListFragment extends Fragment implements
         }
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //TODO revisar
         super.onCreate(savedInstanceState);
@@ -535,7 +535,7 @@ public class RecipeListFragment extends Fragment implements
                 startActivity(new Intent(getActivity(), ThanksActivity.class));
             }
         });
-    }
+    }*/
 }
 
 

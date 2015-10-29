@@ -73,6 +73,10 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         return mItems.size();
     }
 
+    @Override public long getItemId(int position){
+        return mItems.get(position).hashCode();
+    }
+
 
     @Override public void onClick(final View v) {
         // Give some time to the ripple to finish the effect
