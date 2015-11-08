@@ -496,7 +496,9 @@ public class RecipeDetailsFragment extends Fragment implements
                     e.printStackTrace();
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getActivity().supportStartPostponedEnterTransition();
+                    if(getActivity() != null) {
+                        getActivity().supportStartPostponedEnterTransition();
+                    }
                 }
 
             }
