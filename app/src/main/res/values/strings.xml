@@ -108,5 +108,8 @@
     <string name="registration_method" translatable="false">register_device/"</string>
     <string name="get_zips_method" translatable="false">get_zips/"</string>
     <string name="thanks_blogs_title">Cuissine blogs:</string>
+    <string name="cloud_backup">Cloud backup</string>
+    <string name="cloud_backup_on_description">Backup on user\'s Google Drive account is enabled</string>
+    <string name="cloud_backup_off_description">Backup on user\'s Google Drive account is disabled</string>
 
 </resources>

@@ -193,6 +193,8 @@ public class RecipeListFragment extends Fragment implements
             addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // TODO: 10/11/15 retirar
+                    ((DriveActivity)getActivity()).createFolder("otro_folder");
                     new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
@@ -525,17 +527,6 @@ public class RecipeListFragment extends Fragment implements
         }
     }
 
-    /*@Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        //TODO revisar
-        super.onCreate(savedInstanceState);
-        view.findViewById(R.id.recycler_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ThanksActivity.class));
-            }
-        });
-    }*/
 }
 
 

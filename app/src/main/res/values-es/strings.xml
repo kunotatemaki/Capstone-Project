@@ -87,5 +87,8 @@
     <string name="swipe_vertical">Arrastra vericalmente para reordenar un elemento</string>
     <string name="init_database_firstboot">Espere mientras se configura la lista de recetas en el primer arranque</string>
     <string name="thanks_blogs_title">Blogs de cocina:</string>
+    <string name="cloud_backup">Almacenamiento en la nube</string>
+    <string name="cloud_backup_off_description">Deshabilitada copia de seguridad en la cuenta personal de Google Drive</string>
+    <string name="cloud_backup_on_description">Habilitada copia de seguridad en la cuenta personal de Google Drive</string>
 
 </resources>

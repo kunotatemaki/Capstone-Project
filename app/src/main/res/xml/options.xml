@@ -8,6 +8,12 @@
             android:summaryOff="@string/screen_of_description"
             android:defaultValue="true" />
         <CheckBoxPreference
+            android:key="option_cloud_backup"
+            android:title="@string/cloud_backup"
+            android:summaryOn="@string/cloud_backup_on_description"
+            android:summaryOff="@string/cloud_backup_off_description"
+            android:defaultValue="false" />
+        <CheckBoxPreference
             android:key="option_update_wifi"
             android:title="@string/update_wifi"
             android:summaryOn="@string/update_with_wifi_description"

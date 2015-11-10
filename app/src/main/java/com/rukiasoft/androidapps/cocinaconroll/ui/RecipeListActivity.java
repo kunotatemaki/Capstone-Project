@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -29,6 +30,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -43,10 +46,11 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecipeListActivity extends ToolbarAndRefreshActivity {
+public class RecipeListActivity extends DriveActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
+    private static final int REQUEST_CODE_SETTINGS = 20;
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -55,8 +59,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     @Bind(R.id.adview_list)
     AdView mAdViewList;
 
-
-
     private MenuItem searchMenuItem;
     private RecipeListFragment mRecipeListFragment;
     private int magnifyingX;
@@ -64,9 +66,9 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
     private int openCircleRevealX;
     private int openCircleRevealY;
     private boolean started = false;
-    private ToolbarAndRefreshActivity mActivity;
     private boolean animate;
     private String lastFilter;
+    //private boolean shownToAllowDrive = false;
 
 
     private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -92,13 +94,14 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
             started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
             lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
+           // shownToAllowDrive = savedInstanceState.getBoolean(KEY_ALLOWED_DRIVE);
         }
+
         if(!started){
             Intent animationIntent = new Intent(this, AnimationActivity.class);
             startActivity(animationIntent);
         }
-        
-        mActivity = this;
+
         Tools mTools = new Tools();
         lastFilter = Constants.FILTER_ALL_RECIPES;
         if(getIntent() != null && getIntent().hasExtra(Constants.KEY_TYPE)){
@@ -137,15 +140,16 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
             getZipsAsyncTask.execute();
         }
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle bundle){
         bundle.putBoolean(Constants.KEY_STARTED, true);
         bundle.putString(Constants.KEY_TYPE, lastFilter);
+       // bundle. putBoolean(KEY_ALLOWED_DRIVE, shownToAllowDrive);
         super.onSaveInstanceState(bundle);
     }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
@@ -170,38 +174,58 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
-        if(requestCode == Constants.REQUEST_DETAILS){
-            //return from RecipeDetailsActivity
-            if(resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                if(recipe != null){
-                    ReadWriteTools rwTools = new ReadWriteTools(this);
-                    rwTools.deleteRecipe(recipe);
-                    DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
-                    dbTools.removeRecipefromDatabase(recipe.get_id());
-                    restartLoader();
+        switch (requestCode) {
+            case Constants.REQUEST_DETAILS:
+                //return from RecipeDetailsActivity
+                if (resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
+                    RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
+                    if (recipe != null) {
+                        ReadWriteTools rwTools = new ReadWriteTools(this);
+                        rwTools.deleteRecipe(recipe);
+                        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
+                        dbTools.removeRecipefromDatabase(recipe.get_id());
+                        restartLoader();
+                    }
                 }
-            }else if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                if(mRecipeListFragment != null){
-                    mRecipeListFragment.updateRecipe(recipe);
+                break;
+            case Constants.RESULT_UPDATE_RECIPE:
+                if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
+                    RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
+                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    if (mRecipeListFragment != null) {
+                        mRecipeListFragment.updateRecipe(recipe);
+                    }
                 }
-            }
-        }else if(requestCode == Constants.REQUEST_CREATE_RECIPE){
-            if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
-                RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                ReadWriteTools readWriteTools = new ReadWriteTools(this);
-                String path = readWriteTools.saveRecipeOnEditedPath(recipe);
-                recipe.setPathRecipe(path);
-                if(mRecipeListFragment != null){
-                    mRecipeListFragment.createRecipe(recipe);
+                break;
+            case Constants.REQUEST_CREATE_RECIPE:
+                if (resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
+                    RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
+                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    ReadWriteTools readWriteTools = new ReadWriteTools(this);
+                    String path = readWriteTools.saveRecipeOnEditedPath(recipe);
+                    // TODO: 10/11/15 aquí vamos salvando la recipe a drive
+                    recipe.setPathRecipe(path);
+                    if (mRecipeListFragment != null) {
+                        mRecipeListFragment.createRecipe(recipe);
+                    }
                 }
-
-            }
+                break;
+            case REQUEST_CODE_RESOLUTION:
+                // Called after a file is saved to Drive.
+                if (resultCode == RESULT_OK) {
+                    connectToDrive(true);
+                }
+                break;
+            case REQUEST_CODE_SETTINGS:
+                Tools tools = new Tools();
+                if(tools.getBooleanFromPreferences(this, "option_cloud_backup")) {
+                    connectToDrive(false);
+                }
+                break;
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -322,7 +346,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
                 return true;
             case R.id.action_settings:
                 Intent finalIntent = new Intent(this, SettingsActivity.class);
-                startActivity(finalIntent);
+                startActivityForResult(finalIntent, REQUEST_CODE_SETTINGS);
                 return true;
             case R.id.menu_thanks:
                 finalIntent = new Intent(this, ThanksActivity.class);
@@ -482,7 +506,7 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
         if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
             navigationView.setCheckedItem(R.id.menu_last_downloaded);
             mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
-        }else{
+        } else {
             navigationView.setCheckedItem(R.id.menu_all_recipes);
         }
     }
@@ -493,4 +517,6 @@ public class RecipeListActivity extends ToolbarAndRefreshActivity {
             getSupportLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
         }
     }
+
+
 }

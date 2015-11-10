@@ -261,16 +261,17 @@ public class AnimationActivity extends AppCompatActivity {
         //Log.d(TAG, "onResume");
 
         circle1.startAnimation(circle1Anim);
-                circle2.startAnimation(circle2Anim);
-                circle3.startAnimation(circle3Anim);
-                circle4.startAnimation(circle4Anim);
-                circle5.startAnimation(circle5Anim);
-                circle6.startAnimation(circle6Anim);
+        circle2.startAnimation(circle2Anim);
+        circle3.startAnimation(circle3Anim);
+        circle4.startAnimation(circle4Anim);
+        circle5.startAnimation(circle5Anim);
+        circle6.startAnimation(circle6Anim);
 
-                imagineText.startAnimation(imagineAnim);
-                createText.startAnimation(createAnim);
-                rukiaText.startAnimation(rukiaAnim);
-                softText.startAnimation(softAnim);
+        imagineText.startAnimation(imagineAnim);
+        createText.startAnimation(createAnim);
+        rukiaText.startAnimation(rukiaAnim);
+        softText.startAnimation(softAnim);
+
 
     }
 }
