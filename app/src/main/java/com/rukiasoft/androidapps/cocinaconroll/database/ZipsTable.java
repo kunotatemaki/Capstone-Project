@@ -32,7 +32,7 @@ public class ZipsTable {
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
-        LogHelper.w("Upgrading database from version "
+        /*LogHelper.w("Upgrading database from version "
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");
         database.execSQL("PRAGMA writable_schema = 1;");
@@ -41,6 +41,6 @@ public class ZipsTable {
         database.execSQL("VACUUM;");
         database.execSQL("PRAGMA INTEGRITY_CHECK;");
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(database);
+        onCreate(database);*/
     }
 }

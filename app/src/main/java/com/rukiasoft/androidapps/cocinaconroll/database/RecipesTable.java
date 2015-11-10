@@ -54,10 +54,10 @@ public class RecipesTable {
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
-        LogHelper.w("Upgrading database from version "
+        /*LogHelper.d(TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");
-        database.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        onCreate(database);
+        database.execSQL("ALTER TABLE" + TABLE_NAME + " ADD COLNew INTEGER");
+        onCreate(database);*/
     }
 }
