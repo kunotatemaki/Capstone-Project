@@ -389,7 +389,6 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
         }
         mNextPageToken = result.getMetadataBuffer().getNextPageToken();
         mHasMore = mNextPageToken != null;
-        return;
     }
 
 
