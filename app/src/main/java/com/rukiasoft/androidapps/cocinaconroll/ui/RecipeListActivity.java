@@ -32,6 +32,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveId;
+import com.google.android.gms.drive.OpenFileActivityBuilder;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -203,7 +205,7 @@ public class RecipeListActivity extends DriveActivity {
                     mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                     ReadWriteTools readWriteTools = new ReadWriteTools(this);
                     String path = readWriteTools.saveRecipeOnEditedPath(recipe);
-                    // TODO: 10/11/15 aquí vamos salvando la recipe a drive
+                    uploadFileToDrive(path);
                     recipe.setPathRecipe(path);
                     if (mRecipeListFragment != null) {
                         mRecipeListFragment.createRecipe(recipe);
@@ -222,6 +224,7 @@ public class RecipeListActivity extends DriveActivity {
                     connectToDrive(false);
                 }
                 break;
+
         }
     }
 

@@ -12,13 +12,13 @@ android {
         versionCode 300
         versionName "3.0"
         // Enabling multidex support.
-        multiDexEnabled true
+        //multiDexEnabled true
     }
 
     buildTypes {
         debug{
             // Enabling multidex support.
-            //multiDexEnabled true
+            multiDexEnabled true
         }
         release {
             minifyEnabled true

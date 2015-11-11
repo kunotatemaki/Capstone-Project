@@ -194,9 +194,7 @@ public class RecipeListFragment extends Fragment implements
                 @Override
                 public void onClick(View v) {
                     // TODO: 11/11/15 quitar
-                    ReadWriteTools rwTools = new ReadWriteTools(getActivity());
-                    String path = rwTools.getEditedStorageDir() + "2015-11-11_14-55-00.xml";
-                    ((DriveActivity)getActivity()).createFileInDrive(path);
+                    ((DriveActivity)getActivity()).getRecipesInDrive();
                     /*new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
@@ -244,9 +242,11 @@ public class RecipeListFragment extends Fragment implements
         // Save currently selected layout manager.
         if (mRecyclerView.getLayoutManager() != null) {
             int[] scrollPosition = new int[columnCount];
-            scrollPosition = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager())
-                    .findFirstCompletelyVisibleItemPositions(scrollPosition);
-            savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
+            if(mRecyclerView.getLayoutManager() != null) {
+                scrollPosition = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager())
+                        .findFirstCompletelyVisibleItemPositions(scrollPosition);
+                savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
+            }
         }
         if(mRecipes != null) {
             savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);

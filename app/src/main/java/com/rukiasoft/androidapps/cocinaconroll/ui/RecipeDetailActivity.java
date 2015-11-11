@@ -17,7 +17,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecipeDetailActivity extends AppCompatActivity {
+public class RecipeDetailActivity extends DriveActivity {
 
 
 
@@ -104,6 +104,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 ReadWriteTools rwTools = new ReadWriteTools(this);
                 String path = rwTools.saveRecipeOnEditedPath(recipe);
                 recipe.setPathRecipe(path);
+                uploadFileToDrive(path);
                 //update database
                 DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
                 dbTools.updatePaths(recipe);
@@ -116,10 +117,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
                     image = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
                 }
-                if(intentData.hasExtra(Constants.KEY_DELETE_OLD_RECIPE)){
-                    file = intentData.getStringExtra(Constants.KEY_DELETE_OLD_RECIPE);
-                }
-                rwTools.deleteImageAndFile(image, file);
+                rwTools.deleteImage(image);
                 returnIntent.putExtras(bundle);
                 setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
             }

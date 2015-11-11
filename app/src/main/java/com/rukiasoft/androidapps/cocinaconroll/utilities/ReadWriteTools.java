@@ -262,8 +262,15 @@ public class ReadWriteTools {
 
     public String saveRecipeOnEditedPath(RecipeItem recipe){
         String dir = getEditedStorageDir();
-        Tools mTools = new Tools();
-        String name = mTools.getCurrentDate(mContext) + ".xml";
+        String pathFile = recipe.getPathRecipe();
+        String name;
+        if(pathFile == null || pathFile.isEmpty()) {
+            Tools mTools = new Tools();
+            name = "cukio_" + mTools.getCurrentDate(mContext) + ".xml";
+        }else{
+            Uri uri = Uri.parse(pathFile);
+            name = uri.getLastPathSegment();
+        }
         return saveRecipe(recipe, dir, name);
     }
 
@@ -677,12 +684,12 @@ public class ReadWriteTools {
         }
     }
 
-    public void deleteImageAndFile(String image, String file){
+    public void deleteImage(String image){
         if(image != null){
             deleteImageFromEditedPath(image);
         }
-        if(file != null){
+        /*if(file != null){
             deleteRecipe(file);
-        }
+        }*/
     }
 }
