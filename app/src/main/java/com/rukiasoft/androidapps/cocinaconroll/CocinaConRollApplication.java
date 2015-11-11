@@ -2,6 +2,10 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 
 import android.app.Application;
+import android.content.Context;
+import android.os.Build;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -52,7 +56,11 @@ public class CocinaConRollApplication  extends Application {
         tracker = analytics.newTracker(R.xml.track_app);
 
         // Provide unhandled exceptions reports. Do that first after creating the tracker
-        tracker.enableExceptionReporting(true);
+        if(BuildConfig.DEBUG) {
+            tracker.enableExceptionReporting(false);
+        }else{
+            tracker.enableExceptionReporting(true);
+        }
 
         // Enable Remarketing, Demographics & Interests reports
         // https://developers.google.com/analytics/devguides/collection/android/display-features
@@ -67,5 +75,13 @@ public class CocinaConRollApplication  extends Application {
 
 // Make myHandler the new default uncaught exception handler.
         Thread.setDefaultUncaughtExceptionHandler(myHandler);*/
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        if(BuildConfig.DEBUG) {
+            MultiDex.install(this);
+        }
     }
 }

@@ -193,14 +193,16 @@ public class RecipeListFragment extends Fragment implements
             addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 10/11/15 retirar
-                    ((DriveActivity)getActivity()).createFolder("otro_folder");
-                    new Handler().postDelayed(new Runnable() {
+                    // TODO: 11/11/15 quitar
+                    ReadWriteTools rwTools = new ReadWriteTools(getActivity());
+                    String path = rwTools.getEditedStorageDir() + "2015-11-11_14-55-00.xml";
+                    ((DriveActivity)getActivity()).createFileInDrive(path);
+                    /*new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
                             getActivity().startActivityForResult(intent, Constants.REQUEST_CREATE_RECIPE);
                         }
-                    }, 150);
+                    }, 150);*/
                 }
             });
         }

@@ -36,6 +36,7 @@ public class Constants {
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
     public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
+    public static final String PROPERTY_DRIVE_FOLDER_TREE_CREATED = "folder_tree_created";
 
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";

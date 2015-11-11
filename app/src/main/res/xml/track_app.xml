@@ -3,7 +3,7 @@
     <string name="ga_trackingId">UA-61746097-2</string>
     <string name="ga_autoActivityTracking">true</string>
     <string name="ga_logLevel">verbose</string>
-    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <!--<bool name="ga_reportUncaughtExceptions">true</bool>-->
     <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.RecipeListActivity">RecipeList</screenName>
     <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.RecipeDetailActivity">RecipeDetail</screenName>
     <screenName name="com.rukiasoft.androidapps.cocinaconroll.ui.SettingsActivity">Settings</screenName>

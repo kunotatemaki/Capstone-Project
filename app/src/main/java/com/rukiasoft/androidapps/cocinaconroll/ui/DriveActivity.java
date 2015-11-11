@@ -2,7 +2,10 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.app.Activity;
 import android.content.IntentSender;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,11 +14,27 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.drive.Drive;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveContents;
 import com.google.android.gms.drive.DriveFolder;
-import com.google.android.gms.drive.DriveId;
+import com.google.android.gms.drive.Metadata;
+import com.google.android.gms.drive.MetadataBuffer;
 import com.google.android.gms.drive.MetadataChangeSet;
+import com.google.android.gms.drive.query.Filters;
+import com.google.android.gms.drive.query.Query;
+import com.google.android.gms.drive.query.SearchableField;
+
+import com.google.api.client.util.IOUtils;
+import com.google.common.io.Files;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by iRuler on 10/11/15.
@@ -24,23 +43,11 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LogHelper.makeLogTag(DriveActivity.class);
+    private static final String DATABASE_DIR = "databases";
+    private static final String RECIPES_DIR = "recipes";
+
     private Activity mActivity;
 
-    /**
-     * DriveId of an existing folder to be used as a parent folder in
-     * folder operations samples.
-     */
-    public static final String EXISTING_FOLDER_ID = "0B2EEtIjPUdX6MERsWlYxN3J6RU0";
-
-    /**
-     * DriveId of an existing file to be used in file operation samples..
-     */
-    public static final String EXISTING_FILE_ID = "0ByfSjdPVs9MZTHBmMVdSeWxaNTg";
-
-    /**
-     * Extra for account name.
-     */
-    protected static final String EXTRA_ACCOUNT_NAME = "account_name";
 
     /**
      * Request code for auto Google Play Services error resolution.
@@ -64,8 +71,10 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
     @Override
     public void onConnected(Bundle bundle) {
         Log.i(TAG, "API client connected.");
-        // TODO: 10/11/15 ver si aqui salvo, o en onactivity result
-
+        Tools mTools = new Tools();
+        if(!mTools.getBooleanFromPreferences(mActivity, Constants.PROPERTY_DRIVE_FOLDER_TREE_CREATED)){
+            createFolderTree();
+        }
     }
 
     @Override
@@ -75,6 +84,7 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        // TODO: 11/11/15 mirar lo de estar sin conexión para que no mande todo el rato la pantalla
         // Called whenever the API client fails to connect.
         Log.i(TAG, "GoogleApiClient connection failed: " + connectionResult.toString());
         if (!connectionResult.hasResolution()) {
@@ -150,7 +160,7 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
     /**
      * Shows a toast message.
      */
-    /*public void showMessage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
@@ -162,28 +172,105 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
     }
 
 
-    public void createFolder(String folderName){
+    private void createFolderTree(){
         if(!checkIfCloudBackupAllowed()) return;
-        MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                .setTitle(folderName)
-                .build();
-        Drive.DriveApi.getRootFolder(getGoogleApiClient()).createFolder(
-                getGoogleApiClient(), changeSet).setResultCallback(callback);
+        CreateFolderTask task = new CreateFolderTask();
+        task.execute();
     }
 
-    private final ResultCallback<DriveFolder.DriveFolderResult> callback = new ResultCallback<DriveFolder.DriveFolderResult>() {
-        @Override
-        public void onResult(DriveFolder.DriveFolderResult result) {
-            if (!result.getStatus().isSuccess()) {
-                //showMessage("Error while trying to create the folder");
-                return;
-            }
-           // showMessage("Created a folder: " + result.getDriveFolder().getDriveId());
-            Tools mTools = new Tools();
-            mTools.savePreferences(mActivity, "recipes_folder", result.getDriveFolder().getDriveId().toString());
-        }
-    };
+    private class CreateFolderTask extends AsyncTask<Void, Integer, Boolean> {
+        protected Boolean doInBackground(Void... params) {
+            //busco si existen los directorios y si no, los creo
+            //database dir
+            return (createFolder(DATABASE_DIR) & createFolder(RECIPES_DIR));
 
+        }
+
+        protected void onPostExecute(Boolean result) {
+            Tools mTools = new Tools();
+            mTools.savePreferences(mActivity, Constants.PROPERTY_DRIVE_FOLDER_TREE_CREATED, result);
+        }
+    }
+
+    private boolean createFolder(String name){
+        Query query = new Query.Builder().addFilter(Filters.and(
+                Filters.eq(SearchableField.MIME_TYPE, "application/vnd.google-apps.folder"),
+                Filters.eq(SearchableField.TITLE, name))).build();
+        DriveApi.MetadataBufferResult mdResultSet = Drive.DriveApi.getAppFolder(getGoogleApiClient()).queryChildren(getGoogleApiClient(), query).await();
+        if(!mdResultSet.getStatus().isSuccess()){
+            return false;
+        }
+
+        int nFolders = 0;
+        for(int i = 0; i< mdResultSet.getMetadataBuffer().getCount(); i++){
+            Metadata metadata = mdResultSet.getMetadataBuffer().get(i);
+            if(!metadata.isTrashed()){
+                nFolders++;
+            }
+        }
+
+        if(nFolders == 0){
+            //no existe ningún fichero con ese nombre, lo creo
+            MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                    .setTitle(name)
+                    .build();
+            DriveFolder.DriveFolderResult result = Drive.DriveApi.getAppFolder(getGoogleApiClient()).createFolder(
+                    getGoogleApiClient(), changeSet).await();
+            if(!result.getStatus().isSuccess()){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        return true;
+    }
+    public void createFileInDrive(String path){
+
+        CreateFileInDriveTask task = new CreateFileInDriveTask();
+        Uri uri = Uri.parse(path);
+        task.execute(path, uri.getLastPathSegment());
+
+    }
+
+    private class CreateFileInDriveTask extends AsyncTask<String, Integer, Boolean> {
+        protected Boolean doInBackground(String... paths) {
+            DriveApi.DriveContentsResult result = Drive.DriveApi.newDriveContents(getGoogleApiClient()).await();
+            if (!result.getStatus().isSuccess()) {
+                showMessage("Error while trying to create new file contents");
+                return null;
+            }
+            final DriveContents driveContents = result.getDriveContents();
+
+            FileInputStream fileInputStream;
+            OutputStream outputStream = driveContents.getOutputStream();
+            try {
+                fileInputStream = new FileInputStream(new File(paths[0]));
+                IOUtils.copy(fileInputStream, outputStream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String name = paths[1];
+            MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                    .setTitle(name)
+                    .setMimeType("application/xml")
+                    .setStarred(true).build();
+
+            // create a file on root folder
+            DriveFolder.DriveFileResult result2 = Drive.DriveApi.getRootFolder(getGoogleApiClient())
+                    .createFile(getGoogleApiClient(), changeSet, driveContents)
+                    .await();
+            if (!result2.getStatus().isSuccess()) {
+                return false;
+            }
+            return true;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            // TODO: 11/11/15 show in snackbar
+        }
+    }
 
 }
 
