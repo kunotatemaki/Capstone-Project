@@ -2,7 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdRequest;
@@ -104,7 +103,7 @@ public class RecipeDetailActivity extends DriveActivity {
                 ReadWriteTools rwTools = new ReadWriteTools(this);
                 String path = rwTools.saveRecipeOnEditedPath(recipe);
                 recipe.setPathRecipe(path);
-                uploadFileToDrive(path);
+                uploadRecipeToDrive(recipe);
                 //update database
                 DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
                 dbTools.updatePaths(recipe);

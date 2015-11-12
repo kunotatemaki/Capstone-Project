@@ -9,7 +9,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
-
+import com.google.android.gms.common.api.GoogleApiClient;
 
 
 /**
@@ -46,6 +46,23 @@ public class CocinaConRollApplication  extends Application {
     public Tracker getTracker() {
         return tracker;
     }
+
+    /**
+     * Google API client.
+     */
+    private GoogleApiClient mGoogleApiClient;
+
+    /**
+     * Getter for the {@code GoogleApiClient}.
+     */
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
+    public void setGoogleApiClient(GoogleApiClient googleApiClient) {
+        mGoogleApiClient = googleApiClient;
+    }
+
 
     @Override
     public void onCreate() {
@@ -84,4 +101,21 @@ public class CocinaConRollApplication  extends Application {
             MultiDex.install(this);
         }
     }
+
+    int nActivityConnected = 0;
+    public void addActivity(){
+        nActivityConnected++;
+    }
+    public void popActivity(){
+        nActivityConnected--;
+        if(nActivityConnected < 0){
+            nActivityConnected = 0;
+        }
+        if(nActivityConnected == 0){
+            if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
+                mGoogleApiClient.disconnect();
+            }
+        }
+    }
+
 }

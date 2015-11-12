@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -30,10 +29,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Drive;
-import com.google.android.gms.drive.DriveId;
-import com.google.android.gms.drive.OpenFileActivityBuilder;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -205,8 +200,8 @@ public class RecipeListActivity extends DriveActivity {
                     mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                     ReadWriteTools readWriteTools = new ReadWriteTools(this);
                     String path = readWriteTools.saveRecipeOnEditedPath(recipe);
-                    uploadFileToDrive(path);
                     recipe.setPathRecipe(path);
+                    uploadRecipeToDrive(recipe);
                     if (mRecipeListFragment != null) {
                         mRecipeListFragment.createRecipe(recipe);
                     }

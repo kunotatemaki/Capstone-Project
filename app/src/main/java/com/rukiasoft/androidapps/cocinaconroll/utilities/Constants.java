@@ -11,11 +11,13 @@ public class Constants {
     public static final String BASE_DIR = "CookingWihCookeo";
     public static final String OLD_BASE_DIR = "CocinandoconmiCookeo";
     public static final String ZIPS_DIR = "zips";
-    public static final Integer FLAG_ORIGINAL = 2;
+
     public static final Integer FLAG_ASSETS = 1;
+    public static final Integer FLAG_ORIGINAL = 2;
     public static final Integer FLAG_EDITED = 4;
     public static final Integer FLAG_EDITED_PICTURE = 8;
     public static final Integer FLAG_OWN = 16;
+    public static final Integer FLAG_PENDING_UPLOAD_TO_DRIVE = 32;
 
     public static final String TYPE_STARTERS = "starter";
     public static final String TYPE_MAIN = "main";
@@ -24,7 +26,6 @@ public class Constants {
     public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
     public static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
     public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME +  ".deleteoldpicture";
-    //public static final String KEY_DELETE_OLD_RECIPE = Constants.PACKAGE_NAME +  ".deleteoldrecipe";
     public static final String KEY_TYPE = Constants.PACKAGE_NAME + "." + ".type";
     public static final int REQUEST_DETAILS = 200;
     public static final int REQUEST_CREATE_RECIPE = 201;
@@ -36,7 +37,6 @@ public class Constants {
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
     public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
-    public static final String PROPERTY_DRIVE_FOLDER_TREE_CREATED = "folder_tree_created";
 
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
@@ -46,7 +46,10 @@ public class Constants {
 
 
     public static final String TEMP_CAMERA_NAME = "tmp_avatar_";
-    public static final String START_DOWNLOAD_ACTION_INTENT = "com.rukiasoft.androidapps.cocinaconroll.action.START_DOWNLOAD";
+    public static final String START_DOWNLOAD_ACTION_INTENT = PACKAGE_NAME + ".action.START_DOWNLOAD";
+    public static final String ACTION_UPLOAD_RECIPE = PACKAGE_NAME + ".action.UPLOAD_RECIPE";
+    public static final String ACTION_GET_RECIPES_FROM_DRIVE = PACKAGE_NAME + ".action.GET_RECIPES_IN_DRIVE";
+
 
     public static final Integer STATE_NOT_DOWNLOADED = 0;
     public static final Integer STATE_DOWNLOADED_NOT_UNZIPED = 1;

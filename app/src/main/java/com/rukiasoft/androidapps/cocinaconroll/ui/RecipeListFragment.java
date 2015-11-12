@@ -194,7 +194,7 @@ public class RecipeListFragment extends Fragment implements
                 @Override
                 public void onClick(View v) {
                     // TODO: 11/11/15 quitar
-                    ((DriveActivity)getActivity()).getRecipesInDrive();
+                    ((DriveActivity)getActivity()).getRecipesFromDrive();
                     /*new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
@@ -240,13 +240,17 @@ public class RecipeListFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save currently selected layout manager.
-        if (mRecyclerView.getLayoutManager() != null) {
-            int[] scrollPosition = new int[columnCount];
-            if(mRecyclerView.getLayoutManager() != null) {
-                scrollPosition = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager())
-                        .findFirstCompletelyVisibleItemPositions(scrollPosition);
-                savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
+        try {
+            if (mRecyclerView != null) {
+                int[] scrollPosition = new int[columnCount];
+                if (mRecyclerView.getLayoutManager() != null) {
+                    scrollPosition = ((StaggeredGridLayoutManager) mRecyclerView.getLayoutManager())
+                            .findFirstCompletelyVisibleItemPositions(scrollPosition);
+                    savedInstanceState.putSerializable(KEY_SCROLL_POSITION, scrollPosition[0]);
+                }
             }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
         if(mRecipes != null) {
             savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);
