@@ -48,7 +48,9 @@ public class Constants {
     public static final String TEMP_CAMERA_NAME = "tmp_avatar_";
     public static final String START_DOWNLOAD_ACTION_INTENT = PACKAGE_NAME + ".action.START_DOWNLOAD";
     public static final String ACTION_UPLOAD_RECIPE = PACKAGE_NAME + ".action.UPLOAD_RECIPE";
+    public static final String ACTION_BROADCASE_UPLOADED_RECIPE = PACKAGE_NAME + ".action.ACTION_BROADCASE_UPLOADED_RECIPE";
     public static final String ACTION_GET_RECIPES_FROM_DRIVE = PACKAGE_NAME + ".action.GET_RECIPES_IN_DRIVE";
+    public static final String ACTION_BROADCAST_GET_RECIPES_FROM_DRIVE = PACKAGE_NAME + ".action.ACTION_BROADCAST_GET_RECIPES_FROM_DRIVE";
 
 
     public static final Integer STATE_NOT_DOWNLOADED = 0;

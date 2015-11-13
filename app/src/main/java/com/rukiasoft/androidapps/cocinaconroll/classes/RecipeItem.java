@@ -143,6 +143,9 @@ public class RecipeItem implements Parcelable {
     public void setState(Integer state) {
         this.state = this.state | state;
     }
+    public void removeState(Integer state) {
+        this.state = this.state ^ state;
+    }
 
     public List<String> getSteps() {
         return steps;

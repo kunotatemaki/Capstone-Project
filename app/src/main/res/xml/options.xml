@@ -7,12 +7,11 @@
             android:summaryOn="@string/screen_on_description"
             android:summaryOff="@string/screen_of_description"
             android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="option_cloud_backup"
+        <Preference
             android:title="@string/cloud_backup"
-            android:summaryOn="@string/cloud_backup_on_description"
-            android:summaryOff="@string/cloud_backup_off_description"
-            android:defaultValue="false" />
+            android:summary="@string/cloud_backup_on_description">
+            <intent android:action="com.rukiasoft.androidapps.cocinaconroll.action.SIGN_IN" />
+        </Preference>
         <CheckBoxPreference
             android:key="option_update_wifi"
             android:title="@string/update_wifi"

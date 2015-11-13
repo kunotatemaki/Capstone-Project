@@ -1,13 +1,17 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.drive.Drive;
+import com.google.android.gms.plus.Plus;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
@@ -17,10 +21,22 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 /**
  * Created by iRuler on 10/11/15.
  */
-public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleApiClient.ConnectionCallbacks,
+public class SigningDriveActivity extends ToolbarAndRefreshActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = LogHelper.makeLogTag(DriveActivity.class);
+    private static final String TAG = LogHelper.makeLogTag(SigningDriveActivity.class);
+    /* RequestCode for resolutions involving sign-in */
+    protected static final int RC_SIGN_IN = 9001;
+
+    /* Keys for persisting instance variables in savedInstanceState */
+    private static final String KEY_IS_RESOLVING = "is_resolving";
+    private static final String KEY_SHOULD_RESOLVE = "should_resolve";
+
+    /* Is there a ConnectionResult resolution in progress? */
+    protected boolean mIsResolving = false;
+
+    /* Should we automatically resolve ConnectionResults when possible? */
+    protected boolean mShouldResolve = false;
 
 
     /**
@@ -85,6 +101,8 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
                     .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
+                    .addApi(Plus.API)
+                    .addScope(new Scope(Scopes.PROFILE))
                     .build());
         }
         // Connect the client. Once connected
@@ -93,6 +111,35 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
         }
         return true;
     }
+
+    // [START on_save_instance_state]
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_IS_RESOLVING, mIsResolving);
+        outState.putBoolean(KEY_SHOULD_RESOLVE, mShouldResolve);
+    }
+    // [END on_save_instance_state]
+
+    // [START on_activity_result]
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
+
+        if (requestCode == RC_SIGN_IN) {
+            // If the error resolution was not successful we should not resolve further errors.
+            if (resultCode != RESULT_OK) {
+                mShouldResolve = false;
+            }
+
+            mIsResolving = false;
+            getMyApplication().getGoogleApiClient().connect();
+        }
+    }
+    // [END on_activity_result]
+
+
 
     /**
      * Called when activity gets visible. A connection to Drive services need to
@@ -113,6 +160,11 @@ public class DriveActivity extends ToolbarAndRefreshActivity implements GoogleAp
         super.onCreate(savedInstanceState);
         if(getMyApplication() != null){
             getMyApplication().addActivity();
+        }
+        // [START restore_saved_instance_state]
+        if (savedInstanceState != null) {
+            mIsResolving = savedInstanceState.getBoolean(KEY_IS_RESOLVING);
+            mShouldResolve = savedInstanceState.getBoolean(KEY_SHOULD_RESOLVE);
         }
     }
 

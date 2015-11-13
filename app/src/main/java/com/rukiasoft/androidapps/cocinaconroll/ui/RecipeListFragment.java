@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -194,7 +193,7 @@ public class RecipeListFragment extends Fragment implements
                 @Override
                 public void onClick(View v) {
                     // TODO: 11/11/15 quitar
-                    ((DriveActivity)getActivity()).getRecipesFromDrive();
+                    ((SigningDriveActivity)getActivity()).getRecipesFromDrive();
                     /*new Handler().postDelayed(new Runnable() {
                         @Override public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);

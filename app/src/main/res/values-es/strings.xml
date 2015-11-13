@@ -91,4 +91,26 @@
     <string name="cloud_backup_off_description">Deshabilitada copia de seguridad en la cuenta personal de Google Drive</string>
     <string name="cloud_backup_on_description">Habilitada copia de seguridad en la cuenta personal de Google Drive</string>
 
+
+    <!-- Sign-in status messages -->
+    <string name="signed_in_fmt">Conectado como: %s</string>
+    <string name="signing_in">Conectando…</string>
+    <string name="signed_out">No conectado</string>
+    <string name="signed_in_err">"Error al intentar conectar"</string>
+    <string name="error_null_person">
+        Error: Plus.PeopleApi.getCurrentPerson returned null. Ensure that the Google+ API is
+        enabled for your project, you have a properly configured google-services.json file
+        and that your device has an internet connection.
+    </string>
+
+    <!-- Google Play Services error for Toast -->
+    <string name="play_services_error_fmt">Google Play Services Error: %i</string>
+
+    <!-- Button labels -->
+    <string name="no_almacenar">No almacenar</string>
+
+    <!-- Content Description for images -->
+    <string name="desc_google_icon">Logo de Cocinando con mi Cookeo</string>
+    <string name="title_signing">Almacena tus recetas\nen la nube</string>
+
 </resources>

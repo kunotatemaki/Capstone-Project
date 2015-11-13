@@ -16,7 +16,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecipeDetailActivity extends DriveActivity {
+public class RecipeDetailActivity extends SigningDriveActivity {
 
 
 

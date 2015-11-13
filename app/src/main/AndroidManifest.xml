@@ -62,6 +62,16 @@
             android:name=".ui.EditRecipeActivity"
             android:launchMode="standard"
             android:theme="@style/SettingsTheme"/>
+        <activity
+            android:name=".ui.ShowSigningActivity"
+            android:label="@string/app_name"
+            android:launchMode="standard"
+            android:theme="@style/BaseTheme">
+            <intent-filter>
+                <action android:name="com.rukiasoft.androidapps.cocinaconroll.action.SIGN_IN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!-- A Searchable activity, that handles the searches -->
         <activity

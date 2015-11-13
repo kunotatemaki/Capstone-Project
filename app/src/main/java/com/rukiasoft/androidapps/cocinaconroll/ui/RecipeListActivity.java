@@ -4,13 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -43,7 +46,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecipeListActivity extends DriveActivity {
+public class RecipeListActivity extends SigningDriveActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
@@ -81,6 +84,24 @@ public class RecipeListActivity extends DriveActivity {
         }
     };
 
+    // Broadcast receiver for receiving status updates from the IntentService
+    private class DriveServiceReceiver extends BroadcastReceiver
+    {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)){
+                if(intent.hasExtra(Constants.KEY_RECIPE)){
+                    RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
+                    // TODO: 12/11/15 actualizar la base de datos con el estado updated to drive
+                    int state = recipeItem.getState();
+                    recipeItem.removeState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
+                    state = recipeItem.getState();
+
+                }
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +116,8 @@ public class RecipeListActivity extends DriveActivity {
         }
 
         if(!started){
-            Intent animationIntent = new Intent(this, AnimationActivity.class);
+           // Intent animationIntent = new Intent(this, AnimationActivity.class);
+            Intent animationIntent = new Intent(this, ShowSigningActivity.class);
             startActivity(animationIntent);
         }
 
@@ -137,6 +159,21 @@ public class RecipeListActivity extends DriveActivity {
             GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
             getZipsAsyncTask.execute();
         }
+
+        // The filter's action is BROADCAST_ACTION
+        IntentFilter mStatusIntentFilter = new IntentFilter(
+                Constants.ACTION_BROADCASE_UPLOADED_RECIPE);
+
+
+        // Instantiates a new DownloadStateReceiver
+        DriveServiceReceiver driveServiceReceiver =
+                new DriveServiceReceiver();
+        // Registers the DownloadStateReceiver and its intent filters
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                driveServiceReceiver,
+                mStatusIntentFilter);
+
+
     }
 
     @Override
@@ -213,12 +250,12 @@ public class RecipeListActivity extends DriveActivity {
                     connectToDrive(true);
                 }
                 break;
-            case REQUEST_CODE_SETTINGS:
+            /*case REQUEST_CODE_SETTINGS:
                 Tools tools = new Tools();
                 if(tools.getBooleanFromPreferences(this, "option_cloud_backup")) {
                     connectToDrive(false);
                 }
-                break;
+                break;*/
 
         }
     }

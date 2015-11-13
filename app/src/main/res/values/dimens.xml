@@ -47,4 +47,8 @@
     <dimen name="circle_radius">40dp</dimen>
     <dimen name="smart_add">32dp</dimen>
 
+    <dimen name="g_top_margin">100dp</dimen>
+    <dimen name="signing_title">30sp</dimen>
+    <dimen name="signing_body">20sp</dimen>
+
 </resources>

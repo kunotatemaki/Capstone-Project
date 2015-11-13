@@ -1,8 +1,13 @@
 <resources>
 
     <style name="AppTheme" parent="BaseTheme"/>
-    
-    
+
+    <!-- Dark Buttons -->
+    <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/blue_grey_500</item>
+    </style>
+
+
    <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
 

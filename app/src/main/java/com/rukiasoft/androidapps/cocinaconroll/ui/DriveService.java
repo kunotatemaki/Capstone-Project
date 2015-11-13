@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.drive.Drive;
@@ -101,11 +102,21 @@ public class DriveService extends IntentService {
      */
     private void handleActionUploadRecipe(RecipeItem recipeItem) {
         Uri uriRecipe = Uri.parse(recipeItem.getPathRecipe());
-        UploadFileToDrive(uriRecipe, MIME_TYPE_RECIPE);
+        boolean updated = false;
+        updated = UploadFileToDrive(uriRecipe, MIME_TYPE_RECIPE);
         Uri uriPicture;
-        if(!recipeItem.getPathPicture().equals(Constants.DEFAULT_PICTURE_NAME)){
+        if(!recipeItem.getPathPicture().equals(Constants.DEFAULT_PICTURE_NAME)
+                && (recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0){
             uriPicture = Uri.parse(recipeItem.getPathPicture());
-            //UploadFileToDrive(uriPicture, MIME_TYPE_PICTURE);
+            UploadFileToDrive(uriPicture, MIME_TYPE_PICTURE);
+        }
+        if(updated) {
+            Intent localIntent =
+                    new Intent(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)
+                            // Puts the status into the Intent
+                            .putExtra(Constants.KEY_RECIPE, recipeItem);
+            // Broadcasts the Intent to receivers in this app.
+            LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
         }
     }
 
@@ -178,6 +189,7 @@ public class DriveService extends IntentService {
         if (!result2.getStatus().isSuccess()) {
             throw ( new Exception("RukiaSoft: error creating file in Drive"));
         }
+        return;
     }
 
     private void updateFileInDriveAppFolder(DriveFile file, Uri path) throws Exception{
