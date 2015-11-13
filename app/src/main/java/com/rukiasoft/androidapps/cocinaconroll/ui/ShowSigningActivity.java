@@ -143,9 +143,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
         connectToDrive(false);
     }
 
-    @Override public void onDestroy() {
-        super.onDestroy();
-    }
+
 
     @Override
     public void onConnected(Bundle bundle) {

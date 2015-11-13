@@ -173,6 +173,10 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
         super.onDestroy();
         if (getMyApplication() != null) {
             getMyApplication().popActivity();
+            if(getMyApplication().getGoogleApiClient() != null){
+                getMyApplication().getGoogleApiClient().unregisterConnectionCallbacks(this);
+                getMyApplication().getGoogleApiClient().unregisterConnectionFailedListener(this);
+            }
         }
     }
 
