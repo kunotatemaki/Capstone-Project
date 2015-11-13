@@ -107,10 +107,11 @@
     <string name="play_services_error_fmt">Google Play Services Error: %i</string>
 
     <!-- Button labels -->
-    <string name="no_almacenar">No almacenar</string>
+    <string name="sign_in_discard">No, gracias</string>
 
     <!-- Content Description for images -->
     <string name="desc_google_icon">Logo de Cocinando con mi Cookeo</string>
     <string name="title_signing">Almacena tus recetas\nen la nube</string>
+    <string name="exit">Salir</string>
 
 </resources>

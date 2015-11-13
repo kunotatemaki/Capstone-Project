@@ -51,6 +51,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
     private static final int REQUEST_CODE_SETTINGS = 20;
+    private static final int REQUEST_CODE_ANIMATION = 21;
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -116,9 +117,9 @@ public class RecipeListActivity extends SigningDriveActivity {
         }
 
         if(!started){
-           // Intent animationIntent = new Intent(this, AnimationActivity.class);
-            Intent animationIntent = new Intent(this, ShowSigningActivity.class);
-            startActivity(animationIntent);
+            Intent animationIntent = new Intent(this, AnimationActivity.class);
+            //Intent animationIntent = new Intent(this, ShowSigningActivity.class);
+            startActivityForResult(animationIntent, REQUEST_CODE_ANIMATION);
         }
 
         Tools mTools = new Tools();
@@ -250,13 +251,16 @@ public class RecipeListActivity extends SigningDriveActivity {
                     connectToDrive(true);
                 }
                 break;
-            /*case REQUEST_CODE_SETTINGS:
+            case REQUEST_CODE_ANIMATION:
                 Tools tools = new Tools();
-                if(tools.getBooleanFromPreferences(this, "option_cloud_backup")) {
-                    connectToDrive(false);
+                if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT)) {
+                    tools.savePreferences(this, Constants.PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT, true);
+                    Intent intent = new Intent(this, ShowSigningActivity.class);
+                    startActivity(intent);
                 }
-                break;*/
-
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, intentData);
         }
     }
 

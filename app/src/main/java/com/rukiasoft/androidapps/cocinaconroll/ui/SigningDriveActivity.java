@@ -14,6 +14,7 @@ import com.google.android.gms.drive.Drive;
 import com.google.android.gms.plus.Plus;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -83,7 +84,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
 
     private boolean checkIfCloudBackupAllowed(){
         Tools tools = new Tools();
-        return tools.getBooleanFromPreferences(this, "option_cloud_backup");
+        return tools.getBooleanFromPreferences(this, Constants.PROPERTY_CLOUD_BACKUP);
     }
 
     protected boolean connectToDrive(boolean check){
@@ -104,6 +105,9 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
                     .addApi(Plus.API)
                     .addScope(new Scope(Scopes.PROFILE))
                     .build());
+        }else{
+            getMyApplication().getGoogleApiClient().registerConnectionCallbacks(this);
+            getMyApplication().getGoogleApiClient().registerConnectionFailedListener(this);
         }
         // Connect the client. Once connected
         if(!getMyApplication().getGoogleApiClient().isConnected()) {

@@ -13,7 +13,7 @@
     <string name="recipes">%1$d recipes</string>
     <string name="designed_by">designed by Freepik.com</string>
     <string name="audio_notification">Notification tone</string>
-    <string name="audio_notification_description">Choose a sound for new recipes incoming</string>
+    <string name="audio_notification_description">Choose a sound for new recipes incoming notification</string>
     <string name="category_application">Application settings</string>
     <string name="desserts">Desserts</string>
     <string name="favourite">Favorite</string>
@@ -128,7 +128,7 @@
     <string name="play_services_error_fmt">Google Play Services Error: %i</string>
 
     <!-- Button labels -->
-    <string name="no_almacenar">No store</string>
+    <string name="sign_in_discard">No, thanks</string>
 
     <!-- Content Description for images -->
     <string name="desc_google_icon">Cooking with cookeo logo</string>

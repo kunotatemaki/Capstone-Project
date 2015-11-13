@@ -432,6 +432,16 @@ public class ReadWriteTools {
                .error(defaultImage)
                .into(imageView);
     }
+
+    public void loadImageFromPathInCircle(ImageView imageView, String path, int defaultImage) {
+       Glide.with(mContext)
+               .load(Uri.parse(path))
+               .centerCrop()
+               .transform(new GlideCircleTransform(mContext))
+               .error(defaultImage)
+               .into(imageView);
+    }
+
     public void loadImageFromPath(BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage) {
         Glide.with(mContext)
                 .load(Uri.parse(path))

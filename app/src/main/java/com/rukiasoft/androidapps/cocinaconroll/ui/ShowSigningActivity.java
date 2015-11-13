@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,14 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -43,9 +50,10 @@ public class ShowSigningActivity extends SigningDriveActivity {
     private static final String TAG = "ShowSigningActivity";
 
     /* View to display current status (signed-in, signed-out, disconnected, etc) */
-    TextView mStatus;
-    //SignInButton signInButton;
-    Button discardButton;
+    @Bind(R.id.sign_in_status) TextView mStatus;
+    @Bind(R.id.sign_in_button)SignInButton signInButton;
+    @Bind(R.id.sign_in_discard_button)Button discardButton;
+    @Bind(R.id.sign_in_icon)ImageView signInIcon;
 
     private CocinaConRollApplication getMyApplication(){
         return (CocinaConRollApplication)getApplication();
@@ -55,16 +63,13 @@ public class ShowSigningActivity extends SigningDriveActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signing);
-
-        mStatus = (TextView) findViewById(R.id.sign_status);
-        //signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-        discardButton = (Button) findViewById(R.id.sign_discard_button);
+        ButterKnife.bind(this);
         // Restore from saved instance state
 
         // [END restore_saved_instance_state]
 
         // Set up button click listeners
-        ((SignInButton) findViewById(R.id.sign_in_button)).setOnClickListener(new View.OnClickListener() {
+        signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // User clicked the sign-in button, so begin the sign-in process and automatically
@@ -84,10 +89,10 @@ public class ShowSigningActivity extends SigningDriveActivity {
         });
 
         // Large sign-in
-        ((SignInButton) findViewById(R.id.sign_in_button)).setSize(SignInButton.SIZE_WIDE);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
 
         // Start with sign-in button disabled until sign-in either succeeds or fails
-        ((SignInButton) findViewById(R.id.sign_in_button)).setEnabled(false);
+        signInButton.setEnabled(false);
 
 
     }
@@ -100,40 +105,27 @@ public class ShowSigningActivity extends SigningDriveActivity {
                 String name = currentPerson.getDisplayName();
                 mStatus.setText(getString(R.string.signed_in_fmt, name));
                 Tools mTools = new Tools();
-                mTools.savePreferences(this, "option_cloud_backup", true);
+                mTools.savePreferences(this, Constants.PROPERTY_CLOUD_BACKUP, true);
+                ReadWriteTools rwTools = new ReadWriteTools(this);
+                rwTools.loadImageFromPathInCircle(signInIcon, currentPerson.getImage().getUrl(), R.mipmap.ic_launcher);
+
             } else {
                 Log.w(TAG, getString(R.string.error_null_person));
                 mStatus.setText(getString(R.string.signed_in_err));
             }
 
             // Set button visibility
-            ((SignInButton) findViewById(R.id.sign_in_button)).setVisibility(View.GONE);
+            signInButton.setVisibility(View.GONE);
             discardButton.setText(getString(R.string.exit));
         } else {
             // Show signed-out message
             mStatus.setText(R.string.signed_out);
 
             // Set button visibility
-            ((SignInButton) findViewById(R.id.sign_in_button)).setEnabled(true);
-            ((SignInButton) findViewById(R.id.sign_in_button)).setVisibility(View.VISIBLE);
+            signInButton.setEnabled(true);
+            signInButton.setVisibility(View.VISIBLE);
         }
     }
-
-    // [START on_start_on_stop]
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-        getMyApplication().getGoogleApiClient().connect();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        getMyApplication().getGoogleApiClient().disconnect();
-    }
-    // [END on_start_on_stop]*/
-
-
 
 
 

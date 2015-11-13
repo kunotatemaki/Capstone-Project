@@ -29,6 +29,10 @@
     <style name="Theme.Recipe.List" parent="AppTheme">
         </style>
 
+    <style name="Theme.Signing" parent="BaseTheme">
+        <item name="colorPrimaryDark">@color/blue_grey_900</item>
+    </style>
+
 
     <style name="myDropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
         <item name="android:textColor">@color/ColorDarkText</item>

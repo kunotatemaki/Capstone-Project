@@ -2,7 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 
 public class Constants {
-    public static final String PROPERTY_HIDE_SWIPE_DIALOG = "hide_swipe_dialog";
     public static final String SENDER_ID = "962580870211";
     public static final String PACKAGE_NAME = "com.rukiasoft.androidapps.cocinaconroll";
 
@@ -37,7 +36,9 @@ public class Constants {
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
     public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
-
+    public static final String PROPERTY_CLOUD_BACKUP = "option_cloud_backup";
+    public static final String PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT = "first_check_google_account";
+    public static final String PROPERTY_HIDE_SWIPE_DIALOG = "hide_swipe_dialog";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";
@@ -81,5 +82,7 @@ public class Constants {
 
 
     public static final String EMAIL = "rukiasoft@gmail.com";
+
+
 
 }
