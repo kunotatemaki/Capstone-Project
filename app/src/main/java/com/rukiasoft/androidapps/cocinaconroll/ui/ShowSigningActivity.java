@@ -15,7 +15,9 @@
  */
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,11 +27,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
@@ -52,8 +58,13 @@ public class ShowSigningActivity extends SigningDriveActivity {
     /* View to display current status (signed-in, signed-out, disconnected, etc) */
     @Bind(R.id.sign_in_status) TextView mStatus;
     @Bind(R.id.sign_in_button)SignInButton signInButton;
+    @Bind(R.id.sign_out_button)Button signOutButton;
     @Bind(R.id.sign_in_discard_button)Button discardButton;
     @Bind(R.id.sign_in_icon)ImageView signInIcon;
+
+    private ProgressDialog mProgressDialog;
+    private String accountName;
+
 
     private CocinaConRollApplication getMyApplication(){
         return (CocinaConRollApplication)getApplication();
@@ -72,13 +83,14 @@ public class ShowSigningActivity extends SigningDriveActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // User clicked the sign-in button, so begin the sign-in process and automatically
+                /*// User clicked the sign-in button, so begin the sign-in process and automatically
                 // attempt to resolve any errors that occur.
                 mStatus.setText(R.string.signing_in);
                 // [START sign_in_clicked]
                 mShouldResolve = true;
                 getMyApplication().getGoogleApiClient().connect();
-                // [END sign_in_clicked]
+                // [END sign_in_clicked]*/
+                signIn();
             }
         });
         discardButton.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +99,16 @@ public class ShowSigningActivity extends SigningDriveActivity {
                 finish();
             }
         });
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                revokeAccess();
+            }
+        });
 
         // Large sign-in
         signInButton.setSize(SignInButton.SIZE_WIDE);
-
+        //signOutButton.setVisibility(View.GONE);
         // Start with sign-in button disabled until sign-in either succeeds or fails
         signInButton.setEnabled(false);
 
@@ -98,7 +116,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
     }
 
     private void updateUI(boolean isSignedIn) {
-        if (isSignedIn) {
+        /*if (isSignedIn) {
             // Show signed-in user's name
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(getMyApplication().getGoogleApiClient());
             if (currentPerson != null) {
@@ -116,6 +134,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
 
             // Set button visibility
             signInButton.setVisibility(View.GONE);
+            signOutButton.setVisibility(View.VISIBLE);
             discardButton.setText(getString(R.string.exit));
         } else {
             // Show signed-out message
@@ -124,6 +143,19 @@ public class ShowSigningActivity extends SigningDriveActivity {
             // Set button visibility
             signInButton.setEnabled(true);
             signInButton.setVisibility(View.VISIBLE);
+        }*/
+
+        if (isSignedIn) {
+            mStatus.setText(accountName);
+            discardButton.setText(getString(R.string.exit));
+            signInButton.setVisibility(View.GONE);
+            signOutButton.setVisibility(View.VISIBLE);
+        } else {
+            mStatus.setText(R.string.signed_out);
+            discardButton.setText(getString(R.string.sign_in_discard));
+            signInButton.setVisibility(View.VISIBLE);
+            signInButton.setEnabled(true);
+            signOutButton.setVisibility(View.GONE);
         }
     }
 
@@ -132,12 +164,116 @@ public class ShowSigningActivity extends SigningDriveActivity {
     @Override
     public void onStart(){
         super.onStart();
-        connectToDrive(false);
+        //connectToDrive(false);
+        initializeConnection();
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(getMyApplication().getGoogleApiClient());
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            Log.d(TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            updateUI(false);
+            /*showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    hideProgressDialog();
+                    handleSignInResult(googleSignInResult);
+                }
+            });*/
+        }
     }
 
+    // [START handleSignInResult]
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Tools mTools = new Tools();
+            mTools.savePreferences(this, Constants.PROPERTY_CLOUD_BACKUP, true);
+            accountName = getString(R.string.signed_in_fmt, acct.getDisplayName());
+            updateUI(true);
+        } else {
+            // Signed out, show unauthenticated UI.
+            updateUI(false);
+        }
+    }
 
-
+    // [START onActivityResult]
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+    // [END onActivityResult]
+
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+    }
+
+    // [START signIn]
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(getMyApplication().getGoogleApiClient());
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    // [END signIn]
+
+    // [START signOut]
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(getMyApplication().getGoogleApiClient()).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // [START_EXCLUDE]
+                        updateUI(false);
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+    // [END signOut]
+
+    // [START revokeAccess]
+    private void revokeAccess() {
+        if(getMyApplication().getGoogleApiClient().isConnected()) {
+            Auth.GoogleSignInApi.revokeAccess(getMyApplication().getGoogleApiClient()).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            // [START_EXCLUDE]
+                            updateUI(false);
+                            // [END_EXCLUDE]
+                        }
+                    });
+        }else{
+            Log.d(TAG, "pues no está conectado");
+        }
+    }
+    // [END revokeAccess]
+
+    /*@Override
     public void onConnected(Bundle bundle) {
         // onConnected indicates that an account was selected on the device, that the selected
         // account has granted any requested permissions to our app and that we were able to
@@ -154,7 +290,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
         // attempt to re-connect. Any UI elements that depend on connection to Google APIs should
         // be hidden or disabled until onConnected is called again.
         Log.w(TAG, "onConnectionSuspended:" + i);
-    }
+    }*/
 
     // [START on_connection_failed]
     @Override
@@ -164,7 +300,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
         // ConnectionResult to see possible error codes.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
 
-        if (!mIsResolving && mShouldResolve) {
+        /*if (!mIsResolving && mShouldResolve) {
             if (connectionResult.hasResolution()) {
                 try {
                     connectionResult.startResolutionForResult(this, RC_SIGN_IN);
@@ -182,7 +318,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
         } else {
             // Show the signed-out UI
             updateUI(false);
-        }
+        }*/
     }
     // [END on_connection_failed]
 

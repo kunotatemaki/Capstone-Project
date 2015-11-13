@@ -5,24 +5,24 @@ import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.drive.Drive;
-import com.google.android.gms.plus.Plus;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-
 /**
  * Created by iRuler on 10/11/15.
  */
-public class SigningDriveActivity extends ToolbarAndRefreshActivity implements GoogleApiClient.ConnectionCallbacks,
+public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /*GoogleApiClient.ConnectionCallbacks,*/
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LogHelper.makeLogTag(SigningDriveActivity.class);
@@ -49,7 +49,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
         return (CocinaConRollApplication)getApplication();
     }
 
-    @Override
+    /*@Override
     public void onConnected(Bundle bundle) {
         Log.i(TAG, "API client connected.");
     }
@@ -57,7 +57,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
     @Override
     public void onConnectionSuspended(int i) {
         Log.i(TAG, "GoogleApiClient connection suspended");
-    }
+    }*/
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -87,28 +87,41 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
         return tools.getBooleanFromPreferences(this, Constants.PROPERTY_CLOUD_BACKUP);
     }
 
-    protected boolean connectToDrive(boolean check){
-        if(check && !checkIfCloudBackupAllowed()) {
-            return false;
-        }
+    protected void initializeConnection(){
         if (getMyApplication().getGoogleApiClient() == null) {
             // Create the API client and bind it to an instance variable.
             // We use this instance as the callback for connection and connection
             // failures.
             // Since no account name is passed, the user is prompted to choose.
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .requestScopes(Drive.SCOPE_FILE, Drive.SCOPE_APPFOLDER)
+                    .build();
+
             getMyApplication().setGoogleApiClient(new GoogleApiClient.Builder(this)
-                    .addApi(Drive.API)
+                    /*.addApi(Drive.API)
                     .addScope(Drive.SCOPE_FILE)
                     .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(Plus.API)
-                    .addScope(new Scope(Scopes.PROFILE))
+                    .addScope(new Scope(Scopes.PROFILE))*/
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .addApi(Drive.API)
                     .build());
         }else{
-            getMyApplication().getGoogleApiClient().registerConnectionCallbacks(this);
+            //getMyApplication().getGoogleApiClient().registerConnectionCallbacks(this);
             getMyApplication().getGoogleApiClient().registerConnectionFailedListener(this);
+
         }
+    }
+
+    protected boolean connectToDrive(boolean check){
+        if(check && !checkIfCloudBackupAllowed()) {
+            return false;
+        }
+        initializeConnection();
         // Connect the client. Once connected
         if(!getMyApplication().getGoogleApiClient().isConnected()) {
             getMyApplication().getGoogleApiClient().connect();
@@ -126,7 +139,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
     // [END on_save_instance_state]
 
     // [START on_activity_result]
-    @Override
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
@@ -140,7 +153,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
             mIsResolving = false;
             getMyApplication().getGoogleApiClient().connect();
         }
-    }
+    }*/
     // [END on_activity_result]
 
 
@@ -178,7 +191,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements G
         if (getMyApplication() != null) {
             getMyApplication().popActivity();
             if(getMyApplication().getGoogleApiClient() != null){
-                getMyApplication().getGoogleApiClient().unregisterConnectionCallbacks(this);
+                //getMyApplication().getGoogleApiClient().unregisterConnectionCallbacks(this);
                 getMyApplication().getGoogleApiClient().unregisterConnectionFailedListener(this);
             }
         }
