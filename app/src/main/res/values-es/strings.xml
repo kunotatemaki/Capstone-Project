@@ -113,5 +113,7 @@
     <string name="desc_google_icon">Logo de Cocinando con mi Cookeo</string>
     <string name="title_signing">Almacena tus recetas\nen la nube</string>
     <string name="exit">Salir</string>
+    <string name="loading">Cargando...</string>
+    <string name="sign_out">Desconectar cuenta</string>
 
 </resources>

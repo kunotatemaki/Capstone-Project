@@ -39,15 +39,6 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/sign_in_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/g_top_margin"
-            android:text="@string/signed_out"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/abc_text_size_small_material" />
-
-        <TextView
             android:id="@+id/sign_in_body_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,18 +48,27 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/signing_body" />
 
+        <TextView
+            android:id="@+id/sign_in_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/g_top_margin"
+            android:text="@string/signed_out"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
         android:background="@color/blue_grey_900">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
                 android:layout_width="wrap_content"
@@ -89,7 +89,9 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/sign_in_discard_layout"
+            android:layout_alignParentBottom="true">
             <Button
                 android:id="@+id/sign_in_discard_button"
                 android:layout_width="wrap_content"
@@ -100,8 +102,10 @@
                 android:text="@string/sign_in_discard"
                 android:textColor="@android:color/white"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
-       </RelativeLayout>
+        </RelativeLayout>
 
-    </LinearLayout>
+
+
+    </RelativeLayout>
 
 </LinearLayout>
