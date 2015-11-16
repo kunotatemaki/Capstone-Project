@@ -112,7 +112,9 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
                     .build());
         }else{
             //getMyApplication().getGoogleApiClient().registerConnectionCallbacks(this);
-            getMyApplication().getGoogleApiClient().registerConnectionFailedListener(this);
+            if(!getMyApplication().getGoogleApiClient().isConnectionFailedListenerRegistered(this)) {
+                getMyApplication().getGoogleApiClient().registerConnectionFailedListener(this);
+            }
 
         }
     }
@@ -167,7 +169,8 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
     @Override
     protected void onResume() {
         super.onResume();
-        if(getMyApplication() != null) {
+        CocinaConRollApplication app = getMyApplication();if(getMyApplication() != null){
+        //if(getMyApplication() != null) {
             connectToDrive(true);
         }
     }
@@ -198,9 +201,12 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
     }
 
     protected void uploadRecipeToDrive(RecipeItem recipeItem){
-        if(getMyApplication().getGoogleApiClient() == null || !getMyApplication().getGoogleApiClient().isConnected()){
-            connectToDrive(true);
-        }else {
+        if(getMyApplication().getGoogleApiClient() == null){
+            initializeConnection();
+        }else{
+            if(!getMyApplication().getGoogleApiClient().isConnected()) {
+                connectToDrive(true);
+            }
             DriveService.startActionUploadRecipe(this, recipeItem);
         }
     }
@@ -213,62 +219,6 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
         }
     }
 
-
-    /*private static final String DATABASE_DIR = "databases";
-    private static final String RECIPES_DIR = "recipes";*/
-
-    /*private void createFolderTree(){
-        if(!checkIfCloudBackupAllowed()) return;
-        CreateFolderTask task = new CreateFolderTask();
-        task.execute();
-    }
-
-    private class CreateFolderTask extends AsyncTask<Void, Integer, Boolean> {
-        protected Boolean doInBackground(Void... params) {
-            //busco si existen los directorios y si no, los creo
-            //database dir
-            return (createFolder(DATABASE_DIR) & createFolder(RECIPES_DIR));
-
-        }
-
-        protected void onPostExecute(Boolean result) {
-            Tools mTools = new Tools();
-            mTools.savePreferences(mActivity, Constants.PROPERTY_DRIVE_FOLDER_TREE_CREATED, result);
-        }
-    }
-
-    private boolean createFolder(String name){
-        Query query = new Query.Builder().addFilter(Filters.and(
-                Filters.eq(SearchableField.MIME_TYPE, "application/vnd.google-apps.folder"),
-                Filters.eq(SearchableField.TITLE, name))).build();
-        DriveApi.MetadataBufferResult mdResultSet = Drive.DriveApi.getAppFolder(getGoogleApiClient()).queryChildren(getGoogleApiClient(), query).await();
-        if(!mdResultSet.getStatus().isSuccess()){
-            return false;
-        }
-
-        int nFolders = 0;
-        for(int i = 0; i< mdResultSet.getMetadataBuffer().getCount(); i++){
-            Metadata metadata = mdResultSet.getMetadataBuffer().get(i);
-            if(!metadata.isTrashed()){
-                nFolders++;
-            }
-        }
-
-        if(nFolders == 0){
-            //no existe ningún fichero con ese nombre, lo creo
-            MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                    .setTitle(name)
-                    .build();
-            DriveFolder.DriveFolderResult result = Drive.DriveApi.getAppFolder(getGoogleApiClient()).createFolder(
-                    getGoogleApiClient(), changeSet).await();
-            if(!result.getStatus().isSuccess()){
-                return false;
-            }else{
-                return true;
-            }
-        }
-        return true;
-    }*/
 
 
 }

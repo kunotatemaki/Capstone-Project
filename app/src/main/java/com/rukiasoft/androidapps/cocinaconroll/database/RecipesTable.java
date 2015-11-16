@@ -1,8 +1,14 @@
 package com.rukiasoft.androidapps.cocinaconroll.database;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
+
+import java.math.MathContext;
+import java.util.List;
 
 /**
  * Created by Raúl Feliz Alonso on 24/09/2015 for the Udacity Nanodegree.
@@ -23,12 +29,14 @@ public class RecipesTable {
     public static final String FIELD_PATH_PICTURE_EDITED = "path_picture_edited";
     public static final String FIELD_PATH_RECIPE_EDITED = "path_recipe_edited";
     public static final String FIELD_DATE = "path_date";
+    public static final String FIELD_DATE_OLD = "path_date";
+    public static final String FIELD_VERSION = "version";
 
     public static final String TABLE_NAME = "recipes";
 
     final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_NAME_NORMALIZED, FIELD_TYPE,
             FIELD_ICON, FIELD_FAVORITE, FIELD_STATE, FIELD_VEGETARIAN, FIELD_PATH_RECIPE, FIELD_PATH_PICTURE,
-            FIELD_PATH_RECIPE_EDITED, FIELD_PATH_PICTURE_EDITED, FIELD_DATE};
+            FIELD_PATH_RECIPE_EDITED, FIELD_PATH_PICTURE_EDITED, FIELD_DATE, FIELD_VERSION};
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = " create table " + TABLE_NAME + "" +
@@ -46,18 +54,69 @@ public class RecipesTable {
             FIELD_PATH_RECIPE_EDITED + " TEXT, " +
             FIELD_PATH_PICTURE_EDITED + " TEXT, " +
             FIELD_DATE + " int " +
+            //FIELD_VERSION + " int " +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
     }
 
-    public static void onUpgrade(SQLiteDatabase database, int oldVersion,
+    public static void onUpgrade(Context context, SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
+        // FIXME: 16/11/15 ver qué pasa con lo del field_date. dejar como path_date, cambiar a date, parsea? no?
         LogHelper.d(TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");
-        database.execSQL("ALTER TABLE" + TABLE_NAME + " ADD COLNew INTEGER DEFAULT 0");
-        onCreate(database);
+        //database.execSQL("PRAGMA writable_schema = 1;");
+        String sql = "ALTER TABLE " + TABLE_NAME + " RENAME TO tmp_table;";
+        database.execSQL(sql);
+        sql = "CREATE TABLE " + TABLE_NAME + " (" +
+                FIELD_ID + ", " +
+                FIELD_NAME + ", " +
+                FIELD_NAME_NORMALIZED + ", " +
+                FIELD_TYPE + ", " +
+                FIELD_ICON + ", " +
+                FIELD_FAVORITE + ", " +
+                FIELD_STATE + ", " +
+                FIELD_VEGETARIAN + ", " +
+                FIELD_PATH_RECIPE + ", " +
+                FIELD_PATH_PICTURE + ", " +
+                FIELD_PATH_RECIPE_EDITED + ", " +
+                FIELD_PATH_PICTURE_EDITED + ", " +
+                FIELD_DATE + ", " +
+                FIELD_VERSION + ");";
+        database.execSQL(sql);
+        sql = "INSERT INTO "+ TABLE_NAME + "(" +
+                FIELD_ID + ", " +
+                FIELD_NAME + ", " +
+                FIELD_NAME_NORMALIZED + ", " +
+                FIELD_TYPE + ", " +
+                FIELD_ICON + ", " +
+                FIELD_FAVORITE + ", " +
+                FIELD_STATE + ", " +
+                FIELD_VEGETARIAN + ", " +
+                FIELD_PATH_RECIPE + ", " +
+                FIELD_PATH_PICTURE + ", " +
+                FIELD_PATH_RECIPE_EDITED + ", " +
+                FIELD_PATH_PICTURE_EDITED + ", " +
+                FIELD_DATE + ", " +
+                FIELD_VERSION +
+                ") SELECT " +
+                FIELD_ID + ", " +
+                FIELD_NAME + ", " +
+                FIELD_NAME_NORMALIZED + ", " +
+                FIELD_TYPE + ", " +
+                FIELD_ICON + ", " +
+                FIELD_FAVORITE + ", " +
+                FIELD_STATE + ", " +
+                FIELD_VEGETARIAN + ", " +
+                FIELD_PATH_RECIPE + ", " +
+                FIELD_PATH_PICTURE + ", " +
+                FIELD_PATH_RECIPE_EDITED + ", " +
+                FIELD_PATH_PICTURE_EDITED + ", " +
+                FIELD_DATE_OLD + ", " +
+                "0 FROM tmp_table;";
+        database.execSQL(sql);
+        database.execSQL("DROP TABLE tmp_table;");
     }
 }

@@ -238,7 +238,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     private void setResultData(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
-        if(oldPicture != null && !oldPicture.isEmpty()){
+        if(oldPicture != null && !oldPicture.isEmpty() && !oldPicture.equals(recipe.getPathPicture())){
             resultIntent.putExtra(Constants.KEY_DELETE_OLD_PICTURE, oldPicture);
         }
         setResult(Constants.RESULT_UPDATE_RECIPE, resultIntent);

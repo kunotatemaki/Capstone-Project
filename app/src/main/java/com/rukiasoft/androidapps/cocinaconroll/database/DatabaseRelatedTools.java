@@ -29,7 +29,7 @@ public class DatabaseRelatedTools {
         insertRecipeIntoDatabase(recipeItem, true);
     }
 
-    public void updateFavorite(int id, boolean favorite) {
+    public void updateFavoriteById(int id, boolean favorite) {
         ContentValues values = new ContentValues();
         int iFavorite = favorite? 1 : 0;
         values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
@@ -69,6 +69,7 @@ public class DatabaseRelatedTools {
         values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
         values.put(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
         values.put(RecipesTable.FIELD_TYPE, recipeItem.getType());
+        values.put(RecipesTable.FIELD_VERSION, recipeItem.getVersion());
         int icon;
         switch (recipeItem.getType()) {
             case Constants.TYPE_DESSERTS:
@@ -271,6 +272,7 @@ public class DatabaseRelatedTools {
                 }else{
                     item.setPathPicture(cursor.getString(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_PATH_PICTURE)));
                 }
+                item.setVersion(cursor.getInt(cursor.getColumnIndexOrThrow(RecipesTable.FIELD_VERSION)));
                 Uri uri = Uri.parse(item.getPathPicture());
                 String recipePictureName = uri.getLastPathSegment();
                 item.setPicture(recipePictureName);

@@ -112,7 +112,6 @@ public class RecipeDetailActivity extends SigningDriveActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RECIPE, recipe);
                 String image = null;
-                String file = null;
                 if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
                     image = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
                 }
@@ -123,3 +122,4 @@ public class RecipeDetailActivity extends SigningDriveActivity {
         }
     }
 }
+// TODO: 16/11/15 ver por qué cuando vuelvode aquí a la lista, después de haber actualizado, no carga nueva receta

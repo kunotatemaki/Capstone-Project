@@ -48,6 +48,7 @@ public class RecipeItem implements Parcelable {
     private Long date = -1l;
     @Element
     private String language = "Spanish";
+    private Integer version;
 
 
     public RecipeItem(Parcel in){
@@ -71,6 +72,7 @@ public class RecipeItem implements Parcelable {
         this.pathPicture = in.readString();
         this.language = in.readString();
         this.date = in.readLong();
+        this.version = in.readInt();
 
 
     }
@@ -227,6 +229,14 @@ public class RecipeItem implements Parcelable {
         this.icon = icon;
     }
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -255,6 +265,7 @@ public class RecipeItem implements Parcelable {
             dest.writeLong(getDate());
         else
             dest.writeLong(-1);
+        dest.writeInt(getVersion());
     }
 
     public static final Parcelable.Creator<RecipeItem> CREATOR = new Parcelable.Creator<RecipeItem>() {

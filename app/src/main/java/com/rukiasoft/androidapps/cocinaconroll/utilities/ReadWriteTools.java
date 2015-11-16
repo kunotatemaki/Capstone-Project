@@ -702,4 +702,18 @@ public class ReadWriteTools {
             deleteRecipe(file);
         }*/
     }
+
+    public boolean deleteFile(Uri path){
+        return deleteFile(path.getPath());
+    }
+
+    public boolean deleteFile(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            return file.delete();
+        }
+        else{
+            return false;
+        }
+    }
 }

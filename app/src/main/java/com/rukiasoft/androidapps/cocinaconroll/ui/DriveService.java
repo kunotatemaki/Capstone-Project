@@ -1,8 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.app.IntentService;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -12,6 +12,7 @@ import com.google.android.gms.drive.DriveApi;
 import com.google.android.gms.drive.DriveContents;
 import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.DriveResource;
 import com.google.android.gms.drive.Metadata;
 import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.android.gms.drive.metadata.CustomPropertyKey;
@@ -22,7 +23,8 @@ import com.google.api.client.util.IOUtils;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
-import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
+import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +33,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -43,8 +46,9 @@ public class DriveService extends IntentService {
 
     private static final String MIME_TYPE_RECIPE = "application/xml";
     private static final String MIME_TYPE_PICTURE = "image/jpeg";
+    private static final String MIME_TYPE_ZIP = "application/zip";
 
-    private static final CustomPropertyKey KEY_MODIFIED = new CustomPropertyKey("modified", CustomPropertyKey.PRIVATE);
+    private static final CustomPropertyKey KEY_VERSION = new CustomPropertyKey("version", CustomPropertyKey.PRIVATE);
 
     private boolean mHasMore;
     private String mNextPageToken;
@@ -102,14 +106,29 @@ public class DriveService extends IntentService {
      */
     private void handleActionUploadRecipe(RecipeItem recipeItem) {
         Uri uriRecipe = Uri.parse(recipeItem.getPathRecipe());
-        boolean updated = false;
-        updated = UploadFileToDrive(uriRecipe, MIME_TYPE_RECIPE);
+        boolean updated;
+        //updated = UploadFileToDrive(uriRecipe, MIME_TYPE_RECIPE);
         Uri uriPicture;
+        List<Uri> filesToZip = new ArrayList<>();
+        filesToZip.add(uriRecipe);
         if(!recipeItem.getPathPicture().equals(Constants.DEFAULT_PICTURE_NAME)
                 && (recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0){
             uriPicture = Uri.parse(recipeItem.getPathPicture());
-            UploadFileToDrive(uriPicture, MIME_TYPE_PICTURE);
+            //UploadFileToDrive(uriPicture, MIME_TYPE_PICTURE);
+            filesToZip.add(uriPicture);
         }
+        ReadWriteTools rwTools = new ReadWriteTools(this);
+        String name = uriRecipe.getLastPathSegment().replace("xml", "zip");
+        String zipPath = rwTools.getZipsStorageDir() + name;
+        try {
+            UnzipUtility.zip(filesToZip, zipPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Uri uriZipPath = Uri.parse(zipPath);
+        updated = UploadFileToDrive(uriZipPath, MIME_TYPE_ZIP);
+        rwTools.deleteFile(uriZipPath);
         if(updated) {
             Intent localIntent =
                     new Intent(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)
@@ -173,12 +192,10 @@ public class DriveService extends IntentService {
             throw ( new Exception("RukiaSoft: error creating file in Drive"));
         }
         String name = path.getLastPathSegment();
-        Tools mTools = new Tools();
-        String date = mTools.getCurrentDate(getApplicationContext());
         MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                 .setTitle(name)
                 .setMimeType(mimeType)
-                .setCustomProperty(KEY_MODIFIED, date)
+                .setCustomProperty(KEY_VERSION, "0")
                 .setLastViewedByMeDate(new Date())
                 .build();
 
@@ -189,7 +206,6 @@ public class DriveService extends IntentService {
         if (!result2.getStatus().isSuccess()) {
             throw ( new Exception("RukiaSoft: error creating file in Drive"));
         }
-        return;
     }
 
     private void updateFileInDriveAppFolder(DriveFile file, Uri path) throws Exception{
@@ -206,13 +222,23 @@ public class DriveService extends IntentService {
             fileInputStream = new FileInputStream(new File(path.getPath()));
             IOUtils.copy(fileInputStream, outputStream);
 
-            Tools mTools = new Tools();
-            String date = mTools.getCurrentDate(getApplicationContext());
+            //Tools mTools = new Tools();
+            //String date = mTools.getCurrentDate(getApplicationContext());
+            DriveResource.MetadataResult metadataResult = file.getMetadata(getMyApplication().getGoogleApiClient()).await();
+            Map<CustomPropertyKey, String> customProperties = metadataResult.getMetadata().getCustomProperties();
+            Integer version = 0;
+            if(customProperties.containsKey(KEY_VERSION)){
+                try {
+                    version = Integer.valueOf(customProperties.get(KEY_VERSION));
+                }catch (NumberFormatException e){
+                    e.printStackTrace();
+                }
+            }
+            version++;
             MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                    .setCustomProperty(KEY_MODIFIED, date)
+                    .setCustomProperty(KEY_VERSION, version.toString())
                     .setLastViewedByMeDate(new Date())
                     .build();
-
             Status status =
                     driveContents.commit(getMyApplication().getGoogleApiClient(), changeSet).await();
             if (!status.getStatus().isSuccess()){

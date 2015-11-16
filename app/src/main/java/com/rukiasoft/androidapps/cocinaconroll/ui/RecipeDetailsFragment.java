@@ -328,7 +328,7 @@ public class RecipeDetailsFragment extends Fragment implements
         }
         //lo almaceno en la base de datos
         recipe.setFavourite(!recipe.getFavourite());
-        dbTools.updateFavorite(recipe.get_id(), recipe.getFavourite());
+        dbTools.updateFavoriteById(recipe.get_id(), recipe.getFavourite());
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_RECIPE, recipe);

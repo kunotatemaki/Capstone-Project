@@ -30,7 +30,6 @@ import com.squareup.okhttp.ResponseBody;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 
@@ -50,14 +49,13 @@ public class DownloadAndUnzipIntentService extends IntentService {
     }
 
     private OkHttpClient client;
-    private DatabaseRelatedTools dbTools;
     private ReadWriteTools rwTools;
     private Tools mTools;
 
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        dbTools = new DatabaseRelatedTools(getApplicationContext());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
         rwTools = new ReadWriteTools(getApplicationContext());
         mTools = new Tools();
         client = new OkHttpClient();
@@ -94,19 +92,14 @@ public class DownloadAndUnzipIntentService extends IntentService {
             mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, true);
             //ya se han descomprimido, aumento contador
             newRecipes++;
-            File file = new File(rwTools.getZipsStorageDir() + list.get(i).getName());
-            if (file.exists()) {
-                check = file.delete();
-                if (check) {
-                    try {
-                        dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_ERASED);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            if (rwTools.deleteFile(rwTools.getZipsStorageDir() + list.get(i).getName())) {
+                try {
+                    dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_ERASED);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
-
         rwTools.loadNewFilesAndInsertInDatabase();
         mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, false);
         String type = Constants.FILTER_ALL_RECIPES;
