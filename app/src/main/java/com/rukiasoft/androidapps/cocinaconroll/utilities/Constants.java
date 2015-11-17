@@ -67,8 +67,7 @@ public class Constants {
     public static final Integer PATH_TYPE_EDITED = 2;
     public static final Integer PATH_TYPE_OLD_EDITED = 3;
 
-    //public static final Integer TIMEFRAME_MILISECONDS_DAY = 1000 * 3600 * 24;
-    public static final Long TIMEFRAME_MILISECONDS_DAY = Long.valueOf(1000 * 20);
+    public static final Long TIMEFRAME_MILISECONDS_DAY = (long) (1000 * 3600 * 24);
     public static final Integer TIMEFRAME_NEW_RECIPE_DAYS = 7;
 
     public static final String FILTER_ALL_RECIPES = PACKAGE_NAME + ".allrecipes";

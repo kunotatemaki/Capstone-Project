@@ -49,7 +49,6 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        // TODO: 11/11/15 mirar lo de estar sin conexión para que no mande todo el rato la pantalla
         // Called whenever the API client fails to connect.
         Log.i(TAG, "GoogleApiClient connection failed: " + connectionResult.toString());
         if (!connectionResult.hasResolution()) {
@@ -87,13 +86,6 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
                     .build();
 
             getMyApplication().setGoogleApiClient(new GoogleApiClient.Builder(this)
-                    /*.addApi(Drive.API)
-                    .addScope(Drive.SCOPE_FILE)
-                    .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(Plus.API)
-                    .addScope(new Scope(Scopes.PROFILE))*/
                     .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .addApi(Drive.API)
@@ -138,7 +130,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
     @Override
     protected void onResume() {
         super.onResume();
-        CocinaConRollApplication app = getMyApplication();if(getMyApplication() != null){
+        if(getMyApplication() != null){
         //if(getMyApplication() != null) {
             connectToDrive(true);
         }
@@ -171,7 +163,8 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
 
     protected void uploadRecipeToDrive(RecipeItem recipeItem){
         if(getMyApplication().getGoogleApiClient() == null){
-            initializeConnection();
+            //initializeConnection();
+            connectToDrive(true);
         }else{
             if(!getMyApplication().getGoogleApiClient().isConnected()) {
                 connectToDrive(true);
@@ -181,14 +174,14 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
     }
 
     protected void getRecipesFromDrive(){
-        if(getMyApplication().getGoogleApiClient() == null || !getMyApplication().getGoogleApiClient().isConnected()){
+        if(getMyApplication().getGoogleApiClient() == null){
             connectToDrive(true);
         }else {
+            if(!getMyApplication().getGoogleApiClient().isConnected()) {
+                connectToDrive(true);
+            }
             DriveService.startActionGetRecipesFromDrive(this);
         }
     }
-
-
-
 }
 

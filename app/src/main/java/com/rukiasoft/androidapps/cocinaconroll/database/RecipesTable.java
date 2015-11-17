@@ -1,14 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll.database;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
-
-import java.math.MathContext;
-import java.util.List;
 
 /**
  * Created by Raúl Feliz Alonso on 24/09/2015 for the Udacity Nanodegree.
@@ -61,7 +55,7 @@ public class RecipesTable {
         database.execSQL(DATABASE_CREATE);
     }
 
-    public static void onUpgrade(Context context, SQLiteDatabase database, int oldVersion,
+    public static void onUpgrade(SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
         // FIXME: 16/11/15 ver qué pasa con lo del field_date. dejar como path_date, cambiar a date, parsea? no?
         LogHelper.d(TAG, "Upgrading database from version "
@@ -101,6 +95,6 @@ public class RecipesTable {
                 FIELD_DATE_OLD +
                 " FROM tmp_table;";
         database.execSQL(sql);
-        //database.execSQL("DROP TABLE tmp_table;");
+        database.execSQL("DROP TABLE tmp_table;");
     }
 }

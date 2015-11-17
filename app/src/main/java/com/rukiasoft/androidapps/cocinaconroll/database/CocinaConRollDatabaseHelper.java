@@ -40,7 +40,7 @@ public class CocinaConRollDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion,
                           int newVersion) {
-        RecipesTable.onUpgrade(myContext, database, oldVersion, newVersion);
+        RecipesTable.onUpgrade(database, oldVersion, newVersion);
         ZipsTable.onUpgrade(database, oldVersion, newVersion);
     }
 

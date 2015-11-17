@@ -509,8 +509,14 @@ public class ReadWriteTools {
     }
 
     public String getZipsStorageDir(){
-        return mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
+        //create the dir if dont exist
+        String path = mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
                 + Constants.ZIPS_DIR + String.valueOf(File.separatorChar);
+        File f = new File(path);
+        if(!f.exists()){
+            f.mkdirs();
+        }
+        return path;
     }
 
     public Uri zipRecipe(List<Uri> filesToZip, String zipName){
@@ -759,6 +765,5 @@ public class ReadWriteTools {
         String path = getZipsStorageDir() + name;
         return deleteFile(Uri.parse(path));
     }
-
 
 }

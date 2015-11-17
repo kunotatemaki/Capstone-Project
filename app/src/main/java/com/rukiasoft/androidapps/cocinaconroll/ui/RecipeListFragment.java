@@ -337,12 +337,14 @@ public class RecipeListFragment extends Fragment implements
         mRecyclerView.scrollToPosition(savedScrollPosition);
         //Set the fast Scroller
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            fastScroller.setRecyclerView(mRecyclerView);
+            if(fastScroller != null) {
+                fastScroller.setRecyclerView(mRecyclerView);
+            }
         }
 
         //set the number of recipes
-        String nrecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
-        nRecipesInRecipeList.setText(nrecipes);
+        String nRecipes = String.format(getResources().getString(R.string.recipes), mRecipes.size());
+        nRecipesInRecipeList.setText(nRecipes);
     }
 
     private SlideInBottomAnimationAdapter wrapAdapter(RecipeListRecyclerViewAdapter adapter){
