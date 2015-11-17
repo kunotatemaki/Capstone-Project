@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
@@ -425,27 +426,30 @@ public class ReadWriteTools {
         return Constants.FILE_PATH.concat(filename);
     }
 
-    public void loadImageFromPath(ImageView imageView, String path, int defaultImage) {
+    public void loadImageFromPath(ImageView imageView, String path, int defaultImage, int version) {
        Glide.with(mContext)
                .load(Uri.parse(path))
                .centerCrop()
+               .signature(new MediaStoreSignature(Constants.MIME_TYPE_PICTURE, version, 0))
                .error(defaultImage)
                .into(imageView);
     }
 
-    public void loadImageFromPathInCircle(ImageView imageView, String path, int defaultImage) {
+    public void loadImageFromPathInCircle(ImageView imageView, String path, int defaultImage, int version) {
        Glide.with(mContext)
                .load(Uri.parse(path))
                .centerCrop()
+               .signature(new MediaStoreSignature(Constants.MIME_TYPE_PICTURE, version, 0))
                .transform(new GlideCircleTransform(mContext))
                .error(defaultImage)
                .into(imageView);
     }
 
-    public void loadImageFromPath(BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage) {
+    public void loadImageFromPath(BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage, int version) {
         Glide.with(mContext)
                 .load(Uri.parse(path))
                 .asBitmap()
+                .signature(new MediaStoreSignature(Constants.MIME_TYPE_PICTURE, version, 0))
                 .centerCrop()
                 .error(defaultImage)
                 .into(bitmapImageViewTarget);
@@ -509,11 +513,32 @@ public class ReadWriteTools {
                 + Constants.ZIPS_DIR + String.valueOf(File.separatorChar);
     }
 
-    public Boolean unzipRecipes(String name){
+    public Uri zipRecipe(List<Uri> filesToZip, String zipName){
+        UnzipUtility unzipper = new UnzipUtility();
+        String zipPath = getZipsStorageDir() + zipName;
+        try {
+            unzipper.zip(filesToZip, zipPath);
+        } catch (Exception ex) {
+            // some errors occurred
+            ex.printStackTrace();
+            return null;
+        }
+        return Uri.parse(zipPath);
+    }
+
+    public Boolean unzipRecipesInOriginal(String name){
+        return unzipRecipes(name, getOriginalStorageDir());
+    }
+
+    public Boolean unzipRecipesInEdited(String name){
+        return unzipRecipes(name, getEditedStorageDir());
+    }
+
+    private Boolean unzipRecipes(String name, String path){
         UnzipUtility unzipper = new UnzipUtility();
         try {
             unzipper.unzip(getZipsStorageDir() + name,
-                    getOriginalStorageDir());
+                    path);
         } catch (Exception ex) {
             // some errors occurred
             ex.printStackTrace();
@@ -685,6 +710,15 @@ public class ReadWriteTools {
         }
     }
 
+    public void loadUpdatedFilesAndInsertInDatabase(String name, int version) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+        RecipeItem recipeItem= readRecipe(name,
+                Constants.PATH_TYPE_EDITED);
+        if(recipeItem != null) {
+            recipeItem.setVersion(version);
+            dbTools.insertRecipeIntoDatabase(recipeItem, true);
+        }
+    }
 
     private class MyFileFilter implements FilenameFilter {
 
@@ -716,4 +750,15 @@ public class ReadWriteTools {
             return false;
         }
     }
+
+    public boolean deleteZipByPath(Uri path){
+        return deleteFile(path);
+    }
+
+    public boolean deleteZipByName(String name){
+        String path = getZipsStorageDir() + name;
+        return deleteFile(Uri.parse(path));
+    }
+
+
 }

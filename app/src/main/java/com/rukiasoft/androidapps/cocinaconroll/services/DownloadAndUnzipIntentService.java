@@ -77,7 +77,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 e.printStackTrace();
                 continue;
             }
-            check = rwTools.unzipRecipes(list.get(i).getName());
+            check = rwTools.unzipRecipesInOriginal(list.get(i).getName());
             if (!check) {
                 Log.e(TAG, "Data downladed is corrupt");
                 return;

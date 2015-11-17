@@ -1,4 +1,4 @@
-package com.rukiasoft.androidapps.cocinaconroll.ui;
+package com.rukiasoft.androidapps.cocinaconroll.services;
 
 import android.app.IntentService;
 import android.content.Context;
@@ -22,13 +22,16 @@ import com.google.android.gms.drive.query.SearchableField;
 import com.google.api.client.util.IOUtils;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
-import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,12 +44,8 @@ import java.util.Map;
  */
 public class DriveService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-
+    //private static final String TAG = LogHelper.makeLogTag(DriveService.class);
     private static final String EXTRA_PARAM_RECIPE = "com.rukiasoft.androidapps.cocinaconroll.ui.extra.RECIPE";
-
-    private static final String MIME_TYPE_RECIPE = "application/xml";
-    private static final String MIME_TYPE_PICTURE = "image/jpeg";
-    private static final String MIME_TYPE_ZIP = "application/zip";
 
     private static final CustomPropertyKey KEY_VERSION = new CustomPropertyKey("version", CustomPropertyKey.PRIVATE);
 
@@ -107,28 +106,22 @@ public class DriveService extends IntentService {
     private void handleActionUploadRecipe(RecipeItem recipeItem) {
         Uri uriRecipe = Uri.parse(recipeItem.getPathRecipe());
         boolean updated;
-        //updated = UploadFileToDrive(uriRecipe, MIME_TYPE_RECIPE);
         Uri uriPicture;
         List<Uri> filesToZip = new ArrayList<>();
         filesToZip.add(uriRecipe);
         if(!recipeItem.getPathPicture().equals(Constants.DEFAULT_PICTURE_NAME)
                 && (recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0){
             uriPicture = Uri.parse(recipeItem.getPathPicture());
-            //UploadFileToDrive(uriPicture, MIME_TYPE_PICTURE);
             filesToZip.add(uriPicture);
         }
         ReadWriteTools rwTools = new ReadWriteTools(this);
         String name = uriRecipe.getLastPathSegment().replace("xml", "zip");
-        String zipPath = rwTools.getZipsStorageDir() + name;
-        try {
-            UnzipUtility.zip(filesToZip, zipPath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Uri uriZipPath = rwTools.zipRecipe(filesToZip, name);
+        if(uriZipPath == null){
             return;
         }
-        Uri uriZipPath = Uri.parse(zipPath);
-        updated = UploadFileToDrive(uriZipPath, MIME_TYPE_ZIP);
-        rwTools.deleteFile(uriZipPath);
+        updated = UploadFileToDrive(uriZipPath, Constants.MIME_TYPE_ZIP, recipeItem.getVersion());
+        rwTools.deleteZipByPath(uriZipPath);
         if(updated) {
             Intent localIntent =
                     new Intent(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)
@@ -139,13 +132,13 @@ public class DriveService extends IntentService {
         }
     }
 
-    private boolean UploadFileToDrive(Uri path, String mimeType){
+    private boolean UploadFileToDrive(Uri path, String mimeType, Integer version){
         try {
-            DriveFile file = fileExistInDriveAppFolder(path.getLastPathSegment(), mimeType);
-            if (file != null) {
-                updateFileInDriveAppFolder(file, path);
+            Metadata metadata = fileExistInDriveAppFolder(path.getLastPathSegment(), mimeType);
+            if (metadata != null) {
+                updateFileInDriveAppFolder(metadata.getDriveId().asDriveFile(), path, version);
             } else {
-                createFileInDriveAppFolder(path, mimeType);
+                createFileInDriveAppFolder(path, mimeType, version);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -154,7 +147,7 @@ public class DriveService extends IntentService {
         return true;
     }
 
-    private DriveFile fileExistInDriveAppFolder(String name, String mimeType) throws Exception{
+    private Metadata fileExistInDriveAppFolder(String name, String mimeType) throws Exception{
         Query query = new Query.Builder().addFilter(Filters.and(
                 Filters.eq(SearchableField.MIME_TYPE, mimeType),
                 Filters.eq(SearchableField.TITLE, name))).build();
@@ -168,14 +161,14 @@ public class DriveService extends IntentService {
         for(int i = 0; i< mdResultSet.getMetadataBuffer().getCount(); i++){
             Metadata metadata = mdResultSet.getMetadataBuffer().get(i);
             if(!metadata.isTrashed()){
-                return metadata.getDriveId().asDriveFile();
+                return metadata;
             }
         }
 
         return null;
     }
 
-    private void createFileInDriveAppFolder(Uri path, String mimeType) throws Exception {
+    private void createFileInDriveAppFolder(Uri path, String mimeType, Integer version) throws Exception {
         DriveApi.DriveContentsResult resultContent = Drive.DriveApi.newDriveContents(getMyApplication().getGoogleApiClient()).await();
         if (!resultContent.getStatus().isSuccess()) {
             throw ( new Exception("RukiaSoft: error creating file in Drive"));
@@ -195,7 +188,7 @@ public class DriveService extends IntentService {
         MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                 .setTitle(name)
                 .setMimeType(mimeType)
-                .setCustomProperty(KEY_VERSION, "0")
+                .setCustomProperty(KEY_VERSION, version.toString())
                 .setLastViewedByMeDate(new Date())
                 .build();
 
@@ -208,7 +201,7 @@ public class DriveService extends IntentService {
         }
     }
 
-    private void updateFileInDriveAppFolder(DriveFile file, Uri path) throws Exception{
+    private void updateFileInDriveAppFolder(DriveFile file, Uri path, Integer version) throws Exception{
         DriveApi.DriveContentsResult contentsResult = file.open(getMyApplication().getGoogleApiClient(),
                 DriveFile.MODE_WRITE_ONLY, null).await();
         if (!contentsResult.getStatus().isSuccess()) {
@@ -225,16 +218,10 @@ public class DriveService extends IntentService {
             //Tools mTools = new Tools();
             //String date = mTools.getCurrentDate(getApplicationContext());
             DriveResource.MetadataResult metadataResult = file.getMetadata(getMyApplication().getGoogleApiClient()).await();
-            Map<CustomPropertyKey, String> customProperties = metadataResult.getMetadata().getCustomProperties();
-            Integer version = 0;
-            if(customProperties.containsKey(KEY_VERSION)){
-                try {
-                    version = Integer.valueOf(customProperties.get(KEY_VERSION));
-                }catch (NumberFormatException e){
-                    e.printStackTrace();
-                }
+            Integer metadataVersion = getVersionFromMetadata(metadataResult.getMetadata());
+            if(metadataVersion >= version){
+                return;
             }
-            version++;
             MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                     .setCustomProperty(KEY_VERSION, version.toString())
                     .setLastViewedByMeDate(new Date())
@@ -261,6 +248,9 @@ public class DriveService extends IntentService {
         while (mHasMore) {
             files.addAll(retrieveNextPage());
         }
+        if(files.size()>0){
+            checkFilesToDownload(files);
+        }
     }
 
 
@@ -274,7 +264,7 @@ public class DriveService extends IntentService {
         // retrieve the results for the next page.
         Query query = new Query.Builder()
                 .setPageToken(mNextPageToken)
-                .addFilter(Filters.eq(SearchableField.MIME_TYPE, MIME_TYPE_RECIPE))
+                .addFilter(Filters.eq(SearchableField.MIME_TYPE, Constants.MIME_TYPE_ZIP))
                 .build();
         DriveApi.MetadataBufferResult result = Drive.DriveApi.query(getMyApplication().getGoogleApiClient(), query).await();
         if (!result.getStatus().isSuccess()) {
@@ -283,10 +273,69 @@ public class DriveService extends IntentService {
         }
 
         for(int i = 0; i< result.getMetadataBuffer().getCount(); i++){
-            list.add(result.getMetadataBuffer().get(i));
+            Metadata metadata = result.getMetadataBuffer().get(i);
+            if(!metadata.isTrashed()) {
+                list.add(result.getMetadataBuffer().get(i));
+            }
         }
         mNextPageToken = result.getMetadataBuffer().getNextPageToken();
         mHasMore = mNextPageToken != null;
         return list;
+    }
+
+    private void checkFilesToDownload(List<Metadata> files){
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
+        ReadWriteTools rwTools = new ReadWriteTools(this);
+        for(int i=0; i<files.size(); i++){
+            String name = files.get(i).getTitle().replace("zip", "xml");
+            RecipeItem recipeItem = dbTools.getRecipeByFileName(name);
+            Integer driveVersion = getVersionFromMetadata(files.get(i));
+            if(recipeItem == null || recipeItem.getVersion() < driveVersion){
+                if(downloadFile(files.get(i))){
+                    rwTools.unzipRecipesInEdited(files.get(i).getTitle());
+                    rwTools.loadUpdatedFilesAndInsertInDatabase(name, driveVersion);
+                    rwTools.deleteZipByName(files.get(i).getTitle());
+                }
+            }
+        }
+    }
+
+    private int getVersionFromMetadata(Metadata metadata){
+        Map<CustomPropertyKey, String> customProperties = metadata.getCustomProperties();
+        Integer version = 0;
+        if(customProperties.containsKey(KEY_VERSION)){
+            try {
+                version = Integer.valueOf(customProperties.get(KEY_VERSION));
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+        }
+        return version;
+    }
+
+    private boolean downloadFile(Metadata metadata){
+        DriveFile file = metadata.getDriveId().asDriveFile();
+        DriveApi.DriveContentsResult driveContentsResult =
+                file.open(getMyApplication().getGoogleApiClient(), DriveFile.MODE_READ_ONLY, null).await();
+        if (!driveContentsResult.getStatus().isSuccess()) {
+            return false;
+        }
+        DriveContents driveContents = driveContentsResult.getDriveContents();
+
+
+        FileOutputStream fileOutputStream;
+        InputStream inputStream = driveContents.getInputStream();
+        try {
+            ReadWriteTools rwTools = new ReadWriteTools(this);
+            String path = rwTools.getZipsStorageDir() + metadata.getOriginalFilename();
+            fileOutputStream = new FileOutputStream(new File(path));
+            IOUtils.copy(inputStream, fileOutputStream);
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+        return true;
     }
 }

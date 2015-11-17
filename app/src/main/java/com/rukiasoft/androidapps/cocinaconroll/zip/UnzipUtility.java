@@ -105,7 +105,7 @@ public class UnzipUtility {
 		bos.close();
 	}
 
-	public static void zip(List<Uri> files, String zipFile) throws IOException {
+	public void zip(List<Uri> files, String zipFile) throws IOException {
 		BufferedInputStream origin;
 		File f = new File(zipFile.substring(0, zipFile.lastIndexOf("/") + 1));
 		if(!f.isDirectory()) {

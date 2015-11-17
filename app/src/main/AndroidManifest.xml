@@ -187,7 +187,7 @@
             android:resource="@xml/track_app"/>
 
         <service
-            android:name=".ui.DriveService"
+            android:name=".services.DriveService"
             android:exported="false">
         </service>
     </application>

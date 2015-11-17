@@ -53,8 +53,8 @@ public class RecipesTable {
             FIELD_PATH_PICTURE + " TEXT, " +
             FIELD_PATH_RECIPE_EDITED + " TEXT, " +
             FIELD_PATH_PICTURE_EDITED + " TEXT, " +
-            FIELD_DATE + " int " +
-            //FIELD_VERSION + " int " +
+            FIELD_DATE + " int DEFAULT now(), " +
+            FIELD_VERSION + " int DEFAULT 0" +
             ") " ;
 
     public static void onCreate(SQLiteDatabase database) {
@@ -70,22 +70,7 @@ public class RecipesTable {
         //database.execSQL("PRAGMA writable_schema = 1;");
         String sql = "ALTER TABLE " + TABLE_NAME + " RENAME TO tmp_table;";
         database.execSQL(sql);
-        sql = "CREATE TABLE " + TABLE_NAME + " (" +
-                FIELD_ID + ", " +
-                FIELD_NAME + ", " +
-                FIELD_NAME_NORMALIZED + ", " +
-                FIELD_TYPE + ", " +
-                FIELD_ICON + ", " +
-                FIELD_FAVORITE + ", " +
-                FIELD_STATE + ", " +
-                FIELD_VEGETARIAN + ", " +
-                FIELD_PATH_RECIPE + ", " +
-                FIELD_PATH_PICTURE + ", " +
-                FIELD_PATH_RECIPE_EDITED + ", " +
-                FIELD_PATH_PICTURE_EDITED + ", " +
-                FIELD_DATE + ", " +
-                FIELD_VERSION + ");";
-        database.execSQL(sql);
+        database.execSQL(DATABASE_CREATE);
         sql = "INSERT INTO "+ TABLE_NAME + "(" +
                 FIELD_ID + ", " +
                 FIELD_NAME + ", " +
@@ -99,8 +84,7 @@ public class RecipesTable {
                 FIELD_PATH_PICTURE + ", " +
                 FIELD_PATH_RECIPE_EDITED + ", " +
                 FIELD_PATH_PICTURE_EDITED + ", " +
-                FIELD_DATE + ", " +
-                FIELD_VERSION +
+                FIELD_DATE +
                 ") SELECT " +
                 FIELD_ID + ", " +
                 FIELD_NAME + ", " +
@@ -114,9 +98,9 @@ public class RecipesTable {
                 FIELD_PATH_PICTURE + ", " +
                 FIELD_PATH_RECIPE_EDITED + ", " +
                 FIELD_PATH_PICTURE_EDITED + ", " +
-                FIELD_DATE_OLD + ", " +
-                "0 FROM tmp_table;";
+                FIELD_DATE_OLD +
+                " FROM tmp_table;";
         database.execSQL(sql);
-        database.execSQL("DROP TABLE tmp_table;");
+        //database.execSQL("DROP TABLE tmp_table;");
     }
 }

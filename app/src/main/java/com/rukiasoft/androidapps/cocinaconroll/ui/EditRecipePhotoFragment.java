@@ -121,7 +121,8 @@ public class EditRecipePhotoFragment extends Fragment {
             editRecipeName.setText(recipeItem.getName());
         }
 
-        rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(), R.drawable.default_dish);
+        rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                R.drawable.default_dish, recipeItem.getVersion());
 
         
         if(recipeItem.getMinutes()>0)
@@ -269,7 +270,8 @@ public class EditRecipePhotoFragment extends Fragment {
             //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
             recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-            rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(), R.drawable.default_dish);
+            rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                    R.drawable.default_dish, recipeItem.getVersion());
 
             return;
         }
@@ -336,7 +338,8 @@ public class EditRecipePhotoFragment extends Fragment {
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(), R.drawable.default_dish);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                            R.drawable.default_dish, recipeItem.getVersion());
                 }
                 File f = new File(mImageCaptureUri.getPath());
                 if (f.exists()) {
@@ -352,7 +355,8 @@ public class EditRecipePhotoFragment extends Fragment {
                     recipeItem.setPathPicture(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(), R.drawable.default_dish);
+                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                            R.drawable.default_dish, recipeItem.getVersion());
                 }
                 break;
         }

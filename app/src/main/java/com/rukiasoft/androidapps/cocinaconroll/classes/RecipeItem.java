@@ -48,7 +48,7 @@ public class RecipeItem implements Parcelable {
     private Long date = -1l;
     @Element
     private String language = "Spanish";
-    private Integer version;
+    private Integer version = 0;
 
 
     public RecipeItem(Parcel in){

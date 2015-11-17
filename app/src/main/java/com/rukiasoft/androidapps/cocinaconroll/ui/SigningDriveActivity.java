@@ -1,6 +1,5 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
-import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +8,11 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.drive.Drive;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.services.DriveService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -48,16 +46,6 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
     private CocinaConRollApplication getMyApplication(){
         return (CocinaConRollApplication)getApplication();
     }
-
-    /*@Override
-    public void onConnected(Bundle bundle) {
-        Log.i(TAG, "API client connected.");
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Log.i(TAG, "GoogleApiClient connection suspended");
-    }*/
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -139,25 +127,6 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
         outState.putBoolean(KEY_SHOULD_RESOLVE, mShouldResolve);
     }
     // [END on_save_instance_state]
-
-    // [START on_activity_result]
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
-
-        if (requestCode == RC_SIGN_IN) {
-            // If the error resolution was not successful we should not resolve further errors.
-            if (resultCode != RESULT_OK) {
-                mShouldResolve = false;
-            }
-
-            mIsResolving = false;
-            getMyApplication().getGoogleApiClient().connect();
-        }
-    }*/
-    // [END on_activity_result]
-
 
 
     /**

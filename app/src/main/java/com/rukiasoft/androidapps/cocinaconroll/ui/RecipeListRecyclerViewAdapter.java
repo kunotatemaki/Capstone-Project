@@ -142,7 +142,8 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                     typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
                     break;
             }
-            rwTools.loadImageFromPath(recipeThumbnail, item.getPathPicture(), R.drawable.default_dish_thumb);
+            rwTools.loadImageFromPath(recipeThumbnail, item.getPathPicture(),
+                    R.drawable.default_dish_thumb, item.getVersion());
 
         }
     }

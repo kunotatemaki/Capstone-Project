@@ -52,6 +52,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
     private static final int REQUEST_CODE_SETTINGS = 20;
     private static final int REQUEST_CODE_ANIMATION = 21;
+    private static final String KEY_DRIVE_RECIPES_CHECKED = Constants.PACKAGE_NAME + ".drive_recipes_checked";
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -69,7 +70,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     private boolean started = false;
     private boolean animate;
     private String lastFilter;
-    //private boolean shownToAllowDrive = false;
+    private boolean driveRecipesChecked = false;
 
 
     private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -113,6 +114,7 @@ public class RecipeListActivity extends SigningDriveActivity {
         if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
             started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
             lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
+            driveRecipesChecked = savedInstanceState.getBoolean(KEY_DRIVE_RECIPES_CHECKED);
            // shownToAllowDrive = savedInstanceState.getBoolean(KEY_ALLOWED_DRIVE);
         }
 
@@ -180,6 +182,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     @Override
     public void onSaveInstanceState(Bundle bundle){
         bundle.putBoolean(Constants.KEY_STARTED, true);
+        bundle.putBoolean(KEY_DRIVE_RECIPES_CHECKED, driveRecipesChecked);
         bundle.putString(Constants.KEY_TYPE, lastFilter);
        // bundle. putBoolean(KEY_ALLOWED_DRIVE, shownToAllowDrive);
         super.onSaveInstanceState(bundle);
@@ -221,9 +224,17 @@ public class RecipeListActivity extends SigningDriveActivity {
                         dbTools.removeRecipefromDatabase(recipe.get_id());
                         restartLoader();
                     }
+                }else if(resultCode == Constants.RESULT_UPDATE_RECIPE){
+                    if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
+                        RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
+                        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                        if (mRecipeListFragment != null) {
+                            mRecipeListFragment.updateRecipe(recipe);
+                        }
+                    }
                 }
                 break;
-            case Constants.RESULT_UPDATE_RECIPE:
+            /*case Constants.RESULT_UPDATE_RECIPE:
                 if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                     RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                     mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
@@ -231,7 +242,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                         mRecipeListFragment.updateRecipe(recipe);
                     }
                 }
-                break;
+                break;*/
             case Constants.REQUEST_CREATE_RECIPE:
                 if (resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                     RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
@@ -420,7 +431,9 @@ public class RecipeListActivity extends SigningDriveActivity {
      * Setup the drawer layout
      */
     private void setupDrawerLayout(){
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        }
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -522,6 +535,8 @@ public class RecipeListActivity extends SigningDriveActivity {
                 }
             }
         });
+        //// TODO: 17/11/15 mirar solo una vez por arranque
+        getRecipesFromDrive();
     }
 
     public void onPause(){

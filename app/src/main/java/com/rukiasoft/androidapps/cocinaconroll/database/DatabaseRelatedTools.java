@@ -49,7 +49,7 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void updatePaths(RecipeItem recipe) {
+    public void updatePathsAndVersion(RecipeItem recipe) {
         ContentValues values = new ContentValues();
 
         values.put(RecipesTable.FIELD_PATH_RECIPE_EDITED, recipe.getPathRecipe());
@@ -57,6 +57,7 @@ public class DatabaseRelatedTools {
             values.put(RecipesTable.FIELD_PATH_PICTURE_EDITED, recipe.getPathPicture());
         }
         values.put(RecipesTable.FIELD_STATE, recipe.getState());
+        values.put(RecipesTable.FIELD_VERSION, recipe.getVersion());
         String clause = RecipesTable.FIELD_ID + " = ? ";
 
         String[] args = {String.valueOf(recipe.get_id())};
@@ -199,6 +200,28 @@ public class DatabaseRelatedTools {
         input = input.trim();
         return input.toLowerCase();
 
+    }
+
+    public RecipeItem getRecipeByFileName(String name){
+        String[] sSelectionArgs = new String[1];
+        sSelectionArgs[0] = "%" + name;
+
+        final String[] projection = RecipesTable.ALL_COLUMNS;
+        String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
+        String field = RecipesTable.FIELD_PATH_RECIPE;
+        String selection = field + " like ? ";
+
+        Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
+                projection,
+                selection,
+                sSelectionArgs, sortOrder);
+
+        List<RecipeItem> list = getRecipesFromCursor(cursor);
+        if(list.size()>0){
+            return list.get(0);
+        }else{
+            return null;
+        }
     }
 
     public Uri insertNewZip(String name, String link) {

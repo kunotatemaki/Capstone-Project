@@ -53,6 +53,9 @@ public class Constants {
     public static final String ACTION_GET_RECIPES_FROM_DRIVE = PACKAGE_NAME + ".action.GET_RECIPES_IN_DRIVE";
     public static final String ACTION_BROADCAST_GET_RECIPES_FROM_DRIVE = PACKAGE_NAME + ".action.ACTION_BROADCAST_GET_RECIPES_FROM_DRIVE";
 
+    public static final String MIME_TYPE_RECIPE = "application/xml";
+    public static final String MIME_TYPE_PICTURE = "image/jpeg";
+    public static final String MIME_TYPE_ZIP = "application/zip";
 
     public static final Integer STATE_NOT_DOWNLOADED = 0;
     public static final Integer STATE_DOWNLOADED_NOT_UNZIPED = 1;
