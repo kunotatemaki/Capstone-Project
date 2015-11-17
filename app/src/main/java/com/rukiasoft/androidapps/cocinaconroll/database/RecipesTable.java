@@ -28,7 +28,7 @@ public class RecipesTable {
     public static final String FIELD_PATH_RECIPE = "path_recipe";
     public static final String FIELD_PATH_PICTURE_EDITED = "path_picture_edited";
     public static final String FIELD_PATH_RECIPE_EDITED = "path_recipe_edited";
-    public static final String FIELD_DATE = "path_date";
+    public static final String FIELD_DATE = "date";
     public static final String FIELD_DATE_OLD = "path_date";
     public static final String FIELD_VERSION = "version";
 
@@ -53,7 +53,7 @@ public class RecipesTable {
             FIELD_PATH_PICTURE + " TEXT, " +
             FIELD_PATH_RECIPE_EDITED + " TEXT, " +
             FIELD_PATH_PICTURE_EDITED + " TEXT, " +
-            FIELD_DATE + " int DEFAULT now(), " +
+            FIELD_DATE + " int, " +
             FIELD_VERSION + " int DEFAULT 0" +
             ") " ;
 

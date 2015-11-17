@@ -14,7 +14,7 @@ public class CocinaConRollDatabaseHelper extends SQLiteOpenHelper {
     public static final String OLD_DB_NAME = "cukio";
 
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private Context myContext;
 
     public CocinaConRollDatabaseHelper(Context context) {
