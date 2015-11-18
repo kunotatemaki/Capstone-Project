@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -192,14 +193,13 @@ public class RecipeListFragment extends Fragment implements
             addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 11/11/15 quitar
-                    ((SigningDriveActivity)getActivity()).getRecipesFromDrive();
-                    /*new Handler().postDelayed(new Runnable() {
-                        @Override public void run() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
                             Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
                             getActivity().startActivityForResult(intent, Constants.REQUEST_CREATE_RECIPE);
                         }
-                    }, 150);*/
+                    }, 150);
                 }
             });
         }
@@ -478,7 +478,7 @@ public class RecipeListFragment extends Fragment implements
 
         //Set the fast Scroller
         //// TODO: 15/10/15 check this
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && fastScroller != null) {
             fastScroller.setRecyclerView(mRecyclerView);
         }
     }

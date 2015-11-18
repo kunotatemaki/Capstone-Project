@@ -39,6 +39,7 @@ public class Constants {
     public static final String PROPERTY_CLOUD_BACKUP = "option_cloud_backup";
     public static final String PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT = "first_check_google_account";
     public static final String PROPERTY_HIDE_SWIPE_DIALOG = "hide_swipe_dialog";
+    public static final String PROPERTY_DEVICE_OWNER = "device_owner";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";

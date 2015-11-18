@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,6 +119,31 @@ public class EditRecipePhotoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_edit_recipe_foto_modify, container, false);
         }
         ButterKnife.bind(this, view);
+
+        if(createRecipeName != null) {
+            createRecipeName.addTextChangedListener(new TextWatcher() {
+
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                    checkIfNameExists(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+        if(authorRecipe != null) {
+            authorRecipe.setText(mTools.getStringFromPreferences(getActivity(), Constants.PROPERTY_DEVICE_OWNER));
+        }
         if(editRecipeName != null){
             editRecipeName.setText(recipeItem.getName());
         }
@@ -324,8 +351,8 @@ public class EditRecipePhotoFragment extends Fragment {
                 File file = new File(selectedImagePath);
                 if (file.exists()) {
                     mImageCaptureUri = Uri.fromFile(new File(selectedImagePath));
-
                 }
+
                 doCrop(CROP_FROM_FILE);
                 break;
             case CROP_FROM_CAMERA:
@@ -409,7 +436,6 @@ public class EditRecipePhotoFragment extends Fragment {
         }catch (NumberFormatException e){
             minutes.setText("0");
             recipeItem.setMinutes(0);
-            ret = false;
         }
 
         try {
@@ -418,7 +444,6 @@ public class EditRecipePhotoFragment extends Fragment {
         }catch (NumberFormatException e){
             portions.setText("0");
             recipeItem.setPortions(0);
-            ret = false;
         }
 
         if(createRecipeName == null) {
@@ -437,28 +462,24 @@ public class EditRecipePhotoFragment extends Fragment {
             createRecipeNameLayout.setError(getResources().getString(R.string.no_recipe_name));
             ret = false;
         }
-        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(sName));
-        if (coincidences.size() > 0) {
-            createRecipeNameLayout.setError(getResources().getString(R.string.duplicated_recipe));
-            ret = false;
-        }
-
 
         if(authorRecipe != null) {
             recipeItem.setAuthor(authorRecipe.getText().toString());
         }
 
         return ret;
-
     }
 
-    /*public void setAuthor(){
-        TextView textView = (TextView)getView().findViewById(R.id.editText_author_recipe);
-        if(textView != null) {
-            recipeItem.setAuthor(getResources().getString(R.string.edited_by) + " " + textView.getText().toString());
+    private void checkIfNameExists(String sName){
+        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(sName));
+        String error = null;
+        if (coincidences.size() > 0) {
+            error = getResources().getString(R.string.duplicated_recipe);
         }
-    }*/
-
+        if(createRecipeNameLayout != null){
+            createRecipeNameLayout.setError(error);
+        }
+    }
 
     @Override
     public void onPause(){

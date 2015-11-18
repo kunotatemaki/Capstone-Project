@@ -267,7 +267,7 @@ public class ReadWriteTools {
         String name;
         if(pathFile == null || pathFile.isEmpty()) {
             Tools mTools = new Tools();
-            name = "cukio_" + mTools.getCurrentDate(mContext) + ".xml";
+            name = "own_" + mTools.getCurrentDate(mContext) + ".xml";
         }else{
             Uri uri = Uri.parse(pathFile);
             name = uri.getLastPathSegment();

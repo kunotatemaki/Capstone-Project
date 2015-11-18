@@ -15,6 +15,7 @@
  */
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
     @Bind(R.id.sign_in_discard_button)Button discardButton;
 
     private String accountName;
+    private Activity mActivity;
 
 
     private CocinaConRollApplication getMyApplication(){
@@ -64,6 +66,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signing);
         ButterKnife.bind(this);
+        mActivity = this;
         // Restore from saved instance state
 
         // [END restore_saved_instance_state]
@@ -151,6 +154,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
             GoogleSignInAccount acct = result.getSignInAccount();
             Tools mTools = new Tools();
             mTools.savePreferences(this, Constants.PROPERTY_CLOUD_BACKUP, true);
+            mTools.savePreferences(this, Constants.PROPERTY_DEVICE_OWNER, acct.getDisplayName());
             accountName = getString(R.string.signed_in_fmt, acct.getDisplayName());
             updateUI(true);
         } else {
@@ -167,10 +171,10 @@ public class ShowSigningActivity extends SigningDriveActivity {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
             if(result.isSuccess()){
                 finish();
             }
-            handleSignInResult(result);
         }
     }
     // [END onActivityResult]
@@ -207,6 +211,9 @@ public class ShowSigningActivity extends SigningDriveActivity {
                         public void onResult(Status status) {
                             // [START_EXCLUDE]
                             updateUI(false);
+                            Tools mTools = new Tools();
+                            mTools.savePreferences(mActivity, Constants.PROPERTY_DEVICE_OWNER, "");
+
                             // [END_EXCLUDE]
                         }
                     });
