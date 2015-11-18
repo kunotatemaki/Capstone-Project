@@ -79,7 +79,6 @@ public class DriveService extends IntentService {
      *
      * @see IntentService
      */
-    // TODO: Customize helper method
     public static void startActionGetRecipesFromDrive(Context context) {
         Intent intent = new Intent(context, DriveService.class);
         intent.setAction(Constants.ACTION_GET_RECIPES_FROM_DRIVE);
@@ -161,6 +160,8 @@ public class DriveService extends IntentService {
         for(int i = 0; i< mdResultSet.getMetadataBuffer().getCount(); i++){
             Metadata metadata = mdResultSet.getMetadataBuffer().get(i);
             if(!metadata.isTrashed()){
+                int o = 0;
+                o++;
                 return metadata;
             }
         }

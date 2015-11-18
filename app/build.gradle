@@ -36,6 +36,23 @@ android {
     }
 }
 
+gradle.taskGraph.beforeTask { Task task ->
+    if(task.name ==~ /process.*GoogleServices/) {
+        android.applicationVariants.all { variant ->
+            if(task.name ==~ /(?i)process${variant.name}GoogleServices/){
+                copy {
+                    from '.'
+                    into '.'
+                    rename { String fileName ->
+                        fileName.replace("google-services-${variant.name}.json", 'google-services.json')
+                    }
+                    include "google-services-${variant.name}.json"
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':recipesserver', configuration: 'android-endpoints')

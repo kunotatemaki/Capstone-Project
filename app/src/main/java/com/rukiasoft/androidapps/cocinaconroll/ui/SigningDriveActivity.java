@@ -69,7 +69,7 @@ public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /
         }
     }
 
-    private boolean checkIfCloudBackupAllowed(){
+    protected boolean checkIfCloudBackupAllowed(){
         Tools tools = new Tools();
         return tools.getBooleanFromPreferences(this, Constants.PROPERTY_CLOUD_BACKUP);
     }

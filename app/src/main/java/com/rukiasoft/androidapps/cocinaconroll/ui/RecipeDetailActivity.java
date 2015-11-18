@@ -94,7 +94,6 @@ public class RecipeDetailActivity extends SigningDriveActivity {
             if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                 recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
-// TODO: 16/11/15 ver por qué cuando vuelvode aquí a la lista, después de haber actualizado, no carga nueva receta
                 if(recipeDetailsFragment != null)
                     recipeDetailsFragment.updateRecipe(recipe);
                 //save recipe

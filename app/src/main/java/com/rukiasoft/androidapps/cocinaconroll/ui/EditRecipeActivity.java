@@ -69,8 +69,6 @@ public class EditRecipeActivity extends AppCompatActivity {
             recipe = new RecipeItem();
             recipe.setState(Constants.FLAG_OWN);
             recipe.setState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
-            //recipe.setAuthor(CocinaConRollTools.getOwnerName(this));
-            //recipe.setFileName(mTools.getCurrentDate(this) + ".xml");
         }
 
         super.onCreate(savedInstanceState);

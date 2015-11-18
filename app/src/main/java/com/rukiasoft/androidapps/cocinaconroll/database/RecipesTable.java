@@ -57,7 +57,6 @@ public class RecipesTable {
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,
                                  int newVersion) {
-        // FIXME: 16/11/15 ver qué pasa con lo del field_date. dejar como path_date, cambiar a date, parsea? no?
         LogHelper.d(TAG, "Upgrading database from version "
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");

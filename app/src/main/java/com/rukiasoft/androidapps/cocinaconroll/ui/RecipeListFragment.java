@@ -59,8 +59,9 @@ public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnItemClickListener,
         AppBarLayout.OnOffsetChangedListener{
 
-    private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".scrollposition";
-    private static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + "." + RecipeListFragment.class.getSimpleName() + ".recipelist";
+    private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
+    private static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + ".recipelist";
+    private static final String KEY_UPLOAD_TO_DRIVE = Constants.PACKAGE_NAME + ".update_to_drive";
 
 
     @Nullable
@@ -93,8 +94,7 @@ public class RecipeListFragment extends Fragment implements
     private String lastFilter;
     private InterstitialAd mInterstitialAd;
     private RecipeItem recipeToShow;
-
-
+    private boolean uploadRecipesToDrive = true;
 
     private class InitDatabase extends AsyncTask<Void, Integer, Void> {
         final Activity mActivity;
@@ -174,12 +174,18 @@ public class RecipeListFragment extends Fragment implements
         tools.setRefreshLayout(getActivity(), refreshLayout);
 
         savedScrollPosition = 0;
-        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_SCROLL_POSITION)){
-            savedScrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(KEY_SCROLL_POSITION)){
+                savedScrollPosition = savedInstanceState.getInt(KEY_SCROLL_POSITION);
+            }
+            if(savedInstanceState.containsKey(KEY_UPLOAD_TO_DRIVE)){
+                uploadRecipesToDrive = savedInstanceState.getBoolean(KEY_UPLOAD_TO_DRIVE);
+            }
+            if(savedInstanceState.containsKey(KEY_RECIPE_LIST)){
+                mRecipes = savedInstanceState.getParcelableArrayList(KEY_RECIPE_LIST);
+            }
         }
-        if(savedInstanceState != null && savedInstanceState.containsKey(KEY_RECIPE_LIST)){
-            mRecipes = savedInstanceState.getParcelableArrayList(KEY_RECIPE_LIST);
-        }
+
 
         if(mAppBarLayout != null){
             mAppBarLayout.addOnOffsetChangedListener(this);
@@ -254,6 +260,7 @@ public class RecipeListFragment extends Fragment implements
         if(mRecipes != null) {
             savedInstanceState.putParcelableArrayList(KEY_RECIPE_LIST, (ArrayList<RecipeItem>) mRecipes);
         }
+        savedInstanceState.putBoolean(KEY_UPLOAD_TO_DRIVE, uploadRecipesToDrive);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -298,6 +305,22 @@ public class RecipeListFragment extends Fragment implements
 
         setData();
         ((RecipeListActivity)getActivity()).performClickInDrawerIfNecessary();
+
+        if(!mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_UPLOADED_RECIPES_ON_FIRST_BOOT)){
+            for(RecipeItem recipe : mRecipes){
+                if((recipe.getState() & (Constants.FLAG_EDITED | Constants.FLAG_OWN)) != 0){
+                    recipe.setState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
+                    dbTools.updateStateById(recipe.get_id(), recipe.getState());
+                }
+            }
+            mTools.savePreferences(getActivity(), Constants.PROPERTY_UPLOADED_RECIPES_ON_FIRST_BOOT, true);
+        }else if(((RecipeListActivity)getActivity()).checkIfCloudBackupAllowed() && uploadRecipesToDrive){
+            for(RecipeItem recipe : mRecipes){
+                if((recipe.getState() & Constants.FLAG_PENDING_UPLOAD_TO_DRIVE) != 0){
+                    ((RecipeListActivity)getActivity()).uploadRecipeToDrive(recipe);
+                }
+            }
+        }
     }
 
     @Override
@@ -477,7 +500,6 @@ public class RecipeListFragment extends Fragment implements
         mRecyclerView.scrollToPosition(0);
 
         //Set the fast Scroller
-        //// TODO: 15/10/15 check this
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && fastScroller != null) {
             fastScroller.setRecyclerView(mRecyclerView);
         }

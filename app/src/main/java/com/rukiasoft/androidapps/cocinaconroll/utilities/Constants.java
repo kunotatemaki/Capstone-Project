@@ -23,7 +23,6 @@ public class Constants {
     public static final String TYPE_DESSERTS = "dessert";
 
     public static final String KEY_RECIPE = Constants.PACKAGE_NAME + ".recipe";
-    public static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
     public static final String KEY_DELETE_OLD_PICTURE = Constants.PACKAGE_NAME +  ".deleteoldpicture";
     public static final String KEY_TYPE = Constants.PACKAGE_NAME + "." + ".type";
     public static final int REQUEST_DETAILS = 200;
@@ -37,9 +36,10 @@ public class Constants {
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
     public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
     public static final String PROPERTY_CLOUD_BACKUP = "option_cloud_backup";
-    public static final String PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT = "first_check_google_account";
+    public static final String PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT = "first_check_google_account";
     public static final String PROPERTY_HIDE_SWIPE_DIALOG = "hide_swipe_dialog";
     public static final String PROPERTY_DEVICE_OWNER = "device_owner";
+    public static final String PROPERTY_UPLOADED_RECIPES_ON_FIRST_BOOT = "uploaded_recipes_on_first_boot";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";

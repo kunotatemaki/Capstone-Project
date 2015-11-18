@@ -580,12 +580,12 @@ public class ReadWriteTools {
         //files created or modified from previous versions
         List<String> listOldFiles = loadRecipesFromOldDirectory(filter);
         for(int i=0; i<listOldFiles.size(); i++) {
-            RecipeItem recipeItem= readRecipe(listOldFiles.get(i),
+            RecipeItem recipeItem = readRecipe(listOldFiles.get(i),
                     Constants.PATH_TYPE_OLD_EDITED);
             if(recipeItem != null) {
                 if((recipeItem.getState()&(Constants.FLAG_EDITED | Constants.FLAG_OWN)) == 0){
                     //not created nor edited. It was an original recipe set as favorite
-                    dbTools.updateFavoriteByName(recipeItem.getName(), recipeItem.getFavourite());
+                    dbTools.updateFavoriteByFileName(recipeItem.getName(), recipeItem.getFavourite());
                     //delete the file
                     deleteRecipe(recipeItem);
                 }else{
@@ -608,6 +608,7 @@ public class ReadWriteTools {
             }
         }
 
+        //edited directory
         List<String> listEdited = loadFiles(filter, true);
         for(int i=0; i<listEdited.size(); i++) {
             RecipeItem recipeItem= readRecipe(listEdited.get(i),

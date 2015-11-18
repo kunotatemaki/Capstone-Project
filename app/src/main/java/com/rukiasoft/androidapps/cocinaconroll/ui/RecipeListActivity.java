@@ -53,6 +53,9 @@ public class RecipeListActivity extends SigningDriveActivity {
     private static final int REQUEST_CODE_SETTINGS = 20;
     private static final int REQUEST_CODE_ANIMATION = 21;
     private static final String KEY_DRIVE_RECIPES_CHECKED = Constants.PACKAGE_NAME + ".drive_recipes_checked";
+    private static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
+    private static final String KEY_NEED_TO_SEND_RECIPES_TO_DRIVE = Constants.PACKAGE_NAME + ".need_to_send_recipes_to_drive";
+
 
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -95,11 +98,9 @@ public class RecipeListActivity extends SigningDriveActivity {
             if(intent.getAction().equals(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)){
                 if(intent.hasExtra(Constants.KEY_RECIPE)){
                     RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
-                    // TODO: 12/11/15 actualizar la base de datos con el estado updated to drive
-                    int state = recipeItem.getState();
                     recipeItem.removeState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
-                    state = recipeItem.getState();
-
+                    DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
+                    dbTools.updateStateById(recipeItem.get_id(), recipeItem.getState());
                 }
             }
         }
@@ -111,20 +112,29 @@ public class RecipeListActivity extends SigningDriveActivity {
         setContentView(R.layout.activity_recipe_list);
         ButterKnife.bind(this);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(Constants.KEY_STARTED)){
-            started = savedInstanceState.getBoolean(Constants.KEY_STARTED);
-            lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
-            driveRecipesChecked = savedInstanceState.getBoolean(KEY_DRIVE_RECIPES_CHECKED);
+        if(savedInstanceState != null){
+            if(savedInstanceState.containsKey(KEY_STARTED)) {
+                started = savedInstanceState.getBoolean(KEY_STARTED);
+            }
+            if(savedInstanceState.containsKey(Constants.KEY_TYPE)) {
+                lastFilter = savedInstanceState.getString(Constants.KEY_TYPE);
+            }
+            if(savedInstanceState.containsKey(KEY_DRIVE_RECIPES_CHECKED)) {
+                driveRecipesChecked = savedInstanceState.getBoolean(KEY_DRIVE_RECIPES_CHECKED);
+            }
            // shownToAllowDrive = savedInstanceState.getBoolean(KEY_ALLOWED_DRIVE);
         }
 
+        Tools mTools = new Tools();
+
+        //start animation if needed
         if(!started){
             Intent animationIntent = new Intent(this, AnimationActivity.class);
             //Intent animationIntent = new Intent(this, ShowSigningActivity.class);
             startActivityForResult(animationIntent, REQUEST_CODE_ANIMATION);
         }
 
-        Tools mTools = new Tools();
+
         lastFilter = Constants.FILTER_ALL_RECIPES;
         if(getIntent() != null && getIntent().hasExtra(Constants.KEY_TYPE)){
             lastFilter = getIntent().getStringExtra(Constants.KEY_TYPE);
@@ -175,16 +185,15 @@ public class RecipeListActivity extends SigningDriveActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 driveServiceReceiver,
                 mStatusIntentFilter);
-
-
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle bundle){
-        bundle.putBoolean(Constants.KEY_STARTED, true);
+        bundle.putBoolean(KEY_STARTED, true);
         bundle.putBoolean(KEY_DRIVE_RECIPES_CHECKED, driveRecipesChecked);
         bundle.putString(Constants.KEY_TYPE, lastFilter);
-       // bundle. putBoolean(KEY_ALLOWED_DRIVE, shownToAllowDrive);
         super.onSaveInstanceState(bundle);
     }
 
@@ -234,15 +243,6 @@ public class RecipeListActivity extends SigningDriveActivity {
                     }
                 }
                 break;
-            /*case Constants.RESULT_UPDATE_RECIPE:
-                if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
-                    RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                    if (mRecipeListFragment != null) {
-                        mRecipeListFragment.updateRecipe(recipe);
-                    }
-                }
-                break;*/
             case Constants.REQUEST_CREATE_RECIPE:
                 if (resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                     RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
@@ -264,8 +264,8 @@ public class RecipeListActivity extends SigningDriveActivity {
                 break;
             case REQUEST_CODE_ANIMATION:
                 Tools tools = new Tools();
-                if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT)) {
-                    tools.savePreferences(this, Constants.PROPERTY_FIRST_CHECK_GOOGLE_ACCOUNT, true);
+                if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT)) {
+                    tools.savePreferences(this, Constants.PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT, true);
                     Intent intent = new Intent(this, ShowSigningActivity.class);
                     startActivity(intent);
                 }
@@ -373,10 +373,7 @@ public class RecipeListActivity extends SigningDriveActivity {
             }
 
         });
-        // TODO: 15/10/15 revisar este cambio
-        //SearchView searchView = (SearchView) searchMenuItem.getActionView();
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
-        // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //the searchable is in another activity, so instead of getcomponentname(), create a new one for that activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchableActivity.class)));
@@ -535,8 +532,10 @@ public class RecipeListActivity extends SigningDriveActivity {
                 }
             }
         });
-        //// TODO: 17/11/15 mirar solo una vez por arranque
-        getRecipesFromDrive();
+
+        if(!driveRecipesChecked && checkIfCloudBackupAllowed()){
+            getRecipesFromDrive();
+        }
     }
 
     public void onPause(){
@@ -550,8 +549,6 @@ public class RecipeListActivity extends SigningDriveActivity {
     public void closeSearchView(){
         animate = false;
         if(searchMenuItem != null){
-            // TODO: 15/10/15 revisar este cambio
-            //searchMenuItem.collapseActionView();
             MenuItemCompat.collapseActionView(searchMenuItem);
         }
     }

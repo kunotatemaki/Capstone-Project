@@ -39,15 +39,26 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void updateFavoriteByName(String name, boolean favorite) {
+    public void updateFavoriteByFileName(String name, boolean favorite) {
         ContentValues values = new ContentValues();
         int iFavorite = favorite? 1 : 0;
         values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
-        String clause = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
+        String clause = RecipesTable.FIELD_PATH_RECIPE + " like ? ";
 
-        String[] args = {getNormalizedString(name)};
+        //String[] args = {getNormalizedString(name)};
+        String[] args = {"%" + name};
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
+
+    public void updateStateById(int id, Integer state) {
+        ContentValues values = new ContentValues();
+        values.put(RecipesTable.FIELD_STATE, state);
+        String clause = RecipesTable.FIELD_ID + " = ? ";
+
+        String[] args = {String.valueOf(id)};
+        mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
+    }
+
 
     public void updatePathsAndVersion(RecipeItem recipe) {
         ContentValues values = new ContentValues();
@@ -106,12 +117,12 @@ public class DatabaseRelatedTools {
             values.put(RecipesTable.FIELD_PATH_PICTURE, recipeItem.getPathPicture());
         }
         //check if recipe exists. If not, insert. Otherwise, update
-        List<RecipeItem> coincidences = searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, getNormalizedString(recipeItem.getName()));
-        if(coincidences.size() == 0) {
+        RecipeItem coincidence = getRecipeByPathName(recipeItem.getPathRecipe());
+        if(coincidence == null) {
             mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values);
         }else if(update){
-            String selection = RecipesTable.FIELD_NAME_NORMALIZED + " = ? ";
-            String[] selectionArgs = {getNormalizedString(recipeItem.getName())};
+            String selection = RecipesTable.FIELD_ID + " = ? ";
+            String[] selectionArgs = {coincidence.get_id().toString()};
             mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, selection, selectionArgs);
         }
     }
@@ -202,14 +213,21 @@ public class DatabaseRelatedTools {
 
     }
 
+    public RecipeItem getRecipeByPathName(String path){
+        Uri uPath = Uri.parse(path);
+        return getRecipeByFileName(uPath.getLastPathSegment());
+    }
+
     public RecipeItem getRecipeByFileName(String name){
-        String[] sSelectionArgs = new String[1];
+        String[] sSelectionArgs = new String[2];
         sSelectionArgs[0] = "%" + name;
+        sSelectionArgs[1] = "%" + name;
 
         final String[] projection = RecipesTable.ALL_COLUMNS;
         String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
-        String field = RecipesTable.FIELD_PATH_RECIPE;
-        String selection = field + " like ? ";
+        String field1 = RecipesTable.FIELD_PATH_RECIPE;
+        String field2 = RecipesTable.FIELD_PATH_RECIPE_EDITED;
+        String selection = field1 + " like ? OR " + field2 + " like ?";
 
         Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_RECIPES,
                 projection,

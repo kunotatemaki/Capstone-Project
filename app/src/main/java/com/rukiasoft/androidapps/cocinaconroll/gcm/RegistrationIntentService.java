@@ -132,7 +132,6 @@ public class RegistrationIntentService extends IntentService {
         }*/
 
         RegistrationResponse error = new RegistrationResponse();
-        // TODO: 20/10/15 registro en mi servidor raspberry
         try {
             if (gcm == null) {
                 gcm = GoogleCloudMessaging.getInstance(this);
