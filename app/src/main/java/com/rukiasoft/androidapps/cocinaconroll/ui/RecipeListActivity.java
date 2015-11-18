@@ -71,7 +71,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     private boolean animate;
     private String lastFilter;
     private boolean driveRecipesChecked = false;
-
+    DriveServiceReceiver driveServiceReceiver;
 
     private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
@@ -169,7 +169,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
 
         // Instantiates a new DownloadStateReceiver
-        DriveServiceReceiver driveServiceReceiver =
+        driveServiceReceiver =
                 new DriveServiceReceiver();
         // Registers the DownloadStateReceiver and its intent filters
         LocalBroadcastManager.getInstance(this).registerReceiver(
@@ -190,8 +190,8 @@ public class RecipeListActivity extends SigningDriveActivity {
 
     @Override
     public void onDestroy(){
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(driveServiceReceiver);
         super.onDestroy();
-
     }
 
     @Override
