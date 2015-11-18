@@ -36,7 +36,9 @@ android {
     }
 }
 
-gradle.taskGraph.beforeTask { Task task ->
+//Para copiar un archivo llamado google-services-debug.json o google-services-release.json
+//como google-services.json en el mismo directorio
+/*gradle.taskGraph.beforeTask { Task task ->
     if(task.name ==~ /process.*GoogleServices/) {
         android.applicationVariants.all { variant ->
             if(task.name ==~ /(?i)process${variant.name}GoogleServices/){
@@ -51,7 +53,7 @@ gradle.taskGraph.beforeTask { Task task ->
             }
         }
     }
-}
+}*/
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
