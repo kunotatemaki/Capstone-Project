@@ -15,8 +15,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class CocinaConRollApplication  extends Application {
 // TODO: 18/11/15 cambiar el finger print del user id para el json en modo release
-    // TODO: 18/11/15 ver el tema del multidex si da problemas en modo release, para no tener que aumentar la memoria
-    // TODO: 18/11/15 limpieza de código
     // TODO: 18/11/15 hacer que en drive guarde en la carpeta de la aplicación
     /**
      * The Analytics singleton. The field is set in onCreate method override when the application
