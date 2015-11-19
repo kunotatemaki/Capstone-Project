@@ -1,76 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.rukiasoft.androidapps.cocinaconroll"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rukiasoft.androidapps.cocinaconroll" >
 
-    <uses-sdk tools:overrideLibrary="jp.wasabeef.recyclerview"/>
+    <uses-sdk tools:overrideLibrary="jp.wasabeef.recyclerview" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
         android:name="com.rukiasoft.androidapps.cocinaconroll.permission.C2D_MESSAGE"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.rukiasoft.androidapps.cocinaconroll.permission.C2D_MESSAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.rukiasoft.androidapps.cocinaconroll.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".CocinaConRollApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
+        android:installLocation="internalOnly"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:installLocation="internalOnly"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.RecipeListActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.Recipe.List">
+            android:theme="@style/Theme.Recipe.List" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <!-- Enabling Search Dialog -->
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".suggestions.SearchableActivity"/>
+                android:value=".suggestions.SearchableActivity" />
         </activity>
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ui.ThanksActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ui.AnimationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AnimationTheme"/>
+            android:theme="@style/AnimationTheme" />
         <activity
             android:name=".ui.EditRecipeActivity"
             android:launchMode="standard"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
         <activity
             android:name=".ui.ShowSigningActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:theme="@style/Theme.Signing">
+            android:theme="@style/Theme.Signing" >
             <intent-filter>
                 <action android:name="com.rukiasoft.androidapps.cocinaconroll.action.SIGN_IN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -80,47 +81,46 @@
             android:name=".ui.SearchableActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/BaseTheme">
+            android:theme="@style/BaseTheme" >
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.RecipeListActivity"/>
+                android:value=".ui.RecipeListActivity" />
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".ui.RecipeDetailActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:theme="@style/Theme.Recipe.Detail">
+            android:theme="@style/Theme.Recipe.Detail" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.RecipeListActivity"/>
+                android:value=".ui.RecipeListActivity" />
         </activity>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.rukiasoft.androidapps.cocinaconroll"/>
+                <category android:name="com.rukiasoft.androidapps.cocinaconroll" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".gcm.StartMyServiceAtBootReceiver"
             android:enabled="true"
             android:exported="true"
-            android:label="StartMyServiceAtBootReceiver">
+            android:label="StartMyServiceAtBootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -128,33 +128,33 @@
 
         <service
             android:name=".gcm.MyGcmListenerService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
             android:name=".gcm.MyInstanceIDListenerService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
         <service
             android:name=".gcm.RegistrationIntentService"
-            android:exported="false">
+            android:exported="false" >
         </service>
 
         <!-- Content Provider to query sqlite database -->
         <provider
             android:name=".database.CocinaConRollContentProvider"
             android:authorities="com.rukiasoft.androidapps.cocinaconroll.database.cocinaconrollcontentprovider"
-            android:exported="false"/>
+            android:exported="false" />
 
         <!-- Add the following meta-data for devices running Google Play service. -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <!--
       Optionally, register AnalyticsReceiver and AnalyticsService to support background
@@ -162,16 +162,16 @@
         -->
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
+            android:enabled="true" >
             <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <!--
              Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
@@ -179,28 +179,28 @@
         -->
         <receiver
             android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
-        <service android:name=".services.DownloadAndUnzipIntentService"/>
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+        <service android:name=".services.DownloadAndUnzipIntentService" />
 
-        <receiver android:name=".wifi.WifiReceiver">
-            <intent-filter android:priority="100">
-                <action android:name="android.net.wifi.STATE_CHANGE"/>
+        <receiver android:name=".wifi.WifiReceiver" >
+            <intent-filter android:priority="100" >
+                <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
 
         <meta-data
             android:name="com.google.android.gms.analytics.globalConfigResource"
-            android:resource="@xml/track_app"/>
+            android:resource="@xml/track_app" />
 
         <service
             android:name=".services.DriveService"
-            android:exported="false">
+            android:exported="false" >
         </service>
     </application>
 
