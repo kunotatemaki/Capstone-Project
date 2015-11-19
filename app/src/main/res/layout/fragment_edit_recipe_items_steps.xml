@@ -59,7 +59,7 @@
             android:id="@+id/edit_recipe_tip_text"
             android:lines="3"
             android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
-            android:gravity="top|left"
+            android:gravity="top|start"
             android:scrollbars="vertical"
             />
         </android.support.design.widget.TextInputLayout>

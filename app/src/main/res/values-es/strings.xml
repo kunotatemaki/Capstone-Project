@@ -113,7 +113,8 @@
     <string name="desc_google_icon">Logo de Cocinando con mi Cookeo</string>
     <string name="title_signing">Almacena tus recetas\nen la nube</string>
     <string name="exit">Salir</string>
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando…</string>
     <string name="sign_out">Desconectar cuenta</string>
+    <string name="body_signing">Identificate con tu cuenta de Gmail y mantén tus recetas sincronizadas en la nube.\n¡Todas tus creaciones estarán disponibles en todos tus dispositivos!</string>
 
 </resources>

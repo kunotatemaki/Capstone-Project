@@ -21,6 +21,10 @@ public class RegistrationClass {
     private String unique_id;
     @Expose
     private Integer version;
+    @Expose
+    private String email;
+    @Expose
+    private String name;
 
     public RegistrationClass(Context context){
         Calendar c = Calendar.getInstance();
@@ -31,19 +35,19 @@ public class RegistrationClass {
         unique_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public String getGcm_regid() {
-        return gcm_regid;
-    }
-
     public void setGcm_regid(String gcm_regid) {
         this.gcm_regid = gcm_regid;
     }
 
-    public Integer getVersion() {
-        return version;
-    }
-
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

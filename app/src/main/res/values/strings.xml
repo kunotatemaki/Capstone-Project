@@ -133,10 +133,10 @@
     <!-- Content Description for images -->
     <string name="desc_google_icon">Cooking with cookeo logo</string>
     <string name="title_signing">Backup your recipe\nin your Drive Account</string>
-    <string name="body_signing">Aquí va la explicación de que te conectes y to las tonterías esas</string>
+    <string name="body_signing">Sign in  with your Gmail account and get a Google Drive sincronization.\nAll your recipes will be availabe in all your devices!</string>
     <string name="exit">Exit</string>
     <string name="sign_out">Disconnect account</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
 
 
 </resources>

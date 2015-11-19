@@ -20,7 +20,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 /**
  * Created by iRuler on 10/11/15.
  */
-public class SigningDriveActivity extends ToolbarAndRefreshActivity implements /*GoogleApiClient.ConnectionCallbacks,*/
+public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity implements /*GoogleApiClient.ConnectionCallbacks,*/
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LogHelper.makeLogTag(SigningDriveActivity.class);

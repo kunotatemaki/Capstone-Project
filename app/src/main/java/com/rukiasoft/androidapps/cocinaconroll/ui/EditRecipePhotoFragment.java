@@ -142,7 +142,7 @@ public class EditRecipePhotoFragment extends Fragment {
             });
         }
         if(authorRecipe != null) {
-            authorRecipe.setText(mTools.getStringFromPreferences(getActivity(), Constants.PROPERTY_DEVICE_OWNER));
+            authorRecipe.setText(mTools.getStringFromPreferences(getActivity(), Constants.PROPERTY_DEVICE_OWNER_EMAIL));
         }
         if(editRecipeName != null){
             editRecipeName.setText(recipeItem.getName());

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:lines="2"
             android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
-            android:gravity="top|left"
+            android:gravity="top|start"
             android:scrollbars="vertical"
             android:id="@+id/edit_recipe_add_item"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"

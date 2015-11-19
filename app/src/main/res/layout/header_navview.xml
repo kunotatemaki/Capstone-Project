@@ -16,7 +16,7 @@
         android:text="@string/designed_by"
         android:textAppearance="?attr/subtitle"
         android:textColor="@android:color/white"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"

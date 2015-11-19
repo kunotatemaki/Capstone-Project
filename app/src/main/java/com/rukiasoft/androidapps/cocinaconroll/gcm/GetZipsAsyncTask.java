@@ -2,10 +2,10 @@ package com.rukiasoft.androidapps.cocinaconroll.gcm;
 
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,17 +29,17 @@ import java.util.List;
  * Created by iRuler on 20/10/15.
  */
 public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
-    private final Activity mActivity;
+    private final Context mContext;
 
-    public GetZipsAsyncTask(Activity activity){
-        mActivity = activity;
+    public GetZipsAsyncTask(Context context){
+        mContext = context;
     }
     protected List<ZipItem> doInBackground(Void... params) {
         List<ZipItem> list = new ArrayList<>();
         OkHttpClient client = new OkHttpClient();
 
-        String urlBase = mActivity.getResources().getString(R.string.server_url);
-        String method = mActivity.getResources().getString(R.string.get_zips_method);
+        String urlBase = mContext.getResources().getString(R.string.server_url);
+        String method = mContext.getResources().getString(R.string.get_zips_method);
         String url = urlBase.concat(method);
 
         Request request = new Request.Builder()
@@ -68,10 +68,10 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
     protected void onPostExecute(List<ZipItem> result) {
         Tools mTools = new Tools();
         Long expirationTimeFromNow;
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mActivity);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
         boolean newZip = false;
-        Integer days = mTools.getIntegerFromPreferences(mActivity, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE);
-        if(days.intValue() == Integer.MIN_VALUE){
+        Integer days = mTools.getIntegerFromPreferences(mContext, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE);
+        if(days == Integer.MIN_VALUE){
             days = 1;
         }
         for(ZipItem zip : result) {
@@ -85,14 +85,13 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
                 newZip = (id != -1) | newZip;
             }catch (NumberFormatException e){
                 e.printStackTrace();
-                continue;
             }
         }
         if(newZip){
-            if (mTools.hasPermissionForDownloading(mActivity)) {
-                Intent intent = new Intent(mActivity, DownloadAndUnzipIntentService.class);
+            if (mTools.hasPermissionForDownloading(mContext)) {
+                Intent intent = new Intent(mContext, DownloadAndUnzipIntentService.class);
                 intent.putExtra(Constants.KEY_TYPE, Constants.FILTER_LATEST_RECIPES);
-                mActivity.startService(intent);
+                mContext.startService(intent);
             }
             //reset number of days to next download
             days = 1;
@@ -104,7 +103,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
             }
         }
         expirationTimeFromNow = Constants.TIMEFRAME_MILISECONDS_DAY * days;
-        mTools.savePreferences(mActivity, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE, days);
-        mTools.savePreferences(mActivity, Constants.PROPERTY_EXPIRATION_TIME, System.currentTimeMillis() + expirationTimeFromNow);
+        mTools.savePreferences(mContext, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE, days);
+        mTools.savePreferences(mContext, Constants.PROPERTY_EXPIRATION_TIME, System.currentTimeMillis() + expirationTimeFromNow);
     }
 }

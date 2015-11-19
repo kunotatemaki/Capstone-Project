@@ -66,6 +66,7 @@
         android:layout_weight="1"
         android:background="@color/blue_grey_900">
         <RelativeLayout
+            android:id="@+id/layout_button_sign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -91,20 +92,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sign_in_discard_layout"
-            android:layout_alignParentBottom="true">
+            android:layout_below="@id/layout_button_sign">
             <Button
                 android:id="@+id/sign_in_discard_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:text="@string/sign_in_discard"
                 android:textColor="@android:color/white"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
         </RelativeLayout>
-
-
 
     </RelativeLayout>
 

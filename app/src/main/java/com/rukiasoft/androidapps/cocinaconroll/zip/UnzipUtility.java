@@ -33,7 +33,7 @@ public class UnzipUtility {
 	 * destDirectory (will be created if does not exists)
 	 * @throws IOException
 	 */
-	public void unzip(String zipFilePath, String destDirectory) throws IOException {
+	public void unzip(String zipFilePath, String destDirectory) {
 		int size;
 		byte[] buffer = new byte[BUFFER_SIZE];
 

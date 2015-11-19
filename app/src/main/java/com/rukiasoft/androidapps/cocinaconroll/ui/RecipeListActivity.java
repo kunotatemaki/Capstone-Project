@@ -127,6 +127,12 @@ public class RecipeListActivity extends SigningDriveActivity {
 
         Tools mTools = new Tools();
 
+        if(mTools.getAppVersion(getApplication()) > mTools.getIntegerFromPreferences(this, Constants.PROPERTY_APP_VERSION_STORED)){
+            //first instalation, or recently updated app
+            mTools.savePreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+            mTools.savePreferences(this, Constants.PROPERTY_APP_VERSION_STORED, mTools.getAppVersion(getApplication()));
+        }
+
         //start animation if needed
         if(!started){
             Intent animationIntent = new Intent(this, AnimationActivity.class);

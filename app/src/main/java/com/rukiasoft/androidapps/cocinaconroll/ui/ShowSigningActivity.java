@@ -33,6 +33,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -154,7 +155,10 @@ public class ShowSigningActivity extends SigningDriveActivity {
             GoogleSignInAccount acct = result.getSignInAccount();
             Tools mTools = new Tools();
             mTools.savePreferences(this, Constants.PROPERTY_CLOUD_BACKUP, true);
-            mTools.savePreferences(this, Constants.PROPERTY_DEVICE_OWNER, acct.getDisplayName());
+            mTools.savePreferences(this, Constants.PROPERTY_DEVICE_OWNER_NAME, acct.getDisplayName());
+            mTools.savePreferences(this, Constants.PROPERTY_DEVICE_OWNER_EMAIL, acct.getEmail());
+            //force to send registration token to server again, with this new information
+            mTools.savePreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
             accountName = getString(R.string.signed_in_fmt, acct.getDisplayName());
             updateUI(true);
         } else {
@@ -212,7 +216,8 @@ public class ShowSigningActivity extends SigningDriveActivity {
                             // [START_EXCLUDE]
                             updateUI(false);
                             Tools mTools = new Tools();
-                            mTools.savePreferences(mActivity, Constants.PROPERTY_DEVICE_OWNER, "");
+                            mTools.savePreferences(mActivity, Constants.PROPERTY_DEVICE_OWNER_EMAIL, "");
+                            mTools.savePreferences(mActivity, Constants.PROPERTY_DEVICE_OWNER_NAME, "");
 
                             // [END_EXCLUDE]
                         }

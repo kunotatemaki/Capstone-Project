@@ -38,8 +38,10 @@ public class Constants {
     public static final String PROPERTY_CLOUD_BACKUP = "option_cloud_backup";
     public static final String PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT = "first_check_google_account";
     public static final String PROPERTY_HIDE_SWIPE_DIALOG = "hide_swipe_dialog";
-    public static final String PROPERTY_DEVICE_OWNER = "device_owner";
+    public static final String PROPERTY_DEVICE_OWNER_EMAIL = "device_owner_email";
+    public static final String PROPERTY_DEVICE_OWNER_NAME = "device_owner_name";
     public static final String PROPERTY_UPLOADED_RECIPES_ON_FIRST_BOOT = "uploaded_recipes_on_first_boot";
+    public static final String PROPERTY_APP_VERSION_STORED = "app_version_stored";
 
     public static final String FORMAT_DATE_TIME = "yyyy-MM-dd_HH-mm-ss";
     public static final String DEFAULT_PICTURE_NAME = "default_picture";

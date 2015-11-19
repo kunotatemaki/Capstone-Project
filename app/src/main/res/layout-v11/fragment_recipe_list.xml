@@ -120,7 +120,7 @@
         app:fabSize="normal"
         style="@style/FabStyle"
         android:src="@drawable/ic_add_white_24dp"
-        android:layout_gravity="bottom|right|end"
+        android:layout_gravity="bottom|end"
         android:id="@+id/add_recipe_fab"
         app:layout_behavior="com.rukiasoft.androidapps.cocinaconroll.ScrollAwareFABBehavior"
         />

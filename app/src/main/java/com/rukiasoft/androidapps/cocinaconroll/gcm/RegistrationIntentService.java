@@ -22,15 +22,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-//import com.rukiasoft.androidapps.cocinaconroll.recipesserver.registration.Registration;
 import com.google.gson.Gson;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
@@ -44,16 +37,11 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.net.URL;
 
-import retrofit.http.Url;
 
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
-    private static final String[] TOPICS = {"global"};
-    //private static Registration regService = null;
-    private GoogleCloudMessaging gcm;
 
 
     public RegistrationIntentService() {
@@ -70,7 +58,7 @@ public class RegistrationIntentService extends IntentService {
             // are local.
             // [START get_token]
             InstanceID instanceID = InstanceID.getInstance(this);
-            String token = instanceID.getToken("962580870211",
+            String token = instanceID.getToken(Constants.SENDER_ID,
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
             Log.i(TAG, "GCM Registration Token: " + token);
@@ -133,16 +121,20 @@ public class RegistrationIntentService extends IntentService {
 
         RegistrationResponse error = new RegistrationResponse();
         try {
-            if (gcm == null) {
+            /*if (gcm == null) {
                 gcm = GoogleCloudMessaging.getInstance(this);
             }
-            String regId = gcm.register(Constants.SENDER_ID);
+            String regId = gcm.register(Constants.SENDER_ID);*/
+
+            Tools mTools = new Tools();
 
             RegistrationClass registrationClass = new RegistrationClass(this);
 
-            registrationClass.setGcm_regid(regId);
-            registrationClass.setVersion(100);
-            Tools mTools = new Tools();
+            registrationClass.setGcm_regid(token);
+            registrationClass.setVersion(mTools.getAppVersion(getApplication()));
+            registrationClass.setEmail(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_EMAIL));
+            registrationClass.setName(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_NAME));
+
 
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -162,28 +154,14 @@ public class RegistrationIntentService extends IntentService {
             error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
 
 
-
             //regService.register(regId).execute();
         } catch (IOException e) {
             e.printStackTrace();
 
         }
-        return error.getError()==0;
+        return error.getError() == 0;
     }
 
-    /**
-     * Subscribe to any GCM topics of interest, as defined by the TOPICS constant.
-     *
-     * @param token GCM token
-     * @throws IOException if unable to reach the GCM PubSub service
-     */
-    // [START subscribe_topics]
-    private void subscribeTopics(String token) throws IOException {
-        GcmPubSub pubSub = GcmPubSub.getInstance(this);
-        for (String topic : TOPICS) {
-            pubSub.subscribe(token, "/topics/" + topic, null);
-        }
-    }
-    // [END subscribe_topics]
+
 
 }

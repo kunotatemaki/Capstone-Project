@@ -106,9 +106,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 titleTextView.setMarqueeRepeatLimit(-1);
             }
 
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -279,7 +277,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             if(f instanceof EditRecipeIngredientsFragment)
                 editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) f;
             else if(f instanceof EditRecipeStepsFragment)
-                editRecipePhotoFragment = (EditRecipePhotoFragment) f;
+                editRecipeStepsFragment = (EditRecipeStepsFragment) f;
         }
     }
 }

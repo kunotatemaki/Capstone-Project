@@ -2,8 +2,11 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Vibrator;
@@ -12,8 +15,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
@@ -215,6 +221,28 @@ public class Tools {
                 .excludeFieldsWithoutExposeAnnotation()
                 .create();
         return gson.toJson(object);
+    }
+
+    public int getAppVersion(Application application) {
+        try {
+            PackageInfo packageInfo = application.getPackageManager()
+                    .getPackageInfo(application.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            sendExceptionToAnalytics(application, "Error en getAppVersion: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public void sendExceptionToAnalytics(Application application, String description){
+        if(application instanceof CocinaConRollApplication) {
+            Tracker t = ((CocinaConRollApplication) application).getTracker();
+            // Build and send exception.
+            t.send(new HitBuilders.ExceptionBuilder()
+                    .setDescription(description)
+                    .setFatal(true)
+                    .build());
+        }
     }
 
 }

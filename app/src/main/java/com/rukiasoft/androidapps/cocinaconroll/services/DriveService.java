@@ -151,7 +151,7 @@ public class DriveService extends IntentService {
                 Filters.eq(SearchableField.MIME_TYPE, mimeType),
                 Filters.eq(SearchableField.TITLE, name))).build();
         DriveApi.MetadataBufferResult mdResultSet =
-                Drive.DriveApi.getRootFolder(getMyApplication().getGoogleApiClient())
+                Drive.DriveApi.getAppFolder(getMyApplication().getGoogleApiClient())
                         .queryChildren(getMyApplication().getGoogleApiClient(), query).await();
         if(!mdResultSet.getStatus().isSuccess()){
             throw (new Exception("RukiaSoft: error checking if a file exists in Drive"));
@@ -159,9 +159,7 @@ public class DriveService extends IntentService {
 
         for(int i = 0; i< mdResultSet.getMetadataBuffer().getCount(); i++){
             Metadata metadata = mdResultSet.getMetadataBuffer().get(i);
-            if(!metadata.isTrashed()){
-                int o = 0;
-                o++;
+            if(!metadata.isTrashed() && metadata.isInAppFolder()){
                 return metadata;
             }
         }
@@ -194,7 +192,7 @@ public class DriveService extends IntentService {
                 .build();
 
         // create a file on root folder
-        DriveFolder.DriveFileResult result2 = Drive.DriveApi.getRootFolder(getMyApplication().getGoogleApiClient())
+        DriveFolder.DriveFileResult result2 = Drive.DriveApi.getAppFolder(getMyApplication().getGoogleApiClient())
                 .createFile(getMyApplication().getGoogleApiClient(), changeSet, driveContents)
                 .await();
         if (!result2.getStatus().isSuccess()) {
@@ -275,7 +273,7 @@ public class DriveService extends IntentService {
 
         for(int i = 0; i< result.getMetadataBuffer().getCount(); i++){
             Metadata metadata = result.getMetadataBuffer().get(i);
-            if(!metadata.isTrashed()) {
+            if(!metadata.isTrashed() && metadata.isInAppFolder()) {
                 list.add(result.getMetadataBuffer().get(i));
             }
         }
@@ -336,7 +334,6 @@ public class DriveService extends IntentService {
             e.printStackTrace();
 
         }
-
         return true;
     }
 }

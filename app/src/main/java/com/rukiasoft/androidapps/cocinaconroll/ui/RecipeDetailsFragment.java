@@ -479,7 +479,7 @@ public class RecipeDetailsFragment extends Fragment implements
                     return;
                 try {
                     int mVibrantColor = palette.getVibrantColor(ContextCompat.getColor(getActivity(), R.color.ColorPrimary));
-                    int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
+                    //int mVibrantDarkColor = palette.getDarkVibrantColor(mVibrantColor);
                     int mMutedColor = palette.getMutedColor(ContextCompat.getColor(getActivity(), R.color.ColorAccent));
                     int mMutedDarkColor = palette.getDarkMutedColor(mMutedColor);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
