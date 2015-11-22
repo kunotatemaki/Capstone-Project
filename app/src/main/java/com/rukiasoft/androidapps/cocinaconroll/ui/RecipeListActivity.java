@@ -99,6 +99,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                 if(intent.hasExtra(Constants.KEY_RECIPE)){
                     RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
                     recipeItem.removeState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
+                    recipeItem.setState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
                     DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
                     dbTools.updateStateById(recipeItem.get_id(), recipeItem.getState());
                 }
@@ -540,7 +541,7 @@ public class RecipeListActivity extends SigningDriveActivity {
         });
 
         if(!driveRecipesChecked && checkIfCloudBackupAllowed()){
-            getRecipesFromDrive();
+            driveRecipesChecked = getRecipesFromDrive();
         }
     }
 

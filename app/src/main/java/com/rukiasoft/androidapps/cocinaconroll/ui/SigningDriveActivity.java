@@ -173,7 +173,7 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
         }
     }
 
-    protected void getRecipesFromDrive(){
+    protected boolean getRecipesFromDrive(){
         if(getMyApplication().getGoogleApiClient() == null){
             connectToDrive(true);
         }else {
@@ -181,7 +181,9 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
                 connectToDrive(true);
             }
             DriveService.startActionGetRecipesFromDrive(this);
+            return true;
         }
+        return false;
     }
 }
 

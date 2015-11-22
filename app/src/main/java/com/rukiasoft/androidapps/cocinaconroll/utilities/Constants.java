@@ -17,6 +17,7 @@ public class Constants {
     public static final Integer FLAG_EDITED_PICTURE = 8;
     public static final Integer FLAG_OWN = 16;
     public static final Integer FLAG_PENDING_UPLOAD_TO_DRIVE = 32;
+    public static final Integer FLAG_SINCRONIZED_WITH_DRIVE = 64;
 
     public static final String TYPE_STARTERS = "starter";
     public static final String TYPE_MAIN = "main";

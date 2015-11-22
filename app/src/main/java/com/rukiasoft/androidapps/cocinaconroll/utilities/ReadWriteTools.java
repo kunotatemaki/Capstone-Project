@@ -723,6 +723,7 @@ public class ReadWriteTools {
                 Constants.PATH_TYPE_EDITED);
         if(recipeItem != null) {
             recipeItem.setVersion(version);
+            recipeItem.setState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
             dbTools.insertRecipeIntoDatabase(recipeItem, true);
         }
     }

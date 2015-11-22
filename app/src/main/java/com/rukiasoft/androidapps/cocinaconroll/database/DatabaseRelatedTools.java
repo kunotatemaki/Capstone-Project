@@ -202,6 +202,17 @@ public class DatabaseRelatedTools {
         return getRecipesFromCursor(cursor);
     }
 
+    public List<RecipeItem> getRecipesByState(Integer flag){
+        List<RecipeItem> recipes = searchRecipesInDatabase();
+        List<RecipeItem> coincidences = new ArrayList<>();
+        for(RecipeItem recipe : recipes){
+            if((recipe.getState() & flag) !=0){
+                coincidences.add(recipe);
+            }
+        }
+        return coincidences;
+    }
+
     public String getNormalizedString(String input){
         String normalized;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {

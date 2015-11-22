@@ -285,6 +285,7 @@ public class DriveService extends IntentService {
     private void checkFilesToDownload(List<Metadata> files){
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
         ReadWriteTools rwTools = new ReadWriteTools(this);
+        //download recipes if needed
         for(int i=0; i<files.size(); i++){
             String name = files.get(i).getTitle().replace("zip", "xml");
             RecipeItem recipeItem = dbTools.getRecipeByFileName(name);
@@ -294,6 +295,15 @@ public class DriveService extends IntentService {
                     rwTools.unzipRecipesInEdited(files.get(i).getTitle());
                     rwTools.loadUpdatedFilesAndInsertInDatabase(name, driveVersion);
                     rwTools.deleteZipByName(files.get(i).getTitle());
+                }
+            }
+        }
+        //check if is needed to delete
+        List<RecipeItem> sincroniced = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
+        for(RecipeItem recipeItem : sincroniced){
+            for(Metadata metadata : files){
+                if(recipeItem.getPathRecipe() != null && recipeItem.getPathRecipe().contains(metadata.getTitle().replace("zip", "xml"))){
+                    //// TODO: 22/11/15 ver lo de borrar la receta
                 }
             }
         }
