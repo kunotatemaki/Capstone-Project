@@ -23,7 +23,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Recipe.Detail" parent="BaseTheme">
+    <style name="Theme.Recipe.Detail" parent="AppTheme">
     </style>
 
     <style name="Theme.Recipe.List" parent="AppTheme">

@@ -311,6 +311,9 @@ public class RecipeListFragment extends Fragment implements
                 if((recipe.getState() & (Constants.FLAG_EDITED | Constants.FLAG_OWN)) != 0){
                     recipe.setState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
                     dbTools.updateStateById(recipe.get_id(), recipe.getState());
+                    recipe.setVersion(recipe.getVersion() + 1);
+                    dbTools.updatePathsAndVersion(recipe);
+
                 }
             }
             mTools.savePreferences(getActivity(), Constants.PROPERTY_UPLOADED_RECIPES_ON_FIRST_BOOT, true);
@@ -320,6 +323,7 @@ public class RecipeListFragment extends Fragment implements
                     ((RecipeListActivity)getActivity()).uploadRecipeToDrive(recipe);
                 }
             }
+            uploadRecipesToDrive = false;
         }
     }
 

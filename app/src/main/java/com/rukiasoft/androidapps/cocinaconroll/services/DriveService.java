@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.drive.Drive;
@@ -24,6 +25,7 @@ import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
@@ -35,6 +37,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +47,7 @@ import java.util.Map;
  */
 public class DriveService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    //private static final String TAG = LogHelper.makeLogTag(DriveService.class);
+    private static final String TAG = LogHelper.makeLogTag(DriveService.class);
     private static final String EXTRA_PARAM_RECIPE = "com.rukiasoft.androidapps.cocinaconroll.ui.extra.RECIPE";
 
     private static final CustomPropertyKey KEY_VERSION = new CustomPropertyKey("version", CustomPropertyKey.PRIVATE);
@@ -60,11 +63,7 @@ public class DriveService extends IntentService {
         return (CocinaConRollApplication)getApplication();
     }
 
-    /**
-     * Starts this service to perform action Foo with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     */
+
     public static void startActionUploadRecipe(Context context, RecipeItem recipeItem) {
 
         Intent intent = new Intent(context, DriveService.class);
@@ -73,12 +72,15 @@ public class DriveService extends IntentService {
         context.startService(intent);
     }
 
-    /**
-     * Starts this service to perform action Baz with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
+    public static void startActionDeleteRecipe(Context context, RecipeItem recipeItem) {
+
+        Intent intent = new Intent(context, DriveService.class);
+        intent.setAction(Constants.ACTION_DELETE_RECIPE);
+        intent.putExtra(EXTRA_PARAM_RECIPE, recipeItem);
+        context.startService(intent);
+    }
+
+
     public static void startActionGetRecipesFromDrive(Context context) {
         Intent intent = new Intent(context, DriveService.class);
         intent.setAction(Constants.ACTION_GET_RECIPES_FROM_DRIVE);
@@ -92,6 +94,9 @@ public class DriveService extends IntentService {
             if (Constants.ACTION_UPLOAD_RECIPE.equals(action)) {
                 final RecipeItem recipeItem = intent.getParcelableExtra(EXTRA_PARAM_RECIPE);
                 handleActionUploadRecipe(recipeItem);
+            }else if (Constants.ACTION_DELETE_RECIPE.equals(action)) {
+                final RecipeItem recipeItem = intent.getParcelableExtra(EXTRA_PARAM_RECIPE);
+                handleActionDeleteRecipe(recipeItem);
             } else if (Constants.ACTION_GET_RECIPES_FROM_DRIVE.equals(action)) {
                 handleActionGetRecipesFromDrive();
             }
@@ -119,7 +124,7 @@ public class DriveService extends IntentService {
         if(uriZipPath == null){
             return;
         }
-        updated = UploadFileToDrive(uriZipPath, Constants.MIME_TYPE_ZIP, recipeItem.getVersion());
+        updated = uploadFileToDrive(uriZipPath, Constants.MIME_TYPE_ZIP, recipeItem.getVersion());
         rwTools.deleteZipByPath(uriZipPath);
         if(updated) {
             Intent localIntent =
@@ -131,7 +136,7 @@ public class DriveService extends IntentService {
         }
     }
 
-    private boolean UploadFileToDrive(Uri path, String mimeType, Integer version){
+    private boolean uploadFileToDrive(Uri path, String mimeType, Integer version){
         try {
             Metadata metadata = fileExistInDriveAppFolder(path.getLastPathSegment(), mimeType);
             if (metadata != null) {
@@ -237,6 +242,25 @@ public class DriveService extends IntentService {
         }
     }
 
+    private void handleActionDeleteRecipe(RecipeItem recipeItem) {
+        Uri uriRecipe = Uri.parse(recipeItem.getPathRecipe());
+        String name = uriRecipe.getLastPathSegment().replace("xml", "zip");
+        //check if exists
+        try {
+            Metadata metadata = fileExistInDriveAppFolder(name, Constants.MIME_TYPE_ZIP);
+            if (metadata != null) {
+                Status result = metadata.getDriveId().asDriveFile().delete(getMyApplication().getGoogleApiClient()).await();
+                if(result.isSuccess()){
+                    Log.d(TAG, "borrado con éxito");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Tools mTools = new Tools();
+            mTools.sendExceptionToAnalytics(getApplication(), "excepcion borrando receta de google drive");
+        }
+    }
+
     /**
      * Handle action GetRecipesFromDrive in the provided background thread with the provided
     * parameters.
@@ -299,14 +323,33 @@ public class DriveService extends IntentService {
             }
         }
         //check if is needed to delete
-        List<RecipeItem> sincroniced = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
-        for(RecipeItem recipeItem : sincroniced){
-            for(Metadata metadata : files){
-                if(recipeItem.getPathRecipe() != null && recipeItem.getPathRecipe().contains(metadata.getTitle().replace("zip", "xml"))){
-                    //// TODO: 22/11/15 ver lo de borrar la receta
-                }
+        List<RecipeItem> sincronized = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
+        for(RecipeItem recipeItem : sincronized){
+            if(!checkIfIsInDrive(recipeItem.getPathRecipe(), files)){
+                // TODO: 22/11/15 ver lo de borrar la receta
+                Intent localIntent = new Intent(Constants.ACTION_BROADCASE_DELETED_RECIPE)
+                        // Puts the status into the Intent
+                        .putExtra(Constants.KEY_RECIPE, recipeItem);
+                // Broadcasts the Intent to receivers in this app.
+                LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+
             }
         }
+    }
+
+    private boolean checkIfIsInDrive(String name, List<Metadata> files){
+         Iterator<Metadata> iterator = files.iterator();
+        while (iterator.hasNext()){
+            String driveName = iterator.next().getTitle();
+            if(driveName.contains("zip")){
+                driveName = driveName.replace("zip", "");
+            }
+            if(name.contains(driveName)){
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     private int getVersionFromMetadata(Metadata metadata){

@@ -173,6 +173,18 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
         }
     }
 
+    protected void deleteRecipeFromDrive(RecipeItem recipeItem){
+        if(getMyApplication().getGoogleApiClient() == null){
+            //initializeConnection();
+            connectToDrive(true);
+        }else{
+            if(!getMyApplication().getGoogleApiClient().isConnected()) {
+                connectToDrive(true);
+            }
+            DriveService.startActionDeleteRecipe(this, recipeItem);
+        }
+    }
+
     protected boolean getRecipesFromDrive(){
         if(getMyApplication().getGoogleApiClient() == null){
             connectToDrive(true);

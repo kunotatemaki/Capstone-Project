@@ -103,6 +103,11 @@ public class RecipeListActivity extends SigningDriveActivity {
                     DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
                     dbTools.updateStateById(recipeItem.get_id(), recipeItem.getState());
                 }
+            }else if(intent.getAction().equals(Constants.ACTION_BROADCASE_DELETED_RECIPE)){
+                if(intent.hasExtra(Constants.KEY_RECIPE)){
+                    RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
+                    removeRecipeFromDiskAndDatabase(recipeItem);
+                }
             }
         }
     }
@@ -234,11 +239,10 @@ public class RecipeListActivity extends SigningDriveActivity {
                 if (resultCode == Constants.RESULT_DELETE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                     RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
                     if (recipe != null) {
-                        ReadWriteTools rwTools = new ReadWriteTools(this);
-                        rwTools.deleteRecipe(recipe);
-                        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
-                        dbTools.removeRecipefromDatabase(recipe.get_id());
-                        restartLoader();
+                        if((recipe.getState() & Constants.FLAG_SINCRONIZED_WITH_DRIVE) != 0){
+                            deleteRecipeFromDrive(recipe);
+                        }
+                        removeRecipeFromDiskAndDatabase(recipe);
                     }
                 }else if(resultCode == Constants.RESULT_UPDATE_RECIPE){
                     if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
@@ -282,7 +286,13 @@ public class RecipeListActivity extends SigningDriveActivity {
         }
     }
 
-
+    private void removeRecipeFromDiskAndDatabase(RecipeItem recipe){
+        ReadWriteTools rwTools = new ReadWriteTools(this);
+        rwTools.deleteRecipe(recipe);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
+        dbTools.removeRecipefromDatabase(recipe.get_id());
+        restartLoader();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
