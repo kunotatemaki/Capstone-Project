@@ -128,7 +128,7 @@ public class DriveService extends IntentService {
         rwTools.deleteZipByPath(uriZipPath);
         if(updated) {
             Intent localIntent =
-                    new Intent(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)
+                    new Intent(Constants.ACTION_BROADCAST_UPLOADED_RECIPE)
                             // Puts the status into the Intent
                             .putExtra(Constants.KEY_RECIPE, recipeItem);
             // Broadcasts the Intent to receivers in this app.
@@ -159,6 +159,7 @@ public class DriveService extends IntentService {
                 Drive.DriveApi.getAppFolder(getMyApplication().getGoogleApiClient())
                         .queryChildren(getMyApplication().getGoogleApiClient(), query).await();
         if(!mdResultSet.getStatus().isSuccess()){
+            mdResultSet.release();
             throw (new Exception("RukiaSoft: error checking if a file exists in Drive"));
         }
 
@@ -168,7 +169,6 @@ public class DriveService extends IntentService {
                 return metadata;
             }
         }
-
         return null;
     }
 
@@ -297,7 +297,7 @@ public class DriveService extends IntentService {
 
         for(int i = 0; i< result.getMetadataBuffer().getCount(); i++){
             Metadata metadata = result.getMetadataBuffer().get(i);
-            if(!metadata.isTrashed() && metadata.isInAppFolder()) {
+            if(!metadata.isTrashed() /*&& metadata.isInAppFolder()*/) {
                 list.add(result.getMetadataBuffer().get(i));
             }
         }
@@ -323,11 +323,10 @@ public class DriveService extends IntentService {
             }
         }
         //check if is needed to delete
-        List<RecipeItem> sincronized = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
-        for(RecipeItem recipeItem : sincronized){
+        List<RecipeItem> synchronizedRecipes = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
+        for(RecipeItem recipeItem : synchronizedRecipes){
             if(!checkIfIsInDrive(recipeItem.getPathRecipe(), files)){
-                // TODO: 22/11/15 ver lo de borrar la receta
-                Intent localIntent = new Intent(Constants.ACTION_BROADCASE_DELETED_RECIPE)
+                Intent localIntent = new Intent(Constants.ACTION_BROADCAST_DELETED_RECIPE)
                         // Puts the status into the Intent
                         .putExtra(Constants.KEY_RECIPE, recipeItem);
                 // Broadcasts the Intent to receivers in this app.

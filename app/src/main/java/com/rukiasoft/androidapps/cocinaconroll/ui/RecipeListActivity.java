@@ -95,7 +95,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals(Constants.ACTION_BROADCASE_UPLOADED_RECIPE)){
+            if(intent.getAction().equals(Constants.ACTION_BROADCAST_UPLOADED_RECIPE)){
                 if(intent.hasExtra(Constants.KEY_RECIPE)){
                     RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
                     recipeItem.removeState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
@@ -103,7 +103,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                     DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
                     dbTools.updateStateById(recipeItem.get_id(), recipeItem.getState());
                 }
-            }else if(intent.getAction().equals(Constants.ACTION_BROADCASE_DELETED_RECIPE)){
+            }else if(intent.getAction().equals(Constants.ACTION_BROADCAST_DELETED_RECIPE)){
                 if(intent.hasExtra(Constants.KEY_RECIPE)){
                     RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
                     removeRecipeFromDiskAndDatabase(recipeItem);
@@ -186,8 +186,9 @@ public class RecipeListActivity extends SigningDriveActivity {
         }
 
         // The filter's action is BROADCAST_ACTION
-        IntentFilter mStatusIntentFilter = new IntentFilter(
-                Constants.ACTION_BROADCASE_UPLOADED_RECIPE);
+        IntentFilter mStatusIntentFilter = new IntentFilter();
+        mStatusIntentFilter.addAction(Constants.ACTION_BROADCAST_UPLOADED_RECIPE);
+        mStatusIntentFilter.addAction(Constants.ACTION_BROADCAST_DELETED_RECIPE);
 
 
         // Instantiates a new DownloadStateReceiver
@@ -585,6 +586,6 @@ public class RecipeListActivity extends SigningDriveActivity {
             getSupportLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
         }
     }
-
+// TODO: 24/11/15 clear garbage
 
 }

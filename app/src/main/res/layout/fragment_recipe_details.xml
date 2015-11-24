@@ -44,7 +44,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 app:contentScrim="@android:color/transparent"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:theme="@style/CocinaConRollActionBarTheme"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:contentInsetStart="@dimen/title_margin_collapsed"
                 app:layout_collapseMode="pin"/>
             <TextView

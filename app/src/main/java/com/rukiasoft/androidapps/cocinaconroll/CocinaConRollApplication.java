@@ -16,7 +16,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class CocinaConRollApplication  extends Application {
 // TODO: 18/11/15 cambiar el finger print del user id para el json en modo release
-    // TODO: 18/11/15 hacer que en drive guarde en la carpeta de la aplicación
     /**
      * The Analytics singleton. The field is set in onCreate method override when the application
      * class is initially created.

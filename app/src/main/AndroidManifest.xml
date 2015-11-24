@@ -186,6 +186,7 @@
         </receiver>
 
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
         <service android:name=".services.DownloadAndUnzipIntentService" />
 
         <receiver android:name=".wifi.WifiReceiver" >
