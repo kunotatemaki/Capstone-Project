@@ -16,7 +16,8 @@ android {
     buildTypes {
         debug {
             // Enabling multidex support.
-            multiDexEnabled true
+            //multiDexEnabled true
+
         }
         release {
             minifyEnabled true

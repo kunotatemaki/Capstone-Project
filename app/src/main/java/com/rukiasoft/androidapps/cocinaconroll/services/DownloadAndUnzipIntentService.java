@@ -63,9 +63,9 @@ public class DownloadAndUnzipIntentService extends IntentService {
         List<ZipItem> list = dbTools.getZipsByState(Constants.STATE_NOT_DOWNLOADED);
         Integer newRecipes = 0;
 
-
+        boolean check;
         for (int i = 0; i < list.size(); i++) {
-            Boolean check = downloadZip(list.get(i).getName(), list.get(i).getLink());
+            check = downloadZip(list.get(i).getName(), list.get(i).getLink());
 
             if (!check) {
                 Log.e(TAG, "Error downloading data from server");
@@ -77,6 +77,9 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 e.printStackTrace();
                 continue;
             }
+        }
+        list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_NOT_UNZIPED);
+        for (int i = 0; i < list.size(); i++) {
             check = rwTools.unzipRecipesInOriginal(list.get(i).getName());
             if (!check) {
                 Log.e(TAG, "Data downladed is corrupt");
@@ -88,10 +91,14 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 e.printStackTrace();
                 continue;
             }
+
             //update variable to load new files
             mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, true);
             //ya se han descomprimido, aumento contador
             newRecipes++;
+        }
+        list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
+        for (int i = 0; i < list.size(); i++) {
             if (rwTools.deleteFile(rwTools.getZipsStorageDir() + list.get(i).getName())) {
                 try {
                     dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_ERASED);

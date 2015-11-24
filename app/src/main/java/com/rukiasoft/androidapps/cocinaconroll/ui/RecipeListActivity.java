@@ -43,6 +43,10 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -198,6 +202,7 @@ public class RecipeListActivity extends SigningDriveActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 driveServiceReceiver,
                 mStatusIntentFilter);
+        clearGarbage();
     }
 
 
@@ -586,6 +591,27 @@ public class RecipeListActivity extends SigningDriveActivity {
             getSupportLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
         }
     }
-// TODO: 24/11/15 clear garbage
+
+    private void clearGarbage(){
+        //creo fichero nomedia
+        ReadWriteTools rwTools = new ReadWriteTools(this);
+        File file = new File(rwTools.getEditedStorageDir() + ".nomedia");
+        try {
+            if(!file.exists())
+                file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //borro temporales de la cámara
+        List<String> list = rwTools.loadFiles(null, true);
+        for(int i=0; i<list.size(); i++) {
+            if(list.get(i).contains(Constants.TEMP_CAMERA_NAME)){
+                file = new File(rwTools.getEditedStorageDir() + list.get(i));
+                if(file.exists())
+                    file.delete();
+            }
+        }
+    }
+
 
 }
