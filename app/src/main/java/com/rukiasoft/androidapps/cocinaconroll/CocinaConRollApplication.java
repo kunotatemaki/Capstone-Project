@@ -3,6 +3,7 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -94,7 +95,7 @@ public class CocinaConRollApplication  extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         if(BuildConfig.DEBUG) {
-            ;//MultiDex.install(this);
+            MultiDex.install(this);
         }
     }
 

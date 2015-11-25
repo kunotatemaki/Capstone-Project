@@ -7,58 +7,63 @@
     android:weightSum="4"
     tools:context=".ui.ShowSigningActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         >
-        <TextView
-            android:id="@+id/sign_in_title_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/title_signing"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/signing_title" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            >
+            <TextView
+                android:id="@+id/sign_in_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/title_signing"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/signing_title" />
 
-        <ImageView
-            android:id="@+id/sign_in_icon"
-            android:layout_width="@dimen/profile_picture_size"
-            android:layout_height="@dimen/profile_picture_size"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="@dimen/g_top_margin"
-            android:contentDescription="@string/desc_google_icon"
-            android:src="@mipmap/ic_launcher" />
+            <ImageView
+                android:id="@+id/sign_in_icon"
+                android:layout_width="@dimen/profile_picture_size"
+                android:layout_height="@dimen/profile_picture_size"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/g_top_margin"
+                android:contentDescription="@string/desc_google_icon"
+                android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/sign_in_body_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/body_signing"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/signing_body" />
+            <TextView
+                android:id="@+id/sign_in_body_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/body_signing"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/signing_body" />
 
-        <TextView
-            android:id="@+id/sign_in_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/g_top_margin"
-            android:text="@string/signed_out"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/abc_text_size_small_material" />
+            <TextView
+                android:id="@+id/sign_in_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/g_top_margin"
+                android:text="@string/signed_out"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/abc_text_size_small_material" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="fill_parent"
