@@ -459,39 +459,41 @@ public class RecipeListActivity extends SigningDriveActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                        switch (menuItem.getItemId()) {
-                            case R.id.menu_all_recipes:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
-                                lastFilter = Constants.FILTER_ALL_RECIPES;
-                                break;
-                            case R.id.menu_starters:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_STARTER_RECIPES);
-                                lastFilter = Constants.FILTER_STARTER_RECIPES;
-                                break;
-                            case R.id.menu_main_courses:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_MAIN_COURSES_RECIPES);
-                                lastFilter = Constants.FILTER_MAIN_COURSES_RECIPES;
-                                break;
-                            case R.id.menu_desserts:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_DESSERT_RECIPES);
-                                lastFilter = Constants.FILTER_DESSERT_RECIPES;
-                                break;
-                            case R.id.menu_vegetarians:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_VEGETARIAN_RECIPES);
-                                lastFilter = Constants.FILTER_VEGETARIAN_RECIPES;
-                                break;
-                            case R.id.menu_favorites:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_FAVOURITE_RECIPES);
-                                lastFilter = Constants.FILTER_FAVOURITE_RECIPES;
-                                break;
-                            case R.id.menu_own_recipes:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_OWN_RECIPES);
-                                lastFilter = Constants.FILTER_OWN_RECIPES;
-                                break;
-                            case R.id.menu_last_downloaded:
-                                mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
-                                lastFilter = Constants.FILTER_LATEST_RECIPES;
-                                break;
+                        if(mRecipeListFragment != null) {
+                            switch (menuItem.getItemId()) {
+                                case R.id.menu_all_recipes:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_ALL_RECIPES);
+                                    lastFilter = Constants.FILTER_ALL_RECIPES;
+                                    break;
+                                case R.id.menu_starters:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_STARTER_RECIPES);
+                                    lastFilter = Constants.FILTER_STARTER_RECIPES;
+                                    break;
+                                case R.id.menu_main_courses:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_MAIN_COURSES_RECIPES);
+                                    lastFilter = Constants.FILTER_MAIN_COURSES_RECIPES;
+                                    break;
+                                case R.id.menu_desserts:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_DESSERT_RECIPES);
+                                    lastFilter = Constants.FILTER_DESSERT_RECIPES;
+                                    break;
+                                case R.id.menu_vegetarians:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_VEGETARIAN_RECIPES);
+                                    lastFilter = Constants.FILTER_VEGETARIAN_RECIPES;
+                                    break;
+                                case R.id.menu_favorites:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_FAVOURITE_RECIPES);
+                                    lastFilter = Constants.FILTER_FAVOURITE_RECIPES;
+                                    break;
+                                case R.id.menu_own_recipes:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_OWN_RECIPES);
+                                    lastFilter = Constants.FILTER_OWN_RECIPES;
+                                    break;
+                                case R.id.menu_last_downloaded:
+                                    mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+                                    lastFilter = Constants.FILTER_LATEST_RECIPES;
+                                    break;
+                            }
                         }
 
                         drawerLayout.closeDrawers();
@@ -579,7 +581,10 @@ public class RecipeListActivity extends SigningDriveActivity {
     public void performClickInDrawerIfNecessary() {
         if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
             navigationView.setCheckedItem(R.id.menu_last_downloaded);
-            mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+            mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+            if(mRecipeListFragment != null) {
+                mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
+            }
         } else {
             navigationView.setCheckedItem(R.id.menu_all_recipes);
         }

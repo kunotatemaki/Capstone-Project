@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="1"
+    android:orientation="horizontal"
+android:background="@color/blue_grey_900">
+<RelativeLayout
+    android:id="@+id/layout_button_sign"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    >
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:visibility="visible" />
+    <Button
+        android:id="@+id/sign_out_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:text="@string/sign_out"
+        android:textColor="@android:color/white"
+        android:theme="@style/ThemeOverlay.MyDarkButton" />
+</RelativeLayout>
+<RelativeLayout
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:id="@+id/sign_in_discard_layout"
+    android:layout_below="@id/layout_button_sign">
+    <Button
+        android:id="@+id/sign_in_discard_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_centerInParent="true"
+        android:text="@string/sign_in_discard"
+        android:textColor="@android:color/white"
+        android:theme="@style/ThemeOverlay.MyDarkButton" />
+</RelativeLayout>
+
+</LinearLayout>
