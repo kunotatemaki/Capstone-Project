@@ -35,8 +35,7 @@ android:background="@color/blue_grey_900">
     android:layout_width="0dp"
     android:layout_weight="1"
     android:layout_height="wrap_content"
-    android:id="@+id/sign_in_discard_layout"
-    android:layout_below="@id/layout_button_sign">
+    android:id="@+id/sign_in_discard_layout">
     <Button
         android:id="@+id/sign_in_discard_button"
         android:layout_width="wrap_content"

@@ -751,12 +751,7 @@ public class ReadWriteTools {
 
     public boolean deleteFile(String path) {
         File file = new File(path);
-        if (file.exists()) {
-            return file.delete();
-        }
-        else{
-            return false;
-        }
+        return file.exists() && file.delete();
     }
 
     public boolean deleteZipByPath(Uri path){

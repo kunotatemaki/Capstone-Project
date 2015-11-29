@@ -106,7 +106,9 @@ public class EditRecipeActivity extends AppCompatActivity {
                 titleTextView.setMarqueeRepeatLimit(-1);
             }
 
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException e){
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 

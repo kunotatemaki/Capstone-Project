@@ -17,6 +17,8 @@ public class ZipsTable {
 
     public static final String TABLE_NAME = "zips";
 
+    final public static String[] ALL_COLUMNS = {FIELD_ID, FIELD_NAME, FIELD_LINK, FIELD_STATE};
+
     // Database creation SQL statement
     private static final String DATABASE_CREATE = " create table if not exists "
             + TABLE_NAME + " ( " +

@@ -1,6 +1,5 @@
 package com.rukiasoft.androidapps.cocinaconroll.gcm;
 
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;

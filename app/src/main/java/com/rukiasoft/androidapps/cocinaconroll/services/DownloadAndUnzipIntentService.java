@@ -75,7 +75,6 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_NOT_UNZIPED);
             } catch (Exception e) {
                 e.printStackTrace();
-                continue;
             }
         }
         list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_NOT_UNZIPED);

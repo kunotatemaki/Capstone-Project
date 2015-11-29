@@ -274,25 +274,14 @@ public class DatabaseRelatedTools {
     }
 
     public List<ZipItem> getZips(String selection, String[] selectionArgs) {
-        final String[] projection = {ZipsTable.FIELD_NAME, ZipsTable.FIELD_LINK};
-        List<ZipItem> list = new ArrayList<>();
+        final String[] projection = ZipsTable.ALL_COLUMNS;
 
         Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_ZIPS,
                 projection,
                 selection,
                 selectionArgs, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                ZipItem zipToDownload = new ZipItem();
-                zipToDownload.setName(cursor.getString(0));
-                zipToDownload.setLink(cursor.getString(1));
-                list.add(zipToDownload);
-            }while(cursor.moveToNext());
-            cursor.close();
-        }
-
-        return list;
+        return getZipsFromCursor(cursor);
     }
 
     public void updateZipState(String name, Integer state) {
@@ -343,7 +332,22 @@ public class DatabaseRelatedTools {
 
         return list;
     }
-
+    
+    private List<ZipItem> getZipsFromCursor(Cursor cursor){
+        List<ZipItem> list = new ArrayList<>(); 
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ZipItem zipToDownload = new ZipItem();
+                zipToDownload.setName(cursor.getString(cursor.getColumnIndexOrThrow(ZipsTable.FIELD_NAME)));
+                zipToDownload.setLink(cursor.getString(cursor.getColumnIndexOrThrow(ZipsTable.FIELD_LINK)));
+                zipToDownload.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ZipsTable.FIELD_ID)));
+                zipToDownload.setState(cursor.getInt(cursor.getColumnIndexOrThrow(ZipsTable.FIELD_STATE)));
+                list.add(zipToDownload);
+            }while(cursor.moveToNext());
+            cursor.close();
+        }
+        return list;
+    }
 
 
 }

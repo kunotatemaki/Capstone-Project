@@ -1,7 +1,5 @@
 package com.rukiasoft.androidapps.cocinaconroll.classes;
 
-import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
-
 /**
  * Created by iRuler on 20/10/15.
  */
