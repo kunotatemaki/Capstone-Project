@@ -121,13 +121,17 @@ public class DownloadAndUnzipIntentService extends IntentService {
     private boolean downloadZip(String name, String url){
         try {
             Boolean ret = rwTools.isExternalStorageWritable();
-            if (!ret)
+            if (!ret) {
+                LogHelper.e(TAG, "no hay external storage in downloadzip");
                 return false;
+            }
             File dir = new File(rwTools.getZipsStorageDir());
             if (!dir.exists()) {
                 ret = dir.mkdirs();
-                if (!ret)
+                if (!ret) {
+                    LogHelper.e(TAG, "no crea dir in external storage in downloadzip");
                     return false;
+                }
             }
 
             File file = new File(dir, name);

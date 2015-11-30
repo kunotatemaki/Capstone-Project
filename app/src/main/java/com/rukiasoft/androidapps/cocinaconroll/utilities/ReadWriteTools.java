@@ -41,7 +41,7 @@ import java.util.List;
 
 public class ReadWriteTools {
     private final Context mContext;
-    
+    private final String TAG = LogHelper.makeLogTag(ReadWriteTools.class);
     public ReadWriteTools(Context mContext){
         this.mContext = mContext;
     }
@@ -52,6 +52,7 @@ public class ReadWriteTools {
 
         ret = isExternalStorageWritable();
         if(!ret){
+            LogHelper.e(TAG, "no hay external storage in loadfiles");
             return list;
         }
         // Get the directory for the app's private recipes directory.
@@ -76,6 +77,7 @@ public class ReadWriteTools {
 
         ret = isExternalStorageWritable();
         if(!ret){
+            LogHelper.e(TAG, "no hay external storage in loadrecipesfromolddirectory");
             return list;
         }
         // Get the directory for the old app's private recipes directory.
@@ -281,6 +283,7 @@ public class ReadWriteTools {
                 Toast.makeText(mContext, mContext.getResources().getString(R.string.no_storage_available), Toast.LENGTH_LONG)
                 .show();
             }
+            LogHelper.e(TAG, "no hay external storage in saverecipe");
             return "";
         }
 
