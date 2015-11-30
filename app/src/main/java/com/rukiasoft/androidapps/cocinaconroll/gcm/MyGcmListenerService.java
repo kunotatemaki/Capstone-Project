@@ -46,9 +46,7 @@ public class MyGcmListenerService extends GcmListenerService {
     // [START receive_message]
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        ArithmeticException ex = new ArithmeticException();
-        throw(ex);
-        /*String name, link;
+        String name, link;
         Log.v(TAG, "recibo notificación");
         if(data != null && data.containsKey("name") && data.containsKey("link")){
             name = data.getString("name");
@@ -82,11 +80,7 @@ public class MyGcmListenerService extends GcmListenerService {
                     .setDescription(MyGcmListenerService.class.getSimpleName() + ":" + "error parsing Uri")
                     .setFatal(true)
                     .build());
-        }*/
-
-
+        }
     }
     // [END receive_message]
-
-
 }

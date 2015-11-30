@@ -74,6 +74,8 @@ public class RegistrationIntentService extends IntentService {
                 // otherwise your server should have already received the token.
                 sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
                 // [END register_for_gcm]
+            }else{
+                Log.i(TAG, "token no enviado");
             }
         } catch (Exception e) {
             Log.d(TAG, "Failed to complete token refresh", e);

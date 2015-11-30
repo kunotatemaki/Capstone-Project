@@ -4,6 +4,7 @@ import android.content.Context;
 import android.provider.Settings;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 
 import java.text.SimpleDateFormat;
@@ -13,17 +14,17 @@ import java.util.Calendar;
  * Created by Raúl Feliz Alonso on 20/10/15.
  */
 public class RegistrationClass {
-    @Expose
+    @Expose @SerializedName("date")
     private String date;
-    @Expose
+    @Expose @SerializedName("gcm_regid")
     private String gcm_regid;
-    @Expose
+    @Expose @SerializedName("unique_id")
     private String unique_id;
-    @Expose
+    @Expose @SerializedName("version")
     private Integer version;
-    @Expose
+    @Expose @SerializedName("email")
     private String email;
-    @Expose
+    @Expose @SerializedName("name")
     private String name;
 
     public RegistrationClass(Context context){

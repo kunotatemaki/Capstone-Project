@@ -159,7 +159,11 @@ public class ShowSigningActivity extends SigningDriveActivity {
             mTools.savePreferences(this, Constants.PROPERTY_DEVICE_OWNER_EMAIL, acct.getEmail());
             //force to send registration token to server again, with this new information
             mTools.savePreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-            accountName = getString(R.string.signed_in_fmt, acct.getDisplayName());
+            String name = acct.getDisplayName();
+            if(name == null){
+                name = getResources().getString(R.string.anonymous);
+            }
+            accountName = getString(R.string.signed_in_fmt, name);
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.

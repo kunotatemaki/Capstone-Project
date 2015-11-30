@@ -3,9 +3,6 @@ package com.rukiasoft.androidapps.cocinaconroll;
 
 
 import android.app.Application;
-import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -15,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 /**
  * Created by Ruler on 2015.
  */
-public class CocinaConRollApplication  extends MultiDexApplication/*Application */{
+public class CocinaConRollApplication  extends /*MultiDexApplication*/Application{
     /**
      * The Analytics singleton. The field is set in onCreate method override when the application
      * class is initially created.
@@ -93,13 +90,13 @@ public class CocinaConRollApplication  extends MultiDexApplication/*Application 
         Thread.setDefaultUncaughtExceptionHandler(myHandler);*/
     }
 
-    @Override
+    /*@Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         if(BuildConfig.DEBUG) {
             MultiDex.install(this);
         }
-    }
+    }*/
 
     int nActivityConnected = 0;
     public void addActivity(){

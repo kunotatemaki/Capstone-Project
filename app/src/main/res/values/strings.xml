@@ -137,6 +137,7 @@
     <string name="exit">Exit</string>
     <string name="sign_out">Disconnect account</string>
     <string name="loading">Loading…</string>
+    <string name="anonymous">anonymous</string>
 
 
 </resources>
