@@ -14,11 +14,11 @@ android {
     }
 
     buildTypes {
-        debug {
+        /*debug {
             // Enabling multidex support.
-            //multiDexEnabled true
+            multiDexEnabled true
 
-        }
+        }*/
         release {
             minifyEnabled true
             shrinkResources true

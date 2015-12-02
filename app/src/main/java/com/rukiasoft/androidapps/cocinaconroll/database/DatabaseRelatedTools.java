@@ -168,6 +168,17 @@ public class DatabaseRelatedTools {
         return searchRecipesInDatabase(field, sSelectionArgs);
     }
 
+    public List<RecipeItem> searchRecipesInDatabaseByState(int state){
+        List<RecipeItem> list = searchRecipesInDatabase();
+        List<RecipeItem> listFiltered = new ArrayList<>();
+        for(RecipeItem recipeItem : list){
+            if((recipeItem.getState() & state) != 0){
+                listFiltered.add(recipeItem);
+            }
+        }
+        return listFiltered;
+    }
+
     public List<RecipeItem> searchRecipesInDatabase(String field, long selectionArgs) {
         String[] sSelectionArgs = new String[1];
         sSelectionArgs[0] = String.valueOf(selectionArgs);
@@ -188,9 +199,9 @@ public class DatabaseRelatedTools {
         String selection = null;
         String sortOrder = RecipesTable.FIELD_NAME_NORMALIZED + " asc ";
         if(field != null) {
-            if (field.equals(RecipesTable.FIELD_STATE) || field.equals(RecipesTable.FIELD_DATE)) {
+            if (field.equals(RecipesTable.FIELD_DATE)) {
                 selection = field + " > ? ";
-            } else {
+            } else{
                 selection = field + " = ? ";
             }
         }

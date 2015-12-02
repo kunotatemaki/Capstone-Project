@@ -466,7 +466,7 @@ public class RecipeListFragment extends Fragment implements
             iconResource = R.drawable.ic_favorite_black_24dp;
         }else if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0){
             type = getResources().getString(R.string.own_recipes);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_STATE, Constants.FLAG_EDITED);
+            mRecipes = dbTools.searchRecipesInDatabaseByState(Constants.FLAG_EDITED | Constants.FLAG_OWN);
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
             type = getResources().getString(R.string.last_downloaded);
