@@ -49,7 +49,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
             response = client.newCall(request).execute();
             JsonParser jsonParser = new JsonParser();
             JsonObject jo = (JsonObject)jsonParser.parse(response.body().charStream());
-
+// TODO: 2/12/15 comprobar que esto lo hace bien set to set ttereredfdsfafafaf dfdsdsddd
             JsonArray jsonArr = jo.getAsJsonArray("zips");
             for(JsonElement gson : jsonArr ) {
                 ZipItem zipItem = new Gson().fromJson(gson.getAsString(), ZipItem.class);
