@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 /**
  * Created by Ruler on 2015.
  */
-public class CocinaConRollApplication  extends /*MultiDexApplication*/Application{
+public class CocinaConRollApplication  extends /*MultiDex*/Application {
     /**
      * The Analytics singleton. The field is set in onCreate method override when the application
      * class is initially created.

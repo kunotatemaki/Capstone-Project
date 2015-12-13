@@ -123,10 +123,6 @@ public class RegistrationIntentService extends IntentService {
 
         RegistrationResponse error = new RegistrationResponse();
         try {
-            /*if (gcm == null) {
-                gcm = GoogleCloudMessaging.getInstance(this);
-            }
-            String regId = gcm.register(Constants.SENDER_ID);*/
 
             Tools mTools = new Tools();
 

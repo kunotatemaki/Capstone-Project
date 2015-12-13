@@ -2,7 +2,7 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:shareInterpolator="false">
     <translate
-        android:fromYDelta="125"
+        android:fromYDelta="150"
         android:duration="@integer/duration_enter"
         android:startOffset="@integer/enter_imagine"
         android:interpolator="@android:anim/overshoot_interpolator"/>
