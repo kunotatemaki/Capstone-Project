@@ -244,4 +244,15 @@ public class Tools {
         }
     }
 
+    public boolean isKeyboardShown(Activity activity){
+        InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (imm.isAcceptingText()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
