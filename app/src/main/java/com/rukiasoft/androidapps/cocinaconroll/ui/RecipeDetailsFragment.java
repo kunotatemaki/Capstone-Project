@@ -50,6 +50,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -100,23 +101,7 @@ public class RecipeDetailsFragment extends Fragment implements
     private DatabaseRelatedTools dbTools;
     private ReadWriteTools rwTools;
 
-    private final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
-                    getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
-                    getActivity().finish();
 
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    break;
-            }
-        }
-    };
     private final DialogInterface.OnClickListener editDialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -170,32 +155,16 @@ public class RecipeDetailsFragment extends Fragment implements
     @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipe);
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
-                Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_RECIPE, recipe);
-                intent.putExtras(bundle);
-                getActivity().startActivityForResult(intent, Constants.REQUEST_EDIT_RECIPE);
+                commonRecipeOperations.editRecipe();
                 return true;
             case R.id.menu_item_remove:
-                AlertDialog.Builder removeBuilder = new AlertDialog.Builder(getActivity());
-                String message;
-                if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
-                    message = getResources().getString(R.string.restore_recipe_confirmation);
-                }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
-                    message = getResources().getString(R.string.delete_recipe_confirmation);
-                }else{
-                    return false;
-                }
-                removeBuilder.setMessage(message)
-                        .setPositiveButton((getResources().getString(R.string.Yes)), removeDialogClickListener)
-                        .setNegativeButton((getResources().getString(R.string.No)), removeDialogClickListener);
-                removeBuilder.show();
-                return true;
+                return commonRecipeOperations.removeRecipe();
             case R.id.menu_item_share_recipe:
                 AlertDialog.Builder shareBuilder = new AlertDialog.Builder(getActivity());
-                message = getResources().getString(R.string.share_confirmation);
+                String message = getResources().getString(R.string.share_confirmation);
                 shareBuilder.setMessage(message)
                         .setPositiveButton((getResources().getString(R.string.Yes)), editDialogClickListener)
                         .setNegativeButton((getResources().getString(R.string.No)), editDialogClickListener);

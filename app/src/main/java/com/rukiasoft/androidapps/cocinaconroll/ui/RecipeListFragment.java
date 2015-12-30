@@ -41,6 +41,7 @@ import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProv
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
 import com.rukiasoft.androidapps.cocinaconroll.fastscroller.FastScroller;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -56,7 +57,10 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  * A placeholder fragment containing a simple view.
  */
 public class RecipeListFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnItemClickListener,
+        LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnCardClickListener,
+        RecipeListRecyclerViewAdapter.OnBackDeleteClickListener,
+        RecipeListRecyclerViewAdapter.OnBackEditClickListener,
+        RecipeListRecyclerViewAdapter.OnBackFavoriteClickListener,
         AppBarLayout.OnOffsetChangedListener{
 
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
@@ -119,8 +123,6 @@ public class RecipeListFragment extends Fragment implements
             ((RecipeListActivity) mActivity).restartLoader();
         }
     }
-
-
 
     public RecipeListFragment() {
     }
@@ -345,7 +347,10 @@ public class RecipeListFragment extends Fragment implements
 
         RecipeListRecyclerViewAdapter adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         adapter.setHasStableIds(true);
-        adapter.setOnItemClickListener(this);
+        adapter.setOnCardClickListener(this);
+        adapter.setOnBackDeleteClickListener(this);
+        adapter.setOnBackEditClickListener(this);
+        adapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -382,29 +387,38 @@ public class RecipeListFragment extends Fragment implements
     }
 
     @Override
-    public void onItemClick(View view, RecipeItem recipeItem) {
+    public void onCardClick(View view, RecipeItem recipeItem) {
         showRecipeDetails(recipeItem);
+    }
+
+    @Override
+    public void onBackDeleteClick(RecipeItem recipeItem) {
+        int i = 0;
+        i++;
+    }
+
+    @Override
+    public void onBackEditClick(RecipeItem recipeItem) {
+        CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipeItem);
+        commonRecipeOperations.editRecipe();
+    }
+
+    @Override
+    public void onBackFavoriteClick(RecipeItem recipeItem) {
+        int i = 0;
+        i++;
     }
 
     private void showRecipeDetails(RecipeItem recipeItem){
         //interstitial
         Tools tools = new Tools();
-        ReadWriteTools rwTools = new ReadWriteTools(getActivity());
         int number = tools.getIntegerFromPreferences(getActivity().getApplicationContext(), Constants.PREFERENCE_INTERSTITIAL);
         if(number<0 || number>Constants.N_RECIPES_TO_INTERSTICIAL){
             number = 0;
         }
-        if(recipeItem.getIngredients() == null || recipeItem.getIngredients().size() == 0){
-            RecipeItem item = rwTools.readRecipeInfo(recipeItem.getPathRecipe());
-            if(item == null)
-                return;
-            recipeItem.setMinutes(item.getMinutes());
-            recipeItem.setPortions(item.getPortions());
-            recipeItem.setAuthor(item.getAuthor());
-            recipeItem.setIngredients(item.getIngredients());
-            recipeItem.setSteps(item.getSteps());
-            recipeItem.setTip(item.getTip());
-        }
+        CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipeItem);
+        recipeItem = commonRecipeOperations.loadRecipeDetailsFromRecipeCard();
+
         recipeToShow = recipeItem;
         if(number != Constants.N_RECIPES_TO_INTERSTICIAL) {
             launchActivityDetails();
@@ -481,7 +495,10 @@ public class RecipeListFragment extends Fragment implements
         //Change the adapter
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         newAdapter.setHasStableIds(true);
-        newAdapter.setOnItemClickListener(this);
+        newAdapter.setOnCardClickListener(this);
+        newAdapter.setOnBackDeleteClickListener(this);
+        newAdapter.setOnBackEditClickListener(this);
+        newAdapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
 
@@ -559,6 +576,11 @@ public class RecipeListFragment extends Fragment implements
             showRecipeDetails(coincidences.get(0));
         }
     }
+    // TODO: 30/12/15 delete button
+    // TODO: 30/12/15 favorite button
+    // TODO: 30/12/15 animacion favorito
+    // TODO: 30/12/15 compatibilidad animaciones con API 10
+
 
 }
 

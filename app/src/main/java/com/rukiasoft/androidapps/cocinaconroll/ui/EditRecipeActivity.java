@@ -57,7 +57,11 @@ public class EditRecipeActivity extends AppCompatActivity {
         }else if(getIntent() != null && getIntent().hasExtra(Constants.KEY_RECIPE)) {
             recipe = getIntent().getExtras().getParcelable(Constants.KEY_RECIPE);
             //check if the picture is previosly edited, to delete the old picture
-            if(recipe == null) return;
+            if(recipe == null){
+                recipe = new RecipeItem();
+                setResult(RESULT_CANCELED);
+                finish();
+            }
             if((recipe.getState()&Constants.FLAG_EDITED_PICTURE)!=0){
                 oldPicture = recipe.getPathPicture();
             }

@@ -38,6 +38,7 @@ import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.GetZipsAsyncTask;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.RegistrationIntentService;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
@@ -257,6 +258,21 @@ public class RecipeListActivity extends SigningDriveActivity {
                         if (mRecipeListFragment != null) {
                             mRecipeListFragment.updateRecipe(recipe);
                         }
+                    }
+                }
+                break;
+            case Constants.REQUEST_EDIT_RECIPE:
+                if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
+                    RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
+                    CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(this, recipe);
+                    String oldPicture = "";
+                    if (intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)) {
+                        oldPicture = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
+                    }
+                    commonRecipeOperations.updateRecipe(oldPicture);
+                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    if (mRecipeListFragment != null) {
+                        mRecipeListFragment.updateRecipe(recipe);
                     }
                 }
                 break;

@@ -16,21 +16,32 @@
 
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +50,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>
-        implements View.OnClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 
     private final List<RecipeItem> mItems;
-    private OnItemClickListener onItemClickListener;
+    private OnCardClickListener onCardClickListener;
+    private OnBackFavoriteClickListener onBackFavoriteClickListener;
+    private OnBackEditClickListener onBackEditClickListener;
+    private OnBackDeleteClickListener onBackDeleteClickListener;
     private final Context mContext;
+    private View frontCard = null;
+    private View backCard = null;
 
 
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {
@@ -51,15 +67,81 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         this.mContext = context;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnBackFavoriteClickListener(OnBackFavoriteClickListener onBackFavoriteClickListener) {
+        this.onBackFavoriteClickListener = onBackFavoriteClickListener;
     }
+
+    public void setOnBackEditClickListener(OnBackEditClickListener onBackEditClickListener) {
+        this.onBackEditClickListener = onBackEditClickListener;
+    }
+
+    public void setOnBackDeleteClickListener(OnBackDeleteClickListener onBackDeleteClickListener) {
+        this.onBackDeleteClickListener = onBackDeleteClickListener;
+    }
+
+    public void setOnCardClickListener(OnCardClickListener onCardClickListener) {
+        this.onCardClickListener = onCardClickListener;
+    }
+
+
+
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_recycler_item, parent, false);
-        v.setOnClickListener(this);
-        return new RecipeViewHolder(v);
+        RecipeViewHolder recipeViewHolder = new RecipeViewHolder(v);
+        recipeViewHolder.cardView.setOnClickListener(this);
+        recipeViewHolder.cardView.setOnLongClickListener(this);
+        recipeViewHolder.backCardView.setRotationY(180);
+        recipeViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBackFavoriteClickListener != null) {
+                    onBackFavoriteClickListener.onBackFavoriteClick((RecipeItem) v.getTag());
+                }
+            }
+        });
+        recipeViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBackEditClickListener != null) {
+                    RecipeItem recipe = getRecipeFromParent(v);
+                    if(recipe != null) {
+                        onBackEditClickListener.onBackEditClick(recipe);
+                    }
+                }
+            }
+        });
+        recipeViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onBackDeleteClickListener != null) {
+                    onBackDeleteClickListener.onBackDeleteClick((RecipeItem) v.getTag());
+                }
+            }
+        });
+        return recipeViewHolder;
+        /*v.setOnClickListener(this);
+        return new RecipeViewHolder(v);*/
+    }
+
+    private RecipeItem getRecipeFromParent(View v){
+        RecipeItem recipe = null;
+        View aux = v;
+        ViewParent parent;
+        while((parent = aux.getParent()) != null){
+            if(parent instanceof CardView){
+                recipe = (RecipeItem) ((View)parent).getTag();
+                break;
+            }else{
+                aux = (View) parent;
+            }
+        }
+        if(recipe != null){
+            CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(mContext, recipe);
+            recipe = commonRecipeOperations.loadRecipeDetailsFromRecipeCard();
+        }
+        return recipe;
     }
 
     @Override
@@ -67,6 +149,18 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         RecipeItem item = mItems.get(position);
         holder.bindRecipe(mContext, item);
         holder.itemView.setTag(item);
+        if(holder.cardView.getRotationY() != 0){
+            setFrontAndBack(holder.cardView);
+            flipCard(holder.cardView);
+        }
+        holder.deleteButton.setVisibility(
+                ((item.getState() & (Constants.FLAG_OWN|Constants.FLAG_EDITED)) != 0)? View.VISIBLE : View.GONE
+        );
+        holder.favoriteButton.setImageDrawable(
+                (item.getFavourite())? ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_white_48dp) :
+                        ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_outline_white_48dp)
+        );
+
     }
 
     @Override public int getItemCount() {
@@ -77,16 +171,99 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         return mItems.get(position).hashCode();
     }
 
+    @Override
+    public void onClick(final View v) {
 
-    @Override public void onClick(final View v) {
+        setFrontAndBack(v);
+        if(v.getRotationY() != 0) {
+            return;
+        }
+
         // Give some time to the ripple to finish the effect
-        if (onItemClickListener != null) {
+        if (onCardClickListener != null) {
             new Handler().postDelayed(new Runnable() {
                 @Override public void run() {
-                    onItemClickListener.onItemClick(v, (RecipeItem) v.getTag());
+                    onCardClickListener.onCardClick(v, (RecipeItem) v.getTag());
                 }
             }, 200);
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+
+        setFrontAndBack(v);
+
+        if(frontCard != null && backCard != null) {
+            flipCard(v);
+        }
+
+        //setLeftIn.start();
+        return true;
+    }
+
+    private void setFrontAndBack(View v){
+        View faceA = null;
+        View faceB = null;
+        for(int i=0; i<((ViewGroup)v).getChildCount(); ++i) {
+            View nextChild = ((ViewGroup)v).getChildAt(i);
+            int id = nextChild.getId();
+            if(id == R.id.back_cardview_recipe_item){
+                faceB = nextChild;
+            }else if(id == R.id.front_cardview_recipe_item) {
+                faceA = nextChild;
+            }
+        }
+        if(v.getRotationY() != 0){
+            frontCard = faceB;
+            backCard = faceA;
+        }else{
+            frontCard = faceA;
+            backCard = faceB;
+        }
+    }
+
+    private void flipCard(final View card){
+        final View front = frontCard;
+        final View back = backCard;
+        final AnimatorSet flipCard = (card.getRotationY() == 0)?
+                (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.card_flip_rotate_half) :
+                (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.card_flip_rotate_full);
+        final AnimatorSet disappear = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.view_disappear);
+        //final AnimatorSet flipPositive = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.card_flip_rotate_full);
+        final AnimatorSet appear = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.view_appear);
+        flipCard.setTarget(card);
+        disappear.setTarget(front);
+        //flipPositive.setTarget(card);
+        appear.setTarget(back);
+        //setLeftIn.setTarget(backView);
+        flipCard.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                disappear.start();
+                appear.start();
+                back.setVisibility(View.VISIBLE);
+                back.setAlpha(0);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                front.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        flipCard.start();
     }
 
     protected static class RecipeViewHolder extends RecyclerView.ViewHolder {
@@ -97,6 +274,18 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
         public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
         public @Bind(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
+        public @Bind(R.id.cardview_recipe_item)
+        CardView cardView;
+        public @Bind(R.id.front_cardview_recipe_item)
+        LinearLayout frontCardView;
+        public @Bind(R.id.back_cardview_recipe_item)
+        RelativeLayout backCardView;
+        public @Bind(R.id.recipe_item_favorite_button)
+        ImageView favoriteButton;
+        public @Bind(R.id.recipe_item_delete_button)
+        ImageView deleteButton;
+        public @Bind(R.id.recipe_item_edit_button)
+        ImageView editButton;
         ReadWriteTools rwTools;
         DatabaseRelatedTools dbTools;
 
@@ -144,15 +333,25 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             }
             rwTools.loadImageFromPath(recipeThumbnail, item.getPathPicture(),
                     R.drawable.default_dish_thumb, item.getVersion());
-
         }
     }
 
-    public interface OnItemClickListener {
-
-        void onItemClick(View view, RecipeItem recipeItem);
-
+    public interface OnCardClickListener {
+        void onCardClick(View view, RecipeItem recipeItem);
     }
 
+    public interface OnBackFavoriteClickListener {
+        void onBackFavoriteClick(RecipeItem recipeItem);
+    }
+
+    public interface OnBackEditClickListener {
+        void onBackEditClick(RecipeItem recipeItem);
+    }
+
+    public interface OnBackDeleteClickListener {
+        void onBackDeleteClick(RecipeItem recipeItem);
+    }
+
+    // TODO: 30/12/15 ripple effect in buttons
 
 }

@@ -7,4 +7,7 @@
     <integer name="finish_all">7000</integer>
     <integer name="duration_enter">100</integer>
     <integer name="duration_exit">200</integer>
+    <integer name="card_flip_time_full">500</integer>
+    <integer name="card_flip_time_half">250</integer>
+    <integer name="card_flip_time_quarter">125</integer>
 </resources>

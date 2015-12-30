@@ -106,6 +106,9 @@ public class EditRecipePhotoFragment extends Fragment {
                              Bundle savedInstanceState) {
         //Log.d(TAG, "onCreateView");
         // Inflate the layout for this fragment
+        if(getActivity().isFinishing()){
+            return null;
+        }
         View view;
         if(recipeItem == null){
             setRecipe();

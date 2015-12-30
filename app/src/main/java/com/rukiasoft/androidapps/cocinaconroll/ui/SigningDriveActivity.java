@@ -161,7 +161,7 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
         }
     }
 
-    protected void uploadRecipeToDrive(RecipeItem recipeItem){
+    public void uploadRecipeToDrive(RecipeItem recipeItem){
         if(getMyApplication().getGoogleApiClient() == null){
             //initializeConnection();
             connectToDrive(true);

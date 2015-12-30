@@ -9,6 +9,7 @@ import com.google.android.gms.ads.AdView;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -97,25 +98,16 @@ public class RecipeDetailActivity extends SigningDriveActivity {
                 if(recipeDetailsFragment != null)
                     recipeDetailsFragment.updateRecipe(recipe);
                 //save recipe
-                if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
-                    recipe.setPathPicture(Constants.DEFAULT_PICTURE_NAME);
-                ReadWriteTools rwTools = new ReadWriteTools(this);
-                String path = rwTools.saveRecipeOnEditedPath(recipe);
-                recipe.setPathRecipe(path);
-                recipe.setVersion(recipe.getVersion() + 1);
-                uploadRecipeToDrive(recipe);
-                //update database
-                DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
-                dbTools.updatePathsAndVersion(recipe);
+                CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(this, recipe);
+                String oldPicture = "";
+                if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
+                    oldPicture = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
+                }
+                commonRecipeOperations.updateRecipe(oldPicture);
                 //set results
                 Intent returnIntent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RECIPE, recipe);
-                String image = null;
-                if(intentData.hasExtra(Constants.KEY_DELETE_OLD_PICTURE)){
-                    image = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
-                }
-                rwTools.deleteImage(image);
                 returnIntent.putExtras(bundle);
                 setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
             }
