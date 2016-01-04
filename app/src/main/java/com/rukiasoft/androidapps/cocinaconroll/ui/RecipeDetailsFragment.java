@@ -152,6 +152,25 @@ public class RecipeDetailsFragment extends Fragment implements
             onPrepareOptionsMenu(menu);
     }
 
+    private final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
+
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
+                    getActivity().setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
+                    getActivity().finish();
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        }
+    };
+
     @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -161,10 +180,24 @@ public class RecipeDetailsFragment extends Fragment implements
                 commonRecipeOperations.editRecipe();
                 return true;
             case R.id.menu_item_remove:
-                return commonRecipeOperations.removeRecipe();
+                AlertDialog.Builder removeBuilder = new AlertDialog.Builder(getActivity());
+                String message;
+                if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
+                    message = getActivity().getResources().getString(R.string.restore_recipe_confirmation);
+                }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
+                    message = getActivity().getResources().getString(R.string.delete_recipe_confirmation);
+                }else{
+                    return false;
+                }
+
+                removeBuilder.setMessage(message)
+                        .setPositiveButton((getActivity().getResources().getString(R.string.Yes)), removeDialogClickListener)
+                        .setNegativeButton((getActivity().getResources().getString(R.string.No)), removeDialogClickListener);
+                removeBuilder.show();
+                return true;
             case R.id.menu_item_share_recipe:
                 AlertDialog.Builder shareBuilder = new AlertDialog.Builder(getActivity());
-                String message = getResources().getString(R.string.share_confirmation);
+                message = getResources().getString(R.string.share_confirmation);
                 shareBuilder.setMessage(message)
                         .setPositiveButton((getResources().getString(R.string.Yes)), editDialogClickListener)
                         .setNegativeButton((getResources().getString(R.string.No)), editDialogClickListener);

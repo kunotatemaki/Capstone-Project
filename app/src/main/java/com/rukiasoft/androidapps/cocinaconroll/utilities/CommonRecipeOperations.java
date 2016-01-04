@@ -43,44 +43,6 @@ public class CommonRecipeOperations {
         activity.startActivityForResult(intent, Constants.REQUEST_EDIT_RECIPE);
     }
 
-    public boolean removeRecipe(){
-        if(activity == null)    return false;
-        AlertDialog.Builder removeBuilder = new AlertDialog.Builder(activity);
-        String message;
-        if((recipe.getState() & (Constants.FLAG_EDITED|Constants.FLAG_EDITED_PICTURE))!=0){
-            message = activity.getResources().getString(R.string.restore_recipe_confirmation);
-        }else if((recipe.getState() & Constants.FLAG_OWN)!=0){
-            message = activity.getResources().getString(R.string.delete_recipe_confirmation);
-        }else{
-            return false;
-        }
-
-        removeBuilder.setMessage(message)
-                .setPositiveButton((activity.getResources().getString(R.string.Yes)), removeDialogClickListener)
-                .setNegativeButton((activity.getResources().getString(R.string.No)), removeDialogClickListener);
-        removeBuilder.show();
-        return true;
-    }
-
-    private final DialogInterface.OnClickListener removeDialogClickListener = new DialogInterface.OnClickListener() {
-
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            switch (which){
-                case DialogInterface.BUTTON_POSITIVE:
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra(Constants.KEY_RECIPE, recipe);
-                    activity.setResult(Constants.RESULT_DELETE_RECIPE, resultIntent);
-                    activity.finish();
-
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    break;
-            }
-        }
-    };
 
     public void updateRecipe(String deleteOldPicture){
         if(activity == null)    return;

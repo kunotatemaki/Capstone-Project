@@ -126,13 +126,13 @@
         android:layout_height="match_parent"
         android:background="@color/ColorPrimary"
         android:id="@+id/back_cardview_recipe_item"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             >
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/recipe_item_favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,6 +147,17 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/oval_selector"
+                />-->
+            <com.rukiasoft.androidapps.cocinaconroll.classes.LikeButtonView
+                android:id="@+id/recipe_item_favorite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/margin_recipe_icon_type"
+                android:paddingLeft="@dimen/margin_recipe_icon_type"
+                android:paddingEnd="@dimen/margin_recipe_icon_type"
+                android:paddingTop="@dimen/margin_recipe_icon_type"
+                android:paddingBottom="@dimen/margin_recipe_icon_type"
+                android:paddingRight="@dimen/margin_recipe_icon_type"
                 />
             <ImageView
                 android:id="@+id/recipe_item_edit_button"
@@ -160,23 +171,7 @@
                 android:paddingBottom="@dimen/margin_recipe_icon_type"
                 android:paddingRight="@dimen/margin_recipe_icon_type"
                 android:contentDescription="@string/edit_recipe"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/oval_selector"
-                />
-            <ImageView
-                android:id="@+id/recipe_item_delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete_white_36dp"
-                android:paddingStart="@dimen/margin_recipe_icon_type"
-                android:paddingLeft="@dimen/margin_recipe_icon_type"
-                android:paddingEnd="@dimen/margin_recipe_icon_type"
-                android:paddingTop="@dimen/margin_recipe_icon_type"
-                android:paddingBottom="@dimen/margin_recipe_icon_type"
-                android:paddingRight="@dimen/margin_recipe_icon_type"
-                android:contentDescription="@string/remove_recipe"
-                android:visibility="gone"
+                android:layout_gravity="center"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/oval_selector"

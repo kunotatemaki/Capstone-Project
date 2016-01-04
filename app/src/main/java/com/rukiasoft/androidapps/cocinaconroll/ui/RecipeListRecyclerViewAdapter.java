@@ -22,6 +22,7 @@ import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
+import android.media.Image;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -35,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rukiasoft.androidapps.cocinaconroll.classes.LikeButtonView;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
@@ -56,7 +58,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     private OnCardClickListener onCardClickListener;
     private OnBackFavoriteClickListener onBackFavoriteClickListener;
     private OnBackEditClickListener onBackEditClickListener;
-    private OnBackDeleteClickListener onBackDeleteClickListener;
     private final Context mContext;
     private View frontCard = null;
     private View backCard = null;
@@ -75,10 +76,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         this.onBackEditClickListener = onBackEditClickListener;
     }
 
-    public void setOnBackDeleteClickListener(OnBackDeleteClickListener onBackDeleteClickListener) {
-        this.onBackDeleteClickListener = onBackDeleteClickListener;
-    }
-
     public void setOnCardClickListener(OnCardClickListener onCardClickListener) {
         this.onCardClickListener = onCardClickListener;
     }
@@ -93,14 +90,26 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         recipeViewHolder.cardView.setOnClickListener(this);
         recipeViewHolder.cardView.setOnLongClickListener(this);
         recipeViewHolder.backCardView.setRotationY(180);
-        recipeViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+        /*recipeViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBackFavoriteClickListener != null) {
-                    onBackFavoriteClickListener.onBackFavoriteClick((RecipeItem) v.getTag());
+                    final RecipeItem recipe = getRecipeFromParent(v);
+                    if (v instanceof ImageView) {
+                        ((ImageView) v).setImageDrawable(
+                                (!recipe.getFavourite()) ? ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_white_48dp) :
+                                        ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_outline_white_48dp)
+                        );
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onBackFavoriteClickListener.onBackFavoriteClick(recipe);
+                        }
+                    }, 200);
                 }
             }
-        });
+        });*/
         recipeViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,14 +121,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                 }
             }
         });
-        recipeViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onBackDeleteClickListener != null) {
-                    onBackDeleteClickListener.onBackDeleteClick((RecipeItem) v.getTag());
-                }
-            }
-        });
+
         return recipeViewHolder;
         /*v.setOnClickListener(this);
         return new RecipeViewHolder(v);*/
@@ -153,13 +155,11 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             setFrontAndBack(holder.cardView);
             flipCard(holder.cardView);
         }
-        holder.deleteButton.setVisibility(
-                ((item.getState() & (Constants.FLAG_OWN|Constants.FLAG_EDITED)) != 0)? View.VISIBLE : View.GONE
-        );
-        holder.favoriteButton.setImageDrawable(
+
+        /*holder.favoriteButton.setImageDrawable(
                 (item.getFavourite())? ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_white_48dp) :
                         ContextCompat.getDrawable(mContext, R.drawable.ic_favorite_outline_white_48dp)
-        );
+        );*/
 
     }
 
@@ -281,9 +281,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         public @Bind(R.id.back_cardview_recipe_item)
         RelativeLayout backCardView;
         public @Bind(R.id.recipe_item_favorite_button)
-        ImageView favoriteButton;
-        public @Bind(R.id.recipe_item_delete_button)
-        ImageView deleteButton;
+        LikeButtonView favoriteButton;
         public @Bind(R.id.recipe_item_edit_button)
         ImageView editButton;
         ReadWriteTools rwTools;
@@ -347,11 +345,5 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     public interface OnBackEditClickListener {
         void onBackEditClick(RecipeItem recipeItem);
     }
-
-    public interface OnBackDeleteClickListener {
-        void onBackDeleteClick(RecipeItem recipeItem);
-    }
-
-    // TODO: 30/12/15 ripple effect in buttons
 
 }

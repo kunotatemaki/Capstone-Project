@@ -2,6 +2,8 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -58,7 +60,6 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  */
 public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnCardClickListener,
-        RecipeListRecyclerViewAdapter.OnBackDeleteClickListener,
         RecipeListRecyclerViewAdapter.OnBackEditClickListener,
         RecipeListRecyclerViewAdapter.OnBackFavoriteClickListener,
         AppBarLayout.OnOffsetChangedListener{
@@ -348,7 +349,6 @@ public class RecipeListFragment extends Fragment implements
         RecipeListRecyclerViewAdapter adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         adapter.setHasStableIds(true);
         adapter.setOnCardClickListener(this);
-        adapter.setOnBackDeleteClickListener(this);
         adapter.setOnBackEditClickListener(this);
         adapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
@@ -391,11 +391,6 @@ public class RecipeListFragment extends Fragment implements
         showRecipeDetails(recipeItem);
     }
 
-    @Override
-    public void onBackDeleteClick(RecipeItem recipeItem) {
-        int i = 0;
-        i++;
-    }
 
     @Override
     public void onBackEditClick(RecipeItem recipeItem) {
@@ -405,8 +400,10 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onBackFavoriteClick(RecipeItem recipeItem) {
-        int i = 0;
-        i++;
+        recipeItem.setFavourite(!recipeItem.getFavourite());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        dbTools.updateFavoriteById(recipeItem.get_id(), recipeItem.getFavourite());
+        updateRecipe(recipeItem);
     }
 
     private void showRecipeDetails(RecipeItem recipeItem){
@@ -496,7 +493,6 @@ public class RecipeListFragment extends Fragment implements
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         newAdapter.setHasStableIds(true);
         newAdapter.setOnCardClickListener(this);
-        newAdapter.setOnBackDeleteClickListener(this);
         newAdapter.setOnBackEditClickListener(this);
         newAdapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
@@ -576,7 +572,6 @@ public class RecipeListFragment extends Fragment implements
             showRecipeDetails(coincidences.get(0));
         }
     }
-    // TODO: 30/12/15 delete button
     // TODO: 30/12/15 favorite button
     // TODO: 30/12/15 animacion favorito
     // TODO: 30/12/15 compatibilidad animaciones con API 10
