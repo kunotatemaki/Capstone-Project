@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.rukiasoft.androidapps.cocinaconroll"
@@ -11,12 +11,14 @@ android {
         targetSdkVersion 23
         versionCode 311
         versionName "3.11"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
 
     buildTypes {
         debug {
             // Enabling multidex support.
-            multiDexEnabled true
+            //multiDexEnabled true
 
         }
         release {
