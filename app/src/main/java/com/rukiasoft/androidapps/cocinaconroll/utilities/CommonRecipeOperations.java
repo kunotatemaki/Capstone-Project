@@ -25,6 +25,7 @@ public class CommonRecipeOperations {
     public CommonRecipeOperations(Activity activity, RecipeItem recipeItem){
         this.activity = activity;
         this.recipe = recipeItem;
+        this.context = activity;
     }
     public CommonRecipeOperations(Context context, RecipeItem recipeItem){
         if(context instanceof Activity) {

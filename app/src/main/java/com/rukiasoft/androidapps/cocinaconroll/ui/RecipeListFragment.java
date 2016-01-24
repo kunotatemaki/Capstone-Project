@@ -60,8 +60,6 @@ import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter
  */
 public class RecipeListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>, RecipeListRecyclerViewAdapter.OnCardClickListener,
-        RecipeListRecyclerViewAdapter.OnBackEditClickListener,
-        RecipeListRecyclerViewAdapter.OnBackFavoriteClickListener,
         AppBarLayout.OnOffsetChangedListener{
 
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
@@ -349,8 +347,6 @@ public class RecipeListFragment extends Fragment implements
         RecipeListRecyclerViewAdapter adapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         adapter.setHasStableIds(true);
         adapter.setOnCardClickListener(this);
-        adapter.setOnBackEditClickListener(this);
-        adapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -392,19 +388,6 @@ public class RecipeListFragment extends Fragment implements
     }
 
 
-    @Override
-    public void onBackEditClick(RecipeItem recipeItem) {
-        CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipeItem);
-        commonRecipeOperations.editRecipe();
-    }
-
-    @Override
-    public void onBackFavoriteClick(RecipeItem recipeItem) {
-        recipeItem.setFavourite(!recipeItem.getFavourite());
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        dbTools.updateFavoriteById(recipeItem.get_id(), recipeItem.getFavourite());
-        updateRecipe(recipeItem);
-    }
 
     private void showRecipeDetails(RecipeItem recipeItem){
         //interstitial
@@ -493,8 +476,6 @@ public class RecipeListFragment extends Fragment implements
         RecipeListRecyclerViewAdapter newAdapter = new RecipeListRecyclerViewAdapter(getActivity(), mRecipes);
         newAdapter.setHasStableIds(true);
         newAdapter.setOnCardClickListener(this);
-        newAdapter.setOnBackEditClickListener(this);
-        newAdapter.setOnBackFavoriteClickListener(this);
         mRecyclerView.setHasFixedSize(true);
 
 
@@ -575,6 +556,7 @@ public class RecipeListFragment extends Fragment implements
     // TODO: 30/12/15 favorite button
     // TODO: 30/12/15 animacion favorito
     // TODO: 30/12/15 compatibilidad animaciones con API 10
+    // TODO: 19/1/16 ver por qué casca la de maría cuando activas lo de descargar el zip 
 
 
 }

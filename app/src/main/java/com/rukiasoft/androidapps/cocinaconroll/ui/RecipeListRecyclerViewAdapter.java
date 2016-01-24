@@ -56,8 +56,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
 
     private final List<RecipeItem> mItems;
     private OnCardClickListener onCardClickListener;
-    private OnBackFavoriteClickListener onBackFavoriteClickListener;
-    private OnBackEditClickListener onBackEditClickListener;
     private final Context mContext;
     private View frontCard = null;
     private View backCard = null;
@@ -66,14 +64,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     public RecipeListRecyclerViewAdapter(Context context, List<RecipeItem> items) {
         this.mItems = new ArrayList<>(items);
         this.mContext = context;
-    }
-
-    public void setOnBackFavoriteClickListener(OnBackFavoriteClickListener onBackFavoriteClickListener) {
-        this.onBackFavoriteClickListener = onBackFavoriteClickListener;
-    }
-
-    public void setOnBackEditClickListener(OnBackEditClickListener onBackEditClickListener) {
-        this.onBackEditClickListener = onBackEditClickListener;
     }
 
     public void setOnCardClickListener(OnCardClickListener onCardClickListener) {
@@ -110,17 +100,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                 }
             }
         });*/
-        recipeViewHolder.editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onBackEditClickListener != null) {
-                    RecipeItem recipe = getRecipeFromParent(v);
-                    if(recipe != null) {
-                        onBackEditClickListener.onBackEditClick(recipe);
-                    }
-                }
-            }
-        });
+
 
         return recipeViewHolder;
         /*v.setOnClickListener(this);
@@ -282,8 +262,6 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         RelativeLayout backCardView;
         public @Bind(R.id.recipe_item_favorite_button)
         LikeButtonView favoriteButton;
-        public @Bind(R.id.recipe_item_edit_button)
-        ImageView editButton;
         ReadWriteTools rwTools;
         DatabaseRelatedTools dbTools;
 
@@ -298,6 +276,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             if(rwTools == null) rwTools = new ReadWriteTools(context);
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
+            favoriteButton.init(item, favoriteIcon);
             if(item.getFavourite()){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);
@@ -338,12 +317,5 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         void onCardClick(View view, RecipeItem recipeItem);
     }
 
-    public interface OnBackFavoriteClickListener {
-        void onBackFavoriteClick(RecipeItem recipeItem);
-    }
-
-    public interface OnBackEditClickListener {
-        void onBackEditClick(RecipeItem recipeItem);
-    }
 
 }
