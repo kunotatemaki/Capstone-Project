@@ -79,10 +79,13 @@ public class DownloadAndUnzipIntentService extends IntentService {
         }
         list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_NOT_UNZIPED);
         for (int i = 0; i < list.size(); i++) {
+            if(!list.get(i).getName().contains(".zip")){
+                continue;
+            }
             check = rwTools.unzipRecipesInOriginal(list.get(i).getName());
             if (!check) {
                 Log.e(TAG, "Data downladed is corrupt");
-                return;
+                continue;
             }
             try {
                 dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
