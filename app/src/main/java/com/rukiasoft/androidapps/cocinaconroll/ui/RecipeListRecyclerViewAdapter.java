@@ -19,11 +19,14 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Notification;
 import android.content.Context;
 import android.media.Image;
+import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -71,15 +74,17 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     }
 
 
-
-
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_recycler_item, parent, false);
         RecipeViewHolder recipeViewHolder = new RecipeViewHolder(v);
         recipeViewHolder.cardView.setOnClickListener(this);
         recipeViewHolder.cardView.setOnLongClickListener(this);
-        recipeViewHolder.backCardView.setRotationY(180);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if(recipeViewHolder.backCardView != null){
+                recipeViewHolder.backCardView.setRotationY(180);
+            }
+        }
         /*recipeViewHolder.favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,9 +136,11 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         RecipeItem item = mItems.get(position);
         holder.bindRecipe(mContext, item);
         holder.itemView.setTag(item);
-        if(holder.cardView.getRotationY() != 0){
-            setFrontAndBack(holder.cardView);
-            flipCard(holder.cardView);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (holder.cardView.getRotationY() != 0) {
+                setFrontAndBack(holder.cardView);
+                flipCard(holder.cardView);
+            }
         }
 
         /*holder.favoriteButton.setImageDrawable(
@@ -154,9 +161,11 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     @Override
     public void onClick(final View v) {
 
-        setFrontAndBack(v);
-        if(v.getRotationY() != 0) {
-            return;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setFrontAndBack(v);
+            if (v.getRotationY() != 0) {
+                return;
+            }
         }
 
         // Give some time to the ripple to finish the effect
@@ -173,16 +182,18 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     public boolean onLongClick(View v) {
 
 
-        setFrontAndBack(v);
-
-        if(frontCard != null && backCard != null) {
-            flipCard(v);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            setFrontAndBack(v);
+            if (frontCard != null && backCard != null) {
+                flipCard(v);
+            }
         }
 
         //setLeftIn.start();
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void setFrontAndBack(View v){
         View faceA = null;
         View faceB = null;
@@ -195,15 +206,16 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                 faceA = nextChild;
             }
         }
-        if(v.getRotationY() != 0){
+       if (v.getRotationY() != 0) {
             frontCard = faceB;
             backCard = faceA;
-        }else{
+        } else {
             frontCard = faceA;
             backCard = faceB;
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void flipCard(final View card){
         final View front = frontCard;
         final View back = backCard;
@@ -258,9 +270,9 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         CardView cardView;
         public @Bind(R.id.front_cardview_recipe_item)
         LinearLayout frontCardView;
-        public @Bind(R.id.back_cardview_recipe_item)
+        public @Nullable @Bind(R.id.back_cardview_recipe_item)
         RelativeLayout backCardView;
-        public @Bind(R.id.recipe_item_favorite_button)
+        public @Nullable @Bind(R.id.recipe_item_favorite_button)
         LikeButtonView favoriteButton;
         ReadWriteTools rwTools;
         DatabaseRelatedTools dbTools;
@@ -276,7 +288,9 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             if(rwTools == null) rwTools = new ReadWriteTools(context);
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
-            favoriteButton.init(item, favoriteIcon);
+            if(favoriteButton != null) {
+                favoriteButton.init(item, favoriteIcon);
+            }
             if(item.getFavourite()){
                 visibilityProtection = View.VISIBLE;
                 favoriteIcon.setVisibility(View.VISIBLE);

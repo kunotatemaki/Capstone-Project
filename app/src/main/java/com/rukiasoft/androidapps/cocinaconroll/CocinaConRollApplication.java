@@ -95,9 +95,9 @@ public class CocinaConRollApplication  extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        if(BuildConfig.DEBUG) {
+        //if(BuildConfig.DEBUG) {
             MultiDex.install(this);
-        }
+        //}
     }
 
     int nActivityConnected = 0;

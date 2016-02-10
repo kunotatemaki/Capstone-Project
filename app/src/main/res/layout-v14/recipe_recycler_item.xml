@@ -121,5 +121,24 @@
                 android:paddingBottom="2dp"/>
         </LinearLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ColorPrimary"
+        android:id="@+id/back_cardview_recipe_item"
+        android:visibility="gone">
+        <com.rukiasoft.androidapps.cocinaconroll.classes.LikeButtonView
+            android:id="@+id/recipe_item_favorite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/margin_recipe_icon_type"
+            android:paddingLeft="@dimen/margin_recipe_icon_type"
+            android:paddingEnd="@dimen/margin_recipe_icon_type"
+            android:paddingTop="@dimen/margin_recipe_icon_type"
+            android:paddingBottom="@dimen/margin_recipe_icon_type"
+            android:paddingRight="@dimen/margin_recipe_icon_type"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
 </android.support.v7.widget.CardView>
 

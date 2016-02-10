@@ -72,6 +72,7 @@ public class LikeButtonView extends FrameLayout {
         favoriteIcon = favorite;
         ivStar.setImageResource(recipeItem.getFavourite() ? R.drawable.ic_favorite_white_36dp : R.drawable.ic_favorite_outline_white_36dp);
         ivStar.setOnClickListener(new OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
             @Override
             public void onClick(View v) {
                 recipeItem.setFavourite(!recipeItem.getFavourite());
@@ -145,6 +146,7 @@ public class LikeButtonView extends FrameLayout {
         });
         //setOnClickListener(this);
         ivStar.setOnTouchListener(new OnTouchListener() {
+            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
