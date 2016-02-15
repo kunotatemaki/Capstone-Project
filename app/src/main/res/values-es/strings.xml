@@ -45,7 +45,7 @@
     <string name="email_alert_body">Selecciona tu cliente de correo favorito</string>
     <string name="email_alert_title">Enviar receta</string>
     <string name="remove_recipe">Eliminar receta</string>
-    <string name="sender">Enviado por</string>
+    <string name="sender">Enviado por %1$s</string>
     <string name="steps">Pasos</string>
     <string name="thanks">Agradecimientos</string>
     <string name="support_recipes">Si tienes un blog de cocina y quieres ver tus recetas en %1$s, manda un email a %2$s!</string>

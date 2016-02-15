@@ -284,6 +284,10 @@ public class DatabaseRelatedTools {
         return getZips(selection, selectionArgs);
     }
 
+    public List<ZipItem> getAllZips() {
+        return getZips(null, null);
+    }
+
     public List<ZipItem> getZips(String selection, String[] selectionArgs) {
         final String[] projection = ZipsTable.ALL_COLUMNS;
 
@@ -293,6 +297,13 @@ public class DatabaseRelatedTools {
                 selectionArgs, null);
 
         return getZipsFromCursor(cursor);
+    }
+
+    public void removeZipfromDatabase(int id) {
+        String selection = RecipesTable.FIELD_ID + " = ? ";
+        String[] selectionArgs = {String.valueOf(id)};
+        mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_ZIPS, selection, selectionArgs);
+
     }
 
     public void updateZipState(String name, Integer state) {

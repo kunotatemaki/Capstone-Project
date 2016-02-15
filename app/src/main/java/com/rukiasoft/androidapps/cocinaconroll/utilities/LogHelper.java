@@ -17,8 +17,6 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.util.Log;
 
-import com.rukiasoft.androidapps.cocinaconroll.BuildConfig;
-
 
 public class LogHelper {
 

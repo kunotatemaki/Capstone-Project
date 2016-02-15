@@ -13,6 +13,7 @@ import android.view.View;
 /**
  * Created by Miroslaw Stanek on 20.12.2015.
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class DotsView extends View {
     private static final int DOTS_COUNT = 7;
     private static final int OUTER_DOTS_POSITION_ANGLE = 51;

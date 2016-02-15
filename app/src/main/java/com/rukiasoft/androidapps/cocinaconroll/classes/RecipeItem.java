@@ -45,7 +45,7 @@ public class RecipeItem implements Parcelable {
     private String pathRecipe = "";
     private String pathPicture = Constants.ASSETS_PATH + Constants.DEFAULT_PICTURE_NAME;
     @Element  (required=false)
-    private Long date = -1l;
+    private Long date = -1L;
     @Element
     private String language = "Spanish";
     private Integer version = 0;

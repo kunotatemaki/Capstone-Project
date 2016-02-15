@@ -2,8 +2,6 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;

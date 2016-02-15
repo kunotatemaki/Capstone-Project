@@ -31,7 +31,6 @@ public class UnzipUtility {
 	/**
 	 * Extracts a zip file specified by the zipFilePath to a directory specified by
 	 * destDirectory (will be created if does not exists)
-	 * @throws IOException
 	 */
 	public void unzip(String zipFilePath, String destDirectory) {
 		int size;

@@ -2,16 +2,12 @@ package com.rukiasoft.androidapps.cocinaconroll.utilities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,9 +19,6 @@ import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
-import com.rukiasoft.androidapps.cocinaconroll.R;
-import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
-import com.rukiasoft.androidapps.cocinaconroll.ui.EditRecipeActivity;
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
@@ -255,11 +248,7 @@ public class Tools {
         InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        if (imm.isAcceptingText()) {
-            return true;
-        } else {
-            return false;
-        }
+        return imm.isAcceptingText();
     }
 
 

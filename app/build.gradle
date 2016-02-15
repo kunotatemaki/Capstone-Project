@@ -16,11 +16,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            // Enabling multidex support.
-            //multiDexEnabled true
-
-        }
         release {
             minifyEnabled true
             shrinkResources true

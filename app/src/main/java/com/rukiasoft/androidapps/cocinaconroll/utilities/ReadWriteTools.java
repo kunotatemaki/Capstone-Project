@@ -190,7 +190,7 @@ public class ReadWriteTools {
             recipeItem.setPathRecipe(path);
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
                 recipeItem.setState(Constants.FLAG_ORIGINAL);
-                if(recipeItem.getDate() == -1l){
+                if(recipeItem.getDate() == -1L){
                     recipeItem.setDate(System.currentTimeMillis());
                 }
             }

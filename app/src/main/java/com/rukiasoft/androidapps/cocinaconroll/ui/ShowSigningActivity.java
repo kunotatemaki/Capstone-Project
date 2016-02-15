@@ -18,6 +18,7 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -216,7 +217,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
             Auth.GoogleSignInApi.revokeAccess(getMyApplication().getGoogleApiClient()).setResultCallback(
                     new ResultCallback<Status>() {
                         @Override
-                        public void onResult(Status status) {
+                        public void onResult(@NonNull Status status) {
                             // [START_EXCLUDE]
                             updateUI(false);
                             Tools mTools = new Tools();

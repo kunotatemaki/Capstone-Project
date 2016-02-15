@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 public class CocinaConRollContentProvider extends ContentProvider {
 
@@ -61,8 +62,8 @@ public class CocinaConRollContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-    String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
 
         Cursor c = null;
         String id_recipe;
@@ -96,7 +97,7 @@ public class CocinaConRollContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
                 return mRecipesDB.delete(selection, selectionArgs);
@@ -107,12 +108,12 @@ public class CocinaConRollContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         Uri returnUri;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:
@@ -128,8 +129,8 @@ public class CocinaConRollContentProvider extends ContentProvider {
 
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
-        String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
         int index;
         switch (mUriMatcher.match(uri)){
             case SEARCH_RECIPE:

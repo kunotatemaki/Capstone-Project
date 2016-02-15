@@ -34,6 +34,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
+import com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.GetZipsAsyncTask;
 import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
@@ -43,6 +44,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -203,9 +205,10 @@ public class RecipeListActivity extends SigningDriveActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 driveServiceReceiver,
                 mStatusIntentFilter);
-        clearGarbage();
+        if(savedInstanceState == null) {
+            clearGarbage();
+        }
     }
-
 
 
     @Override
@@ -632,6 +635,16 @@ public class RecipeListActivity extends SigningDriveActivity {
                     file.delete();
             }
         }
+
+        //veo si hay algún zip en la base de datos que no tenga el formato correcto
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
+        List<ZipItem> listZips = dbTools.getAllZips();
+        for(ZipItem zip : listZips){
+            if(!zip.getName().contains(".zip")){
+                dbTools.removeZipfromDatabase(zip.getId());
+            }
+        }
+
     }
 
 

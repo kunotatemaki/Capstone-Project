@@ -16,6 +16,7 @@ import android.view.View;
 /**
  * Created by Miroslaw Stanek on 21.12.2015.
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class CircleView extends View {
     private static final int START_COLOR = 0xFFFF5722;
     private static final int END_COLOR = 0xFFFFC107;
