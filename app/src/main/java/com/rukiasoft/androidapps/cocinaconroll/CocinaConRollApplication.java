@@ -10,10 +10,21 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.acra.ACRA;
+import org.acra.annotation.ReportsCrashes;
+
 
 /**
  * Created by Ruler on 2015.
+ *
  */
+@ReportsCrashes(
+        reportType = org.acra.sender.HttpSender.Type.JSON,
+        httpMethod = org.acra.sender.HttpSender.Method.PUT,
+        formUri = "http://elservidorderoll.no-ip.biz:5984/acra-cookingwithcookeo/_design/acra-storage/_update/report",
+        formUriBasicAuthLogin = "lepetitcuquichef",
+        formUriBasicAuthPassword = "rollandrukia"
+)
 public class CocinaConRollApplication  extends MultiDexApplication {
     /**
      * The Analytics singleton. The field is set in onCreate method override when the application
@@ -66,6 +77,7 @@ public class CocinaConRollApplication  extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         analytics = GoogleAnalytics.getInstance(this);
+        ACRA.init(this);
 
         //analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         tracker = analytics.newTracker(R.xml.track_app);

@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-    useLibrary 'org.apache.http.legacy'
+    //useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.rukiasoft.androidapps.cocinaconroll"
         minSdkVersion 10
@@ -75,6 +75,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'ch.acra:acra:4.6.2'
 }
 
 
