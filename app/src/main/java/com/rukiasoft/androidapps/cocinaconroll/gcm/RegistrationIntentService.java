@@ -25,11 +25,16 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationResponse;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.okhttp.Authenticator;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -37,6 +42,8 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
 
 
 public class RegistrationIntentService extends IntentService {
@@ -143,11 +150,43 @@ public class RegistrationIntentService extends IntentService {
             String url = urlBase.concat(method);
 
             RequestBody body = RequestBody.create(JSON, mTools.getJsonString(registrationClass));
+
+            /////////////////////////////////////////
+            client.setAuthenticator(new Authenticator() {
+                @Override
+                public Request authenticate(Proxy proxy, Response response) throws IOException {
+                    String credential = Credentials.basic("ruler", "rukia");
+                    return response.request().newBuilder().header("Authorization", credential).build();
+                }
+
+                @Override
+                public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                    return null;
+                }
+            });
+            url = "http://comunioelpuntal.no-ip.biz:8080/comunio-server/rest/comunio_server_secure/get_page_data";
+            JsonObject jObject = new JsonObject();
+            jObject.addProperty("name", "all");
+            jObject.addProperty("type", "null");
+            JsonObject object = new JsonObject();
+            object.add("Names", jObject);
+            body = RequestBody.create(JSON, mTools.getJsonString(jObject));
+            /////////////////////////////////////////////
+
+
+
             Request request = new Request.Builder()
                     .url(url)
                     .post(body)
                     .build();
             Response response = client.newCall(request).execute();
+            if(response.code() == HttpURLConnection.HTTP_OK) {
+                JsonParser jsonParser = new JsonParser();
+                JsonObject jo = (JsonObject) jsonParser.parse(response.body().charStream());
+                jo.addProperty("hola", true);
+            }else{
+                Log.d("cretino", "tacatá");
+            }
             Gson gResponse = new Gson();
             error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
 
