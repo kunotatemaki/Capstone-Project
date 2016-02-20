@@ -21,9 +21,9 @@ import org.acra.annotation.ReportsCrashes;
 @ReportsCrashes(
         reportType = org.acra.sender.HttpSender.Type.JSON,
         httpMethod = org.acra.sender.HttpSender.Method.PUT,
-        formUri = "http://elservidorderoll.no-ip.biz:5984/acra-cookingwithcookeo/_design/acra-storage/_update/report",
-        formUriBasicAuthLogin = "lepetitcuquichef",
-        formUriBasicAuthPassword = "rollandrukia"
+        formUri = BuildConfig.RASPBERRY_IP + BuildConfig.ACRA_ENDPOINT,
+        formUriBasicAuthLogin = BuildConfig.ACRA_LOGIN_KEY,
+        formUriBasicAuthPassword = BuildConfig.ACRA_PASSWORD_KEY
 )
 public class CocinaConRollApplication  extends MultiDexApplication {
     /**
@@ -83,11 +83,12 @@ public class CocinaConRollApplication  extends MultiDexApplication {
         tracker = analytics.newTracker(R.xml.track_app);
 
         // Provide unhandled exceptions reports. Do that first after creating the tracker
-        if(BuildConfig.DEBUG) {
+        /*if(BuildConfig.DEBUG) {
             tracker.enableExceptionReporting(false);
         }else{
             tracker.enableExceptionReporting(true);
-        }
+        }*/
+        tracker.enableExceptionReporting(false);
 
         // Enable Remarketing, Demographics & Interests reports
         // https://developers.google.com/analytics/devguides/collection/android/display-features

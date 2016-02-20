@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.rukiasoft.androidapps.cocinaconroll.BuildConfig;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationResponse;
@@ -129,73 +130,32 @@ public class RegistrationIntentService extends IntentService {
         }*/
 
         RegistrationResponse error = new RegistrationResponse();
-        try {
 
-            Tools mTools = new Tools();
+        Tools mTools = new Tools();
 
-            RegistrationClass registrationClass = new RegistrationClass(this);
+        RegistrationClass registrationClass = new RegistrationClass(this);
 
-            registrationClass.setGcm_regid(token);
-            registrationClass.setVersion(mTools.getAppVersion(getApplication()));
-            registrationClass.setEmail(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_EMAIL));
-            registrationClass.setName(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_NAME));
-
-
-            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-            OkHttpClient client = new OkHttpClient();
-
-            String urlBase = getResources().getString(R.string.server_url);
-            String method = getResources().getString(R.string.registration_method);
-            String url = urlBase.concat(method);
-
-            RequestBody body = RequestBody.create(JSON, mTools.getJsonString(registrationClass));
-
-            /////////////////////////////////////////
-            client.setAuthenticator(new Authenticator() {
-                @Override
-                public Request authenticate(Proxy proxy, Response response) throws IOException {
-                    String credential = Credentials.basic("ruler", "rukia");
-                    return response.request().newBuilder().header("Authorization", credential).build();
-                }
-
-                @Override
-                public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
-                    return null;
-                }
-            });
-            url = "http://comunioelpuntal.no-ip.biz:8080/comunio-server/rest/comunio_server_secure/get_page_data";
-            JsonObject jObject = new JsonObject();
-            jObject.addProperty("name", "all");
-            jObject.addProperty("type", "null");
-            JsonObject object = new JsonObject();
-            object.add("Names", jObject);
-            body = RequestBody.create(JSON, mTools.getJsonString(jObject));
-            /////////////////////////////////////////////
+        registrationClass.setGcm_regid(token);
+        registrationClass.setVersion(mTools.getAppVersion(getApplication()));
+        registrationClass.setEmail(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_EMAIL));
+        registrationClass.setName(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_NAME));
 
 
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-            Response response = client.newCall(request).execute();
-            if(response.code() == HttpURLConnection.HTTP_OK) {
-                JsonParser jsonParser = new JsonParser();
-                JsonObject jo = (JsonObject) jsonParser.parse(response.body().charStream());
-                jo.addProperty("hola", true);
-            }else{
-                Log.d("cretino", "tacatá");
-            }
+        OkHttpClient client = new OkHttpClient();
+
+        String urlBase = BuildConfig.RASPBERRY_IP + getResources().getString(R.string.server_url_tomcat);
+        String method = getResources().getString(R.string.registration_method);
+
+        RestTools restTools = new RestTools();
+        Response response = restTools.doRestRequest(urlBase, method, mTools.getJsonString(registrationClass));
+
+        if(response.code() == HttpURLConnection.HTTP_OK) {
             Gson gResponse = new Gson();
             error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
-
-
-            //regService.register(regId).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-
         }
+
         return error.getError() == 0;
     }
 

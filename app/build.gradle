@@ -13,6 +13,14 @@ android {
         versionName "3.11"
         //Enabling multidex support.
         multiDexEnabled true
+
+        buildConfigField "String", "ACRA_LOGIN_KEY", (project.hasProperty('ACRA_LOGIN_KEY') ? "\"$ACRA_LOGIN_KEY\"" : "\"Your login key\"")
+        buildConfigField "String", "ACRA_PASSWORD_KEY", (project.hasProperty('ACRA_PASSWORD_KEY') ? "\"$ACRA_PASSWORD_KEY\"" : "\"Your password secret\"")
+        buildConfigField "String", "REST_LOGIN_KEY", (project.hasProperty('REST_LOGIN_KEY') ? "\"$REST_LOGIN_KEY\"" : "\"Your login key\"")
+        buildConfigField "String", "REST_PASSWORD_KEY", (project.hasProperty('REST_PASSWORD_KEY') ? "\"$REST_PASSWORD_KEY\"" : "\"Your password secret\"")
+        buildConfigField "String", "RASPBERRY_IP", (project.hasProperty('RASPBERRY_IP') ? "\"$RASPBERRY_IP\"" : "\"raspberry ip\"")
+        buildConfigField "String", "ACRA_ENDPOINT", (project.hasProperty('ACRA_ENDPOINT') ? "\"$ACRA_ENDPOINT\"" : "\"acra endpoint\"")
+
     }
 
     buildTypes {

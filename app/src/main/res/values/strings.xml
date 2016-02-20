@@ -1,4 +1,11 @@
 <resources>
+    <!-- Non translatable -->
+    <string name="server_url_tomcat" translatable="false">:8080/cukio-server/rest/cukio_server_non_secure/"</string>
+    <string name="registration_method" translatable="false">register_device/"</string>
+    <string name="get_zips_method" translatable="false">get_zips/"</string>
+
+
+
     <string name="app_name">Cooking with Cookeo</string>
     <string name="action_settings">Settings</string>
     <string name="no_storage_available">Can\'t access to device storage</string>
@@ -104,9 +111,6 @@
     <string name="image_of_the_recipe">image of the recipe</string>
     <string name="init_database_firstboot">Wait while configuring all recipes on first boot</string>
 
-    <string name="server_url" translatable="false">http://comunioelpuntal.no-ip.biz:8080/cukio-server/rest/cukio_server_non_secure/"</string>
-    <string name="registration_method" translatable="false">register_device/"</string>
-    <string name="get_zips_method" translatable="false">get_zips/"</string>
     <string name="thanks_blogs_title">Cuissine blogs:</string>
     <string name="cloud_backup">Cloud backup</string>
     <string name="cloud_backup_on_description">Backup on user\'s Google Drive account is enabled</string>

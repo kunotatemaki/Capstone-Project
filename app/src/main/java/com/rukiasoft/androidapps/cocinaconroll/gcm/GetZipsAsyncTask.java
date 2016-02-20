@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.rukiasoft.androidapps.cocinaconroll.BuildConfig;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -21,6 +22,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,31 +37,22 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
     }
     protected List<ZipItem> doInBackground(Void... params) {
         List<ZipItem> list = new ArrayList<>();
-        OkHttpClient client = new OkHttpClient();
 
-        String urlBase = mContext.getResources().getString(R.string.server_url);
+        String urlBase = BuildConfig.RASPBERRY_IP + mContext.getResources().getString(R.string.server_url_tomcat);
         String method = mContext.getResources().getString(R.string.get_zips_method);
-        String url = urlBase.concat(method);
 
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        Response response;
-        try {
-            response = client.newCall(request).execute();
+        RestTools restTools = new RestTools();
+        Response response = restTools.doRestRequest(urlBase, method, null);
+
+        if(response.code() == HttpURLConnection.HTTP_OK){
             JsonParser jsonParser = new JsonParser();
             JsonObject jo = (JsonObject)jsonParser.parse(response.body().charStream());
-// TODO: 2/12/15 comprobar que esto lo hace bien set to set ttereredfdsfafafaf dfdsdsddd
             JsonArray jsonArr = jo.getAsJsonArray("zips");
             for(JsonElement gson : jsonArr ) {
                 ZipItem zipItem = new Gson().fromJson(gson.getAsString(), ZipItem.class);
                 list.add(zipItem);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
         return list;
 
     }
