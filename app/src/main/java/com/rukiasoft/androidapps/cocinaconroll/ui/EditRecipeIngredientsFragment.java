@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.OnStartDragListener;
 import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.SimpleItemTouchHelperCallback;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -137,6 +139,14 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
             builder.show();
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = CocinaConRollApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
     private Boolean showSwipeDialog(){
         Tools mTools = new Tools();
         return !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_HIDE_SWIPE_DIALOG);

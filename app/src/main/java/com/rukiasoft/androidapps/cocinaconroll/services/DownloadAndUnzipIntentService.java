@@ -55,12 +55,12 @@ public class DownloadAndUnzipIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
-        rwTools = new ReadWriteTools(getApplicationContext());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        rwTools = new ReadWriteTools();
         mTools = new Tools();
         client = new OkHttpClient();
 
-        List<ZipItem> list = dbTools.getZipsByState(Constants.STATE_NOT_DOWNLOADED);
+        List<ZipItem> list = dbTools.getZipsByState(getApplicationContext(), Constants.STATE_NOT_DOWNLOADED);
         Integer newRecipes = 0;
 
         boolean check;
@@ -72,23 +72,25 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 continue;
             }
             try {
-                dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_NOT_UNZIPED);
+                dbTools.updateZipState(getApplicationContext(), list.get(i).getName(),
+                        Constants.STATE_DOWNLOADED_NOT_UNZIPED);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_NOT_UNZIPED);
+        list = dbTools.getZipsByState(getApplicationContext(), Constants.STATE_DOWNLOADED_NOT_UNZIPED);
         for (int i = 0; i < list.size(); i++) {
             if(!list.get(i).getName().contains(".zip")){
                 continue;
             }
-            check = rwTools.unzipRecipesInOriginal(list.get(i).getName());
+            check = rwTools.unzipRecipesInOriginal(getApplicationContext(), list.get(i).getName());
             if (!check) {
                 Log.e(TAG, "Data downladed is corrupt");
                 continue;
             }
             try {
-                dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
+                dbTools.updateZipState(getApplicationContext(), list.get(i).getName(),
+                        Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;
@@ -99,17 +101,19 @@ public class DownloadAndUnzipIntentService extends IntentService {
             //ya se han descomprimido, aumento contador
             newRecipes++;
         }
-        list = dbTools.getZipsByState(Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
+        list = dbTools.getZipsByState(getApplicationContext(),
+                Constants.STATE_DOWNLOADED_UNZIPED_NOT_ERASED);
         for (int i = 0; i < list.size(); i++) {
-            if (rwTools.deleteFile(rwTools.getZipsStorageDir() + list.get(i).getName())) {
+            if (rwTools.deleteFile(rwTools.getZipsStorageDir(getApplicationContext()) + list.get(i).getName())) {
                 try {
-                    dbTools.updateZipState(list.get(i).getName(), Constants.STATE_DOWNLOADED_UNZIPED_ERASED);
+                    dbTools.updateZipState(getApplicationContext(), list.get(i).getName(),
+                            Constants.STATE_DOWNLOADED_UNZIPED_ERASED);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-        rwTools.loadNewFilesAndInsertInDatabase();
+        rwTools.loadNewFilesAndInsertInDatabase(getApplicationContext());
         mTools.savePreferences(this, Constants.PROPERTY_RELOAD_NEW_ORIGINALS, false);
         String type = Constants.FILTER_ALL_RECIPES;
         if(intent.hasExtra(Constants.KEY_TYPE)) {
@@ -128,7 +132,7 @@ public class DownloadAndUnzipIntentService extends IntentService {
                 LogHelper.e(TAG, "no hay external storage in downloadzip");
                 return false;
             }
-            File dir = new File(rwTools.getZipsStorageDir());
+            File dir = new File(rwTools.getZipsStorageDir(getApplicationContext()));
             if (!dir.exists()) {
                 ret = dir.mkdirs();
                 if (!ret) {

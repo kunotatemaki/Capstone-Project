@@ -35,6 +35,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
@@ -45,6 +46,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,8 +107,8 @@ public class RecipeListFragment extends Fragment implements
         }
 
         protected Void doInBackground(Void... data) {
-            ReadWriteTools rwTools = new ReadWriteTools(mActivity);
-            rwTools.initDatabase();
+            ReadWriteTools rwTools = new ReadWriteTools();
+            rwTools.initDatabase(getActivity().getApplicationContext());
             return null;
         }
 
@@ -212,6 +214,11 @@ public class RecipeListFragment extends Fragment implements
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        addRecipeButtonFAB.setOnClickListener(null);
+    }
 
     @Override
     public void onResume(){
@@ -240,6 +247,8 @@ public class RecipeListFragment extends Fragment implements
         }
 
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -285,7 +294,7 @@ public class RecipeListFragment extends Fragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.i("", "+++ onLoadFinished() called! +++");
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         mRecipes = dbTools.getRecipesFromCursor(data);
         Tools mTools = new Tools();
         if(mRecipes.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE)){
@@ -295,8 +304,8 @@ public class RecipeListFragment extends Fragment implements
             return;
         }
         if(mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_RELOAD_NEW_ORIGINALS)){
-            ReadWriteTools rwTools = new ReadWriteTools(getActivity());
-            rwTools.loadNewFilesAndInsertInDatabase();
+            ReadWriteTools rwTools = new ReadWriteTools();
+            rwTools.loadNewFilesAndInsertInDatabase(getActivity().getApplicationContext());
             mTools.savePreferences(getActivity(), Constants.PROPERTY_RELOAD_NEW_ORIGINALS, false);
             ((RecipeListActivity)getActivity()).restartLoader();
             return;
@@ -309,9 +318,10 @@ public class RecipeListFragment extends Fragment implements
             for(RecipeItem recipe : mRecipes){
                 if((recipe.getState() & (Constants.FLAG_EDITED | Constants.FLAG_OWN)) != 0){
                     recipe.setState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
-                    dbTools.updateStateById(recipe.get_id(), recipe.getState());
+                    dbTools.updateStateById(getActivity().getApplicationContext(),
+                            recipe.get_id(), recipe.getState());
                     recipe.setVersion(recipe.getVersion() + 1);
-                    dbTools.updatePathsAndVersion(recipe);
+                    dbTools.updatePathsAndVersion(getActivity().getApplicationContext(), recipe);
 
                 }
             }
@@ -429,41 +439,47 @@ public class RecipeListFragment extends Fragment implements
 
     public void filterRecipes(String filter) {
         lastFilter = filter;
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         String type = "";
         int iconResource = 0;
         if(filter.compareTo(Constants.FILTER_ALL_RECIPES) == 0) {
             type = getResources().getString(R.string.all_recipes);
-            mRecipes = dbTools.searchRecipesInDatabase();
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext());
             iconResource = R.drawable.ic_all_24;
         }else if(filter.compareTo(Constants.FILTER_MAIN_COURSES_RECIPES) == 0){
             type = getResources().getString(R.string.main_courses);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_MAIN);
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(), RecipesTable.FIELD_TYPE, Constants.TYPE_MAIN);
             iconResource = R.drawable.ic_main_24;
         }else if(filter.compareTo(Constants.FILTER_STARTER_RECIPES) == 0){
             type = getResources().getString(R.string.starters);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_STARTERS);
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                    RecipesTable.FIELD_TYPE, Constants.TYPE_STARTERS);
             iconResource = R.drawable.ic_starters_24;
         }else if(filter.compareTo(Constants.FILTER_DESSERT_RECIPES) == 0){
             type = getResources().getString(R.string.desserts);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_TYPE, Constants.TYPE_DESSERTS);
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                    RecipesTable.FIELD_TYPE, Constants.TYPE_DESSERTS);
             iconResource = R.drawable.ic_dessert_24;
         }else if(filter.compareTo(Constants.FILTER_VEGETARIAN_RECIPES) == 0){
             type = getResources().getString(R.string.vegetarians);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_VEGETARIAN, 1);
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                    RecipesTable.FIELD_VEGETARIAN, 1);
             iconResource = R.drawable.ic_vegetarians_24;
         }else if(filter.compareTo(Constants.FILTER_FAVOURITE_RECIPES) == 0){
             type = getResources().getString(R.string.favourites);
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_FAVORITE, 1);
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                    RecipesTable.FIELD_FAVORITE, 1);
             iconResource = R.drawable.ic_favorite_black_24dp;
         }else if(filter.compareTo(Constants.FILTER_OWN_RECIPES) == 0){
             type = getResources().getString(R.string.own_recipes);
-            mRecipes = dbTools.searchRecipesInDatabaseByState(Constants.FLAG_EDITED | Constants.FLAG_OWN);
+            mRecipes = dbTools.searchRecipesInDatabaseByState(getActivity().getApplicationContext(),
+                    Constants.FLAG_EDITED | Constants.FLAG_OWN);
             iconResource = R.drawable.ic_own_24;
         }else if(filter.compareTo(Constants.FILTER_LATEST_RECIPES) == 0){
             type = getResources().getString(R.string.last_downloaded);
             Tools mTools = new Tools();
-            mRecipes = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_DATE, mTools.getTimeframe());
+            mRecipes = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                    RecipesTable.FIELD_DATE, mTools.getTimeframe());
             iconResource = R.drawable.ic_latest_24;
         }
         typeRecipesInRecipeList.setText(type);
@@ -538,24 +554,20 @@ public class RecipeListFragment extends Fragment implements
     }
 
     public void createRecipe(RecipeItem recipe) {
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
-        dbTools.addRecipeToArrayAndDatabase(mRecipes, recipe);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        dbTools.addRecipeToArrayAndDatabase(getActivity().getApplicationContext(), mRecipes, recipe);
         filterRecipes(lastFilter);
     }
 
     public void searchAndShow(String name) {
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getActivity());
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         name = dbTools.getNormalizedString(name);
-        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(name));
+        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(name));
         if (coincidences.size() > 0) {
             showRecipeDetails(coincidences.get(0));
         }
     }
-    // TODO: 30/12/15 favorite button
-    // TODO: 30/12/15 animacion favorito
-    // TODO: 30/12/15 compatibilidad animaciones con API 10
-    // TODO: 19/1/16 ver por qué casca la de maría cuando activas lo de descargar el zip 
-
 
 }
 

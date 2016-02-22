@@ -76,8 +76,8 @@ public class LikeButtonView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 recipeItem.setFavourite(!recipeItem.getFavourite());
-                DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
-                dbTools.updateFavoriteById(recipeItem.get_id(), recipeItem.getFavourite());
+                DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+                dbTools.updateFavoriteById(mContext, recipeItem.get_id(), recipeItem.getFavourite());
                 favoriteIcon.setVisibility(recipeItem.getFavourite()? VISIBLE : GONE);
                 //updateRecipe(recipeItem);
                 //isChecked = !isChecked;

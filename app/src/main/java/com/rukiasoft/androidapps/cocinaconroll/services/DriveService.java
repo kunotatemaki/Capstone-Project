@@ -118,9 +118,9 @@ public class DriveService extends IntentService {
             uriPicture = Uri.parse(recipeItem.getPathPicture());
             filesToZip.add(uriPicture);
         }
-        ReadWriteTools rwTools = new ReadWriteTools(this);
+        ReadWriteTools rwTools = new ReadWriteTools();
         String name = uriRecipe.getLastPathSegment().replace("xml", "zip");
-        Uri uriZipPath = rwTools.zipRecipe(filesToZip, name);
+        Uri uriZipPath = rwTools.zipRecipe(getApplicationContext(), filesToZip, name);
         if(uriZipPath == null){
             return;
         }
@@ -257,7 +257,7 @@ public class DriveService extends IntentService {
         }catch (Exception e){
             e.printStackTrace();
             Tools mTools = new Tools();
-            mTools.sendExceptionToAnalytics(getApplication(), "excepcion borrando receta de google drive");
+            mTools.sendExceptionToACRA(getApplication(), "excepcion borrando receta de google drive");
         }
     }
 
@@ -307,23 +307,24 @@ public class DriveService extends IntentService {
     }
 
     private void checkFilesToDownload(List<Metadata> files){
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
-        ReadWriteTools rwTools = new ReadWriteTools(this);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        ReadWriteTools rwTools = new ReadWriteTools();
         //download recipes if needed
         for(int i=0; i<files.size(); i++){
             String name = files.get(i).getTitle().replace("zip", "xml");
-            RecipeItem recipeItem = dbTools.getRecipeByFileName(name);
+            RecipeItem recipeItem = dbTools.getRecipeByFileName(getApplicationContext(), name);
             Integer driveVersion = getVersionFromMetadata(files.get(i));
             if(recipeItem == null || recipeItem.getVersion() < driveVersion){
                 if(downloadFile(files.get(i))){
-                    rwTools.unzipRecipesInEdited(files.get(i).getTitle());
-                    rwTools.loadUpdatedFilesAndInsertInDatabase(name, driveVersion);
-                    rwTools.deleteZipByName(files.get(i).getTitle());
+                    rwTools.unzipRecipesInEdited(getApplicationContext(), files.get(i).getTitle());
+                    rwTools.loadUpdatedFilesAndInsertInDatabase(getApplicationContext(), name, driveVersion);
+                    rwTools.deleteZipByName(getApplicationContext(), files.get(i).getTitle());
                 }
             }
         }
         //check if is needed to delete
-        List<RecipeItem> synchronizedRecipes = dbTools.getRecipesByState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
+        List<RecipeItem> synchronizedRecipes = dbTools.getRecipesByState(getApplicationContext(),
+                Constants.FLAG_SINCRONIZED_WITH_DRIVE);
         for(RecipeItem recipeItem : synchronizedRecipes){
             if(!checkIfIsInDrive(recipeItem.getPathRecipe(), files)){
                 Intent localIntent = new Intent(Constants.ACTION_BROADCAST_DELETED_RECIPE)
@@ -377,8 +378,8 @@ public class DriveService extends IntentService {
         FileOutputStream fileOutputStream;
         InputStream inputStream = driveContents.getInputStream();
         try {
-            ReadWriteTools rwTools = new ReadWriteTools(this);
-            String path = rwTools.getZipsStorageDir() + metadata.getOriginalFilename();
+            ReadWriteTools rwTools = new ReadWriteTools();
+            String path = rwTools.getZipsStorageDir(getApplicationContext()) + metadata.getOriginalFilename();
             fileOutputStream = new FileOutputStream(new File(path));
             IOUtils.copy(inputStream, fileOutputStream);
             fileOutputStream.close();

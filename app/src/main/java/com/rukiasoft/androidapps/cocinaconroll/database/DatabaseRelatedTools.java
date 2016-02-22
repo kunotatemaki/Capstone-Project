@@ -19,17 +19,16 @@ import java.util.List;
 
 public class DatabaseRelatedTools {
 
-    private final Context mContext;
-    public DatabaseRelatedTools(Context context){
-        mContext = context;
+     public DatabaseRelatedTools(){
+
     }
 
-    public void addRecipeToArrayAndDatabase(List<RecipeItem> recipeItemList, RecipeItem recipeItem){
+    public void addRecipeToArrayAndDatabase(Context mContext, List<RecipeItem> recipeItemList, RecipeItem recipeItem){
         recipeItemList.add(recipeItem);
-        insertRecipeIntoDatabase(recipeItem, true);
+        insertRecipeIntoDatabase(mContext, recipeItem, true);
     }
 
-    public void updateFavoriteById(int id, boolean favorite) {
+    public void updateFavoriteById(Context mContext, int id, boolean favorite) {
         ContentValues values = new ContentValues();
         int iFavorite = favorite? 1 : 0;
         values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
@@ -39,7 +38,7 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void updateFavoriteByFileName(String name, boolean favorite) {
+    public void updateFavoriteByFileName(Context mContext, String name, boolean favorite) {
         ContentValues values = new ContentValues();
         int iFavorite = favorite? 1 : 0;
         values.put(RecipesTable.FIELD_FAVORITE, iFavorite);
@@ -50,7 +49,7 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void updateStateById(int id, Integer state) {
+    public void updateStateById(Context mContext, int id, Integer state) {
         ContentValues values = new ContentValues();
         values.put(RecipesTable.FIELD_STATE, state);
         String clause = RecipesTable.FIELD_ID + " = ? ";
@@ -60,7 +59,7 @@ public class DatabaseRelatedTools {
     }
 
 
-    public void updatePathsAndVersion(RecipeItem recipe) {
+    public void updatePathsAndVersion(Context mContext, RecipeItem recipe) {
         ContentValues values = new ContentValues();
 
         values.put(RecipesTable.FIELD_PATH_RECIPE_EDITED, recipe.getPathRecipe());
@@ -75,7 +74,7 @@ public class DatabaseRelatedTools {
         mContext.getContentResolver().update(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values, clause, args);
     }
 
-    public void insertRecipeIntoDatabase(RecipeItem recipeItem, boolean update) {
+    public void insertRecipeIntoDatabase(Context mContext, RecipeItem recipeItem, boolean update) {
         //set values
         ContentValues values = new ContentValues();
         values.put(RecipesTable.FIELD_NAME, recipeItem.getName());
@@ -117,7 +116,7 @@ public class DatabaseRelatedTools {
             values.put(RecipesTable.FIELD_PATH_PICTURE, recipeItem.getPathPicture());
         }
         //check if recipe exists. If not, insert. Otherwise, update
-        RecipeItem coincidence = getRecipeByPathName(recipeItem.getPathRecipe());
+        RecipeItem coincidence = getRecipeByPathName(mContext, recipeItem.getPathRecipe());
         if(coincidence == null) {
             mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_RECIPES, values);
         }else if(update){
@@ -127,7 +126,7 @@ public class DatabaseRelatedTools {
         }
     }
 
-    public void removeRecipefromDatabase(int id) {
+    public void removeRecipefromDatabase(Context mContext, int id) {
         Uri.Builder uribuilder = ContentUris.appendId(CocinaConRollContentProvider.CONTENT_URI_RECIPES.buildUpon(), id);
         Cursor cursor = mContext.getContentResolver().query(uribuilder.build(),
                 null,
@@ -157,19 +156,19 @@ public class DatabaseRelatedTools {
     }
 
 
-    public List<RecipeItem> searchRecipesInDatabase() {
+    public List<RecipeItem> searchRecipesInDatabase(Context mContext) {
         String[] sSelectionArgs = new String[1];
-        return searchRecipesInDatabase(null, sSelectionArgs);
+        return searchRecipesInDatabase(mContext, null, sSelectionArgs);
     }
 
-    public List<RecipeItem> searchRecipesInDatabase(String field, int selectionArgs) {
+    public List<RecipeItem> searchRecipesInDatabase(Context mContext, String field, int selectionArgs) {
         String[] sSelectionArgs = new String[1];
         sSelectionArgs[0] = String.valueOf(selectionArgs);
-        return searchRecipesInDatabase(field, sSelectionArgs);
+        return searchRecipesInDatabase(mContext, field, sSelectionArgs);
     }
 
-    public List<RecipeItem> searchRecipesInDatabaseByState(int state){
-        List<RecipeItem> list = searchRecipesInDatabase();
+    public List<RecipeItem> searchRecipesInDatabaseByState(Context mContext, int state){
+        List<RecipeItem> list = searchRecipesInDatabase(mContext);
         List<RecipeItem> listFiltered = new ArrayList<>();
         for(RecipeItem recipeItem : list){
             if((recipeItem.getState() & state) != 0){
@@ -179,19 +178,19 @@ public class DatabaseRelatedTools {
         return listFiltered;
     }
 
-    public List<RecipeItem> searchRecipesInDatabase(String field, long selectionArgs) {
+    public List<RecipeItem> searchRecipesInDatabase(Context mContext, String field, long selectionArgs) {
         String[] sSelectionArgs = new String[1];
         sSelectionArgs[0] = String.valueOf(selectionArgs);
-        return searchRecipesInDatabase(field, sSelectionArgs);
+        return searchRecipesInDatabase(mContext, field, sSelectionArgs);
     }
 
-    public List<RecipeItem> searchRecipesInDatabase(String field, String selectionArgs){
+    public List<RecipeItem> searchRecipesInDatabase(Context mContext, String field, String selectionArgs){
         String[] sSelectionArgs = new String[1];
         sSelectionArgs[0] = selectionArgs;
-        return searchRecipesInDatabase(field, sSelectionArgs);
+        return searchRecipesInDatabase(mContext, field, sSelectionArgs);
     }
 
-    private List<RecipeItem> searchRecipesInDatabase(String field, String[] selectionArgs){
+    private List<RecipeItem> searchRecipesInDatabase(Context mContext, String field, String[] selectionArgs){
         if(selectionArgs[0] == null || selectionArgs[0].isEmpty()){
             selectionArgs = null;
         }
@@ -213,8 +212,8 @@ public class DatabaseRelatedTools {
         return getRecipesFromCursor(cursor);
     }
 
-    public List<RecipeItem> getRecipesByState(Integer flag){
-        List<RecipeItem> recipes = searchRecipesInDatabase();
+    public List<RecipeItem> getRecipesByState(Context mContext, Integer flag){
+        List<RecipeItem> recipes = searchRecipesInDatabase(mContext);
         List<RecipeItem> coincidences = new ArrayList<>();
         for(RecipeItem recipe : recipes){
             if((recipe.getState() & flag) !=0){
@@ -235,12 +234,12 @@ public class DatabaseRelatedTools {
 
     }
 
-    public RecipeItem getRecipeByPathName(String path){
+    public RecipeItem getRecipeByPathName(Context mContext, String path){
         Uri uPath = Uri.parse(path);
-        return getRecipeByFileName(uPath.getLastPathSegment());
+        return getRecipeByFileName(mContext, uPath.getLastPathSegment());
     }
 
-    public RecipeItem getRecipeByFileName(String name){
+    public RecipeItem getRecipeByFileName(Context mContext, String name){
         String[] sSelectionArgs = new String[2];
         sSelectionArgs[0] = "%" + name;
         sSelectionArgs[1] = "%" + name;
@@ -264,7 +263,7 @@ public class DatabaseRelatedTools {
         }
     }
 
-    public Uri insertNewZip(String name, String link) {
+    public Uri insertNewZip(Context mContext, String name, String link) {
         ContentValues values = new ContentValues();
         values.put(ZipsTable.FIELD_NAME, name);
         values.put(ZipsTable.FIELD_LINK, link);
@@ -272,7 +271,7 @@ public class DatabaseRelatedTools {
         return mContext.getContentResolver().insert(CocinaConRollContentProvider.CONTENT_URI_ZIPS, values);
     }
 
-    public List<ZipItem> getZipsByState(Integer state) {
+    public List<ZipItem> getZipsByState(Context mContext, Integer state) {
         String selection = ZipsTable.FIELD_STATE + " = ? ";
         String sState;
         try {
@@ -281,14 +280,14 @@ public class DatabaseRelatedTools {
             return new ArrayList<>();
         }
         final String[] selectionArgs = {sState};
-        return getZips(selection, selectionArgs);
+        return getZips(mContext, selection, selectionArgs);
     }
 
-    public List<ZipItem> getAllZips() {
-        return getZips(null, null);
+    public List<ZipItem> getAllZips(Context mContext) {
+        return getZips(mContext, null, null);
     }
 
-    public List<ZipItem> getZips(String selection, String[] selectionArgs) {
+    public List<ZipItem> getZips(Context mContext, String selection, String[] selectionArgs) {
         final String[] projection = ZipsTable.ALL_COLUMNS;
 
         Cursor cursor = mContext.getContentResolver().query(CocinaConRollContentProvider.CONTENT_URI_ZIPS,
@@ -299,14 +298,14 @@ public class DatabaseRelatedTools {
         return getZipsFromCursor(cursor);
     }
 
-    public void removeZipfromDatabase(int id) {
+    public void removeZipfromDatabase(Context mContext, int id) {
         String selection = RecipesTable.FIELD_ID + " = ? ";
         String[] selectionArgs = {String.valueOf(id)};
         mContext.getContentResolver().delete(CocinaConRollContentProvider.CONTENT_URI_ZIPS, selection, selectionArgs);
 
     }
 
-    public void updateZipState(String name, Integer state) {
+    public void updateZipState(Context mContext, String name, Integer state) {
         ContentValues values = new ContentValues();
         values.put(ZipsTable.FIELD_STATE, state);
         String clause = ZipsTable.FIELD_NAME + " = ? ";

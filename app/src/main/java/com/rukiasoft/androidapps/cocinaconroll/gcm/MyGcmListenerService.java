@@ -22,8 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
+
 import com.google.android.gms.gcm.GcmListenerService;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -55,8 +54,8 @@ public class MyGcmListenerService extends GcmListenerService {
             return;
         }
 
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
-        Uri uri = dbTools.insertNewZip(name, link);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        Uri uri = dbTools.insertNewZip(getApplicationContext(), name, link);
         if(uri == null){
             Log.d(TAG, "Null uri");
             return;
@@ -74,12 +73,7 @@ public class MyGcmListenerService extends GcmListenerService {
             }
         }catch (NumberFormatException e){
             e.printStackTrace();
-            Tracker t = ((CocinaConRollApplication) getApplication()).getTracker();
-            // Build and send exception.
-            t.send(new HitBuilders.ExceptionBuilder()
-                    .setDescription(MyGcmListenerService.class.getSimpleName() + ":" + "error parsing Uri")
-                    .setFatal(true)
-                    .build());
+            // TODO: 22/02/2016 ver si se puede mandar algo con ACRA
         }
     }
     // [END receive_message]

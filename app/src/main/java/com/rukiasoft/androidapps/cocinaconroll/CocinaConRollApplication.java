@@ -9,6 +9,8 @@ import android.support.multidex.MultiDexApplication;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.acra.ACRA;
 import org.acra.annotation.ReportsCrashes;
@@ -72,12 +74,19 @@ public class CocinaConRollApplication  extends MultiDexApplication {
         mGoogleApiClient = googleApiClient;
     }
 
+    public static RefWatcher getRefWatcher(Context context) {
+        CocinaConRollApplication application = (CocinaConRollApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
+    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
         analytics = GoogleAnalytics.getInstance(this);
         ACRA.init(this);
+        refWatcher = LeakCanary.install(this);
 
         //analytics.getLogger().setLogLevel(Logger.LogLevel.VERBOSE);
         tracker = analytics.newTracker(R.xml.track_app);

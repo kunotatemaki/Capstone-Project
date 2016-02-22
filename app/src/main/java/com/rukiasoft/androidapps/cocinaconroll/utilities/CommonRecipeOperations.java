@@ -17,19 +17,17 @@ public class CommonRecipeOperations {
 
     private RecipeItem recipe;
     private Activity activity;
-    private Context context;
+    //private Context context;
 
     public CommonRecipeOperations(Activity activity, RecipeItem recipeItem){
         this.activity = activity;
         this.recipe = recipeItem;
-        this.context = activity;
     }
     public CommonRecipeOperations(Context context, RecipeItem recipeItem){
         if(context instanceof Activity) {
             this.activity = (Activity)context;
         }
         this.recipe = recipeItem;
-        this.context = context;
     }
 
     public void editRecipe(){
@@ -46,25 +44,25 @@ public class CommonRecipeOperations {
         if(activity == null)    return;
         if(recipe.getPicture().equals(Constants.DEFAULT_PICTURE_NAME))
             recipe.setPathPicture(Constants.DEFAULT_PICTURE_NAME);
-        ReadWriteTools rwTools = new ReadWriteTools(activity);
-        String path = rwTools.saveRecipeOnEditedPath(recipe);
+        ReadWriteTools rwTools = new ReadWriteTools();
+        String path = rwTools.saveRecipeOnEditedPath(activity.getApplicationContext(), recipe);
         recipe.setPathRecipe(path);
         recipe.setVersion(recipe.getVersion() + 1);
         if(activity instanceof SigningDriveActivity) {
             ((SigningDriveActivity)activity).uploadRecipeToDrive(recipe);
         }
         //update database
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(activity);
-        dbTools.updatePathsAndVersion(recipe);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        dbTools.updatePathsAndVersion(activity.getApplicationContext(), recipe);
         if(!deleteOldPicture.isEmpty()) {
             rwTools.deleteImage(deleteOldPicture);
         }
     }
 
     public RecipeItem loadRecipeDetailsFromRecipeCard(){
-        ReadWriteTools rwTools = new ReadWriteTools(context);
+        ReadWriteTools rwTools = new ReadWriteTools();
         if(recipe.getIngredients() == null || recipe.getIngredients().size() == 0){
-            RecipeItem item = rwTools.readRecipeInfo(recipe.getPathRecipe());
+            RecipeItem item = rwTools.readRecipeInfo(activity.getApplicationContext(), recipe.getPathRecipe());
             if(item == null)
                 return null;
             recipe.setMinutes(item.getMinutes());

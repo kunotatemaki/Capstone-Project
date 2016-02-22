@@ -44,7 +44,6 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +60,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     private static final int REQUEST_CODE_ANIMATION = 21;
     private static final String KEY_DRIVE_RECIPES_CHECKED = Constants.PACKAGE_NAME + ".drive_recipes_checked";
     private static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
-    private static final String KEY_NEED_TO_SEND_RECIPES_TO_DRIVE = Constants.PACKAGE_NAME + ".need_to_send_recipes_to_drive";
+    //private static final String KEY_NEED_TO_SEND_RECIPES_TO_DRIVE = Constants.PACKAGE_NAME + ".need_to_send_recipes_to_drive";
 
 
     @Bind(R.id.drawer_layout)
@@ -72,7 +71,6 @@ public class RecipeListActivity extends SigningDriveActivity {
     AdView mAdViewList;
 
     private MenuItem searchMenuItem;
-    private RecipeListFragment mRecipeListFragment;
     private int magnifyingX;
     private int magnifyingY;
     private int openCircleRevealX;
@@ -107,8 +105,8 @@ public class RecipeListActivity extends SigningDriveActivity {
                     RecipeItem recipeItem = intent.getParcelableExtra(Constants.KEY_RECIPE);
                     recipeItem.removeState(Constants.FLAG_PENDING_UPLOAD_TO_DRIVE);
                     recipeItem.setState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
-                    DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
-                    dbTools.updateStateById(recipeItem.get_id(), recipeItem.getState());
+                    DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+                    dbTools.updateStateById(getApplicationContext(), recipeItem.get_id(), recipeItem.getState());
                 }
             }else if(intent.getAction().equals(Constants.ACTION_BROADCAST_DELETED_RECIPE)){
                 if(intent.hasExtra(Constants.KEY_RECIPE)){
@@ -228,7 +226,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
         if(mRecipeListFragment != null){
             if(intent != null && intent.hasExtra(Constants.KEY_RECIPE)) {
                 String name = intent.getStringExtra(Constants.KEY_RECIPE);
@@ -257,7 +255,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                 }else if(resultCode == Constants.RESULT_UPDATE_RECIPE){
                     if (intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                         RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                        RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                         if (mRecipeListFragment != null) {
                             mRecipeListFragment.updateRecipe(recipe);
                         }
@@ -273,7 +271,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                         oldPicture = intentData.getStringExtra(Constants.KEY_DELETE_OLD_PICTURE);
                     }
                     commonRecipeOperations.updateRecipe(oldPicture);
-                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                     if (mRecipeListFragment != null) {
                         mRecipeListFragment.updateRecipe(recipe);
                     }
@@ -282,9 +280,9 @@ public class RecipeListActivity extends SigningDriveActivity {
             case Constants.REQUEST_CREATE_RECIPE:
                 if (resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)) {
                     RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                    mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
-                    ReadWriteTools readWriteTools = new ReadWriteTools(this);
-                    String path = readWriteTools.saveRecipeOnEditedPath(recipe);
+                    RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                    ReadWriteTools readWriteTools = new ReadWriteTools();
+                    String path = readWriteTools.saveRecipeOnEditedPath(getApplicationContext(), recipe);
                     recipe.setPathRecipe(path);
                     uploadRecipeToDrive(recipe);
                     if (mRecipeListFragment != null) {
@@ -312,10 +310,10 @@ public class RecipeListActivity extends SigningDriveActivity {
     }
 
     private void removeRecipeFromDiskAndDatabase(RecipeItem recipe){
-        ReadWriteTools rwTools = new ReadWriteTools(this);
-        rwTools.deleteRecipe(recipe);
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(this);
-        dbTools.removeRecipefromDatabase(recipe.get_id());
+        ReadWriteTools rwTools = new ReadWriteTools();
+        rwTools.deleteRecipe(getApplicationContext(), recipe);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        dbTools.removeRecipefromDatabase(getApplicationContext(), recipe.get_id());
         restartLoader();
     }
 
@@ -328,7 +326,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
                 if (toolbar == null)
                     return true;
@@ -376,7 +374,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
-                mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                 final Toolbar toolbar = mRecipeListFragment.getToolbarRecipeListFragment();
                 if (toolbar == null)
                     return true;
@@ -477,7 +475,7 @@ public class RecipeListActivity extends SigningDriveActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+                        RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
                         if(mRecipeListFragment != null) {
                             switch (menuItem.getItemId()) {
                                 case R.id.menu_all_recipes:
@@ -600,7 +598,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     public void performClickInDrawerIfNecessary() {
         if(lastFilter.equals(Constants.FILTER_LATEST_RECIPES)){
             navigationView.setCheckedItem(R.id.menu_last_downloaded);
-            mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+            RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
             if(mRecipeListFragment != null) {
                 mRecipeListFragment.filterRecipes(Constants.FILTER_LATEST_RECIPES);
             }
@@ -610,7 +608,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     }
 
     public void restartLoader(){
-        mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+        RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
         if(mRecipeListFragment != null) {
             getSupportLoaderManager().restartLoader(Constants.LOADER_ID, null, mRecipeListFragment);
         }
@@ -618,7 +616,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
     private void clearGarbage(){
         //creo fichero nomedia
-        ReadWriteTools rwTools = new ReadWriteTools(this);
+        ReadWriteTools rwTools = new ReadWriteTools();
         File file = new File(rwTools.getEditedStorageDir() + ".nomedia");
         try {
             if(!file.exists())
@@ -627,7 +625,7 @@ public class RecipeListActivity extends SigningDriveActivity {
             e.printStackTrace();
         }
         //borro temporales de la cámara
-        List<String> list = rwTools.loadFiles(null, true);
+        List<String> list = rwTools.loadFiles(getApplicationContext(), null, true);
         for(int i=0; i<list.size(); i++) {
             if(list.get(i).contains(Constants.TEMP_CAMERA_NAME)){
                 file = new File(rwTools.getEditedStorageDir() + list.get(i));
@@ -637,11 +635,11 @@ public class RecipeListActivity extends SigningDriveActivity {
         }
 
         //veo si hay algún zip en la base de datos que no tenga el formato correcto
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(getApplicationContext());
-        List<ZipItem> listZips = dbTools.getAllZips();
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        List<ZipItem> listZips = dbTools.getAllZips(getApplicationContext());
         for(ZipItem zip : listZips){
             if(!zip.getName().contains(".zip")){
-                dbTools.removeZipfromDatabase(zip.getId());
+                dbTools.removeZipfromDatabase(getApplicationContext(), zip.getId());
             }
         }
 

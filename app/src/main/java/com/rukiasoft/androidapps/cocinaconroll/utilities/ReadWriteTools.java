@@ -15,9 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.signature.MediaStoreSignature;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.PreinstalledRecipeNamesList;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
@@ -40,13 +37,13 @@ import java.util.List;
 
 
 public class ReadWriteTools {
-    private final Context mContext;
+    //private final Context mContext;
     private final String TAG = LogHelper.makeLogTag(ReadWriteTools.class);
-    public ReadWriteTools(Context mContext){
-        this.mContext = mContext;
+    public ReadWriteTools(){
+
     }
 
-    public List<String> loadFiles(FilenameFilter filter, Boolean external_storage){
+    public List<String> loadFiles(Context mContext, FilenameFilter filter, Boolean external_storage){
         List<String> list = new ArrayList<>();
         Boolean ret;
 
@@ -60,7 +57,7 @@ public class ReadWriteTools {
         if(external_storage)
             path = getEditedStorageDir();
         else
-            path = getOriginalStorageDir();
+            path = getOriginalStorageDir(mContext);
         File file = new File(path);
         if (file.exists()) {
             String[] files = file.list(filter);
@@ -109,7 +106,7 @@ public class ReadWriteTools {
     /**
      * Get
      */
-    public String getOriginalStorageDir(){
+    public String getOriginalStorageDir(Context mContext){
         String path = mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
                 + Constants.RECIPES_DIR + String.valueOf(File.separatorChar);
         File file = new File(path);
@@ -153,7 +150,7 @@ public class ReadWriteTools {
     /**
      * Read recipe from xml
      */
-    public RecipeItem readRecipe(String name, Integer type) {
+    public RecipeItem readRecipe(Context mContext, String name, Integer type) {
         RecipeItem recipeItem;
         String path = "";
         File source;
@@ -165,7 +162,7 @@ public class ReadWriteTools {
                 e.printStackTrace();
                 return null;
             }
-            source = createFileFromInputStream(inputStream);
+            source = createFileFromInputStream(mContext, inputStream);
             if(source == null)
                 return null;
             recipeItem = parseFileIntoRecipe(source);
@@ -177,7 +174,7 @@ public class ReadWriteTools {
             source.delete();
         }else {
             if (type.equals(Constants.PATH_TYPE_ORIGINAL)) {
-                path = getOriginalStorageDir() + name;
+                path = getOriginalStorageDir(mContext) + name;
             }else if (type.equals(Constants.PATH_TYPE_EDITED)) {
                 path = getEditedStorageDir() + name;
             }else if (type.equals(Constants.PATH_TYPE_OLD_EDITED)) {
@@ -199,7 +196,7 @@ public class ReadWriteTools {
         if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0)
             recipeItem.setPathPicture(Constants.FILE_PATH + getEditedStorageDir() + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ORIGINAL) != 0)
-            recipeItem.setPathPicture(Constants.FILE_PATH + getOriginalStorageDir() + recipeItem.getPicture());
+            recipeItem.setPathPicture(Constants.FILE_PATH + getOriginalStorageDir(mContext) + recipeItem.getPicture());
         else if((recipeItem.getState() & Constants.FLAG_ASSETS) != 0)
             recipeItem.setPathPicture(Constants.ASSETS_PATH + recipeItem.getPicture());
 
@@ -207,11 +204,11 @@ public class ReadWriteTools {
     }
 
 
-    private File createFileFromInputStream(InputStream inputStream) {
+    private File createFileFromInputStream(Context mContext, InputStream inputStream) {
 
         try{
             //File f = new File(mContext.getFilesDir() + "temp.txt");
-            File f = getTempFile();
+            File f = getTempFile(mContext);
             if(f== null){
                 return null;
             }else {
@@ -232,7 +229,7 @@ public class ReadWriteTools {
         return null;
     }
 
-    private File getTempFile() {
+    private File getTempFile(Context mContext) {
         File file;
         try {
             file = File.createTempFile("tmp.xml", null, mContext.getCacheDir());
@@ -263,7 +260,7 @@ public class ReadWriteTools {
         saveRecipe(recipe, path);
     }*/
 
-    public String saveRecipeOnEditedPath(RecipeItem recipe){
+    public String saveRecipeOnEditedPath(Context mContext, RecipeItem recipe){
         String dir = getEditedStorageDir();
         String pathFile = recipe.getPathRecipe();
         String name;
@@ -274,10 +271,10 @@ public class ReadWriteTools {
             Uri uri = Uri.parse(pathFile);
             name = uri.getLastPathSegment();
         }
-        return saveRecipe(recipe, dir, name);
+        return saveRecipe(mContext, recipe, dir, name);
     }
 
-    public String saveRecipe(RecipeItem recipe, String dir, String name){
+    public String saveRecipe(Context mContext, RecipeItem recipe, String dir, String name){
         if(!isExternalStorageWritable()){
             if(mContext instanceof AppCompatActivity) {
                 Toast.makeText(mContext, mContext.getResources().getString(R.string.no_storage_available), Toast.LENGTH_LONG)
@@ -307,7 +304,7 @@ public class ReadWriteTools {
 
     }
 
-    public void deleteRecipe(RecipeItem recipeItem){
+    public void deleteRecipe(Context mContext, RecipeItem recipeItem){
 
         try {
             File file = new File(recipeItem.getPathRecipe());
@@ -327,17 +324,13 @@ public class ReadWriteTools {
             }
         }catch(Exception e){
             if(mContext instanceof Activity) {
-                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
-                // Build and send exception.
-                t.send(new HitBuilders.ExceptionBuilder()
-                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "error deleting recipe")
-                        .setFatal(true)
-                        .build());
+                // TODO: 22/02/2016 excepción con acra
+
             }
         }
     }
 
-    public void deleteRecipe(String path){
+    public void deleteRecipe(Context mContext, String path){
 
         try {
             File file = new File(path);
@@ -345,17 +338,12 @@ public class ReadWriteTools {
                 file.delete();
         }catch(Exception e){
             if(mContext instanceof Activity) {
-                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
-                // Build and send exception.
-                t.send(new HitBuilders.ExceptionBuilder()
-                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "error deleting recipe (byString)")
-                        .setFatal(true)
-                        .build());
+                // TODO: 22/02/2016 excepcion con acra
             }
         }
     }
 
-    public List<String> loadRecipesFromAssets() {
+    public List<String> loadRecipesFromAssets(Context mContext) {
 
         List<String> list;
         File source;
@@ -366,7 +354,7 @@ public class ReadWriteTools {
             e.printStackTrace();
             return null;
         }
-        source = createFileFromInputStream(inputStream);
+        source = createFileFromInputStream(mContext, inputStream);
         list = parseFileIntoRecipeList(source);
         if (source != null) {
             source.delete();
@@ -429,7 +417,7 @@ public class ReadWriteTools {
         return Constants.FILE_PATH.concat(filename);
     }
 
-    public void loadImageFromPath(ImageView imageView, String path, int defaultImage, int version) {
+    public void loadImageFromPath(Context mContext, ImageView imageView, String path, int defaultImage, int version) {
        Glide.with(mContext)
                .load(Uri.parse(path))
                .centerCrop()
@@ -438,7 +426,7 @@ public class ReadWriteTools {
                .into(imageView);
     }
 
-    public void loadImageFromPathInCircle(ImageView imageView, String path, int defaultImage, int version) {
+    public void loadImageFromPathInCircle(Context mContext, ImageView imageView, String path, int defaultImage, int version) {
        Glide.with(mContext)
                .load(Uri.parse(path))
                .centerCrop()
@@ -448,7 +436,7 @@ public class ReadWriteTools {
                .into(imageView);
     }
 
-    public void loadImageFromPath(BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage, int version) {
+    public void loadImageFromPath(Context mContext, BitmapImageViewTarget bitmapImageViewTarget, String path, int defaultImage, int version) {
         Glide.with(mContext)
                 .load(Uri.parse(path))
                 .asBitmap()
@@ -511,7 +499,7 @@ public class ReadWriteTools {
             activity.startActivity(emailIntent);
     }
 
-    public String getZipsStorageDir(){
+    public String getZipsStorageDir(Context mContext){
         //create the dir if dont exist
         String path = mContext.getExternalFilesDir(null) + String.valueOf(File.separatorChar)
                 + Constants.ZIPS_DIR + String.valueOf(File.separatorChar);
@@ -522,9 +510,9 @@ public class ReadWriteTools {
         return path;
     }
 
-    public Uri zipRecipe(List<Uri> filesToZip, String zipName){
+    public Uri zipRecipe(Context mContext, List<Uri> filesToZip, String zipName){
         UnzipUtility unzipper = new UnzipUtility();
-        String zipPath = getZipsStorageDir() + zipName;
+        String zipPath = getZipsStorageDir(mContext) + zipName;
         try {
             unzipper.zip(filesToZip, zipPath);
         } catch (Exception ex) {
@@ -535,18 +523,18 @@ public class ReadWriteTools {
         return Uri.parse(zipPath);
     }
 
-    public Boolean unzipRecipesInOriginal(String name){
-        return unzipRecipes(name, getOriginalStorageDir());
+    public Boolean unzipRecipesInOriginal(Context mContext, String name){
+        return unzipRecipes(mContext, name, getOriginalStorageDir(mContext));
     }
 
-    public Boolean unzipRecipesInEdited(String name){
-        return unzipRecipes(name, getEditedStorageDir());
+    public Boolean unzipRecipesInEdited(Context mContext, String name){
+        return unzipRecipes(mContext, name, getEditedStorageDir());
     }
 
-    private Boolean unzipRecipes(String name, String path){
+    private Boolean unzipRecipes(Context mContext, String name, String path){
         UnzipUtility unzipper = new UnzipUtility();
         try {
-            unzipper.unzip(getZipsStorageDir() + name,
+            unzipper.unzip(getZipsStorageDir(mContext) + name,
                     path);
         } catch (Exception ex) {
             // some errors occurred
@@ -557,40 +545,40 @@ public class ReadWriteTools {
     }
 
 
-    public void initDatabase() {
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+    public void initDatabase(Context mContext) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         MyFileFilter filter = new MyFileFilter();
 
-        List<String> listAssets = loadRecipesFromAssets();
+        List<String> listAssets = loadRecipesFromAssets(mContext);
         for(int i=0; i<listAssets.size(); i++) {
             RecipeItem recipeItem;
-            recipeItem = readRecipe(listAssets.get(i),
+            recipeItem = readRecipe(mContext, listAssets.get(i),
                     Constants.PATH_TYPE_ASSETS);
             if (recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem, true);
+                dbTools.insertRecipeIntoDatabase(mContext, recipeItem, true);
             }
         }
 
-        List<String> listOriginal = loadFiles(filter, false);
+        List<String> listOriginal = loadFiles(mContext, filter, false);
         for(int i=0; i<listOriginal.size(); i++) {
-            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
+            RecipeItem recipeItem= readRecipe(mContext, listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem, true);
+                dbTools.insertRecipeIntoDatabase(mContext, recipeItem, true);
             }
         }
 
         //files created or modified from previous versions
         List<String> listOldFiles = loadRecipesFromOldDirectory(filter);
         for(int i=0; i<listOldFiles.size(); i++) {
-            RecipeItem recipeItem = readRecipe(listOldFiles.get(i),
+            RecipeItem recipeItem = readRecipe(mContext, listOldFiles.get(i),
                     Constants.PATH_TYPE_OLD_EDITED);
             if(recipeItem != null) {
                 if((recipeItem.getState()&(Constants.FLAG_EDITED | Constants.FLAG_OWN)) == 0){
                     //not created nor edited. It was an original recipe set as favorite
-                    dbTools.updateFavoriteByFileName(recipeItem.getName(), recipeItem.getFavourite());
+                    dbTools.updateFavoriteByFileName(mContext, recipeItem.getName(), recipeItem.getFavourite());
                     //delete the file
-                    deleteRecipe(recipeItem);
+                    deleteRecipe(mContext, recipeItem);
                 }else{
                     String picture = "";
                     if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0) {
@@ -612,12 +600,12 @@ public class ReadWriteTools {
         }
 
         //edited directory
-        List<String> listEdited = loadFiles(filter, true);
+        List<String> listEdited = loadFiles(mContext, filter, true);
         for(int i=0; i<listEdited.size(); i++) {
-            RecipeItem recipeItem= readRecipe(listEdited.get(i),
+            RecipeItem recipeItem= readRecipe(mContext, listEdited.get(i),
                     Constants.PATH_TYPE_EDITED);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem, true);
+                dbTools.insertRecipeIntoDatabase(mContext, recipeItem, true);
             }
         }
 
@@ -658,17 +646,13 @@ public class ReadWriteTools {
         }
     }
 
-    public RecipeItem readRecipeInfo(String pathRecipe) {
+    public RecipeItem readRecipeInfo(Context mContext, String pathRecipe) {
         RecipeItem recipeItem;
         File source;
         if(pathRecipe == null){
             if(mContext instanceof Activity) {
-                Tracker t = ((CocinaConRollApplication) ((Activity)mContext).getApplication()).getTracker();
-                // Build and send exception.
-                t.send(new HitBuilders.ExceptionBuilder()
-                        .setDescription(ReadWriteTools.class.getSimpleName() + ":" + "try to load a recipe without recipePath")
-                        .setFatal(true)
-                        .build());
+                // TODO: 22/02/2016 exception acra "try to load a recipe without recipePath")
+
             }
             return null;
         }
@@ -683,7 +667,7 @@ public class ReadWriteTools {
                 e.printStackTrace();
                 return null;
             }
-            source = createFileFromInputStream(inputStream);
+            source = createFileFromInputStream(mContext, inputStream);
             if(source == null)
                 return null;
             recipeItem = parseFileIntoRecipe(source);
@@ -707,27 +691,27 @@ public class ReadWriteTools {
 
     }
 
-    public void loadNewFilesAndInsertInDatabase() {
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+    public void loadNewFilesAndInsertInDatabase(Context mContext) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         MyFileFilter filter = new MyFileFilter();
-        List<String> listOriginal = loadFiles(filter, false);
+        List<String> listOriginal = loadFiles(mContext, filter, false);
         for(int i=0; i<listOriginal.size(); i++) {
-            RecipeItem recipeItem= readRecipe(listOriginal.get(i),
+            RecipeItem recipeItem= readRecipe(mContext, listOriginal.get(i),
                     Constants.PATH_TYPE_ORIGINAL);
             if(recipeItem != null) {
-                dbTools.insertRecipeIntoDatabase(recipeItem, false);
+                dbTools.insertRecipeIntoDatabase(mContext, recipeItem, false);
             }
         }
     }
 
-    public void loadUpdatedFilesAndInsertInDatabase(String name, int version) {
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
-        RecipeItem recipeItem= readRecipe(name,
+    public void loadUpdatedFilesAndInsertInDatabase(Context mContext, String name, int version) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        RecipeItem recipeItem= readRecipe(mContext, name,
                 Constants.PATH_TYPE_EDITED);
         if(recipeItem != null) {
             recipeItem.setVersion(version);
             recipeItem.setState(Constants.FLAG_SINCRONIZED_WITH_DRIVE);
-            dbTools.insertRecipeIntoDatabase(recipeItem, true);
+            dbTools.insertRecipeIntoDatabase(mContext, recipeItem, true);
         }
     }
 
@@ -761,8 +745,8 @@ public class ReadWriteTools {
         return deleteFile(path);
     }
 
-    public boolean deleteZipByName(String name){
-        String path = getZipsStorageDir() + name;
+    public boolean deleteZipByName(Context mContext, String name){
+        String path = getZipsStorageDir(mContext) + name;
         return deleteFile(Uri.parse(path));
     }
 

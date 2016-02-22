@@ -20,7 +20,7 @@ public class RecipesDB {
 
 
 	public RecipesDB(Context context){
-        dbTools = new DatabaseRelatedTools(context);
+        dbTools = new DatabaseRelatedTools();
 		mCocinaConRollDatabaseHelper = new CocinaConRollDatabaseHelper(context);
 		
 		// This HashMap is used to map table fields to Custom Suggestion fields

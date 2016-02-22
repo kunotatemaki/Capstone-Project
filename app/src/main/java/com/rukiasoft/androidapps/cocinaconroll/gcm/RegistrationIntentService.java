@@ -25,26 +25,15 @@ import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.rukiasoft.androidapps.cocinaconroll.BuildConfig;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationResponse;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-import com.squareup.okhttp.Authenticator;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.Proxy;
 
 
 public class RegistrationIntentService extends IntentService {
@@ -141,9 +130,6 @@ public class RegistrationIntentService extends IntentService {
         registrationClass.setName(mTools.getStringFromPreferences(this, Constants.PROPERTY_DEVICE_OWNER_NAME));
 
 
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-        OkHttpClient client = new OkHttpClient();
 
         String urlBase = BuildConfig.RASPBERRY_IP + getResources().getString(R.string.server_url_tomcat);
         String method = getResources().getString(R.string.registration_method);
@@ -151,7 +137,7 @@ public class RegistrationIntentService extends IntentService {
         RestTools restTools = new RestTools();
         Response response = restTools.doRestRequest(urlBase, method, mTools.getJsonString(registrationClass));
 
-        if(response.code() == HttpURLConnection.HTTP_OK) {
+        if(response != null && response.code() == HttpURLConnection.HTTP_OK) {
             Gson gResponse = new Gson();
             error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
         }

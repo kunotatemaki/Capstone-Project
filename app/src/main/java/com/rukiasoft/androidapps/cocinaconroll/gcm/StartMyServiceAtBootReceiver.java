@@ -18,7 +18,7 @@ public class StartMyServiceAtBootReceiver extends BroadcastReceiver {
             long expirationTime =
                     mTools.getLongFromPreferences(context, Constants.PROPERTY_EXPIRATION_TIME);
             if (expirationTime == Long.MIN_VALUE || System.currentTimeMillis() > expirationTime) {
-                GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(context);
+                GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(context.getApplicationContext());
                 getZipsAsyncTask.execute();
             }
 

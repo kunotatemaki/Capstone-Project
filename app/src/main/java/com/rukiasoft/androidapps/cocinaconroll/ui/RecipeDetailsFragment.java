@@ -47,6 +47,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -54,6 +55,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -125,8 +127,8 @@ public class RecipeDetailsFragment extends Fragment implements
         }
         setHasOptionsMenu(true);
         mTools = new Tools();
-        dbTools = new DatabaseRelatedTools(getActivity());
-        rwTools = new ReadWriteTools(getActivity());
+        dbTools = new DatabaseRelatedTools();
+        rwTools = new ReadWriteTools();
 
     }
 
@@ -322,15 +324,24 @@ public class RecipeDetailsFragment extends Fragment implements
         return mRootView;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = CocinaConRollApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
     private void clickOnHeartButton(){
         if (recipe.getFavourite()) {
-            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_outline_white_24dp));
+            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(),
+                    R.drawable.ic_favorite_outline_white_24dp));
         } else {
-            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_favorite_white_24dp));
+            recipeDescriptionFAB.setImageDrawable(ContextCompat.getDrawable(getActivity(),
+                    R.drawable.ic_favorite_white_24dp));
         }
         //lo almaceno en la base de datos
         recipe.setFavourite(!recipe.getFavourite());
-        dbTools.updateFavoriteById(recipe.get_id(), recipe.getFavourite());
+        dbTools.updateFavoriteById(getActivity().getApplicationContext(), recipe.get_id(), recipe.getFavourite());
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_RECIPE, recipe);
@@ -422,7 +433,8 @@ public class RecipeDetailsFragment extends Fragment implements
                     applyPalette(bitmap);
                 }
             };
-            rwTools.loadImageFromPath(bitmapImageViewTarget, recipe.getPathPicture(),
+            rwTools.loadImageFromPath(getActivity().getApplicationContext(),
+                    bitmapImageViewTarget, recipe.getPathPicture(),
                     R.drawable.default_dish, recipe.getVersion());
         }
 

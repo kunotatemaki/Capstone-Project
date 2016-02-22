@@ -18,8 +18,6 @@ import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.net.HttpURLConnection;
@@ -44,7 +42,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
         RestTools restTools = new RestTools();
         Response response = restTools.doRestRequest(urlBase, method, null);
 
-        if(response.code() == HttpURLConnection.HTTP_OK){
+        if(response != null && response.code() == HttpURLConnection.HTTP_OK){
             JsonParser jsonParser = new JsonParser();
             JsonObject jo = (JsonObject)jsonParser.parse(response.body().charStream());
             JsonArray jsonArr = jo.getAsJsonArray("zips");
@@ -60,7 +58,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
     protected void onPostExecute(List<ZipItem> result) {
         Tools mTools = new Tools();
         Long expirationTimeFromNow;
-        DatabaseRelatedTools dbTools = new DatabaseRelatedTools(mContext);
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         boolean newZip = false;
         Integer days = mTools.getIntegerFromPreferences(mContext, Constants.PROPERTY_DAYS_TO_NEXT_UPDATE);
         if(days == Integer.MIN_VALUE){
@@ -68,7 +66,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
         }
         for(ZipItem zip : result) {
             //newZip = dbTools.CheckAndInsertNewZip(zip.getName(), zip.getLink()) | newZip;
-            Uri uri = dbTools.insertNewZip(zip.getName(), zip.getLink());
+            Uri uri = dbTools.insertNewZip(mContext, zip.getName(), zip.getLink());
             if(uri == null){
                 continue;
             }

@@ -14,8 +14,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
@@ -228,19 +226,14 @@ public class Tools {
                     .getPackageInfo(application.getPackageName(), 0);
             return packageInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
-            sendExceptionToAnalytics(application, "Error en getAppVersion: " + e.getMessage());
+            sendExceptionToACRA(application, "Error en getAppVersion: " + e.getMessage());
             return 0;
         }
     }
 
-    public void sendExceptionToAnalytics(Application application, String description){
+    public void sendExceptionToACRA(Application application, String description){
         if(application instanceof CocinaConRollApplication) {
-            Tracker t = ((CocinaConRollApplication) application).getTracker();
-            // Build and send exception.
-            t.send(new HitBuilders.ExceptionBuilder()
-                    .setDescription(description)
-                    .setFatal(true)
-                    .build());
+            // TODO: 22/02/2016 madaar a acra
         }
     }
 

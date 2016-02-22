@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
@@ -37,6 +38,7 @@ import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,8 +97,8 @@ public class EditRecipePhotoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
         mTools = new Tools();
-        rwTools = new ReadWriteTools(getActivity());
-        dbTools = new DatabaseRelatedTools(getActivity());
+        rwTools = new ReadWriteTools();
+        dbTools = new DatabaseRelatedTools();
     }
 
 
@@ -151,7 +153,8 @@ public class EditRecipePhotoFragment extends Fragment {
             editRecipeName.setText(recipeItem.getName());
         }
 
-        rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+        rwTools.loadImageFromPath(getActivity().getApplicationContext(), mImageView,
+                recipeItem.getPathPicture(),
                 R.drawable.default_dish, recipeItem.getVersion());
 
         
@@ -300,7 +303,7 @@ public class EditRecipePhotoFragment extends Fragment {
             //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
             recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-            rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+            rwTools.loadImageFromPath(getActivity().getApplicationContext(), mImageView, recipeItem.getPathPicture(),
                     R.drawable.default_dish, recipeItem.getVersion());
 
             return;
@@ -368,7 +371,8 @@ public class EditRecipePhotoFragment extends Fragment {
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
 
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                    rwTools.loadImageFromPath(getActivity().getApplicationContext(),
+                            mImageView, recipeItem.getPathPicture(),
                             R.drawable.default_dish, recipeItem.getVersion());
                 }
                 File f = new File(mImageCaptureUri.getPath());
@@ -385,7 +389,8 @@ public class EditRecipePhotoFragment extends Fragment {
                     recipeItem.setPathPicture(rwTools.saveBitmap(photo, recipeItem.getPicture()));
                     //if(recipeItem.getState().compareTo(Constants.STATE_OWN) != 0)
                     recipeItem.setState(Constants.FLAG_EDITED_PICTURE);
-                    rwTools.loadImageFromPath(mImageView, recipeItem.getPathPicture(),
+                    rwTools.loadImageFromPath(getActivity().getApplicationContext(),
+                            mImageView, recipeItem.getPathPicture(),
                             R.drawable.default_dish, recipeItem.getVersion());
                 }
                 break;
@@ -474,7 +479,8 @@ public class EditRecipePhotoFragment extends Fragment {
     }
 
     private void checkIfNameExists(String sName){
-        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(sName));
+        List<RecipeItem> coincidences = dbTools.searchRecipesInDatabase(getActivity().getApplicationContext(),
+                RecipesTable.FIELD_NAME_NORMALIZED, dbTools.getNormalizedString(sName));
         String error = null;
         if (coincidences.size() > 0) {
             error = getResources().getString(R.string.duplicated_recipe);
@@ -482,6 +488,13 @@ public class EditRecipePhotoFragment extends Fragment {
         if(createRecipeNameLayout != null){
             createRecipeNameLayout.setError(error);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = CocinaConRollApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 
     @Override

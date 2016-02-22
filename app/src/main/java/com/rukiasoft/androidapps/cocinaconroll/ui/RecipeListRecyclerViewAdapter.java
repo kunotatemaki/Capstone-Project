@@ -281,8 +281,8 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
         }
 
         public void bindRecipe(Context context, RecipeItem item) {
-            if(dbTools == null) dbTools = new DatabaseRelatedTools(context);
-            if(rwTools == null) rwTools = new ReadWriteTools(context);
+            if(dbTools == null) dbTools = new DatabaseRelatedTools();
+            if(rwTools == null) rwTools = new ReadWriteTools();
             recipeTitle.setText(item.getName());
             int visibilityProtection = View.GONE;
             if(favoriteButton != null) {
@@ -319,7 +319,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
                     typeIcon.setImageDrawable(ContextCompat.getDrawable(context, (R.drawable.ic_starters_18)));
                     break;
             }
-            rwTools.loadImageFromPath(recipeThumbnail, item.getPathPicture(),
+            rwTools.loadImageFromPath(context, recipeThumbnail, item.getPathPicture(),
                     R.drawable.default_dish_thumb, item.getVersion());
         }
     }
