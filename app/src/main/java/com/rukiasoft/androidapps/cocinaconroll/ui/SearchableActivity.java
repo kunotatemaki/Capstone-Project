@@ -29,7 +29,13 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 	private SimpleCursorAdapter mCursorAdapter;
 	@Bind(R.id.standard_toolbar)
 	Toolbar mToolbarSearchActivity;
-	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ButterKnife.unbind(this);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		

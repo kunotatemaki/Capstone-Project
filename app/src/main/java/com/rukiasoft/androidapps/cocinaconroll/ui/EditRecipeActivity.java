@@ -220,6 +220,12 @@ public class EditRecipeActivity extends AppCompatActivity {
         checkBack();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
     private void finishWithoutSave(){
         if(!editRecipePhotoFragment.getNameOfNewImage().isEmpty()){
             ReadWriteTools rwTools = new ReadWriteTools();

@@ -221,6 +221,7 @@ public class RecipeListActivity extends SigningDriveActivity {
     public void onDestroy(){
         LocalBroadcastManager.getInstance(this).unregisterReceiver(driveServiceReceiver);
         super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     @Override

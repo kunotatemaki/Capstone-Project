@@ -11,7 +11,7 @@
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
     </style>
 
-    <style name="Theme.Recipe.Detail" parent="BaseTheme">
+    <style name="Theme.Recipe.Detail" parent="AppTheme">
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>

@@ -384,6 +384,12 @@ public class RecipeDetailsFragment extends Fragment implements
         loadRecipe();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
     private void loadRecipe(){
         if(recipeLoaded) return;
         own = (recipe.getState() & (Constants.FLAG_OWN|Constants.FLAG_EDITED)) != 0;

@@ -218,6 +218,7 @@ public class RecipeListFragment extends Fragment implements
     public void onDestroyView() {
         super.onDestroyView();
         addRecipeButtonFAB.setOnClickListener(null);
+        ButterKnife.unbind(this);
     }
 
     @Override

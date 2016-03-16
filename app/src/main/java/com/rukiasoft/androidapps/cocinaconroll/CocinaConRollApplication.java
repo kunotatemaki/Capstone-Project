@@ -132,7 +132,7 @@ public class CocinaConRollApplication  extends MultiDexApplication {
             nActivityConnected = 0;
         }
         if(nActivityConnected == 0){
-            if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
+            if(mGoogleApiClient != null /*&& mGoogleApiClient.isConnected()*/){
                 mGoogleApiClient.disconnect();
             }
         }

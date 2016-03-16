@@ -170,7 +170,7 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
             if(!getMyApplication().getGoogleApiClient().isConnected()) {
                 connectToDrive(true);
             }
-            DriveService.startActionUploadRecipe(this, recipeItem);
+            DriveService.startActionUploadRecipe(getApplicationContext(), recipeItem);
         }
     }
 
@@ -182,7 +182,7 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
             if(!getMyApplication().getGoogleApiClient().isConnected()) {
                 connectToDrive(true);
             }
-            DriveService.startActionDeleteRecipe(this, recipeItem);
+            DriveService.startActionDeleteRecipe(getApplicationContext(), recipeItem);
         }
     }
 
@@ -193,7 +193,7 @@ public abstract class SigningDriveActivity extends ToolbarAndRefreshActivity imp
             if(!getMyApplication().getGoogleApiClient().isConnected()) {
                 connectToDrive(true);
             }
-            DriveService.startActionGetRecipesFromDrive(this);
+            DriveService.startActionGetRecipesFromDrive(getApplicationContext());
             return true;
         }
         return false;

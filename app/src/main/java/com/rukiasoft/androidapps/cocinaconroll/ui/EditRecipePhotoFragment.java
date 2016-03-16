@@ -434,6 +434,12 @@ public class EditRecipePhotoFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
     public Boolean checkInfoOk(){
         mTools.hideSoftKeyboard(getActivity());
         boolean ret = true;

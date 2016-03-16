@@ -54,6 +54,12 @@ public class RecipeDetailActivity extends SigningDriveActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public void onResume() {
 
         super.onResume();

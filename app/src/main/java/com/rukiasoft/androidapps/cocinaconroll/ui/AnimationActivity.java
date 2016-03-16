@@ -271,7 +271,11 @@ public class AnimationActivity extends AppCompatActivity {
         createText.startAnimation(createAnim);
         rukiaText.startAnimation(rukiaAnim);
         softText.startAnimation(softAnim);
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

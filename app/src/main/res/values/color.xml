@@ -6,6 +6,8 @@
     <color name="ColorScrollBar">#00b0ff</color>
     <color name="ColorPrimarySearch">#FFA000</color>
 
+    <color name="color_hyperlink">#2962ff</color>
+
     <color name="color_refresh_1">#33B5E5</color>
     <color name="color_refresh_2">#99CC00</color>
     <color name="color_refresh_3">#FFBB33</color>

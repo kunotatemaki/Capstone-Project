@@ -147,6 +147,12 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
         refWatcher.watch(this);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
     private Boolean showSwipeDialog(){
         Tools mTools = new Tools();
         return !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_HIDE_SWIPE_DIALOG);
