@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -54,6 +55,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
     @Bind(R.id.sign_in_button)SignInButton signInButton;
     @Bind(R.id.sign_out_button)Button signOutButton;
     @Bind(R.id.sign_in_discard_button)Button discardButton;
+    @Bind(R.id.sign_in_progressbar)ProgressBar mProgressBar;
 
     private String accountName;
     private Activity mActivity;
@@ -84,6 +86,8 @@ public class ShowSigningActivity extends SigningDriveActivity {
                 mShouldResolve = true;
                 getMyApplication().getGoogleApiClient().connect();
                 // [END sign_in_clicked]*/
+                v.setEnabled(false);
+                mProgressBar.setVisibility(View.VISIBLE);
                 signIn();
             }
         });
@@ -190,9 +194,11 @@ public class ShowSigningActivity extends SigningDriveActivity {
             if(result.isSuccess()){
                 finish();
             }
+            signInButton.setEnabled(true);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
-    // [END onActivityResult]
+
 
 
 

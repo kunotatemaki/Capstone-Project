@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_grey_700"
-    android:orientation="vertical"
-    android:weightSum="4"
+    android:orientation="horizontal"
+    android:weightSum="5"
     tools:context=".ui.ShowSigningActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="3"
         >
         <LinearLayout
@@ -67,8 +67,8 @@
 
     <include
         layout="@layout/buttons_signing"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
 
 </LinearLayout>
