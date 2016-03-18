@@ -49,6 +49,9 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.v(TAG, "recibo notificación");
         if(data != null && data.containsKey("name") && data.containsKey("link")){
             name = data.getString("name");
+            if(name != null && !name.contains("zip")){
+                return;
+            }
             link = data.getString("link");
         }else{
             return;
