@@ -250,6 +250,7 @@ public class EditRecipePhotoFragment extends Fragment {
 
 
     private void selectPhoto(){
+        // TODO: 22/3/16 mirar lo del permiso de la cámara aquí
         final String [] items = new String [] {getResources().getString(R.string.pick_from_camera),
                 getResources().getString(R.string.pick_from_gallery)};
         ArrayAdapter<String> adapter = new ArrayAdapter<> (getActivity(), android.R.layout.select_dialog_item,items);

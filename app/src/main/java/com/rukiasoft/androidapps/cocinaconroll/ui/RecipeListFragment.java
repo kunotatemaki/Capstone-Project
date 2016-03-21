@@ -198,6 +198,7 @@ public class RecipeListFragment extends Fragment implements
             addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // TODO: 22/3/16 meter la comprobación de permisos para write external storage
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {

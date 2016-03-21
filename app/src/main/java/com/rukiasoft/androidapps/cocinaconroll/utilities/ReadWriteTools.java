@@ -54,10 +54,12 @@ public class ReadWriteTools {
         }
         // Get the directory for the app's private recipes directory.
         String path;
-        if(external_storage)
+        if(external_storage) {
+            // TODO: 22/3/16 mirar lo de los permisos de lectura aquí
             path = getEditedStorageDir();
-        else
+        }else {
             path = getOriginalStorageDir(mContext);
+        }
         File file = new File(path);
         if (file.exists()) {
             String[] files = file.list(filter);
@@ -69,6 +71,7 @@ public class ReadWriteTools {
     }
 
     public List<String> loadRecipesFromOldDirectory(FilenameFilter filter){
+        // TODO: 22/3/16 comprobación external storage
         List<String> list = new ArrayList<>();
         Boolean ret;
 
@@ -448,7 +451,7 @@ public class ReadWriteTools {
 
     public void share(final Activity activity, RecipeItem recipe)
     {
-        //TODO try with resolveactivity
+        //TODO probar el permiso get_account on real time
         //need to "send multiple" to get more than one attachment
         Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
