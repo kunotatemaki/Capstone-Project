@@ -9,8 +9,8 @@ android {
         applicationId "com.rukiasoft.androidapps.cocinaconroll"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 311
-        versionName "3.11"
+        versionCode 320
+        versionName "3.2"
         //Enabling multidex support.
         multiDexEnabled true
 
@@ -83,7 +83,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'ch.acra:acra:4.6.2'
+    compile 'ch.acra:acra:4.8.5'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'

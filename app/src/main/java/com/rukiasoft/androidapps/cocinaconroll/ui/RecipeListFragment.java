@@ -35,7 +35,6 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
@@ -46,7 +45,6 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -339,9 +337,11 @@ public class RecipeListFragment extends Fragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mRecyclerView.setAdapter(null);
-        Tools tools = new Tools();
-        tools.hideRefreshLayout(getActivity());
+        if(mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+            Tools tools = new Tools();
+            tools.hideRefreshLayout(getActivity());
+        }
     }
 
     private void setData(){
@@ -424,7 +424,6 @@ public class RecipeListFragment extends Fragment implements
     }
 
     private void launchActivityDetails(){
-        //int i = 1/0;
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_RECIPE, recipeToShow);

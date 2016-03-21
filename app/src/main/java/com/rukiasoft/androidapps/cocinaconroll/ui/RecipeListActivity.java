@@ -206,6 +206,7 @@ public class RecipeListActivity extends SigningDriveActivity {
         if(savedInstanceState == null) {
             clearGarbage();
         }
+
     }
 
 

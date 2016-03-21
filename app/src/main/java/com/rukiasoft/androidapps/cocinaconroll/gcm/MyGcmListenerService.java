@@ -24,7 +24,6 @@ import android.util.Log;
 
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
