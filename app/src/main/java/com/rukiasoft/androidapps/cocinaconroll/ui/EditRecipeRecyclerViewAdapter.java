@@ -1,6 +1,5 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
@@ -28,18 +27,13 @@ import butterknife.ButterKnife;
 public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditRecipeRecyclerViewAdapter.ItemViewHolder>
         implements ItemTouchHelperAdapter{
 
-    //TODO - allow undo swipe with snackbar
     private final List<String> mItems;
-    private final Context context;
     private final OnStartDragListener mDragStartListener;
-    String undo;
-    int positionUndo;
 
 
-    public EditRecipeRecyclerViewAdapter(Context context, List<String> data, OnStartDragListener dragStartListener) {
+    public EditRecipeRecyclerViewAdapter(List<String> data, OnStartDragListener dragStartListener) {
         mDragStartListener = dragStartListener;
         mItems = new ArrayList<>(data);
-        this.context = context;
     }
 
 

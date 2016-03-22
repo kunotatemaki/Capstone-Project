@@ -233,7 +233,7 @@ public class Tools {
 
     public void sendExceptionToACRA(Application application, String description){
         if(application instanceof CocinaConRollApplication) {
-            // TODO: 22/02/2016 madaar a acra
+            // TODO: 22/02/2016 mandar a acra
         }
     }
 

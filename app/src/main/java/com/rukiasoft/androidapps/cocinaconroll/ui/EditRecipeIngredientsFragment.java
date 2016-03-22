@@ -84,7 +84,7 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnStartDr
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAdapter = new EditRecipeRecyclerViewAdapter(getActivity(), recipeItem.getIngredients(), this);
+        mAdapter = new EditRecipeRecyclerViewAdapter(recipeItem.getIngredients(), this);
 
         //recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);

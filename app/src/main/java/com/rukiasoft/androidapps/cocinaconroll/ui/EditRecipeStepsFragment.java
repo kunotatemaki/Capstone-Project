@@ -96,7 +96,7 @@ public class EditRecipeStepsFragment extends Fragment implements OnStartDragList
 
         tip.setText(recipeItem.getTip());
 
-        mAdapter = new EditRecipeRecyclerViewAdapter(getActivity(), recipeItem.getSteps(), this);
+        mAdapter = new EditRecipeRecyclerViewAdapter(recipeItem.getSteps(), this);
 
         //recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);

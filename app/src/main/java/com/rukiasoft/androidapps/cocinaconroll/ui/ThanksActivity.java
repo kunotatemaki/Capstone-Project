@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by Ruler in 2014.
  */
 public class ThanksActivity extends AppCompatActivity {
-    // TODO: 30/09/15 hacer lo de la variables esas que se actualizan desde la consola 
+
     @Bind(R.id.standard_toolbar) Toolbar mToolbar;
     @Bind(R.id.textView_support_recipes) TextView support;
 
