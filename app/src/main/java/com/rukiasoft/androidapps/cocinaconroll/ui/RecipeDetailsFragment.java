@@ -1,6 +1,7 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
+import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -8,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -176,11 +179,10 @@ public class RecipeDetailsFragment extends Fragment implements
     @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipe);
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
                 // TODO: 22/3/16 mirar el permiso de write external storage
-                commonRecipeOperations.editRecipe();
+                editRecipe();
                 return true;
             case R.id.menu_item_remove:
                 AlertDialog.Builder removeBuilder = new AlertDialog.Builder(getActivity());
@@ -211,6 +213,38 @@ public class RecipeDetailsFragment extends Fragment implements
         }
     }
 
+    public void editRecipe(){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                android.support.v7.app.AlertDialog.Builder builder =
+                        new android.support.v7.app.AlertDialog.Builder(getActivity());
+
+                builder.setMessage(getResources().getString(R.string.write_external_explanation))
+                        .setTitle(getResources().getString(R.string.permissions_title))
+                        .setPositiveButton(getResources().getString(R.string.accept),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        ActivityCompat.requestPermissions(getActivity(),
+                                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                    }
+                                });
+                builder.create().show();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+        }else{
+            CommonRecipeOperations commonRecipeOperations = new CommonRecipeOperations(getActivity(), recipe);
+            commonRecipeOperations.editRecipe();
+        }
+    }
 
     private final Runnable scaleIn = new Runnable() {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

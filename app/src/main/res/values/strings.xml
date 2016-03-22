@@ -142,6 +142,9 @@
     <string name="sign_out">Disconnect account</string>
     <string name="loading">Loading…</string>
     <string name="anonymous">anonymous</string>
+    <string name="write_external_explanation">You need to allow this permission in order to save your new or edited recipe in the device\'s storage</string>
+    <string name="permissions_title">Permission</string>
+    <string name="write_external_denied">You wont be able to use this feature until this permission is allowed</string>
 
 
 </resources>

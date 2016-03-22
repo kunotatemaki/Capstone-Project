@@ -1,8 +1,11 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -198,19 +202,51 @@ public class RecipeListFragment extends Fragment implements
             addRecipeButtonFAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 22/3/16 meter la comprobación de permisos para write external storage
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
-                            getActivity().startActivityForResult(intent, Constants.REQUEST_CREATE_RECIPE);
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                            ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            AlertDialog.Builder builder =
+                                    new AlertDialog.Builder(getActivity());
+
+                            builder.setMessage(getResources().getString(R.string.write_external_explanation))
+                                    .setTitle(getResources().getString(R.string.permissions_title))
+                                    .setPositiveButton(getResources().getString(R.string.accept),
+                                            new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                            ActivityCompat.requestPermissions(getActivity(),
+                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                    Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                        }
+                                    });
+                            builder.create().show();
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                         }
-                    }, 150);
+                    }else{
+                        createRecipe();
+                    }
                 }
             });
         }
 
         return view;
+    }
+
+    public void createRecipe(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getActivity(), EditRecipeActivity.class);
+                getActivity().startActivityForResult(intent, Constants.REQUEST_CREATE_RECIPE);
+            }
+        }, 150);
     }
 
     @Override

@@ -68,6 +68,7 @@ public class DatabaseRelatedTools {
         }
         values.put(RecipesTable.FIELD_STATE, recipe.getState());
         values.put(RecipesTable.FIELD_VERSION, recipe.getVersion());
+        values.put(RecipesTable.FIELD_VEGETARIAN, recipe.getVegetarian()?1:0);
         String clause = RecipesTable.FIELD_ID + " = ? ";
 
         String[] args = {String.valueOf(recipe.get_id())};
@@ -97,11 +98,7 @@ public class DatabaseRelatedTools {
                 break;
         }
         values.put(RecipesTable.FIELD_ICON, icon);
-        int vegetarian = 0;
-        if(recipeItem.getVegetarian()){
-            vegetarian = 1;
-        }
-        values.put(RecipesTable.FIELD_VEGETARIAN, vegetarian);
+        values.put(RecipesTable.FIELD_VEGETARIAN, recipeItem.getVegetarian()?1:0);
         values.put(RecipesTable.FIELD_STATE, recipeItem.getState());
         values.put(RecipesTable.FIELD_FAVORITE, 0);
         values.put(RecipesTable.FIELD_DATE, recipeItem.getDate());

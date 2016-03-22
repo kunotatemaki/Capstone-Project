@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -644,8 +645,38 @@ public class RecipeListActivity extends SigningDriveActivity {
                 dbTools.removeZipfromDatabase(getApplicationContext(), zip.getId());
             }
         }
-
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().
+                            findFragmentById(R.id.list_recipes_fragment);
+                    if(mRecipeListFragment != null) {
+                        mRecipeListFragment.createRecipe();
+                    }
+                } else {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(this);
 
+                    builder.setMessage(getResources().getString(R.string.write_external_denied))
+                            .setTitle(getResources().getString(R.string.permissions_title))
+                            .setPositiveButton(getResources().getString(R.string.accept),
+                                    new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 }

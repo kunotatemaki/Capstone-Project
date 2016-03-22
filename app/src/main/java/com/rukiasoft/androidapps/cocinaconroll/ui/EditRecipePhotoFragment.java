@@ -82,6 +82,7 @@ public class EditRecipePhotoFragment extends Fragment {
     @Nullable
     @Bind(R.id.edit_recipe_name)
     TextView editRecipeName;
+    @Bind(R.id.checkbox_vegetarian)CheckBox checkBox;
 
     public EditRecipePhotoFragment() {
         // Required empty public constructor
@@ -176,16 +177,16 @@ public class EditRecipePhotoFragment extends Fragment {
             }
         });
 
-        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkbox_vegetarian);
-        checkBox.setChecked(recipeItem.getVegetarian());
-        checkBox.setOnClickListener(new View.OnClickListener() {
+        if(checkBox != null) {
+            checkBox.setChecked(recipeItem.getVegetarian());
+            checkBox.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                recipeItem.setVegetarian(((CheckBox) v).isChecked());
-
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    recipeItem.setVegetarian(((CheckBox) v).isChecked());
+                }
+            });
+        }
         int currentApiVersion = Build.VERSION.SDK_INT;
         if (currentApiVersion <= Build.VERSION_CODES.JELLY_BEAN){
             final float scale = this.getResources().getDisplayMetrics().density;

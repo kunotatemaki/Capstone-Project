@@ -1,7 +1,10 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdRequest;
@@ -115,6 +118,39 @@ public class RecipeDetailActivity extends SigningDriveActivity {
                 returnIntent.putExtras(bundle);
                 setResult(Constants.RESULT_UPDATE_RECIPE, returnIntent);
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    RecipeDetailsFragment mRecipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().
+                            findFragmentById(R.id.details_recipes_fragment);
+                    if(mRecipeDetailsFragment != null) {
+                        mRecipeDetailsFragment.editRecipe();
+                    }
+                } else {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(this);
+
+                    builder.setMessage(getResources().getString(R.string.write_external_denied))
+                            .setTitle(getResources().getString(R.string.permissions_title))
+                            .setPositiveButton(getResources().getString(R.string.accept),
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                    builder.create().show();
+                }
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 }
