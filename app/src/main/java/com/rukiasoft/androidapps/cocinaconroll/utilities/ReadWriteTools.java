@@ -21,6 +21,7 @@ import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.zip.UnzipUtility;
 
+import org.acra.ACRA;
 import org.apache.commons.io.FileUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -307,7 +308,7 @@ public class ReadWriteTools {
 
     }
 
-    public void deleteRecipe(Context mContext, RecipeItem recipeItem){
+    public void deleteRecipe(RecipeItem recipeItem){
 
         try {
             File file = new File(recipeItem.getPathRecipe());
@@ -326,23 +327,18 @@ public class ReadWriteTools {
                 }
             }
         }catch(Exception e){
-            if(mContext instanceof Activity) {
-                // TODO: 22/02/2016 excepción con acra
-
-            }
+            ACRA.getErrorReporter().handleSilentException(e);
         }
     }
 
-    public void deleteRecipe(Context mContext, String path){
+    public void deleteRecipe(String path){
 
         try {
             File file = new File(path);
             if (file.exists())
                 file.delete();
         }catch(Exception e){
-            if(mContext instanceof Activity) {
-                // TODO: 22/02/2016 excepcion con acra
-            }
+            ACRA.getErrorReporter().handleSilentException(e);
         }
     }
 
@@ -451,7 +447,6 @@ public class ReadWriteTools {
 
     public void share(final Activity activity, RecipeItem recipe)
     {
-        //TODO probar el permiso get_account on real time
         //need to "send multiple" to get more than one attachment
         Tools tools = new Tools();
         Boolean installed = tools.isPackageInstalled("com.google.android.gm", activity);
@@ -581,7 +576,7 @@ public class ReadWriteTools {
                     //not created nor edited. It was an original recipe set as favorite
                     dbTools.updateFavoriteByFileName(mContext, recipeItem.getName(), recipeItem.getFavourite());
                     //delete the file
-                    deleteRecipe(mContext, recipeItem);
+                    deleteRecipe(recipeItem);
                 }else{
                     String picture = "";
                     if((recipeItem.getState() & Constants.FLAG_EDITED_PICTURE) != 0) {
@@ -653,10 +648,8 @@ public class ReadWriteTools {
         RecipeItem recipeItem;
         File source;
         if(pathRecipe == null){
-            if(mContext instanceof Activity) {
-                // TODO: 22/02/2016 exception acra "try to load a recipe without recipePath")
-
-            }
+            Exception caughtException = new Exception("Error intentado leer una receta sin pathRecipe");
+            ACRA.getErrorReporter().handleSilentException(caughtException);
             return null;
         }
 

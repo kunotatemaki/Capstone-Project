@@ -2,6 +2,7 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -290,6 +291,21 @@ public class EditRecipeActivity extends AppCompatActivity {
                 editRecipeIngredientsFragment = (EditRecipeIngredientsFragment) f;
             else if(f instanceof EditRecipeStepsFragment)
                 editRecipeStepsFragment = (EditRecipeStepsFragment) f;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_CAMERA: {
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.edit_recipe_container);
+                Boolean cameraAllowed = (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+                if (f instanceof EditRecipePhotoFragment) {
+                    ((EditRecipePhotoFragment) f).selectPhoto(cameraAllowed);
+                }
+            }
         }
     }
 }

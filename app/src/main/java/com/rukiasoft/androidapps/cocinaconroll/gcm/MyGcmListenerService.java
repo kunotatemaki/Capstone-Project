@@ -30,6 +30,8 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import org.acra.ACRA;
+
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = LogHelper.makeLogTag(MyGcmListenerService.class);
@@ -75,7 +77,7 @@ public class MyGcmListenerService extends GcmListenerService {
             }
         }catch (NumberFormatException e){
             e.printStackTrace();
-            // TODO: 22/02/2016 ver si se puede mandar algo con ACRA
+            ACRA.getErrorReporter().handleSilentException(e);
         }
     }
     // [END receive_message]

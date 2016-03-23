@@ -1,13 +1,17 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +19,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -35,6 +42,8 @@ import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.database.RecipesTable;
+import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.ItemTouchHelperViewHolder;
+import com.rukiasoft.androidapps.cocinaconroll.dragandswipehelper.OnStartDragListener;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
@@ -173,7 +182,35 @@ public class EditRecipePhotoFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                selectPhoto();
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        ContextCompat.checkSelfPermission(getActivity(),
+                                Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                            Manifest.permission.CAMERA)) {
+                        android.support.v7.app.AlertDialog.Builder builder =
+                                new android.support.v7.app.AlertDialog.Builder(getActivity());
+
+                        builder.setMessage(getResources().getString(R.string.camera_explanation))
+                                .setTitle(getResources().getString(R.string.permissions_title))
+                                .setPositiveButton(getResources().getString(R.string.accept),
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                                ActivityCompat.requestPermissions(getActivity(),
+                                                        new String[]{Manifest.permission.CAMERA},
+                                                        Constants.MY_PERMISSIONS_REQUEST_CAMERA);
+                                            }
+                                        });
+                        builder.create().show();
+                    } else {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                Constants.MY_PERMISSIONS_REQUEST_CAMERA);
+                    }
+                }else{
+                    selectPhoto(true);
+                }
             }
         });
 
@@ -250,36 +287,43 @@ public class EditRecipePhotoFragment extends Fragment {
     }
 
 
-    private void selectPhoto(){
-        // TODO: 22/3/16 mirar lo del permiso de la cámara aquí
-        final String [] items = new String [] {getResources().getString(R.string.pick_from_camera),
-                getResources().getString(R.string.pick_from_gallery)};
+    public void selectPhoto(Boolean cameraAllowed){
+
+        final String [] items;
+        if(cameraAllowed){
+            items = new String [] {getResources().getString(R.string.pick_from_gallery),
+                    getResources().getString(R.string.pick_from_camera)};
+        }else{
+            items = new String [] {getResources().getString(R.string.pick_from_gallery)};
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<> (getActivity(), android.R.layout.select_dialog_item,items);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getResources().getString(R.string.pick_photo));
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) { //pick from camera
-                if (item == 0) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    mImageCaptureUri = Uri.fromFile(new File(rwTools.getEditedStorageDir(),
-                            Constants.TEMP_CAMERA_NAME + String.valueOf(System.currentTimeMillis()) + ".jpg"));
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-                    try {
-                        takePictureIntent.putExtra("return-data", true);
-                        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) == null) {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG);
+                switch (item) {
+                    case 0:
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_FILE);
+                        break;
+                    case 1:
+                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        mImageCaptureUri = Uri.fromFile(new File(rwTools.getEditedStorageDir(),
+                                Constants.TEMP_CAMERA_NAME + String.valueOf(System.currentTimeMillis()) + ".jpg"));
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
+                        try {
+                            takePictureIntent.putExtra("return-data", true);
+                            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) == null) {
+                                Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG);
+                            }
+                            startActivityForResult(takePictureIntent, PICK_FROM_CAMERA);
+                        } catch (ActivityNotFoundException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG).show();
                         }
-                        startActivityForResult(takePictureIntent, PICK_FROM_CAMERA);
-                    } catch (ActivityNotFoundException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getActivity(), getResources().getString(R.string.no_camera), Toast.LENGTH_LONG).show();
-                    }
-                } else { //pick from file
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Complete action using"), PICK_FROM_FILE);
-                    //getActivity().startActivityForResult(intent, PICK_FROM_CAMERA);
+                        break;
                 }
             }
         });
@@ -517,4 +561,10 @@ public class EditRecipePhotoFragment extends Fragment {
     private String getPictureNameFromFileName(){
         return mTools.getCurrentDate(getActivity()).concat(".jpg");
     }
+
+
+
+
 }
+
+

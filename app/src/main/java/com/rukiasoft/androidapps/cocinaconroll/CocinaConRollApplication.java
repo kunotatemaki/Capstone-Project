@@ -13,6 +13,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.acra.ACRA;
+import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 
@@ -25,7 +26,10 @@ import org.acra.annotation.ReportsCrashes;
         httpMethod = org.acra.sender.HttpSender.Method.PUT,
         formUri = BuildConfig.RASPBERRY_IP + BuildConfig.ACRA_ENDPOINT,
         formUriBasicAuthLogin = BuildConfig.ACRA_LOGIN_KEY,
-        formUriBasicAuthPassword = BuildConfig.ACRA_PASSWORD_KEY
+        formUriBasicAuthPassword = BuildConfig.ACRA_PASSWORD_KEY,
+        mode = ReportingInteractionMode.TOAST,
+        forceCloseDialogAfterToast = true, // optional, default false
+        resToastText = R.string.crash_toast_text
 )
 public class CocinaConRollApplication  extends MultiDexApplication {
     /**

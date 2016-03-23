@@ -51,5 +51,6 @@
     <dimen name="signing_title">30sp</dimen>
     <dimen name="signing_body">20sp</dimen>
     <dimen name="profile_picture_size">64dp</dimen>
+    <dimen name="options_title">24sp</dimen>
 
 </resources>

@@ -181,7 +181,6 @@ public class RecipeDetailsFragment extends Fragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_edit_recipe:
-                // TODO: 22/3/16 mirar el permiso de write external storage
                 editRecipe();
                 return true;
             case R.id.menu_item_remove:

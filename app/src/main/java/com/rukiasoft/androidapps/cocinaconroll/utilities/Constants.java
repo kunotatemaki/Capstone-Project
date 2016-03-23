@@ -93,4 +93,5 @@ public class Constants {
 
 
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 11;
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 12;
 }

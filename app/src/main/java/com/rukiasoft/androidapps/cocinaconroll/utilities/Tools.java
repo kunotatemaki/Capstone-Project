@@ -20,6 +20,8 @@ import com.rukiasoft.androidapps.cocinaconroll.CocinaConRollApplication;
 import com.rukiasoft.androidapps.cocinaconroll.ui.ToolbarAndRefreshActivity;
 import com.rukiasoft.androidapps.cocinaconroll.wifi.WifiHandler;
 
+import org.acra.ACRA;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -226,16 +228,12 @@ public class Tools {
                     .getPackageInfo(application.getPackageName(), 0);
             return packageInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
-            sendExceptionToACRA(application, "Error en getAppVersion: " + e.getMessage());
+            ACRA.getErrorReporter().handleSilentException(e);
             return 0;
         }
     }
 
-    public void sendExceptionToACRA(Application application, String description){
-        if(application instanceof CocinaConRollApplication) {
-            // TODO: 22/02/2016 mandar a acra
-        }
-    }
+
 
     public boolean isKeyboardShown(Activity activity){
         InputMethodManager imm = (InputMethodManager) activity

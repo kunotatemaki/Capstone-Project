@@ -29,6 +29,8 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
+import org.acra.ACRA;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -257,7 +259,7 @@ public class DriveService extends IntentService {
         }catch (Exception e){
             e.printStackTrace();
             Tools mTools = new Tools();
-            mTools.sendExceptionToACRA(getApplication(), "excepcion borrando receta de google drive");
+            ACRA.getErrorReporter().handleSilentException(e);
         }
     }
 

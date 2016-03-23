@@ -314,7 +314,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
     private void removeRecipeFromDiskAndDatabase(RecipeItem recipe){
         ReadWriteTools rwTools = new ReadWriteTools();
-        rwTools.deleteRecipe(getApplicationContext(), recipe);
+        rwTools.deleteRecipe(recipe);
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         dbTools.removeRecipefromDatabase(getApplicationContext(), recipe.get_id());
         restartLoader();

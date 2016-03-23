@@ -145,6 +145,8 @@
     <string name="write_external_explanation">You need to allow this permission in order to save your new or edited recipe in the device\'s storage</string>
     <string name="permissions_title">Permission</string>
     <string name="write_external_denied">You wont be able to use this feature until this permission is allowed</string>
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
+    <string name="camera_explanation">You need to allow this permission in order to use the device\'s camera for taken a pic of your recipe</string>
 
 
 </resources>
