@@ -543,7 +543,7 @@ public class ReadWriteTools {
     }
 
 
-    public void initDatabase(Context mContext) {
+    public void initDatabaseWithOriginalPath(Context mContext) {
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         MyFileFilter filter = new MyFileFilter();
 
@@ -565,6 +565,12 @@ public class ReadWriteTools {
                 dbTools.insertRecipeIntoDatabase(mContext, recipeItem, true);
             }
         }
+
+    }
+
+    public void initDatabaseWithEditedPath(Context mContext) {
+        DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
+        MyFileFilter filter = new MyFileFilter();
 
         //files created or modified from previous versions
         List<String> listOldFiles = loadRecipesFromOldDirectory(filter);

@@ -1,5 +1,6 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -14,6 +15,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -53,12 +56,13 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RecipeListActivity extends SigningDriveActivity {
+public class RecipeListActivity extends SigningDriveActivity implements RecipeListFragment.TaskCallback{
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = LogHelper.makeLogTag(RecipeListActivity.class);
     private static final int REQUEST_CODE_SETTINGS = 20;
     private static final int REQUEST_CODE_ANIMATION = 21;
+    private static final int REQUEST_CODE_DRIVE = 22;
     private static final String KEY_DRIVE_RECIPES_CHECKED = Constants.PACKAGE_NAME + ".drive_recipes_checked";
     private static final String KEY_STARTED = Constants.PACKAGE_NAME + ".started";
     //private static final String KEY_NEED_TO_SEND_RECIPES_TO_DRIVE = Constants.PACKAGE_NAME + ".need_to_send_recipes_to_drive";
@@ -94,6 +98,11 @@ public class RecipeListActivity extends SigningDriveActivity {
             }
         }
     };
+
+    @Override
+    public void onInitDatabasePostExecute() {
+        restartLoader();
+    }
 
     // Broadcast receiver for receiving status updates from the IntentService
     private class DriveServiceReceiver extends BroadcastReceiver
@@ -244,6 +253,7 @@ public class RecipeListActivity extends SigningDriveActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
+        Tools tools = new Tools();
         switch (requestCode) {
             case Constants.REQUEST_DETAILS:
                 //return from RecipeDetailsActivity
@@ -300,15 +310,59 @@ public class RecipeListActivity extends SigningDriveActivity {
                 }
                 break;
             case REQUEST_CODE_ANIMATION:
-                Tools tools = new Tools();
+
                 if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT)) {
                     tools.savePreferences(this, Constants.PROPERTY_AVOID_FIRST_CHECK_GOOGLE_ACCOUNT, true);
                     Intent intent = new Intent(this, ShowSigningActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, REQUEST_CODE_DRIVE);
+                }else{
+                    if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_INIT_DATABASE_WITH_EDITED_PATH)) {
+                        askForPermissionAndLoadEditedRecipes();
+                    }
+                }
+                break;
+            case REQUEST_CODE_DRIVE:
+                if(!tools.getBooleanFromPreferences(this, Constants.PROPERTY_INIT_DATABASE_WITH_EDITED_PATH)) {
+                    askForPermissionAndLoadEditedRecipes();
                 }
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, intentData);
+        }
+    }
+
+    private void askForPermissionAndLoadEditedRecipes(){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                android.support.v7.app.AlertDialog.Builder builder =
+                        new android.support.v7.app.AlertDialog.Builder(this);
+
+                builder.setMessage(getResources().getString(R.string.read_external_explanation))
+                        .setTitle(getResources().getString(R.string.permissions_title))
+                        .setPositiveButton(getResources().getString(R.string.accept),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        ActivityCompat.requestPermissions(RecipeListActivity.this,
+                                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                                Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                                    }
+                                });
+                builder.create().show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+            }
+        }else{
+            RecipeListFragment fragment = (RecipeListFragment)getSupportFragmentManager().findFragmentById(R.id.list_recipes_fragment);
+            if(fragment != null) {
+                fragment.loadEditedRecipes();
+            }
         }
     }
 
@@ -674,9 +728,35 @@ public class RecipeListActivity extends SigningDriveActivity {
                     builder.create().show();
                 }
             }
+            case Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    RecipeListFragment mRecipeListFragment = (RecipeListFragment) getSupportFragmentManager().
+                            findFragmentById(R.id.list_recipes_fragment);
+                    if(mRecipeListFragment != null) {
+                        mRecipeListFragment.loadEditedRecipes();
+                    }
+                } else {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(this);
+
+                    builder.setMessage(getResources().getString(R.string.read_external_denied))
+                            .setTitle(getResources().getString(R.string.permissions_title))
+                            .setPositiveButton(getResources().getString(R.string.accept),
+                                    new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    builder.create().show();
+                }
+            }
 
             // other 'case' lines to check for other
             // permissions this app might request
         }
+
+
     }
+
 }

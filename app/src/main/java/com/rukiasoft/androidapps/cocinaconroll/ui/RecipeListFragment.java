@@ -2,7 +2,7 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,10 +50,7 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import org.acra.ACRA;
-
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import butterknife.Bind;
@@ -70,6 +67,8 @@ public class RecipeListFragment extends Fragment implements
     private static final String KEY_SCROLL_POSITION = Constants.PACKAGE_NAME + ".scrollposition";
     private static final String KEY_RECIPE_LIST = Constants.PACKAGE_NAME + ".recipelist";
     private static final String KEY_UPLOAD_TO_DRIVE = Constants.PACKAGE_NAME + ".update_to_drive";
+    private static final int LOAD_ORIGINAL_PATH = 0;
+    private static final int LOAD_EDITED_PATH = 1;
 
 
     @Nullable
@@ -94,6 +93,11 @@ public class RecipeListFragment extends Fragment implements
     @Bind(R.id.init_database_text) TextView initDatabaseText;
 
 
+    interface TaskCallback {
+        void onInitDatabasePostExecute();
+    }
+
+    private TaskCallback mInitDatabaseCallback;
     //private SlideInBottomAnimationAdapter slideAdapter;
     //private RecipeListRecyclerViewAdapter adapter;
     private List<RecipeItem> mRecipes;
@@ -103,17 +107,27 @@ public class RecipeListFragment extends Fragment implements
     private InterstitialAd mInterstitialAd;
     private RecipeItem recipeToShow;
     private boolean uploadRecipesToDrive = true;
+    private boolean readExternalPermisionDialogShown;
 
     private class InitDatabase extends AsyncTask<Void, Integer, Void> {
-        final Activity mActivity;
+        final Context mContext;
+        final int mode;
 
-        public InitDatabase(Activity activity){
-            this.mActivity = activity;
+        public InitDatabase(Context context, int mode){
+            this.mContext = context;
+            this.mode = mode;
         }
 
         protected Void doInBackground(Void... data) {
             ReadWriteTools rwTools = new ReadWriteTools();
-            rwTools.initDatabase(getActivity().getApplicationContext());
+            switch (mode) {
+                case LOAD_ORIGINAL_PATH:
+                    rwTools.initDatabaseWithOriginalPath(getActivity().getApplicationContext());
+                    break;
+                case LOAD_EDITED_PATH:
+                    rwTools.initDatabaseWithEditedPath(getActivity().getApplicationContext());
+                    break;
+            }
             return null;
         }
 
@@ -123,8 +137,15 @@ public class RecipeListFragment extends Fragment implements
 
         protected void onPostExecute(Void result) {
             Tools mTools = new Tools();
-            mTools.savePreferences(mActivity, Constants.PROPERTY_INIT_DATABASE, true);
-            ((RecipeListActivity) mActivity).restartLoader();
+            switch (mode) {
+                case LOAD_ORIGINAL_PATH:
+                    mTools.savePreferences(mContext, Constants.PROPERTY_INIT_DATABASE_WITH_ORIGINAL_PATH, true);
+                    break;
+                case LOAD_EDITED_PATH:
+                    mTools.savePreferences(mContext, Constants.PROPERTY_INIT_DATABASE_WITH_EDITED_PATH, true);
+                    break;
+            }
+            mInitDatabaseCallback.onInitDatabasePostExecute();
         }
     }
 
@@ -270,6 +291,13 @@ public class RecipeListFragment extends Fragment implements
                 tools.hideRefreshLayout(getActivity());
             }
         }
+        Tools mTools = new Tools();
+
+    }
+
+    public void loadEditedRecipes(){
+        InitDatabase initDatabase = new InitDatabase(getActivity().getApplicationContext(), LOAD_EDITED_PATH);
+        initDatabase.execute();
     }
 
     @Override
@@ -336,9 +364,9 @@ public class RecipeListFragment extends Fragment implements
         DatabaseRelatedTools dbTools = new DatabaseRelatedTools();
         mRecipes = dbTools.getRecipesFromCursor(data);
         Tools mTools = new Tools();
-        if(mRecipes.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE)){
+        if(mRecipes.size() == 0 || !mTools.getBooleanFromPreferences(getActivity(), Constants.PROPERTY_INIT_DATABASE_WITH_ORIGINAL_PATH)){
             initDatabaseText.setVisibility(View.VISIBLE);
-            InitDatabase initDatabase = new InitDatabase(getActivity());
+            InitDatabase initDatabase = new InitDatabase(getActivity().getApplicationContext(), LOAD_ORIGINAL_PATH);
             initDatabase.execute();
             return;
         }
@@ -607,6 +635,19 @@ public class RecipeListFragment extends Fragment implements
         if (coincidences.size() > 0) {
             showRecipeDetails(coincidences.get(0));
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mInitDatabaseCallback = (TaskCallback) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mInitDatabaseCallback = null;
     }
 
 }

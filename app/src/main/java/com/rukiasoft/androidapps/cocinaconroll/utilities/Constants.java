@@ -32,7 +32,8 @@ public class Constants {
     public static final int RESULT_UPDATE_RECIPE = 300;
     public static final int RESULT_DELETE_RECIPE = 301;
 
-    public static final String PROPERTY_INIT_DATABASE = "initdatabase";
+    public static final String PROPERTY_INIT_DATABASE_WITH_ORIGINAL_PATH = "initdatabaseoriginal";
+    public static final String PROPERTY_INIT_DATABASE_WITH_EDITED_PATH = "initdatabaseedited";
     public static final String PROPERTY_RELOAD_NEW_ORIGINALS = "reloadneworiginals";
     public static final String PROPERTY_DAYS_TO_NEXT_UPDATE = "last_updated";
     public static final String PROPERTY_EXPIRATION_TIME = "time_to_check_new_zips_again";
@@ -94,4 +95,5 @@ public class Constants {
 
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 11;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 12;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 13;
 }
