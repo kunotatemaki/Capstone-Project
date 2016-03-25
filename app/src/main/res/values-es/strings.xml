@@ -117,5 +117,12 @@
     <string name="sign_out">Desconectar cuenta</string>
     <string name="body_signing">Identificate con tu cuenta de Gmail y mantén tus recetas sincronizadas en la nube.\n¡Todas tus creaciones estarán disponibles en todos tus dispositivos!</string>
     <string name="anonymous">anónimo</string>
+    <string name="camera_explanation">Este permiso es necesario para poder usar la cámara de tu dispositivo para adjuntar una foto de tu receta</string>
+    <string name="crash_toast_text">¡Vaya! La aplicación ha fallado, pero se ha enviado un informe al desarrollador para corregir el fallo</string>
+    <string name="permissions_title">Permiso</string>
+    <string name="read_external_denied">No se podran mostrar las recetas creadas o editadas por ti hasta que aceptes este permiso</string>
+    <string name="read_external_explanation">Es necesario que aceptes este permiso para mostrar las recetas creadas o editadas por ti</string>
+    <string name="write_external_denied">No podrás usar esta opción hasta que aceptes el permiso de escritura en la memoria del dispositivo</string>
+    <string name="write_external_explanation">Necesitas aceptar este permiso para poder almacenar en tu dispositivo las recetas que hayas creado o editado</string>
 
 </resources>
