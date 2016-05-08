@@ -124,5 +124,8 @@
     <string name="read_external_explanation">Es necesario que aceptes este permiso para mostrar las recetas creadas o editadas por ti</string>
     <string name="write_external_denied">No podrás usar esta opción hasta que aceptes el permiso de escritura en la memoria del dispositivo</string>
     <string name="write_external_explanation">Necesitas aceptar este permiso para poder almacenar en tu dispositivo las recetas que hayas creado o editado</string>
+    <string name="title_support">Cocinando con mi Cookeo apoya <a href="https://twitter.com/LUISFELIZtri">@LUISFELIZtri</a></string>
+    <string name="body_support">En su sueño de competir en el campeonato del mundo de triatlón de Hawai. ¡Ánimo campeón!</string>
+    <string name="close">Cerrar</string>
 
 </resources>

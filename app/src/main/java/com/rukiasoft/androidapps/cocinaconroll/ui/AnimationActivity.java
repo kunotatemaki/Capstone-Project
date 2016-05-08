@@ -1,6 +1,8 @@
 package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +54,9 @@ public class AnimationActivity extends AppCompatActivity {
     private Animation createAnim;
     private Animation rukiaAnim;
     private Animation softAnim;
+    Activity activity;
+    private static final int REQUEST_CODE_SUPPORT = 89;
+
 
     @SuppressLint("NewApi")
     @Override
@@ -59,7 +64,7 @@ public class AnimationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
         ButterKnife.bind(this);
-
+        activity = this;
         //configure the screen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         int currentApiVersion = android.os.Build.VERSION.SDK_INT;
@@ -232,10 +237,13 @@ public class AnimationActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 softText.setVisibility(View.INVISIBLE);
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        finish();
+                        Intent supportIntent = new Intent(activity, SupportActivity.class);
+                        activity.startActivityForResult(supportIntent, REQUEST_CODE_SUPPORT);
+                        //finish();
                     }
                 }, 200);
             }
@@ -249,6 +257,17 @@ public class AnimationActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case REQUEST_CODE_SUPPORT:
+                finish();
+                break;
+            default:
+                finish();
+                break;
+        }
+    }
 
     @Override
     public void onBackPressed() {

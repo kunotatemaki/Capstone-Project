@@ -16,13 +16,15 @@
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
         <item name="android:windowEnterTransition">@transition/detail_window_enter_transition</item>
-        <item name="android:windowReturnTransition">@transition/detail_window_return_transition</item>
+        <item name="android:windowReturnTransition">@transition/detail_window_return_transition
+        </item>
 
     </style>
 
     <style name="Theme.Recipe.List" parent="AppTheme">
         <item name="android:windowContentTransitions">true</item>
-       <item name="android:windowReenterTransition">@transition/detail_window_reenter_transition</item>
+        <item name="android:windowReenterTransition">@transition/detail_window_reenter_transition
+        </item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
 

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="BaseTheme"/>
+    <style name="AppTheme" parent="BaseTheme" />
 
     <!-- Dark Buttons -->
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
@@ -8,7 +8,7 @@
     </style>
 
 
-   <!-- Base application theme. -->
+    <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimary">@color/ColorPrimary</item>
@@ -23,11 +23,9 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Recipe.Detail" parent="AppTheme">
-    </style>
+    <style name="Theme.Recipe.Detail" parent="AppTheme"></style>
 
-    <style name="Theme.Recipe.List" parent="AppTheme">
-        </style>
+    <style name="Theme.Recipe.List" parent="AppTheme"></style>
 
     <style name="Theme.Signing" parent="BaseTheme">
         <item name="colorPrimaryDark">@color/blue_grey_900</item>
@@ -102,6 +100,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

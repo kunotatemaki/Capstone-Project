@@ -5,7 +5,6 @@
     <string name="get_zips_method" translatable="false">get_zips/"</string>
 
 
-
     <string name="app_name">Cooking with Cookeo</string>
     <string name="action_settings">Settings</string>
     <string name="no_storage_available">Can\'t access to device storage</string>
@@ -136,6 +135,7 @@
 
     <!-- Content Description for images -->
     <string name="desc_google_icon">Cooking with cookeo logo</string>
+    <string name="desc_lkona_icon">Luis Feliz to Kona picture</string>
     <string name="title_signing">Backup your recipe\nin your Drive Account</string>
     <string name="body_signing">Sign in  with your Gmail account and get a Google Drive sincronization.\nAll your recipes will be available in all your devices!</string>
     <string name="exit">Exit</string>
@@ -147,8 +147,11 @@
     <string name="write_external_denied">You wont be able to use this feature until this permission is allowed</string>
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
     <string name="camera_explanation">You need to allow this permission in order to use the device\'s camera for taken a pic of your recipe</string>
-    <string name="read_external_explanation" >You need to allow this permission in order to read your new or edited recipe from the device\'s storage</string>
-    <string name="read_external_denied" >You wont be able to load your created and edited recipes until this permission is allowed</string>
+    <string name="read_external_explanation">You need to allow this permission in order to read your new or edited recipe from the device\'s storage</string>
+    <string name="read_external_denied">You wont be able to load your created and edited recipes until this permission is allowed</string>
+    <string name="title_support">Cooking with Cookeo supports <a href="https://twitter.com/LUISFELIZtri">@LUISFELIZtri</a></string>
+    <string name="close">Close</string>
+    <string name="body_support">To get his dream of competing in the Hawaii Triathlon World Championship. Good luck, champion!</string>
 
 
 </resources>
