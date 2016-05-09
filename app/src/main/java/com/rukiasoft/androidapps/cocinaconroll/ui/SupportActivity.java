@@ -2,6 +2,7 @@ package com.rukiasoft.androidapps.cocinaconroll.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import butterknife.OnClick;
 
 public class SupportActivity extends AppCompatActivity {
 
-    @Bind(R.id.support_tittle) TextView supportTittle;
+    @Nullable@Bind(R.id.support_title) TextView supportTittle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

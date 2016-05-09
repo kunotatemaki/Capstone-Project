@@ -22,19 +22,18 @@
             android:id="@+id/support_icon"
             android:layout_width="@dimen/profile_picture_size"
             android:layout_height="@dimen/profile_picture_size"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/g_top_margin"
             android:contentDescription="@string/desc_google_icon"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/support_tittle"
+            android:id="@+id/support_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:text="@string/title_support"
             android:gravity="center"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textColor="@android:color/white"
             android:textSize="@dimen/signing_title" />
 
@@ -42,9 +41,9 @@
             android:id="@+id/support_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_hyperlink"
-            android:contentDescription="@string/desc_lkona_icon"
-            android:src="@drawable/luikona" />
+            android:scaleType="centerInside"
+            android:src="@drawable/luikona"
+            android:contentDescription="@string/desc_lkona_icon" />
 
         <TextView
             android:id="@+id/support_body_text"

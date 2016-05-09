@@ -18,7 +18,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/support_tittle"
+        android:id="@+id/support_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -30,29 +30,39 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/signing_title" />
 
-    <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeOneImageView
-        android:id="@+id/support_image"
+    <LinearLayout
+        android:id="@+id/pic_plus_body_support"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:contentDescription="@string/desc_lkona_icon"
-        android:src="@drawable/luikona" />
-
-    <TextView
-        android:id="@+id/support_body_text"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/support_image"
-        android:layout_marginTop="@dimen/g_top_margin"
-        android:text="@string/body_support"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/signing_body" />
+        android:layout_below="@id/support_icon"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:weightSum="5">
+        <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeOneImageView
+            android:id="@+id/support_image"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="0dp"
+            android:contentDescription="@string/desc_lkona_icon"
+            android:src="@drawable/luikona" />
+
+        <TextView
+            android:id="@+id/support_body_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:text="@string/body_support"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/signing_body" />
+    </LinearLayout>
     <TextView
         android:id="@+id/sign_in_body_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/support_body_text"
+        android:layout_below="@+id/pic_plus_body_support"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="#LFelizToKona"
         android:layout_centerHorizontal="true"
         android:textColor="#00FFFF"
