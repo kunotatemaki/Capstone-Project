@@ -96,4 +96,5 @@ public class Constants {
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 11;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 12;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 13;
+    public static final String PROPERTY_HIDE_SUPPORT_SCREEN = "hide_support_screen";
 }

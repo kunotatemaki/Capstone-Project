@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -241,9 +243,12 @@ public class AnimationActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent supportIntent = new Intent(activity, SupportActivity.class);
-                        activity.startActivityForResult(supportIntent, REQUEST_CODE_SUPPORT);
-                        //finish();
+                        if(showSupportScreen()) {
+                            Intent supportIntent = new Intent(activity, SupportActivity.class);
+                            activity.startActivityForResult(supportIntent, REQUEST_CODE_SUPPORT);
+                        }else {
+                            finish();
+                        }
                     }
                 }, 200);
             }
@@ -296,5 +301,10 @@ public class AnimationActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    private Boolean showSupportScreen(){
+        Tools mTools = new Tools();
+        return !mTools.getBooleanFromPreferences(this, Constants.PROPERTY_HIDE_SUPPORT_SCREEN);
     }
 }
