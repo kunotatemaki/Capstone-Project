@@ -54,4 +54,12 @@
     <dimen name="options_title">24sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- support -->
+    <dimen name="signing_title_support">30sp</dimen>
+    <dimen name="signing_body_support">20sp</dimen>
+    <dimen name="dimen_inter_support">5dp</dimen>
+    <dimen name="dimen_lat_support">5dp</dimen>
+    <dimen name="dimen_lat_inter_support">5dp</dimen>
+
+
 </resources>

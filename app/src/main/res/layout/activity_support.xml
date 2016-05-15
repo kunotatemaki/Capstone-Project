@@ -16,6 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:text="@string/close"
+        android:textSize="@dimen/signing_body_support"
         android:textColor="@android:color/white"
         android:theme="@style/ThemeOverlay.MyDarkButton" />
     <ScrollView
@@ -48,12 +49,13 @@
                 android:text="@string/title_support"
                 android:gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/signing_title" />
+                android:textSize="@dimen/signing_title_support" />
 
             <com.rukiasoft.androidapps.cocinaconroll.classes.ThreeOneImageView
                 android:id="@+id/support_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_inter_support"
                 android:scaleType="centerInside"
                 android:src="@drawable/luikona"
                 android:contentDescription="@string/desc_lkona_icon" />
@@ -64,17 +66,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/body_support"
                 android:gravity="center"
+                android:layout_marginTop="@dimen/dimen_inter_support"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/signing_body" />
+                android:textSize="@dimen/signing_body_support" />
 
             <TextView
                 android:id="@+id/sign_in_body_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#LFelizToKona"
+                android:text="@string/l_feliz_to_kona"
                 android:gravity="center"
                 android:textColor="#00FFFF"
-                android:textSize="@dimen/signing_body" />
+                android:layout_marginTop="@dimen/dimen_inter_support"
+                android:textSize="@dimen/signing_body_support" />
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checkbox_hide_support"
@@ -85,6 +89,7 @@
                 android:paddingStart="@dimen/activity_horizontal_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_inter_support"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@string/hide"

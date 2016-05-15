@@ -24,12 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_toRightOf="@+id/support_icon"
+        android:layout_marginLeft="@dimen/dimen_lat_inter_support"
+        android:layout_marginStart="@dimen/dimen_lat_inter_support"
         android:layout_toEndOf="@+id/support_icon"
         android:text="@string/title_support"
         android:gravity="center"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/signing_title" />
+        android:textSize="@dimen/signing_title_support" />
 
     <LinearLayout
         android:id="@+id/pic_plus_body_support"
@@ -44,6 +46,7 @@
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_inter_support"
             android:contentDescription="@string/desc_lkona_icon"
             android:src="@drawable/luikona" />
 
@@ -52,11 +55,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_marginTop="@dimen/dimen_inter_support"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:text="@string/body_support"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/signing_body" />
+            android:textSize="@dimen/signing_body_support" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,10 +78,11 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/dimen_inter_support"
             android:layout_gravity="center"
             android:textColor="@android:color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -88,9 +93,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="#LFelizToKona"
+            android:layout_marginTop="@dimen/dimen_inter_support"
+            android:text="@string/l_feliz_to_kona"
             android:textColor="#00FFFF"
-            android:textSize="@dimen/signing_body" />
+            android:textSize="@dimen/signing_body_support" />
 </LinearLayout>
     <Button
         android:id="@+id/close_support_button"
@@ -100,6 +106,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:text="@string/close"
+        android:textSize="@dimen/signing_body_support"
         android:textColor="@android:color/white"
         android:theme="@style/ThemeOverlay.MyDarkButton" />
 
