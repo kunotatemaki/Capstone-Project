@@ -19,33 +19,36 @@ import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class AnimationActivity extends AppCompatActivity {
 
-    @Bind(R.id.circle1)
+    @BindView(R.id.circle1)
     ImageView circle1;
-    @Bind(R.id.circle2)
+    @BindView(R.id.circle2)
     ImageView circle2;
-    @Bind(R.id.circle3)
+    @BindView(R.id.circle3)
     ImageView circle3;
-    @Bind(R.id.circle4)
+    @BindView(R.id.circle4)
     ImageView circle4;
-    @Bind(R.id.circle5)
+    @BindView(R.id.circle5)
     ImageView circle5;
-    @Bind(R.id.circle6)
+    @BindView(R.id.circle6)
     ImageView circle6;
-    @Bind(R.id.layout_circles)
+    @BindView(R.id.layout_circles)
     LinearLayout layoutCircles;
-    @Bind(R.id.text_imagine_anim)
+    @BindView(R.id.text_imagine_anim)
     TextView imagineText;
-    @Bind(R.id.text_create_anim)
+    @BindView(R.id.text_create_anim)
     TextView createText;
-    @Bind(R.id.text_rukia_anim)
+    @BindView(R.id.text_rukia_anim)
     TextView rukiaText;
-    @Bind(R.id.text_soft_anim)
+    @BindView(R.id.text_soft_anim)
     TextView softText;
+    private Unbinder unbinder;
+
     private Animation circle1Anim;
     private Animation circle2Anim;
     private Animation circle3Anim;
@@ -65,7 +68,7 @@ public class AnimationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         activity = this;
         //configure the screen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -300,7 +303,7 @@ public class AnimationActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private Boolean showSupportScreen(){

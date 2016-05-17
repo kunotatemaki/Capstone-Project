@@ -15,22 +15,23 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.CommonRecipeOperations;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class RecipeDetailActivity extends SigningDriveActivity {
 
 
 
-    @Bind(R.id.adview_details)
+    @BindView(R.id.adview_details)
     AdView mAdViewDetails;
-    private RecipeDetailsFragment recipeDetailsFragment;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         RecipeItem recipeItem = new RecipeItem();
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(Constants.KEY_RECIPE))
@@ -59,7 +60,7 @@ public class RecipeDetailActivity extends SigningDriveActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override
@@ -101,7 +102,7 @@ public class RecipeDetailActivity extends SigningDriveActivity {
         if(requestCode == Constants.REQUEST_EDIT_RECIPE){
             if(resultCode == Constants.RESULT_UPDATE_RECIPE && intentData != null && intentData.hasExtra(Constants.KEY_RECIPE)){
                 RecipeItem recipe = intentData.getParcelableExtra(Constants.KEY_RECIPE);
-                recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
+                RecipeDetailsFragment recipeDetailsFragment = (RecipeDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_recipes_fragment);
                 if(recipeDetailsFragment != null)
                     recipeDetailsFragment.updateRecipe(recipe);
                 //save recipe

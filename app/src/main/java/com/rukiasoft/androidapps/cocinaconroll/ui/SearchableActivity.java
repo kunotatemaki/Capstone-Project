@@ -20,20 +20,22 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.CocinaConRollContentProvider;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class SearchableActivity extends ToolbarAndRefreshActivity implements LoaderCallbacks<Cursor> {
 	
 	private ListView mLVRecipes;
 	private SimpleCursorAdapter mCursorAdapter;
-	@Bind(R.id.standard_toolbar)
+	@BindView(R.id.standard_toolbar)
 	Toolbar mToolbarSearchActivity;
+	private Unbinder unbinder;
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		ButterKnife.unbind(this);
+		unbinder.unbind();
 	}
 
 	@Override
@@ -42,7 +44,7 @@ public class SearchableActivity extends ToolbarAndRefreshActivity implements Loa
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_searchable);
-		ButterKnife.bind(this);
+		unbinder = ButterKnife.bind(this);
 		setToolbar(mToolbarSearchActivity);
 		// Getting reference to Country List
 		mLVRecipes = (ListView)findViewById(R.id.lv_recipes);

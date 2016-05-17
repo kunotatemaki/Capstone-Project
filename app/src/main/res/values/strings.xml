@@ -135,7 +135,7 @@
 
     <!-- Content Description for images -->
     <string name="desc_google_icon">Cooking with cookeo logo</string>
-    <string name="desc_lkona_icon">Luis Feliz to Kona picture</string>
+    <string name="desc_lkona_icon" translatable="false">Luis Feliz to Kona picture</string>
     <string name="title_signing">Backup your recipe\nin your Drive Account</string>
     <string name="body_signing">Sign in  with your Gmail account and get a Google Drive sincronization.\nAll your recipes will be available in all your devices!</string>
     <string name="exit">Exit</string>
@@ -152,7 +152,7 @@
     <string name="title_support">Cooking with Cookeo supports <a href="https://twitter.com/LUISFELIZtri">@LUISFELIZtri</a></string>
     <string name="close">Close</string>
     <string name="body_support">To get his dream of competing in the Hawaii Triathlon World Championship. Good luck, champion!</string>
-    <string name="l_feliz_to_kona">#LFelizToKona</string>
+    <string name="l_feliz_to_kona" translatable="false">#LFelizToKona</string>
 
 
 </resources>

@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-
+import butterknife.Unbinder;
 
 
 public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditRecipeRecyclerViewAdapter.ItemViewHolder>
@@ -95,12 +95,13 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements
             ItemTouchHelperViewHolder{
 
-        @Bind(R.id.edit_recipe_item_text) TextView textView;
-        @Bind(R.id.edit_recipe_item_handle) ImageView handleView;
+        @BindView(R.id.edit_recipe_item_text) TextView textView;
+        @BindView(R.id.edit_recipe_item_handle) ImageView handleView;
+        private Unbinder unbinder;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            unbinder = ButterKnife.bind(this, itemView);
         }
 
         @Override
@@ -112,6 +113,8 @@ public class EditRecipeRecyclerViewAdapter extends RecyclerView.Adapter<EditReci
         public void onItemClear() {
             itemView.setBackgroundColor(0);
         }
+
+
 
     }
 }

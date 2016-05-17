@@ -39,8 +39,9 @@ import com.rukiasoft.androidapps.cocinaconroll.gcm.QuickstartPreferences;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -51,11 +52,12 @@ public class ShowSigningActivity extends SigningDriveActivity {
     private static final String TAG = "ShowSigningActivity";
 
     /* View to display current status (signed-in, signed-out, disconnected, etc) */
-    @Bind(R.id.sign_in_status) TextView mStatus;
-    @Bind(R.id.sign_in_button)SignInButton signInButton;
-    @Bind(R.id.sign_out_button)Button signOutButton;
-    @Bind(R.id.sign_in_discard_button)Button discardButton;
-    @Bind(R.id.sign_in_progressbar)ProgressBar mProgressBar;
+    @BindView(R.id.sign_in_status) TextView mStatus;
+    @BindView(R.id.sign_in_button)SignInButton signInButton;
+    @BindView(R.id.sign_out_button)Button signOutButton;
+    @BindView(R.id.sign_in_discard_button)Button discardButton;
+    @BindView(R.id.sign_in_progressbar)ProgressBar mProgressBar;
+    private Unbinder unbinder;
 
     private String accountName;
     private Activity mActivity;
@@ -69,7 +71,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signing);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         mActivity = this;
         // Restore from saved instance state
 
@@ -155,7 +157,7 @@ public class ShowSigningActivity extends SigningDriveActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     // [START handleSignInResult]

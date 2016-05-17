@@ -23,8 +23,9 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
 import java.lang.reflect.Field;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class EditRecipeActivity extends AppCompatActivity {
@@ -38,8 +39,9 @@ public class EditRecipeActivity extends AppCompatActivity {
     private final static String KEY_TITLE = Constants.PACKAGE_NAME + ".title";
     private String title;
     private Tools mTools;
-    @Bind(R.id.standard_toolbar) Toolbar mToolbar;
+    @BindView(R.id.standard_toolbar) Toolbar mToolbar;
     private String oldPicture;
+    private Unbinder unbinder;
 
 
 
@@ -85,7 +87,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_edit_recipe);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -224,7 +226,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void finishWithoutSave(){

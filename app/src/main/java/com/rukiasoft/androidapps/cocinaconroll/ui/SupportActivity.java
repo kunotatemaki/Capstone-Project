@@ -13,19 +13,21 @@ import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class SupportActivity extends AppCompatActivity {
 
-    @Nullable@Bind(R.id.support_title) TextView supportTittle;
+    @Nullable@BindView(R.id.support_title) TextView supportTittle;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         if(supportTittle != null) {
             supportTittle.setLinkTextColor(Color.CYAN);
             supportTittle.setMovementMethod(LinkMovementMethod.getInstance());
@@ -42,5 +44,10 @@ public class SupportActivity extends AppCompatActivity {
     public void hideSupportDialog(View view) {
         Tools mTools = new Tools();
         mTools.savePreferences(this, Constants.PROPERTY_HIDE_SUPPORT_SCREEN, ((AppCompatCheckBox)view).isChecked());
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

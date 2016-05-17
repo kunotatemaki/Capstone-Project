@@ -46,8 +46,8 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
             JsonParser jsonParser = new JsonParser();
             JsonObject jo = (JsonObject)jsonParser.parse(response.body().charStream());
             JsonArray jsonArr = jo.getAsJsonArray("zips");
-            for(JsonElement gson : jsonArr ) {
-                ZipItem zipItem = new Gson().fromJson(gson.getAsString(), ZipItem.class);
+            for(JsonElement gSon : jsonArr ) {
+                ZipItem zipItem = new Gson().fromJson(gSon.getAsString(), ZipItem.class);
                 list.add(zipItem);
             }
         }

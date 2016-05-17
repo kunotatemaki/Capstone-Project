@@ -53,8 +53,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class RecipeListActivity extends SigningDriveActivity implements RecipeListFragment.TaskCallback{
 
@@ -68,12 +69,13 @@ public class RecipeListActivity extends SigningDriveActivity implements RecipeLi
     //private static final String KEY_NEED_TO_SEND_RECIPES_TO_DRIVE = Constants.PACKAGE_NAME + ".need_to_send_recipes_to_drive";
 
 
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.navview)
+    @BindView(R.id.navview)
     NavigationView navigationView;
-    @Bind(R.id.adview_list)
+    @BindView(R.id.adview_list)
     AdView mAdViewList;
+    private Unbinder unbinder;
 
     private MenuItem searchMenuItem;
     private int magnifyingX;
@@ -131,7 +133,7 @@ public class RecipeListActivity extends SigningDriveActivity implements RecipeLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         if(savedInstanceState != null){
             if(savedInstanceState.containsKey(KEY_STARTED)) {
@@ -232,7 +234,7 @@ public class RecipeListActivity extends SigningDriveActivity implements RecipeLi
     public void onDestroy(){
         LocalBroadcastManager.getInstance(this).unregisterReceiver(driveServiceReceiver);
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

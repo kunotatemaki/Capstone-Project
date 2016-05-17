@@ -60,8 +60,9 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.leakcanary.RefWatcher;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class RecipeDetailsFragment extends Fragment implements
@@ -73,36 +74,36 @@ public class RecipeDetailsFragment extends Fragment implements
     private static final String KEY_ANIMATED = Constants.PACKAGE_NAME + "." + RecipeDetailsFragment.class.getSimpleName() + ".animate";
 
 
-    @Bind(R.id.recipe_details_icon_minutes) ImageView iconMinutes;
-    @Bind(R.id.recipe_details_icon_portions) ImageView iconPortions;
-    @Bind(R.id.recipe_details_text_minutes) TextView textMinutes;
-    @Bind(R.id.recipe_details_text_portions) TextView textPortions;
-    @Bind(R.id.tip_body_cardview) TextView tip;
-    @Bind(R.id.card_tip)
+    @BindView(R.id.recipe_details_icon_minutes) ImageView iconMinutes;
+    @BindView(R.id.recipe_details_icon_portions) ImageView iconPortions;
+    @BindView(R.id.recipe_details_text_minutes) TextView textMinutes;
+    @BindView(R.id.recipe_details_text_portions) TextView textPortions;
+    @BindView(R.id.tip_body_cardview) TextView tip;
+    @BindView(R.id.card_tip)
     CardView cardTip;
-    @Bind(R.id.recipe_pic) ImageView mPhotoView;
-    @Nullable@Bind(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
-    @Nullable@Bind(R.id.photo_container_recipe_details)
+    @BindView(R.id.recipe_pic) ImageView mPhotoView;
+    @Nullable@BindView(R.id.appbarlayout_recipe_details) AppBarLayout mAppBarLayout;
+    @Nullable@BindView(R.id.photo_container_recipe_details)
     RelativeLayout photoContainer;
-    @Bind(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
-    @Bind(R.id.recipe_name_recipe_details) TextView recipeName;
-    @Bind(R.id.recipe_description_fab)
+    @BindView(R.id.toolbar_recipe_details)Toolbar toolbarRecipeDetails;
+    @BindView(R.id.recipe_name_recipe_details) TextView recipeName;
+    @BindView(R.id.recipe_description_fab)
     FloatingActionButton recipeDescriptionFAB;
-    @Nullable@Bind(R.id.collapsing_toolbar_recipe_details)
+    @Nullable@BindView(R.id.collapsing_toolbar_recipe_details)
     CollapsingToolbarLayout collapsingToolbarLayout;
-    @Bind(R.id.listview_ingredients_cardview)
+    @BindView(R.id.listview_ingredients_cardview)
     LinearLayout ingredientsList;
-    @Bind(R.id.listview_steps_cardview)
+    @BindView(R.id.listview_steps_cardview)
     LinearLayout stepsList;
+    private Unbinder unbinder;
     private RecipeItem recipe;
     private boolean recipeLoaded = false;
     private ActionBar actionBar;
-    @Bind(R.id.cardview_link_textview) TextView author;
+    @BindView(R.id.cardview_link_textview) TextView author;
     private boolean own;
     private boolean land;
     private boolean animated;
     private View viewToReveal;
-    private Tools mTools;
     private DatabaseRelatedTools dbTools;
     private ReadWriteTools rwTools;
 
@@ -129,7 +130,7 @@ public class RecipeDetailsFragment extends Fragment implements
             getActivity().supportPostponeEnterTransition();
         }
         setHasOptionsMenu(true);
-        mTools = new Tools();
+        Tools mTools = new Tools();
         dbTools = new DatabaseRelatedTools();
         rwTools = new ReadWriteTools();
 
@@ -273,7 +274,7 @@ public class RecipeDetailsFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
-        ButterKnife.bind(this, mRootView);
+        unbinder = ButterKnife.bind(this, mRootView);
         land = getResources().getBoolean(R.bool.land);
 
 
@@ -421,7 +422,7 @@ public class RecipeDetailsFragment extends Fragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void loadRecipe(){

@@ -10,8 +10,9 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -19,15 +20,16 @@ import butterknife.ButterKnife;
  */
 public class ThanksActivity extends AppCompatActivity {
 
-    @Bind(R.id.standard_toolbar) Toolbar mToolbar;
-    @Bind(R.id.textView_support_recipes) TextView support;
+    @BindView(R.id.standard_toolbar) Toolbar mToolbar;
+    @BindView(R.id.textView_support_recipes) TextView support;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_thanks);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
 
         if (mToolbar != null) {
@@ -51,7 +53,7 @@ public class ThanksActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

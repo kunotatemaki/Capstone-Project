@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 
 import com.rukiasoft.androidapps.cocinaconroll.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.support.v7.widget.RecyclerView.OnScrollListener;
@@ -31,9 +31,9 @@ public class FastScroller extends LinearLayout {
     private static final String SCALE_Y = "scaleY";
     private static final String ALPHA = "alpha";
 
-    @Bind(R.id.fastscroller_bubble)
+    @BindView(R.id.fastscroller_bubble)
     View bubble;
-    @Bind(R.id.fastscroller_handle)
+    @BindView(R.id.fastscroller_handle)
     View handle;
 
     private RecyclerView recyclerView;
@@ -196,4 +196,6 @@ public class FastScroller extends LinearLayout {
             setPosition(height * proportion);
         }
     }
+
+
 }

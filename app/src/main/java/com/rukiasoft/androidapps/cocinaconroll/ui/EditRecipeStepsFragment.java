@@ -22,8 +22,9 @@ import com.rukiasoft.androidapps.cocinaconroll.classes.RecipeItem;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.leakcanary.RefWatcher;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class EditRecipeStepsFragment extends Fragment implements OnStartDragListener {
@@ -31,10 +32,11 @@ public class EditRecipeStepsFragment extends Fragment implements OnStartDragList
     private static final String KEY_ITEM_TO_ADD = Constants.PACKAGE_NAME + ".itemtoadd";
     private RecipeItem recipeItem;
     //private static final String TAG = "EditRecipeIngredientsFragment";
-    @Bind(R.id.edit_recipe_add_item)EditText addItem;
-    @Bind(R.id.edit_recipe_add_fab)FloatingActionButton fab;
-    @Bind(R.id.edit_recipe_recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.edit_recipe_tip_text) EditText tip;
+    @BindView(R.id.edit_recipe_add_item)EditText addItem;
+    @BindView(R.id.edit_recipe_add_fab)FloatingActionButton fab;
+    @BindView(R.id.edit_recipe_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.edit_recipe_tip_text) EditText tip;
+    private Unbinder unbinder;
 
     private EditRecipeRecyclerViewAdapter mAdapter;
 
@@ -57,7 +59,7 @@ public class EditRecipeStepsFragment extends Fragment implements OnStartDragList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_recipe_items_steps, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -87,7 +89,7 @@ public class EditRecipeStepsFragment extends Fragment implements OnStartDragList
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

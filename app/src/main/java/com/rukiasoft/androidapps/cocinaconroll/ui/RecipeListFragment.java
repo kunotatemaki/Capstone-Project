@@ -53,8 +53,9 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 /**
@@ -72,26 +73,26 @@ public class RecipeListFragment extends Fragment implements
 
 
     @Nullable
-    @Bind(R.id.toolbar_recipe_list_fragment) Toolbar mToolbarRecipeListFragment;
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.swipe_refresh_layout)
+    @BindView(R.id.toolbar_recipe_list_fragment) Toolbar mToolbarRecipeListFragment;
+    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.swipe_refresh_layout)
     protected SwipeRefreshLayout refreshLayout;
-    @Nullable @Bind((R.id.fastscroller))
+    @Nullable @BindView((R.id.fastscroller))
     FastScroller fastScroller;
-    @Bind(R.id.appbar_layout)
+    @BindView(R.id.appbar_layout)
     AppBarLayout mAppBarLayout;
-    @Bind(R.id.recipe_list_number_recipes)
+    @BindView(R.id.recipe_list_number_recipes)
     TextView nRecipesInRecipeList;
-    @Bind(R.id.recipe_list_type_recipes)
+    @BindView(R.id.recipe_list_type_recipes)
     TextView typeRecipesInRecipeList;
-    @Bind(R.id.recipe_list_type_icon)
+    @BindView(R.id.recipe_list_type_icon)
     ImageView typeIconInRecipeList;
-    @Bind(R.id.numberandtype_recipes_bar)
+    @BindView(R.id.numberandtype_recipes_bar)
     RelativeLayout numberAndTypeBar;
-    @Bind(R.id.add_recipe_fab)
+    @BindView(R.id.add_recipe_fab)
     FloatingActionButton addRecipeButtonFAB;
-    @Bind(R.id.init_database_text) TextView initDatabaseText;
-
+    @BindView(R.id.init_database_text) TextView initDatabaseText;
+    private Unbinder unbinder;
 
     interface TaskCallback {
         void onInitDatabasePostExecute();
@@ -189,7 +190,7 @@ public class RecipeListFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         //Set the mToolbarRecipeListFragment
         if(getActivity() instanceof ToolbarAndRefreshActivity){
@@ -277,7 +278,7 @@ public class RecipeListFragment extends Fragment implements
     public void onDestroyView() {
         super.onDestroyView();
         addRecipeButtonFAB.setOnClickListener(null);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

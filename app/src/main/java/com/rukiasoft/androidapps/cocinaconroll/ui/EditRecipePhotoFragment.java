@@ -54,8 +54,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class EditRecipePhotoFragment extends Fragment {
@@ -77,21 +78,22 @@ public class EditRecipePhotoFragment extends Fragment {
     private static final int CROP_FROM_FILE = 4;
 
     @Nullable
-    @Bind(R.id.create_recipe_author_edittext) EditText authorRecipe;
-    @Bind(R.id.edit_recipe_photo) ImageView mImageView;
-    @Bind(R.id.edit_recipe_minutes) EditText minutes;
-    @Bind(R.id.edit_recipe_minutes_layout)
+    @BindView(R.id.create_recipe_author_edittext) EditText authorRecipe;
+    @BindView(R.id.edit_recipe_photo) ImageView mImageView;
+    @BindView(R.id.edit_recipe_minutes) EditText minutes;
+    @BindView(R.id.edit_recipe_minutes_layout)
     TextInputLayout minutesLayout;
-    @Bind(R.id.edit_recipe_portions_layout) TextInputLayout portionsLayout;
-    @Bind(R.id.edit_recipe_portions) EditText portions;
+    @BindView(R.id.edit_recipe_portions_layout) TextInputLayout portionsLayout;
+    @BindView(R.id.edit_recipe_portions) EditText portions;
     @Nullable
-    @Bind(R.id.create_recipe_name_layout) TextInputLayout createRecipeNameLayout;
+    @BindView(R.id.create_recipe_name_layout) TextInputLayout createRecipeNameLayout;
     @Nullable
-    @Bind(R.id.create_recipe_name_edittext) EditText createRecipeName;
+    @BindView(R.id.create_recipe_name_edittext) EditText createRecipeName;
     @Nullable
-    @Bind(R.id.edit_recipe_name)
+    @BindView(R.id.edit_recipe_name)
     TextView editRecipeName;
-    @Bind(R.id.checkbox_vegetarian)CheckBox checkBox;
+    @BindView(R.id.checkbox_vegetarian)CheckBox checkBox;
+    private Unbinder unbinder;
 
     public EditRecipePhotoFragment() {
         // Required empty public constructor
@@ -133,7 +135,7 @@ public class EditRecipePhotoFragment extends Fragment {
         }else {
             view = inflater.inflate(R.layout.fragment_edit_recipe_foto_modify, container, false);
         }
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         if(createRecipeName != null) {
             createRecipeName.addTextChangedListener(new TextWatcher() {
@@ -483,7 +485,7 @@ public class EditRecipePhotoFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public Boolean checkInfoOk(){

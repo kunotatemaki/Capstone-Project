@@ -48,8 +48,9 @@ import com.rukiasoft.androidapps.cocinaconroll.utilities.ReadWriteTools;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeListRecyclerViewAdapter.RecipeViewHolder>
         implements View.OnClickListener, View.OnLongClickListener {
@@ -256,27 +257,28 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
     }
 
     protected static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        public @Bind(R.id.recipe_pic_cardview) ImageView recipeThumbnail;
-        public @Bind(R.id.recipe_title_cardview) TextView recipeTitle;
-        public @Bind(R.id.recipe_pic_protection_cardview) ImageView backgroundProtection;
-        public @Bind(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
-        public @Bind(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
-        public @Bind(R.id.recipe_item_type_icon) ImageView typeIcon;
-        public @Bind(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
-        public @Bind(R.id.cardview_recipe_item)
+        public @BindView(R.id.recipe_pic_cardview) ImageView recipeThumbnail;
+        public @BindView(R.id.recipe_title_cardview) TextView recipeTitle;
+        public @BindView(R.id.recipe_pic_protection_cardview) ImageView backgroundProtection;
+        public @BindView(R.id.recipe_item_favorite_icon) ImageView favoriteIcon;
+        public @BindView(R.id.recipe_item_own_recipe_icon) ImageView ownRecipeIcon;
+        public @BindView(R.id.recipe_item_type_icon) ImageView typeIcon;
+        public @BindView(R.id.recipe_item_vegetarian_recipe_icon) ImageView vegetarianIcon;
+        public @BindView(R.id.cardview_recipe_item)
         CardView cardView;
-        public @Bind(R.id.front_cardview_recipe_item)
+        public @BindView(R.id.front_cardview_recipe_item)
         LinearLayout frontCardView;
-        public @Nullable @Bind(R.id.back_cardview_recipe_item)
+        public @Nullable @BindView(R.id.back_cardview_recipe_item)
         RelativeLayout backCardView;
-        public @Nullable @Bind(R.id.recipe_item_favorite_button)
+        public @Nullable @BindView(R.id.recipe_item_favorite_button)
         LikeButtonView favoriteButton;
         ReadWriteTools rwTools;
         DatabaseRelatedTools dbTools;
+        private Unbinder unbinder;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            unbinder = ButterKnife.bind(this, itemView);
 
         }
 
@@ -322,6 +324,7 @@ public class RecipeListRecyclerViewAdapter extends RecyclerView.Adapter<RecipeLi
             rwTools.loadImageFromPath(context, recipeThumbnail, item.getPathPicture(),
                     R.drawable.default_dish_thumb, item.getVersion());
         }
+
     }
 
     public interface OnCardClickListener {

@@ -20,22 +20,20 @@ import android.widget.ImageView;
 import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Miroslaw Stanek on 20.12.2015.
- */
+
 public class LikeButtonView extends FrameLayout {
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateDecelerateInterpolator ACCELERATE_DECELERATE_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
 
-    @Bind(R.id.ivStar)
+    @BindView(R.id.ivStar)
     ImageView ivStar;
-    @Bind(R.id.vDotsView)
+    @BindView(R.id.vDotsView)
     DotsView vDotsView;
-    @Bind(R.id.vCircle)
+    @BindView(R.id.vCircle)
     CircleView vCircle;
 
 
@@ -175,6 +173,8 @@ public class LikeButtonView extends FrameLayout {
                 return true;
             }
         });
+
+
     }
 
 
