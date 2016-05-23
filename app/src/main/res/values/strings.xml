@@ -1,8 +1,8 @@
 <resources>
     <!-- Non translatable -->
-    <string name="server_url_tomcat" translatable="false">:8088/cukio/rest/cukio_server_non_secure/"</string>
-    <string name="registration_method" translatable="false">register_device/"</string>
-    <string name="get_zips_method" translatable="false">get_zips/"</string>
+    <string name="server_url_tomcat" translatable="false">:8088/cukio/rest/cukio_server_secure/"</string>
+    <string name="registration_method" translatable="false">register_device_secure/"</string>
+    <string name="get_zips_method" translatable="false">get_zips_secure/"</string>
 
 
     <string name="app_name">Cooking with Cookeo</string>
