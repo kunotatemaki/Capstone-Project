@@ -197,7 +197,8 @@ public class RecipeListActivity extends SigningDriveActivity implements RecipeLi
         //check if we need to check for new recipes
         long expirationTime =
                 mTools.getLongFromPreferences(this, Constants.PROPERTY_EXPIRATION_TIME);
-        if (expirationTime == Long.MIN_VALUE || System.currentTimeMillis() > expirationTime) {
+        if (mTools.getBooleanFromPreferences(this, QuickstartPreferences.SENT_TOKEN_TO_SERVER) &&
+                (expirationTime == Long.MIN_VALUE || System.currentTimeMillis() > expirationTime)) {
             GetZipsAsyncTask getZipsAsyncTask = new GetZipsAsyncTask(this);
             getZipsAsyncTask.execute();
         }
