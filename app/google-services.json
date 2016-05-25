@@ -1,15 +1,12 @@
 {
   "project_info": {
-    "project_id": "hardy-binder-89508",
     "project_number": "962580870211",
-    "name": "cukio"
+    "project_id": "hardy-binder-89508"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:962580870211:android:1c3fea6a7712923e",
-        "client_id": "android:com.rukiasoft.androidapps",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.rukiasoft.androidapps"
         }
@@ -32,7 +29,11 @@
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7TgEP8e6UUSYNnFRuVqAqHSzU3PKCDAo"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -40,16 +41,9 @@
             "tracking_id": "UA-61746097-2"
           }
         },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 2,
@@ -61,13 +55,19 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:962580870211:android:72b3808111af381c",
-        "client_id": "android:com.rukiasoft.androidapps.cocinaconroll",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.rukiasoft.androidapps.cocinaconroll"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "962580870211-f9bu0nig1am7fnbe3o995gv5h7g11bop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rukiasoft.androidapps.cocinaconroll",
+            "certificate_hash": "F7B1D551FCE5D8DF6108DD735B89BBFCA2ABD39E"
+          }
+        },
         {
           "client_id": "962580870211-3ijcociu51bqmt1tcefl3k971u9n54u0.apps.googleusercontent.com",
           "client_type": 1,
@@ -85,7 +85,11 @@
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCto5qpvx619vJfBbn7BG6oyieJqrvM-BQ"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 2,
@@ -93,16 +97,9 @@
             "tracking_id": "UA-61746097-2"
           }
         },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
-        },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 2,
@@ -112,6 +109,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }
