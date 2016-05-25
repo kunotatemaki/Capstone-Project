@@ -30,6 +30,7 @@ import com.rukiasoft.androidapps.cocinaconroll.R;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationClass;
 import com.rukiasoft.androidapps.cocinaconroll.classes.RegistrationResponse;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.okhttp.Response;
 
@@ -38,7 +39,7 @@ import java.net.HttpURLConnection;
 
 public class RegistrationIntentService extends IntentService {
 
-    private static final String TAG = "RegIntentService";
+    private static final String TAG = LogHelper.makeLogTag(RegistrationIntentService.class);
 
 
     public RegistrationIntentService() {
@@ -58,7 +59,7 @@ public class RegistrationIntentService extends IntentService {
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
-            Log.i(TAG, "GCM Registration Token: " + token);
+            LogHelper.i(TAG, "GCM Registration Token: " + token);
 
 
             if(sendRegistrationToServer(token)) {
@@ -138,8 +139,11 @@ public class RegistrationIntentService extends IntentService {
         Response response = restTools.doRestRequest(urlBase, method, mTools.getJsonString(registrationClass));
 
         if(response != null && response.code() == HttpURLConnection.HTTP_OK) {
+            LogHelper.i(TAG, "comprobación Registrado correctamente");
             Gson gResponse = new Gson();
             error = gResponse.fromJson(response.body().charStream(), RegistrationResponse.class);
+        }else{
+            LogHelper.i(TAG, "comprobación NO registrado");
         }
 
         return error.getError() == 0;

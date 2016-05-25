@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -17,6 +18,7 @@ import com.rukiasoft.androidapps.cocinaconroll.classes.ZipItem;
 import com.rukiasoft.androidapps.cocinaconroll.database.DatabaseRelatedTools;
 import com.rukiasoft.androidapps.cocinaconroll.services.DownloadAndUnzipIntentService;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Constants;
+import com.rukiasoft.androidapps.cocinaconroll.utilities.LogHelper;
 import com.rukiasoft.androidapps.cocinaconroll.utilities.Tools;
 import com.squareup.okhttp.Response;
 
@@ -29,6 +31,7 @@ import java.util.List;
  */
 public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
     private final Context mContext;
+    private final String TAG = LogHelper.makeLogTag(GetZipsAsyncTask.class);
 
     public GetZipsAsyncTask(Context context){
         mContext = context;
@@ -43,6 +46,7 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
         Response response = restTools.doRestRequest(urlBase, method, null);
 
         if(response != null && response.code() == HttpURLConnection.HTTP_OK){
+            LogHelper.i(TAG, "comprobación zips descargados");
             JsonParser jsonParser = new JsonParser();
             JsonObject jo = (JsonObject)jsonParser.parse(response.body().charStream());
             JsonArray jsonArr = jo.getAsJsonArray("zips");
@@ -50,6 +54,8 @@ public class GetZipsAsyncTask extends AsyncTask<Void, Void, List<ZipItem>> {
                 ZipItem zipItem = new Gson().fromJson(gSon.getAsString(), ZipItem.class);
                 list.add(zipItem);
             }
+        }else{
+            LogHelper.i(TAG, "comprobación zips NO descargados");
         }
         return list;
 
